@@ -1,0 +1,5 @@
+^renv$
+^renv\.lock$
+^vicwater\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$

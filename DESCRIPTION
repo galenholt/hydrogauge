@@ -1,0 +1,17 @@
+Package: vicwater
+Title: Pulls information from the Victoria water API
+Version: 0.0.0.9000
+Authors@R: 
+    person("Galen", "Holt", , "g.holt@deakin.edu.au", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-7455-9275"))
+Description: This package provides R wrappers to (some) of the API calls possible to the Victorian gauge network. I have tried to provide functionality to query available options for the different arguments.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.2
+Imports: 
+    ggplot2,
+    httr2,
+    tibble,
+    tidyr,
+    tidyselect
