@@ -9,11 +9,8 @@ get_datasources_by_site <- function(baseURL = "https://data.water.vic.gov.au/cgi
                     "version" = "1",
                     "params" = list("site_list" = site_list))
 
-  # make the request and response
-  response_body <- httr2::request(baseURL) |>
-    httr2::req_body_json(paramlist) |>
-    httr2::req_perform() |>
-    httr2::resp_body_json(check_type = FALSE)
+  # hit the api
+  response_body <- get_response(baseURL, paramlist)
 
 
   # unpack the list
@@ -46,11 +43,8 @@ get_sites_by_datasource <- function(baseURL = "https://data.water.vic.gov.au/cgi
                     "version" = "1",
                     "params" = list("datasources" = datasources))
 
-  # make the request and response
-  response_body <- httr2::request(baseURL) |>
-    httr2::req_body_json(paramlist) |>
-    httr2::req_perform() |>
-    httr2::resp_body_json(check_type = FALSE)
+  # hit the api
+  response_body <- get_response(baseURL, paramlist)
 
 
   # unpack the list
