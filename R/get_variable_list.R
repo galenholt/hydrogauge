@@ -11,10 +11,11 @@ get_variable_list <- function(baseURL = "https://data.water.vic.gov.au/cgi/webse
   # hit the api
   response_body <- get_response(baseURL, paramlist)
 
+
   # unpack
   bodytib <- tibble::as_tibble(response_body[2]) |> # the [2] drops the error column
-    tidyr::unnest_longer(col = where(is.list)) |> # a `return` list
-    tidyr::unnest_wider(col = where(is.list)) |> # sites, and a `datasource` list
+    tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list
+    tidyr::unnest_wider(col = tidyselect::where(is.list)) |> # sites, and a `datasource` list
     tidyr::unnest_wider(col = site_details) |> # site details in new cols
     tidyr::unnest_longer(col = variables) |> # one line per variable, details of variables in a list
     dplyr::rename(long_name = name) |> # variables have names too, avoid conflicts
