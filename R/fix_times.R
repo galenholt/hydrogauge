@@ -2,10 +2,8 @@
 #'
 #' @param usertime time value from user. may be date, numeric, or character
 #'
-#' @return
-#' @export
-#'
-#' @examples
+#' @return 14-digit character vector
+
 fix_times <- function(usertime) {
 
   # accept a few formats for the start_time and end_time

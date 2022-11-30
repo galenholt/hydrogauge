@@ -1,3 +1,15 @@
+#' Gets the available datasources for each site
+#'
+#' As far as I can tell, these will be "A", "TELEM", or "TELEMCOPY", but haven't
+#' checked all sites
+#'
+#' @inheritParams get_ts_traces
+#'
+#' @return a tibble of the sites and datasources present
+#' @export
+#'
+#' @examples
+#' checkdata <- get_datasources_by_site(site_list = "233217, 405328, 405331, 405837")
 get_datasources_by_site <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
                                     site_list) {
 
@@ -26,15 +38,18 @@ get_datasources_by_site <- function(baseURL = "https://data.water.vic.gov.au/cgi
 
 }
 
-#' Title
+#' Gets sites that have a given datasource
 #'
-#' @param baseURL
-#' @param datasources character vector, 'A', 'TELEM', 'TELEMCOPY'. If multiple, c('A', 'TELEM')
+#' Useful for getting lists of most sites
 #'
-#' @return
+#' @inheritParams get_ts_traces
+#' @param datasources as in [get_ts_traces()], but can be a vector. As far as I can tell, options are `'A'`, `'TELEM'`, `'TELEMCOPY'`. If multiple, `c('A', 'TELEM')`
+#'
+#' @return a tibble with sites and datasources
 #' @export
 #'
 #' @examples
+#' sxd <- get_sites_by_datasource(datasources = c('A', 'TELEM'))
 get_sites_by_datasource <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
                                     datasources) {
 
@@ -60,6 +75,16 @@ get_sites_by_datasource <- function(baseURL = "https://data.water.vic.gov.au/cgi
 
 }
 
+#' Plot heatmap of which sites have which datasource
+#'
+#' Needs work to make more general to feed it more than a few sites
+#'
+#' @param ds_by_site tibble with `site` and `datasource` columns
+#' @param returntype `'plot'` or `'table'` Plot much more useful- not sure why the user wouldn't just make a table.
+#'
+#' @return a ggplot, typically
+#' @export
+#'
 plot_datasources_by_site <- function(ds_by_site, returntype = 'plot') {
 
   # some minor updates needed for this to work for site x datasource

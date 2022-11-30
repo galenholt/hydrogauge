@@ -1,22 +1,43 @@
-#' Title
+#' Gets timeseries for sites and variables
 #'
-#' @param baseURL
-#' @param site_list
-#' @param datasource
-#' @param var_list
-#' @param start_time
-#' @param end_time
-#' @param interval
-#' @param data_type
-#' @param multiplier
-#' @param returnformat
+#' Takes a list of sites and variables and fetches them. Variables may include
+#' derived and base. This is very similar to the underlying API call, and does
+#' not do very much automation of finding variables, checking times, etc. If
+#' variables are not available for a site or for given times it just silently
+#' does not return them. For a more automated (but currently slower) approach,
+#' see [get_ts_traces2].
 #'
-#' @return
+#'
+#' @param baseURL character, url for the base API call. Assumes Victoria, but other states may work as well, though are untested.
+#' @param site_list character site code, either a single site code `"sitenumber"`, comma-separated codes in a single string `"sitenumber1, sitenumber2`, or a vector of site codes `c("sitenumber1", "sitenumber2")`
+#' @param datasource character for datasource code. To my knowledge, options are `"A"`, `"TELEM"`, `"TELEMCOPY"`. Passing multiple not currently supported.
+#' @param var_list character vector of variable codes. Needs to be either single code or vector (`c("code1", "code2")`), *not* a comma-separated string
+#' @param start_time character, numeric, or date giving the start time. API expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. `20200101` would be padded to give midnight on 1 Jan 2020.
+#' @param end_timecharacter numeric, or date giving the end time. API expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. `20200101` would be padded to give midnight on 1 Jan 2020.
+#' @param interval character, period to report.
+#'  * Options: `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`. I don't think capitalisation matters.
+#' @param data_type character, the statistic to apply. *Warning:* only takes one value, which is applied to all variables. This may not be appropriate. If variables should have different statistics, run `get_ts_traces` multiple times.
+#'  * Options: `"mean"`, `"max"`, `"min"`, `"start"`, `"end"`, `"first"`, `"last"`, `"tot"`, `"maxmin"`, `"point"`, `"cum"`. Not all are currently tested.
+#' @param multiplier character, interval multiplier. I *think* this allows intervals like 5 days, by passing `interval = 'day'` and `multiplier = 5`. Not tested other than 1 at present.
+#' @param returnformat character, one of
+#'  * `"df"` returns a tibble
+#'  * `"varlist"` returns a list with an separate tibble for each variable (may have multiple sites per tibble)
+#'  * `"sitelist"` returns a list with an separate tibble for each site (may have multiple variables per tibble)
+#'  * `"sxvlist"` returns a list with an separate tibble for each site x variable combination
+#'
+#' @return tibble(s) with requested variables at requested sites (where they exist). See `returnformat`, either a tibble or list of tibbles
 #' @export
 #'
-#' @importFrom foreach %dopar%
 #'
 #' @examples
+#' simpletrace <- get_ts_traces(site_list = "233217",
+#' datasource = 'A',
+#' var_list = c('100', '140'),
+#' start_time = '20200101', end_time = '20200105',
+#' interval = 'day', data_type = 'mean',
+#' multiplier = 1, returnformat = 'df')
+
+
 get_ts_traces <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
                           site_list,
                           datasource = 'A',
@@ -118,6 +139,13 @@ get_ts_traces <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservic
 }
 
 
+#' Cleans ts_trace API list body into tibble
+#'
+#' @param responsebody response body from the API call to get_ts_traces
+#'
+#' @return a tibble with the rectangled response
+#' @export
+#'
 clean_trace_list <- function(responsebody) {
   # unpack the list
   bodytib <- tibble::as_tibble(responsebody[2]) |> # the [2] drops the error column
@@ -158,6 +186,28 @@ clean_trace_list <- function(responsebody) {
   return(bodytib)
 }
 
+#' Gets timeseries for sites and variables with more automation than
+#' `get_ts_traces`
+#'
+#' This is under development, and offers both a bit more automation and a bit
+#' more flexibility than [get_ts_traces()], but is currently slower due to more
+#' API network overhead.
+#'
+#' @inheritParams get_ts_traces
+#' @param var_list as in [get_ts_traces()], but can also take `"all"` to get all available variables at each site in `site_list`
+#' @param start_time as in [get_ts_traces()], but can also take `"all"` to start at the first timepoint for each variable in `var_list` at each site in `site_list`
+#' @param end_time as in [get_ts_traces()], but can also take `"all"` to end at the last timepoint for each variable in `var_list` at each site in `site_list`
+
+#' @inherit get_ts_traces return
+#' @export
+#'
+#' @examples
+#' simpletrace <- get_ts_traces2(site_list = "233217",
+#' datasource = 'A',
+#' var_list = "all",
+#' start_time = "all", end_time = "all",
+#' interval = 'year', data_type = 'mean',
+#' multiplier = 1, returnformat = 'df')
 get_ts_traces2 <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
                            site_list,
                            datasource = 'A',

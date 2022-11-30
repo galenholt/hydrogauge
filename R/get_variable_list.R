@@ -1,3 +1,13 @@
+#' Gets the variables for sites and datasources
+#'
+#' @inheritParams get_sites_by_datasource
+#'
+#' @return a tibble of the variables for each site and datasource
+#' @export
+#'
+#' @examples
+#' v2 <- get_variable_list(site_list = "233217, 405328, 405331, 405837",
+#'  datasource = c('A', 'TELEM'))
 get_variable_list <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
                               site_list, datasource) {
 
