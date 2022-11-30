@@ -18,3 +18,5 @@ Imports:
     tibble,
     tidyr,
     tidyselect
+Suggests: 
+    doFuture

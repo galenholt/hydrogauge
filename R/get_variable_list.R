@@ -1,6 +1,8 @@
 get_variable_list <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
                               site_list, datasource) {
 
+  # site_list needs to be a comma separated length-1 vector. Ensure
+  site_list <- paste(site_list, sep = ', ', collapse = ', ')
 
   paramlist <- list("function" = 'get_variable_list',
                      "version" = "1",
@@ -20,8 +22,8 @@ get_variable_list <- function(baseURL = "https://data.water.vic.gov.au/cgi/webse
     tidyr::unnest_longer(col = variables) |> # one line per variable, details of variables in a list
     dplyr::rename(long_name = name) |> # variables have names too, avoid conflicts
     tidyr::unnest_wider(col = variables) |> # columns for each attribute of the variables
-    rename(var_name = name) |> # clarify name
-    mutate(datasource = datasource[1]) # add a datasource column so we can cross-ref
+    dplyr::rename(var_name = name) |> # clarify name
+    dplyr::mutate(datasource = datasource[1]) # add a datasource column so we can cross-ref
 
   # would be good to preallocate, but no idea how big it'll be. I guess just
   # recurse and bind_rows? Could fairly easily just to a purrr::map or furrr::map across datasources? Then at least we'd hit the api in parallel.
