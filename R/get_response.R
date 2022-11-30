@@ -17,5 +17,7 @@ get_response <- function(baseURL, paramlist) {
     httr2::req_perform() |>
     httr2::resp_body_json(check_type = FALSE)
 
+  api_error_catch(response_body)
+
   return(response_body)
 }
