@@ -19,4 +19,7 @@ Imports:
     tidyr,
     tidyselect
 Suggests: 
-    doFuture
+    doFuture,
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
