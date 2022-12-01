@@ -165,6 +165,51 @@ definitions of common arguments and their potential values follows:
     2.  Use `get_ts_traces2`, which allows matched vectors of `var_type`
         and `data_type`, effectively automating option 1.
 
+## Finding datasources
+
+To see what datasources are available for a site, use
+`get_datasources_by_site`. I’ve largely just been using “A” to test, but
+it’s worth looking to see what datasources are available for a target
+site(s), and then doing the next step (finding variables) for each, to
+see whether the available variables (or timeperiods) differ. I’d like to
+automate that, but haven’t yet.
+
+``` r
+ds <- get_datasources_by_site(site_list = c(barwon, steavenson, taggerty, golf))
+```
+
+``` r
+ds
+```
+
+<div class="kable-table">
+
+| site   | datasource |
+|:-------|:-----------|
+| 233217 | A          |
+| 233217 | TELEM      |
+| 233217 | TELEMCOPY  |
+| 405328 | A          |
+| 405328 | TELEM      |
+| 405328 | TELEMCOPY  |
+| 405331 | A          |
+| 405331 | TELEM      |
+| 405837 | A          |
+| 405837 | TELEM      |
+| 405837 | TELEMCOPY  |
+
+</div>
+
+And we can plot that to get a visualisation. I’m planning to have this
+sort of plot for lots of the functions, but for now this is it.
+
+``` r
+plot_datasources_by_site(ds)
+#> Joining, by = c("site", "datasource")
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
 ## Finding available variables
 
 Assuming for the moment the user knows the gauge numbers of interest, we
@@ -423,7 +468,7 @@ ggplot(ts_daysY, aes(x = time, y = value, color = site_short_name)) +
   geom_point() + geom_line()
 ```
 
-<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
 
 ## Notes
 

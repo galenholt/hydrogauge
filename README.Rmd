@@ -111,6 +111,24 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
         2.  Use `get_ts_traces2`, which allows matched vectors of `var_type` and `data_type`, effectively automating option 1.
 
+## Finding datasources
+
+To see what datasources are available for a site, use `get_datasources_by_site`. I've largely just been using "A" to test, but it's worth looking to see what datasources are available for a target site(s), and then doing the next step (finding variables) for each, to see whether the available variables (or timeperiods) differ. I'd like to automate that, but haven't yet.
+
+```{r}
+ds <- get_datasources_by_site(site_list = c(barwon, steavenson, taggerty, golf))
+```
+
+```{r rows.print = 15}
+ds
+```
+
+And we can plot that to get a visualisation. I'm planning to have this sort of plot for lots of the functions, but for now this is it.
+
+```{r}
+plot_datasources_by_site(ds)
+```
+
 ## Finding available variables
 
 Assuming for the moment the user knows the gauge numbers of interest, we then need to know what variables are available to extract timeseries of. We use `get_variable_list` to get this information, including both their names and numbers, as well as other details such as the time period of record and units.

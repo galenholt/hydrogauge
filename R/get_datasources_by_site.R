@@ -96,12 +96,12 @@ plot_datasources_by_site <- function(ds_by_site, returntype = 'plot') {
       tidyr::expand(site, datasource)
 
     ds_in_data <- ds_by_site |>
-      mutate(indata = TRUE) |>
+      dplyr::mutate(indata = TRUE) |>
       dplyr::right_join(allopts) |>
       dplyr::mutate(indata = ifelse(is.na(indata), FALSE, indata))
 
     data_gg <- ggplot2::ggplot(ds_in_data,
-                               aes(x = datasource, y = site, fill = indata)) +
+                               ggplot2::aes(x = datasource, y = site, fill = indata)) +
       ggplot2::geom_tile(colour="white", linewidth=0.25) +
       ggplot2::scale_fill_discrete(type = c('firebrick', 'dodgerblue')) +
       ggplot2::labs(fill = NULL)
