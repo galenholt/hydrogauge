@@ -33,8 +33,8 @@ get_variable_list <- function(baseURL = "https://data.water.vic.gov.au/cgi/webse
     dplyr::rename(long_name = name) |> # variables have names too, avoid conflicts
     tidyr::unnest_wider(col = variables) |> # columns for each attribute of the variables
     dplyr::rename(var_name = name) |> # clarify name
-    dplyr::mutate(datasource = datasource[1]) # add a datasource column so we can cross-ref
-
+    dplyr::mutate(datasource = datasource[1]) |> # add a datasource column so we can cross-ref
+    dplyr::select(site, short_name, long_name, variable, units, var_name, period_start, period_end, subdesc, datasource, timezone)
   # would be good to preallocate, but no idea how big it'll be. I guess just
   # recurse and bind_rows? Could fairly easily just to a purrr::map or furrr::map across datasources? Then at least we'd hit the api in parallel.
   # Leave this for now but it's ugly

@@ -13,7 +13,7 @@
 #' @param datasource character for datasource code. To my knowledge, options are `"A"`, `"TELEM"`, `"TELEMCOPY"`. Passing multiple not currently supported.
 #' @param var_list character vector of variable codes. Needs to be either single code or vector (`c("code1", "code2")`), *not* a comma-separated string
 #' @param start_time character, numeric, or date giving the start time. API expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. `20200101` would be padded to give midnight on 1 Jan 2020.
-#' @param end_timecharacter numeric, or date giving the end time. API expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. `20200101` would be padded to give midnight on 1 Jan 2020.
+#' @param end_time character, numeric, or date giving the end time. API expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. `20200101` would be padded to give midnight on 1 Jan 2020.
 #' @param interval character, period to report.
 #'  * Options: `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`. I don't think capitalisation matters.
 #' @param data_type character, the statistic to apply. *Warning:* only takes one value, which is applied to all variables. This may not be appropriate. If variables should have different statistics, run `get_ts_traces` multiple times.
@@ -92,7 +92,8 @@ get_ts_traces <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservic
     response_body <- get_response(baseURL, paramlist)
 
     # clean up with a function because so ugly
-    bodytib <- clean_trace_list(response_body)
+    bodytib <- clean_trace_list(response_body, data_type)
+
   } else {
     bodytib <- tibble(.rows = 0)
   }
@@ -120,12 +121,13 @@ get_ts_traces <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservic
                    rb <- get_response(baseURL, pl)
 
                    # clean up with a function because so ugly
-                   bt <- clean_trace_list(rb)
+                   bt <- clean_trace_list(rb, data_type)
 
                  }
 
-  # glue on the derived vars
-  bodytib <- bind_rows(bodytib, btd)
+  # glue on the derived vars and sort sites together
+  bodytib <- dplyr::bind_rows(bodytib, btd) |>
+    dplyr::arrange(site, variable)
 
   # return
   if (returnformat == 'df') {return(bodytib)}
@@ -142,11 +144,12 @@ get_ts_traces <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservic
 #' Cleans ts_trace API list body into tibble
 #'
 #' @param responsebody response body from the API call to get_ts_traces
+#' @param data_type the data_type used to calculate the statistic over the `interval`, glued on for record
 #'
 #' @return a tibble with the rectangled response
 #' @export
 #'
-clean_trace_list <- function(responsebody) {
+clean_trace_list <- function(responsebody, data_type) {
   # unpack the list
   bodytib <- tibble::as_tibble(responsebody[2]) |> # the [2] drops the error column
     tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list
@@ -181,7 +184,8 @@ clean_trace_list <- function(responsebody) {
     dplyr::rename(value = v, time = t, quality_codes_id = q) |>
     dplyr::mutate(time = lubridate::ymd_hms(time)) |>
     dplyr::left_join(qc, by = c('quality_codes_id', 'site', 'variable')) |>
-    dplyr::mutate(across(c(longitude, latitude, value), as.numeric)) # leaving some others because they either are names (gauges, variable) or display better (precision)
+    dplyr::mutate(across(c(longitude, latitude, value), as.numeric)) |>   # leaving some others because they either are names (gauges, variable) or display better (precision)
+    dplyr::mutate(data_type = data_type) # record the statistic
 
   return(bodytib)
 }
@@ -191,12 +195,35 @@ clean_trace_list <- function(responsebody) {
 #'
 #' This is under development, and offers both a bit more automation and a bit
 #' more flexibility than [get_ts_traces()], but is currently slower due to more
-#' API network overhead.
+#' API network overhead. It loops over each distinct site and variable we're
+#' asking for, which allows us to tailor the requests a bit more. This approach
+#' allows us to do some useful things, though not always at the same time. We
+#' can ask for "all" in `var_type`, `start_time`, and `end_time`, and it will
+#' query the available data and get what's there. We can also ask for different
+#' `data_type` statistics for different variables in `var_type`, which is very
+#' important, though this cannot happen along with `var_type = "all"`. There are
+#' likely speedups we can do to combine some requests, and there is the
+#' possibility of future development allowing feeding this a pre-prepared table
+#' of arguments.
 #'
 #' @inheritParams get_ts_traces
-#' @param var_list as in [get_ts_traces()], but can also take `"all"` to get all available variables at each site in `site_list`
-#' @param start_time as in [get_ts_traces()], but can also take `"all"` to start at the first timepoint for each variable in `var_list` at each site in `site_list`
-#' @param end_time as in [get_ts_traces()], but can also take `"all"` to end at the last timepoint for each variable in `var_list` at each site in `site_list`
+#' @param var_list as in [get_ts_traces()], but can also take `"all"` to get all
+#'   available variables at each site in `site_list`
+#' @param start_time as in [get_ts_traces()], but can also take `"all"` to start
+#'   at the first timepoint for each variable in `var_list` at each site in
+#'   `site_list`
+#' @param end_time as in [get_ts_traces()], but can also take `"all"` to end at
+#'   the last timepoint for each variable in `var_list` at each site in
+#'   `site_list`
+#' @param data_type single character or a vector the same length as `var_list`.
+#'   If single value, behaves as in [get_ts_traces()], applying that function to
+#'   all variables. If a vector, it applies the given function to the variable
+#'   in the matching position of `var_list`. This is potentially the most
+#'   important use of this function vs. `get_ts_traces`- it allows us to ask for
+#'   many variables that might need different statistics. *Note*- if `var_list =
+#'   "all"`, there is no way to match since the variables are unknown and may
+#'   change between sits, and so `data_type` should be a single function.
+#'
 
 #' @inherit get_ts_traces return
 #' @export
@@ -218,6 +245,8 @@ get_ts_traces2 <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservi
                            data_type = 'mean',
                            multiplier = 1,
                            returnformat = 'df') {
+
+  if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 
   # Available variables, start and end times, and sites
   possibles <- get_variable_list(baseURL, site_list, datasource) |>
@@ -264,6 +293,15 @@ get_ts_traces2 <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservi
     possibles$end_time <- possibles$period_end
   }
 
+  # If we miss the dates on a single call, it errors. Mimic the silent deletion
+  # of the API itself and just throw those out
+  record_begins_after_end <- as.numeric(possibles$period_start) > as.numeric(possibles$end_time)
+  record_ends_before_start <- as.numeric(possibles$period_end) < as.numeric(possibles$start_time)
+  misstimes <- record_begins_after_end | record_ends_before_start
+
+  possibles <- possibles[!misstimes, ]
+
+
 
   # functions
   if (length(data_type) == 1) {
@@ -296,9 +334,13 @@ get_ts_traces2 <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservi
                        rb <- get_response(baseURL, pl)
 
                        # clean up with a function because so ugly
-                       bt <- clean_trace_list(rb)
+                       bt <- clean_trace_list(rb, data_type = possibles$data_type[i])
 
                      }
+  # sort
+  bodytib <- bodytib |>
+    dplyr::arrange(site, variable)
+
   # return
   if (returnformat == 'df') {return(bodytib)}
   if (returnformat == 'varlist') {return(split(bodytib, bodytib$variable))}
