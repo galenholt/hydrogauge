@@ -4,7 +4,7 @@
 #' in the middle to actually hit the API. Exposing it for ad-hoc testing, etc.
 #'
 #' @param baseURL character URL that the request gets appended to
-#' @param params a list with arguments for a particular call
+#' @param paramlist a list with arguments for a particular call
 #'
 #' @return the response body as a list
 #' @export

@@ -92,12 +92,12 @@ plot_datasources_by_site <- function(ds_by_site, returntype = 'plot') {
   exist_table <- table(ds_by_site$site, ds_by_site$datasource)
 
   if (returntype == 'plot') {
-    allopts <- ds_by_site %>%
+    allopts <- ds_by_site |>
       tidyr::expand(site, datasource)
 
-    ds_in_data <- ds_by_site %>%
-      mutate(indata = TRUE) %>%
-      dplyr::right_join(allopts) %>%
+    ds_in_data <- ds_by_site |>
+      mutate(indata = TRUE) |>
+      dplyr::right_join(allopts) |>
       dplyr::mutate(indata = ifelse(is.na(indata), FALSE, indata))
 
     data_gg <- ggplot2::ggplot(ds_in_data,

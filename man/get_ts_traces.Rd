@@ -28,6 +28,8 @@ get_ts_traces(
 
 \item{start_time}{character, numeric, or date giving the start time. API expects a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. \code{20200101} would be padded to give midnight on 1 Jan 2020.}
 
+\item{end_time}{character, numeric, or date giving the end time. API expects a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. \code{20200101} would be padded to give midnight on 1 Jan 2020.}
+
 \item{interval}{character, period to report.
 \itemize{
 \item Options: \code{"year"}, \code{"month"}, \code{"day"}, \code{"hour"}, \code{"minute"}, \code{"second"}. I don't think capitalisation matters.
@@ -47,8 +49,6 @@ get_ts_traces(
 \item \code{"sitelist"} returns a list with an separate tibble for each site (may have multiple variables per tibble)
 \item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
 }}
-
-\item{end_timecharacter}{numeric, or date giving the end time. API expects a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. \code{20200101} would be padded to give midnight on 1 Jan 2020.}
 }
 \value{
 tibble(s) with requested variables at requested sites (where they exist). See \code{returnformat}, either a tibble or list of tibbles

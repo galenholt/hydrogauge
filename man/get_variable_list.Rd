@@ -12,6 +12,10 @@ get_variable_list(
 }
 \arguments{
 \item{baseURL}{character, url for the base API call. Assumes Victoria, but other states may work as well, though are untested.}
+
+\item{site_list}{character site code, either a single site code \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
+
+\item{datasource}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
 }
 \value{
 a tibble of the variables for each site and datasource

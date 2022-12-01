@@ -25,21 +25,29 @@ get_ts_traces2(
 
 \item{datasource}{character for datasource code. To my knowledge, options are \code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
 
-\item{var_list}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to get all available variables at each site in \code{site_list}}
+\item{var_list}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to get all
+available variables at each site in \code{site_list}}
 
-\item{start_time}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to start at the first timepoint for each variable in \code{var_list} at each site in \code{site_list}}
+\item{start_time}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to start
+at the first timepoint for each variable in \code{var_list} at each site in
+\code{site_list}}
 
-\item{end_time}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to end at the last timepoint for each variable in \code{var_list} at each site in \code{site_list}}
+\item{end_time}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to end at
+the last timepoint for each variable in \code{var_list} at each site in
+\code{site_list}}
 
 \item{interval}{character, period to report.
 \itemize{
 \item Options: \code{"year"}, \code{"month"}, \code{"day"}, \code{"hour"}, \code{"minute"}, \code{"second"}. I don't think capitalisation matters.
 }}
 
-\item{data_type}{character, the statistic to apply. \emph{Warning:} only takes one value, which is applied to all variables. This may not be appropriate. If variables should have different statistics, run \code{get_ts_traces} multiple times.
-\itemize{
-\item Options: \code{"mean"}, \code{"max"}, \code{"min"}, \code{"start"}, \code{"end"}, \code{"first"}, \code{"last"}, \code{"tot"}, \code{"maxmin"}, \code{"point"}, \code{"cum"}. Not all are currently tested.
-}}
+\item{data_type}{single character or a vector the same length as \code{var_list}.
+If single value, behaves as in \code{\link[=get_ts_traces]{get_ts_traces()}}, applying that function to
+all variables. If a vector, it applies the given function to the variable
+in the matching position of \code{var_list}. This is potentially the most
+important use of this function vs. \code{get_ts_traces}- it allows us to ask for
+many variables that might need different statistics. \emph{Note}- if \code{var_list = "all"}, there is no way to match since the variables are unknown and may
+change between sits, and so \code{data_type} should be a single function.}
 
 \item{multiplier}{character, interval multiplier. I \emph{think} this allows intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}. Not tested other than 1 at present.}
 
@@ -57,7 +65,16 @@ tibble(s) with requested variables at requested sites (where they exist). See \c
 \description{
 This is under development, and offers both a bit more automation and a bit
 more flexibility than \code{\link[=get_ts_traces]{get_ts_traces()}}, but is currently slower due to more
-API network overhead.
+API network overhead. It loops over each distinct site and variable we're
+asking for, which allows us to tailor the requests a bit more. This approach
+allows us to do some useful things, though not always at the same time. We
+can ask for "all" in \code{var_type}, \code{start_time}, and \code{end_time}, and it will
+query the available data and get what's there. We can also ask for different
+\code{data_type} statistics for different variables in \code{var_type}, which is very
+important, though this cannot happen along with \code{var_type = "all"}. There are
+likely speedups we can do to combine some requests, and there is the
+possibility of future development allowing feeding this a pre-prepared table
+of arguments.
 }
 \examples{
 simpletrace <- get_ts_traces2(site_list = "233217",

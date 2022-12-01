@@ -9,7 +9,7 @@ get_response(baseURL, paramlist)
 \arguments{
 \item{baseURL}{character URL that the request gets appended to}
 
-\item{params}{a list with arguments for a particular call}
+\item{paramlist}{a list with arguments for a particular call}
 }
 \value{
 the response body as a list

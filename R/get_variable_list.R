@@ -1,6 +1,7 @@
 #' Gets the variables for sites and datasources
 #'
-#' @inheritParams get_sites_by_datasource
+#' @inheritParams get_ts_traces
+#' @param datasource as in [get_ts_traces()], but can be a vector. As far as I can tell, options are `'A'`, `'TELEM'`, `'TELEMCOPY'`. If multiple, `c('A', 'TELEM')`
 #'
 #' @return a tibble of the variables for each site and datasource
 #' @export

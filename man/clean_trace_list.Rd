@@ -4,10 +4,12 @@
 \alias{clean_trace_list}
 \title{Cleans ts_trace API list body into tibble}
 \usage{
-clean_trace_list(responsebody)
+clean_trace_list(responsebody, data_type)
 }
 \arguments{
 \item{responsebody}{response body from the API call to get_ts_traces}
+
+\item{data_type}{the data_type used to calculate the statistic over the \code{interval}, glued on for record}
 }
 \value{
 a tibble with the rectangled response
