@@ -23,9 +23,9 @@ get_groups <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.e
   # hit the api
   response_body <- get_response(baseURL, paramlist)
 
-  body_tib <- as_tibble(response_body[2]) %>% # the [2] drops the error column
-    unnest_wider(col = where(is.list)) %>% # a `return` list
-    unnest_longer(col = where(is.list))
+  body_tib <- tibble::as_tibble(response_body[2])  |>  # the [2] drops the error column
+    tidyr::unnest_wider(col = where(is.list))  |>  # a `return` list
+    tidyr::unnest_longer(col = where(is.list))
 
   return(body_tib)
 }
