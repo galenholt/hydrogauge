@@ -85,7 +85,7 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
     -   The [Queensland documentation](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf) gives some more information, but the numbers are not always the same.
 
-    -   Some variables (typically discharge) are calculated, and *do not appear in queries of available variables* such as `get_variables_by_site`. Those I'm aware of are "140"- discharge in ML, and "141", discharge in cumecs ($m^3/sec$).
+    -   Some variables (typically discharge) are calculated, and *do not appear in queries of available variables* such as `get_variables_by_site`. Those I'm aware of are "141"- discharge in ML, and "140", discharge in cumecs ($m^3/sec$).
 
 -   `start_time` and `end_time` are the start and end times of the period requested. The API is strict that these should be 14-digit strings "YYYYMMDDHHIIEE", but the functions here will take them in date formats (posix), character, or numeric, and they do not need to be 14-digits.
 
@@ -159,7 +159,7 @@ If we just want a set of variables that all need the same statistic applied (e.g
 ```{r}
 ts_days <- get_ts_traces(site_list = c(barwon, steavenson, taggerty, golf), 
                          datasource = "A", 
-                         var_list = c("100", "140", "450"),
+                         var_list = c("100", "141", "450"),
                          start_time = 20200101,
                          end_time = 20200105,
                          interval = "day",
@@ -211,7 +211,7 @@ The other option is to use `get_ts_traces2`, which allows paired `var_list` and 
 ```{r}
 ts_days2 <- get_ts_traces2(site_list = c(barwon, steavenson, taggerty, golf), 
                          datasource = "A", 
-                         var_list = c("100", "140", "450", "10"),
+                         var_list = c("100", "141", "450", "10"),
                          start_time = 20200101,
                          end_time = 20200105,
                          interval = "day",
@@ -231,7 +231,7 @@ I need to make some standard plots, but in the meantime, we can get a year of da
 ```{r}
 ts_daysY <- get_ts_traces2(site_list = c(barwon, steavenson, taggerty, golf), 
                          datasource = "A", 
-                         var_list = c("100", "140", "450", "10"),
+                         var_list = c("100", "141", "450", "10"),
                          start_time = 20100101,
                          end_time = 20110101,
                          interval = "day",
