@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 
 ## Purpose
 
-This package is designed to query the [Victorian water data](https://data.water.vic.gov.au/static.htm) API to pull gauge information. It does not have complete coverage of the available API calls, but is under active development to add functionality. Initial focus has been on identifying what is available to pull and pulling timeseries.
+This package is designed to query the [Victorian water data](https://data.water.vic.gov.au/static.htm) API to pull gauge information (and now [NSW](https://realtimedata.waternsw.com.au/) and [QLD](https://water-monitoring.information.qld.gov.au/) but these aren't as well tested or documented). It does not have complete coverage of the available API calls, but is under active development to add functionality. Initial focus has been on identifying what is available to pull and pulling timeseries.
 
 ## Installation
 
@@ -183,7 +183,8 @@ That returns a tall dataframe, which the user can then split up or plot how they
 -   `returnformat = "sxvlist"` a list with one tibble per site x variable combo (including empty lists for missing combos)
 
 ```{r rows.print = 30}
-ts_days
+# rows.print doesn't really work with devtools::build_readme(), so use head
+head(ts_days, 30)
 ```
 
 Note that if a variable isn't available for a gauge it just isn't returned, and same with timeperiods. So, the Barwon returns all variables, the golf course gauge does not return anything because it does not collect these variables, the Steavenson returns level and discharge but not temp, and the Taggerty doesn't appear at all despite having these variables because we've asked for data after it was decommissioned.
@@ -208,7 +209,7 @@ ts_rain <- get_ts_traces(state = 'Vic',
 ```
 
 ```{r}
-ts_rain
+head(ts_rain, 30)
 ```
 
 If the user wants to combine, they can `dplyr::bind_rows` to combine post-hoc.
@@ -230,7 +231,7 @@ ts_days2 <- get_ts_traces2(state = 'Vic',
 ```
 
 ```{r rows.print = 30}
-ts_days2
+head(ts_days2, 30)
 ```
 
 ## A quick plot
