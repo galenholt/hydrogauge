@@ -10,8 +10,10 @@
 #' @export
 #'
 #' @examples
-get_groups <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
+get_groups <- function(state = "victoria",
                        site_list) {
+
+  baseURL <- get_url(state)
   # site_list needs to be a comma separated length-1 vector
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
 

@@ -9,8 +9,10 @@
 #' @examples
 #' v2 <- get_variable_list(site_list = "233217, 405328, 405331, 405837",
 #'  datasource = c('A', 'TELEM'))
-get_variable_list <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
+get_variable_list <- function(state = "victoria",
                               site_list, datasource) {
+
+  baseURL <- get_url(state)
 
   # site_list needs to be a comma separated length-1 vector. Ensure
   site_list <- paste(site_list, sep = ', ', collapse = ', ')

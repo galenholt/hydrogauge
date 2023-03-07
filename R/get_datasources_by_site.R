@@ -10,8 +10,10 @@
 #'
 #' @examples
 #' checkdata <- get_datasources_by_site(site_list = "233217, 405328, 405331, 405837")
-get_datasources_by_site <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
+get_datasources_by_site <- function(state = "victoria",
                                     site_list) {
+
+  baseURL <- get_url(state)
 
   # site_list needs to be a comma separated length-1 vector
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
@@ -50,8 +52,10 @@ get_datasources_by_site <- function(baseURL = "https://data.water.vic.gov.au/cgi
 #'
 #' @examples
 #' sxd <- get_sites_by_datasource(datasources = c('A', 'TELEM'))
-get_sites_by_datasource <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
+get_sites_by_datasource <- function(state = "Victoria",
                                     datasources) {
+
+  baseURL <- get_url(state)
 
   # The json request needs a paramlist
   paramlist <- list("function" = 'get_sites_by_datasource',

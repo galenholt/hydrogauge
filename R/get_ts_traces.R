@@ -8,7 +8,7 @@
 #' see [get_ts_traces2].
 #'
 #'
-#' @param baseURL character, url for the base API call. Assumes Victoria, but other states may work as well, though are untested.
+#' @param state character for the state (partial matching accepted). Assumes Victoria, but other states may work as well, though are untested. Used to get the API URL
 #' @param site_list character site code, either a single site code `"sitenumber"`, comma-separated codes in a single string `"sitenumber1, sitenumber2`, or a vector of site codes `c("sitenumber1", "sitenumber2")`
 #' @param datasource character for datasource code. To my knowledge, options are `"A"`, `"TELEM"`, `"TELEMCOPY"`. Passing multiple not currently supported.
 #' @param var_list character vector of variable codes. Needs to be either single code or vector (`c("code1", "code2")`), *not* a comma-separated string
@@ -38,7 +38,7 @@
 #' multiplier = 1, returnformat = 'df')
 
 
-get_ts_traces <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
+get_ts_traces <- function(state = "victoria",
                           site_list,
                           datasource = 'A',
                           var_list = c('100', '140'),
@@ -48,6 +48,8 @@ get_ts_traces <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservic
                           data_type = 'mean',
                           multiplier = 1,
                           returnformat = 'df') {
+
+  baseURL <- get_url(state)
 
   # clean up the start and end times.
   start_time <- fix_times(start_time)
@@ -229,13 +231,8 @@ clean_trace_list <- function(responsebody, data_type) {
 #' @export
 #'
 #' @examples
-#' simpletrace <- get_ts_traces2(site_list = "233217",
-#' datasource = 'A',
-#' var_list = "all",
-#' start_time = "all", end_time = "all",
-#' interval = 'year', data_type = 'mean',
-#' multiplier = 1, returnformat = 'df')
-get_ts_traces2 <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
+
+get_ts_traces2 <- function(state = "victoria",
                            site_list,
                            datasource = 'A',
                            var_list = c('100', '140'),
@@ -245,6 +242,7 @@ get_ts_traces2 <- function(baseURL = "https://data.water.vic.gov.au/cgi/webservi
                            data_type = 'mean',
                            multiplier = 1,
                            returnformat = 'df') {
+  baseURL <- get_url(state)
 
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 

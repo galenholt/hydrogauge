@@ -40,6 +40,7 @@ devtools::install_github("galenholt/vicwater")
 
 ```{r setup}
 library(vicwater)
+library(ggplot2)
 ```
 
 This package is designed to query the [Victorian water data](https://data.water.vic.gov.au/static.htm) API to pull gauge information. It does not have complete coverage of the available API calls, but is under active development to add functionality. Initial focus has been on identifying what is available to pull and pulling timeseries.
@@ -116,7 +117,9 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 To see what datasources are available for a site, use `get_datasources_by_site`. I've largely just been using "A" to test, but it's worth looking to see what datasources are available for a target site(s), and then doing the next step (finding variables) for each, to see whether the available variables (or timeperiods) differ. I'd like to automate that, but haven't yet.
 
 ```{r}
-ds <- get_datasources_by_site(site_list = c(barwon, steavenson, taggerty, golf))
+ds <- get_datasources_by_site(state = 'Vic', 
+                              site_list = c(barwon, steavenson, 
+                                            taggerty, golf))
 ```
 
 ```{r rows.print = 15}
@@ -136,7 +139,9 @@ Assuming for the moment the user knows the gauge numbers of interest, we then ne
 To demonstrate with the sites above that have a range of variable types and starts,
 
 ```{r}
-var_info <- get_variable_list(site_list = c(barwon, taggerty, steavenson, golf), 
+var_info <- get_variable_list(state = 'Vic', 
+                              site_list = c(barwon, taggerty, 
+                                            steavenson, golf), 
                               datasource = "A")
 ```
 
@@ -157,11 +162,12 @@ There are a few ways to request the timeseries, and some pitfalls to avoid.
 If we just want a set of variables that all need the same statistic applied (e.g. daily mean flows), we can pass that in as a vector. For example, to get daily mean stage height, discharge, and temperature, we can do that in one call, even for multiple gauges. Asking here for only 5 days to keep the demo reasonable.
 
 ```{r}
-ts_days <- get_ts_traces(site_list = c(barwon, steavenson, taggerty, golf), 
+ts_days <- get_ts_traces(state = 'Vic', 
+                         site_list = c(barwon, steavenson, taggerty, golf),
                          datasource = "A", 
                          var_list = c("100", "141", "450"),
                          start_time = 20200101,
-                         end_time = 20200105,
+                         end_time = 20201231,
                          interval = "day",
                          data_type = "mean",
                          multiplier = 1,
@@ -189,11 +195,12 @@ Now, if we want another set of variables that should have a different statistic 
 First, the separate `get_ts_traces`. Note that again this will ignore gauges without the info (Barwon)
 
 ```{r}
-ts_rain <- get_ts_traces(site_list = c(barwon, golf), 
+ts_rain <- get_ts_traces(state = 'Vic', 
+                         site_list = c(barwon, golf), 
                          datasource = "A", 
                          var_list = c("10"),
                          start_time = 20200101,
-                         end_time = 20200105,
+                         end_time = 20201231,
                          interval = "day",
                          data_type = "tot",
                          multiplier = 1,
@@ -209,11 +216,13 @@ If the user wants to combine, they can `dplyr::bind_rows` to combine post-hoc.
 The other option is to use `get_ts_traces2`, which allows paired `var_list` and `data_type`, and essentially automates that gluing process, but is a bit slower per call (though probably faster than manually running two calls?).
 
 ```{r}
-ts_days2 <- get_ts_traces2(site_list = c(barwon, steavenson, taggerty, golf), 
+ts_days2 <- get_ts_traces2(state = 'Vic', 
+                           site_list = c(barwon, steavenson, 
+                                         taggerty, golf), 
                          datasource = "A", 
                          var_list = c("100", "141", "450", "10"),
                          start_time = 20200101,
-                         end_time = 20200105,
+                         end_time = 20201231,
                          interval = "day",
                          data_type = c("mean", "mean", "mean", "tot"),
                          multiplier = 1,
@@ -229,7 +238,9 @@ ts_days2
 I need to make some standard plots, but in the meantime, we can get a year of data that covers when the Taggerty was running so it's interesting and plot it
 
 ```{r}
-ts_daysY <- get_ts_traces2(site_list = c(barwon, steavenson, taggerty, golf), 
+ts_daysY <- get_ts_traces2(state = 'Vic', 
+                           site_list = c(barwon, steavenson, 
+                                         taggerty, golf), 
                          datasource = "A", 
                          var_list = c("100", "141", "450", "10"),
                          start_time = 20100101,
@@ -241,7 +252,6 @@ ts_daysY <- get_ts_traces2(site_list = c(barwon, steavenson, taggerty, golf),
 ```
 
 ```{r}
-library(ggplot2)
 ggplot(ts_daysY, aes(x = time, y = value, color = site_short_name)) + 
   facet_wrap(~variable_short_name, scales = 'free') + 
   geom_point() + geom_line()
@@ -272,3 +282,79 @@ This package is under active development, and has been put on github as soon as 
 -   Smarter/faster handling of `data_type` matching to `var_list`
 
 -   Other states- NSW and QLD use a similar system, though it looks like there are small differences at least in `datasource` values and some variable codes. Still, shouldn't take much to extend, I don't think.
+
+# Other states
+
+I haven't done as much investigation of the datasources and similar variables, but the code should work for NSW and Queensland now by simply passing state name. South Australia seems to use BOM, but I haven't looked into it much, nor any of the non-basin-states. They likely will work if they use Kisters Hydstra.
+
+## datasources
+
+Using `get_datasources_by_site` to see what datasources are available:
+
+```{r}
+nsw_ds <- get_datasources_by_site(state = 'NSW', 
+                                  site_list = c("422028", "410007"))
+```
+
+```{r}
+nsw_ds
+```
+
+```{r}
+qld_ds <- get_datasources_by_site(state = 'QLD', 
+                                  site_list = c("423203A", "424201A"))
+```
+
+```{r}
+qld_ds
+```
+
+## Traces and plots
+
+### NSW
+
+Now we can `get_ts_traces` for `A`, just to keep things consistent
+
+```{r}
+nsw_ts_days <- get_ts_traces(state = 'NSW', 
+                         site_list = c("422028", "410007"),
+                         datasource = "A", 
+                         var_list = c("100", "141", "450"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "mean",
+                         multiplier = 1,
+                         returnformat = 'df')
+
+```
+
+```{r}
+ggplot(nsw_ts_days, aes(x = time, y = value, color = site_short_name)) + 
+  facet_wrap(~variable_short_name, scales = 'free') + 
+  geom_line()
+```
+
+### QLD
+
+I didn't pick very interesting examples here.
+
+```{r}
+qld_ts_days <- get_ts_traces(state = 'QLD', 
+                         site_list = c("423203A", "424201A"),
+                         datasource = "A", 
+                         var_list = c("100", "141", "450"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "mean",
+                         multiplier = 1,
+                         returnformat = 'df')
+
+```
+
+```{r}
+ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) + 
+  facet_wrap(~variable_short_name, scales = 'free') + 
+  geom_line()
+```

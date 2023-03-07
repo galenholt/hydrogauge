@@ -34,7 +34,7 @@ test_that("multiple variables work for ts", {
                                                       "data_type" = "mean",
                                                       "multiplier" = 1)))
   expect_equal(class(s2), 'list')
-  expect_equal(s1[[1]], 0)
+  expect_equal(s2[[1]], 0)
 
 })
 

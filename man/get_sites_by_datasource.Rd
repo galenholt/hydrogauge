@@ -4,13 +4,10 @@
 \alias{get_sites_by_datasource}
 \title{Gets sites that have a given datasource}
 \usage{
-get_sites_by_datasource(
-  baseURL = "https://data.water.vic.gov.au/cgi/webservice.exe?",
-  datasources
-)
+get_sites_by_datasource(state = "Victoria", datasources)
 }
 \arguments{
-\item{baseURL}{character, url for the base API call. Assumes Victoria, but other states may work as well, though are untested.}
+\item{state}{character for the state (partial matching accepted). Assumes Victoria, but other states may work as well, though are untested. Used to get the API URL}
 
 \item{datasources}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
 }
