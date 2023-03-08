@@ -158,7 +158,7 @@ get_ts_traces <- function(state = "victoria",
 clean_trace_list <- function(responsebody, data_type, .errorhandling = 'stop') {
 
   if (is.character(responsebody) && grepl("API error number ", responsebody)) {
-    errortib <- tibble::tibble(error_num = stringr::str_extract(responsebody, '[0-9]+'),
+    errortib <- tibble::tibble(error_num = as.numeric(stringr::str_extract(responsebody, '[0-9]+')),
                                error_msg = responsebody)
     return(errortib)
   }
