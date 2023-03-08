@@ -5,18 +5,22 @@
 #'
 #' @param baseURL character URL that the request gets appended to
 #' @param paramlist a list with arguments for a particular call
+#' @param .errorhandling intended to allow passing or removing errors. Currently
+#'   only implemented in a way that works for [get_ts_traces2()]; see
+#'   documentation there.
 #'
 #' @return the response body as a list
 #' @export
 #'
-get_response <- function(baseURL, paramlist) {
+get_response <- function(baseURL, paramlist, .errorhandling = 'stop') {
   # make the request and response
   response_body <- httr2::request(baseURL) |>
     httr2::req_body_json(paramlist) |>
     httr2::req_perform() |>
     httr2::resp_body_json(check_type = FALSE)
 
-  api_error_catch(response_body)
+
+  response_body <- api_error_catch(response_body, .errorhandling = .errorhandling)
 
   return(response_body)
 }

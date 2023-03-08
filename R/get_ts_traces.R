@@ -5,7 +5,7 @@
 #' not do very much automation of finding variables, checking times, etc. If
 #' variables are not available for a site or for given times it just silently
 #' does not return them. For a more automated (but currently slower) approach,
-#' see [get_ts_traces2].
+#' see [get_ts_traces2], which also allows a `.errorhandling` argument.
 #'
 #'
 #' @param state character for the state (partial matching accepted). Assumes Victoria, but other states may work as well, though are untested. Used to get the API URL
@@ -24,7 +24,7 @@
 #'  * `"varlist"` returns a list with an separate tibble for each variable (may have multiple sites per tibble)
 #'  * `"sitelist"` returns a list with an separate tibble for each site (may have multiple variables per tibble)
 #'  * `"sxvlist"` returns a list with an separate tibble for each site x variable combination
-#'
+
 #' @return tibble(s) with requested variables at requested sites (where they exist). See `returnformat`, either a tibble or list of tibbles
 #' @export
 #'
@@ -97,7 +97,7 @@ get_ts_traces <- function(state = "victoria",
     bodytib <- clean_trace_list(response_body, data_type)
 
   } else {
-    bodytib <- tibble(.rows = 0)
+    bodytib <- tibble::tibble(.rows = 0)
   }
 
 
@@ -147,11 +147,22 @@ get_ts_traces <- function(state = "victoria",
 #'
 #' @param responsebody response body from the API call to get_ts_traces
 #' @param data_type the data_type used to calculate the statistic over the `interval`, glued on for record
+#' @param .errorhandling as in [foreach] (but handled in [api_error_catch()]) Default 'stop'. Made available here
+#'   primarily to use 'pass' so big requests don't die due to API errors. **Be
+#'   careful**- those errors then just get passed and so the data will be
+#'   missing. Only currently implemented and working in [get_ts_traces2()]
 #'
 #' @return a tibble with the rectangled response
 #' @export
 #'
-clean_trace_list <- function(responsebody, data_type) {
+clean_trace_list <- function(responsebody, data_type, .errorhandling = 'stop') {
+
+  if (is.character(responsebody) && grepl("API error number ", responsebody)) {
+    errortib <- tibble::tibble(error_num = stringr::str_extract(responsebody, '[0-9]+'),
+                               error_msg = responsebody)
+    return(errortib)
+  }
+
   # unpack the list
   bodytib <- tibble::as_tibble(responsebody[2]) |> # the [2] drops the error column
     tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list
@@ -165,9 +176,15 @@ clean_trace_list <- function(responsebody, data_type) {
     dplyr::rename_with(~(paste0('variable_', .)),
                 c(short_name, name))
 
-  # I guess fail if any fail. I could pass, but do I want to? could remove,
-  # warn, and if anything left, pass?
-  ts_error_catch(bodytib)
+  # parse errors, as defined by .errorhandling
+  errorparser <- ts_error_catch(bodytib, .errorhandling = .errorhandling)
+
+  # if there were errors and errorhandling was pass or remove, send those back
+  # out.
+  if ((!is.logical(errorparser)) & (.errorhandling == 'pass' | .errorhandling == 'remove')) {
+    return(errorparser |>
+             dplyr::mutate(across(c(longitude, latitude), as.numeric)))
+  }
 
   # break in here to get the quality codes to match
   qc <- bodytib |>
@@ -225,7 +242,7 @@ clean_trace_list <- function(responsebody, data_type) {
 #'   many variables that might need different statistics. *Note*- if `var_list =
 #'   "all"`, there is no way to match since the variables are unknown and may
 #'   change between sits, and so `data_type` should be a single function.
-#'
+#' @inheritParams clean_trace_list
 
 #' @inherit get_ts_traces return
 #' @export
@@ -241,7 +258,8 @@ get_ts_traces2 <- function(state = "victoria",
                            interval = 'day',
                            data_type = 'mean',
                            multiplier = 1,
-                           returnformat = 'df') {
+                           returnformat = 'df',
+                           .errorhandling = 'stop') {
   baseURL <- get_url(state)
 
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
@@ -329,10 +347,12 @@ get_ts_traces2 <- function(state = "victoria",
 
 
                        # hit the api
-                       rb <- get_response(baseURL, pl)
+                       rb <- get_response(baseURL, pl, .errorhandling = .errorhandling)
 
                        # clean up with a function because so ugly
-                       bt <- clean_trace_list(rb, data_type = possibles$data_type[i])
+                       bt <- clean_trace_list(rb,
+                                              data_type = possibles$data_type[i],
+                                              .errorhandling = .errorhandling)
 
                      }
   # sort
