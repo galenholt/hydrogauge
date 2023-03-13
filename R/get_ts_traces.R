@@ -146,11 +146,13 @@ get_ts_traces <- function(state = "victoria",
 #' Cleans ts_trace API list body into tibble
 #'
 #' @param responsebody response body from the API call to get_ts_traces
-#' @param data_type the data_type used to calculate the statistic over the `interval`, glued on for record
-#' @param .errorhandling as in [foreach] (but handled in [api_error_catch()]) Default 'stop'. Made available here
-#'   primarily to use 'pass' so big requests don't die due to API errors. **Be
-#'   careful**- those errors then just get passed and so the data will be
-#'   missing. Only currently implemented and working in [get_ts_traces2()]
+#' @param data_type the data_type used to calculate the statistic over the
+#'   `interval`, glued on for record
+#' @param .errorhandling as in [foreach::foreach()] (but handled in
+#'   [api_error_catch()]) Default 'stop'. Made available here primarily to use
+#'   'pass' so big requests don't die due to API errors. **Be careful**- those
+#'   errors then just get passed and so the data will be missing. Only currently
+#'   implemented and working in [get_ts_traces2()]
 #'
 #' @return a tibble with the rectangled response
 #' @export
@@ -226,6 +228,7 @@ clean_trace_list <- function(responsebody, data_type, .errorhandling = 'stop') {
 #' of arguments.
 #'
 #' @inheritParams get_ts_traces
+#' @inheritParams clean_trace_list
 #' @param var_list as in [get_ts_traces()], but can also take `"all"` to get all
 #'   available variables at each site in `site_list`
 #' @param start_time as in [get_ts_traces()], but can also take `"all"` to start
@@ -238,11 +241,11 @@ clean_trace_list <- function(responsebody, data_type, .errorhandling = 'stop') {
 #'   If single value, behaves as in [get_ts_traces()], applying that function to
 #'   all variables. If a vector, it applies the given function to the variable
 #'   in the matching position of `var_list`. This is potentially the most
-#'   important use of this function vs. `get_ts_traces`- it allows us to ask for
+#'   important use of this function vs. [get_ts_traces()]- it allows us to ask for
 #'   many variables that might need different statistics. *Note*- if `var_list =
 #'   "all"`, there is no way to match since the variables are unknown and may
 #'   change between sits, and so `data_type` should be a single function.
-#' @inheritParams clean_trace_list
+
 
 #' @inherit get_ts_traces return
 #' @export

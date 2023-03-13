@@ -1,3 +1,15 @@
+#' Handle and parse errors from the API calls
+#'
+#' @param bodylist list returned by API
+#' @param call see [rlang::abort()]; passes calling environment for clearer
+#'   messages
+#' @param .errorhandling as in [foreach::foreach()]- passed in here to handle
+#'   simply `abort`ing vs doing something with the error and continuing
+#'
+#' @return depends on presence of errors and value of `.errorhandling`
+#' @export
+#'
+#' @examples
 api_error_catch <- function(bodylist, call = rlang::caller_env(), .errorhandling = 'stop') {
   e_value <- bodylist[1]
 
@@ -17,6 +29,16 @@ api_error_catch <- function(bodylist, call = rlang::caller_env(), .errorhandling
   return(bodylist)
 }
 
+
+#' Catch API errors that don't appear until the list is unpacked
+#'
+#' @param bodytib dataframe constructed from API list with `error_num` column
+#' @inheritParams api_error_catch
+#'
+#' @return typically `bodytib`, unless there are errors, then determined by `.errorhandling`
+#' @export
+#'
+#' @examples
 ts_error_catch <- function(bodytib, call = rlang::caller_env(), .errorhandling = 'stop') {
 
   # if no errors, return
@@ -36,11 +58,6 @@ ts_error_catch <- function(bodytib, call = rlang::caller_env(), .errorhandling =
       dplyr::select(-trace)
     return(errorframe)
   }
-  # Not sure why I had this here
-  # bodytib |>
-  #   dplyr::filter(error_num != 0) |>
-  #   dplyr::select(error_num, error_msg, site, variable) |>
-  #   dplyr::distinct()
 
   if (.errorhandling == 'stop') {
     ermessage = paste0("API error number ", bodytib$error_num,
@@ -49,9 +66,5 @@ ts_error_catch <- function(bodytib, call = rlang::caller_env(), .errorhandling =
 
     rlang::abort(message = ermessage, call = call)
   }
-
-
-
-
 
 }

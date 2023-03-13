@@ -15,7 +15,8 @@ get_ts_traces2(
   interval = "day",
   data_type = "mean",
   multiplier = 1,
-  returnformat = "df"
+  returnformat = "df",
+  .errorhandling = "stop"
 )
 }
 \arguments{
@@ -45,7 +46,7 @@ the last timepoint for each variable in \code{var_list} at each site in
 If single value, behaves as in \code{\link[=get_ts_traces]{get_ts_traces()}}, applying that function to
 all variables. If a vector, it applies the given function to the variable
 in the matching position of \code{var_list}. This is potentially the most
-important use of this function vs. \code{get_ts_traces}- it allows us to ask for
+important use of this function vs. \code{\link[=get_ts_traces]{get_ts_traces()}}- it allows us to ask for
 many variables that might need different statistics. \emph{Note}- if \code{var_list = "all"}, there is no way to match since the variables are unknown and may
 change between sits, and so \code{data_type} should be a single function.}
 
@@ -58,6 +59,12 @@ change between sits, and so \code{data_type} should be a single function.}
 \item \code{"sitelist"} returns a list with an separate tibble for each site (may have multiple variables per tibble)
 \item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
 }}
+
+\item{.errorhandling}{as in \code{\link[foreach:foreach]{foreach::foreach()}} (but handled in
+\code{\link[=api_error_catch]{api_error_catch()}}) Default 'stop'. Made available here primarily to use
+'pass' so big requests don't die due to API errors. \strong{Be careful}- those
+errors then just get passed and so the data will be missing. Only currently
+implemented and working in \code{\link[=get_ts_traces2]{get_ts_traces2()}}}
 }
 \value{
 tibble(s) with requested variables at requested sites (where they exist). See \code{returnformat}, either a tibble or list of tibbles

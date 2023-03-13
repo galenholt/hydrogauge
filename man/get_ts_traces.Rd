@@ -59,7 +59,7 @@ derived and base. This is very similar to the underlying API call, and does
 not do very much automation of finding variables, checking times, etc. If
 variables are not available for a site or for given times it just silently
 does not return them. For a more automated (but currently slower) approach,
-see \link{get_ts_traces2}.
+see \link{get_ts_traces2}, which also allows a \code{.errorhandling} argument.
 }
 \examples{
 simpletrace <- get_ts_traces(site_list = "233217",

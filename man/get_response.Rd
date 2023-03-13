@@ -4,12 +4,16 @@
 \alias{get_response}
 \title{The actual API call}
 \usage{
-get_response(baseURL, paramlist)
+get_response(baseURL, paramlist, .errorhandling = "stop")
 }
 \arguments{
 \item{baseURL}{character URL that the request gets appended to}
 
 \item{paramlist}{a list with arguments for a particular call}
+
+\item{.errorhandling}{intended to allow passing or removing errors. Currently
+only implemented in a way that works for \code{\link[=get_ts_traces2]{get_ts_traces2()}}; see
+documentation there.}
 }
 \value{
 the response body as a list
