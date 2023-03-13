@@ -27,6 +27,20 @@ get_variable_list <- function(state = "victoria",
   response_body <- get_response(baseURL, paramlist)
 
 
+  # Sometimes we get gauges with no variables (seems to happen mostly across
+  # state lines). If there are other good gauges, the bad ones get auto-filled
+  # with NA in the dplyr. But if not, we have to be explicit. And I think for
+  # safety I'll just be explicit
+  dummyvarlist <- list(list(period_end = NA, period_start = NA,
+                       subdesc = NA, variable = NA, units = NA,
+                       name = NA))
+
+
+  #
+  findmissing <- function(x) {length(x$variables) == 0}
+  response_body$return$sites <- response_body$return$sites |>
+    purrr::map_if(findmissing,
+                  \(x) {x$variables <- dummyvarlist; x})
   # unpack
   bodytib <- tibble::as_tibble(response_body[2]) |> # the [2] drops the error column
     tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list
@@ -38,12 +52,17 @@ get_variable_list <- function(state = "victoria",
     dplyr::rename(var_name = name) |> # clarify name
     dplyr::mutate(datasource = datasource[1]) |> # add a datasource column so we can cross-ref
     dplyr::select(site, short_name, long_name, variable, units, var_name, period_start, period_end, subdesc, datasource, timezone)
+
   # would be good to preallocate, but no idea how big it'll be. I guess just
-  # recurse and bind_rows? Could fairly easily just to a purrr::map or furrr::map across datasources? Then at least we'd hit the api in parallel.
+  # recurse and bind_rows? Could fairly easily just to a purrr::map or
+  # furrr::map across datasources? Then at least we'd hit the api in parallel.
   # Leave this for now but it's ugly
   if (length(datasource) > 1) {
     datasource <- datasource[-1]
-    bodytib <- dplyr::bind_rows(bodytib, get_variable_list(baseURL, site_list, datasource))
+    bodytib <- dplyr::bind_rows(bodytib,
+                                get_variable_list(state,
+                                                  site_list,
+                                                  datasource))
   }
 
   return(bodytib)
