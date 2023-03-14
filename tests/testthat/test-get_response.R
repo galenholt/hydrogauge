@@ -56,6 +56,38 @@ test_that("derived variables work for ts", {
 
 })
 
+test_that("derived variables work for ts", {
+  s3 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
+                     paramlist = list("function" = 'get_ts_traces',
+                                      "version" = "2",
+                                      "params" = list("site_list" = '233217',
+                                                      "start_time" = 20200101,
+                                                      "varfrom" = "100",
+                                                      "varto" = "140",
+                                                      "interval" = "day",
+                                                      "datasource" = "A",
+                                                      "end_time" = 20200105,
+                                                      "data_type" = "mean",
+                                                      "multiplier" = 1)))
+  expect_equal(class(s3), 'list')
+  expect_equal(s3[[1]], 0)
+
+})
+
+test_that("HTTP errors handled", {
+  expect_error(s_stop <- get_response("http://httpbin.org/404",
+                     paramlist = list(dummy = 'testlist'),
+                     .errorhandling = 'stop'))
+
+  s_pass <- get_response("http://httpbin.org/404",
+                         paramlist = list(dummy = 'testlist'),
+                         .errorhandling = 'pass')
+
+  expect_equal(s_pass, 'HTTP error number: 404 Not Found')
+
+})
+
+
 # I could do more with the other functions, but I think it probably makes more
 # sense to check them at the wrapper level, rather than rebuild their paramlists
 # here

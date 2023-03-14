@@ -153,17 +153,23 @@ get_ts_traces <- function(state = "victoria",
 #'   'pass' so big requests don't die due to API errors. **Be careful**- those
 #'   errors then just get passed and so the data will be missing. Only currently
 #'   implemented and working in [get_ts_traces2()]
+#' @param gauge character gauge name- allows building an informative error-handled output
 #'
 #' @return a tibble with the rectangled response
 #' @export
 #'
-clean_trace_list <- function(responsebody, data_type, .errorhandling = 'stop') {
+clean_trace_list <- function(responsebody, data_type, gauge = NA, .errorhandling = 'stop') {
 
-  if (is.character(responsebody) && grepl("API error number ", responsebody)) {
+  # Some error handling
+  if (is.character(responsebody) && grepl("error number", responsebody)) {
     errortib <- tibble::tibble(error_num = as.numeric(stringr::str_extract(responsebody, '[0-9]+')),
-                               error_msg = responsebody)
+                               error_msg = responsebody,
+                               site = gauge,
+                               variable = NA)
     return(errortib)
   }
+
+  if (is.null(responsebody)) {return(responsebody)}
 
   # unpack the list
   bodytib <- tibble::as_tibble(responsebody[2]) |> # the [2] drops the error column
@@ -355,9 +361,17 @@ get_ts_traces2 <- function(state = "victoria",
                        # clean up with a function because so ugly
                        bt <- clean_trace_list(rb,
                                               data_type = possibles$data_type[i],
+                                              gauge = possibles$site,
                                               .errorhandling = .errorhandling)
 
                      }
+
+  if (is.null(bodytib)) {
+    rlang::inform("NULL return- likely everything errored and was 'removed' with .errorhandling")
+    return(bodytib)
+  }
+
+
   # sort
   bodytib <- bodytib |>
     dplyr::arrange(site, variable)

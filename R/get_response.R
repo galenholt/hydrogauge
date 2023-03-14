@@ -13,12 +13,40 @@
 #' @export
 #'
 get_response <- function(baseURL, paramlist, .errorhandling = 'stop') {
+
+  # manage HTTP errors, which can kill the `req_perform` itself
+  errorfun <- function(resp) {
+    if (.errorhandling == 'stop') {httr2::resp_is_error(resp)} else {FALSE}
+  }
+
+
   # make the request and response
   response_body <- httr2::request(baseURL) |>
     httr2::req_body_json(paramlist) |>
-    httr2::req_perform() |>
-    httr2::resp_body_json(check_type = FALSE)
+    httr2::req_error(is_error = errorfun) |>
+    httr2::req_perform()
 
+  # more HTTP error management- we only get here with an error if .errorhandling
+  # != 'stop' see 'clean_trace_list' for implementation of parsing this in the
+  # ds functions. Need to integrate that everywhere
+  if (httr2::resp_is_error(response_body)) {
+    if (.errorhandling == 'pass') {
+      return(paste0('HTTP error number: ',
+                    httr2::resp_status(response_body),
+                    ' ',
+                    httr2::resp_status_desc(response_body)))
+    }
+
+    # not well tested how downstream functions take this- it might need to change
+    if (.errorhandling == 'remove') {
+      return(NULL)
+    }
+  }
+
+
+  # The no-HTTP error case gets parsed and checked for API errors
+ response_body <- response_body |>
+    httr2::resp_body_json(check_type = FALSE)
 
   response_body <- api_error_catch(response_body, .errorhandling = .errorhandling)
 

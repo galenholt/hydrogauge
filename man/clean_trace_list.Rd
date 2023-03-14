@@ -4,13 +4,15 @@
 \alias{clean_trace_list}
 \title{Cleans ts_trace API list body into tibble}
 \usage{
-clean_trace_list(responsebody, data_type, .errorhandling = "stop")
+clean_trace_list(responsebody, data_type, gauge = NA, .errorhandling = "stop")
 }
 \arguments{
 \item{responsebody}{response body from the API call to get_ts_traces}
 
 \item{data_type}{the data_type used to calculate the statistic over the
 \code{interval}, glued on for record}
+
+\item{gauge}{character gauge name- allows building an informative error-handled output}
 
 \item{.errorhandling}{as in \code{\link[foreach:foreach]{foreach::foreach()}} (but handled in
 \code{\link[=api_error_catch]{api_error_catch()}}) Default 'stop'. Made available here primarily to use
