@@ -165,8 +165,9 @@ test_that("ts either errors or works", {
 
 test_that('HTTP errors work correctly for one gauge', {
 
+  skip("The error that previously triggered these tests no longer occurs. Finding another one will be trial and error, skip until that happens, assuming it still works as it did.")
   # This site returns a 504 Gateway timeout for 'CP'
-  # It's entirely possible this is an idiosyncratic error, so I might have to
+  # This is an idiosyncratic error, so I might have to
   # do something different here like bypass `state` somehow.
 
   # I could feed it "http://httpbin.org/404" as in test-get_response, but this
@@ -219,6 +220,9 @@ test_that('HTTP errors work correctly for multiple gauges', {
 
   # 412038 returns a 504 Gateway timeout for 'CP'. 416072 should work.
   # Make sure they work together
+
+  skip("The error that previously triggered these tests no longer occurs. Finding another one will be trial and error, skip until that happens, assuming it still works as it did.")
+
 
   # It's entirely possible this is an idiosyncratic error, so I might have to
   # do something different here like bypass `state` somehow.

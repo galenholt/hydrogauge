@@ -262,7 +262,7 @@ ggplot(ts_daysY, aes(x = time, y = value, color = site_short_name)) +
 
 The `get_ts_traces2` function also can take "all" for `var_list`, `start_date` and `end_date`. It's safe to use for `start_date` and `end_date`, but probably not for `var_list` for the reasons above- the vars should *not* all have the same statistic applied.
 
-I have not done much testing of speed for big requests (long periods of record for lots of sites and variables). There does not seem to be much time difference to ask for a year vs 5 days above. I do not know if there are limits, or if those sorts of requests work better broken up and output glued together or done in one go. It's certainly possible to overflow your memory if you ask for everything for all sites.
+I have not done much systematic testing of speed for big requests (long periods of record for lots of sites and variables). There does not seem to be much time difference to ask for a year vs 5 days above, and asking for the full period of record for one variable for 140 sites using `get_ts_traces2` (each of which needs a separate call internally to `get_ts_traces` because the periods differ) takes approximately 120 seconds. I do not know if there are limits, or if those sorts of requests work better broken up and output glued together or done in one go. It's certainly possible to overflow your memory if you ask for everything for all sites.
 
 ## Development plans
 
