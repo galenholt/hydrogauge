@@ -1,5 +1,6 @@
 #' Gets the variables for sites and datasources
 #'
+#'
 #' @inheritParams get_ts_traces
 #' @param datasource as in [get_ts_traces()], but can be a vector. As far as I can tell, options are `'A'`, `'TELEM'`, `'TELEMCOPY'`. If multiple, `c('A', 'TELEM')`
 #'
@@ -17,14 +18,14 @@ get_variable_list <- function(state = "victoria",
   # site_list needs to be a comma separated length-1 vector. Ensure
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
 
-  paramlist <- list("function" = 'get_variable_list',
+  api_body_list <- list("function" = 'get_variable_list',
                      "version" = "1",
                      "params" = list("site_list" = site_list,
                                      "datasource" = datasource[1])) # have to loop datasources
 
 
   # hit the api
-  response_body <- get_response(baseURL, paramlist)
+  response_body <- get_response(baseURL, api_body_list)
 
 
   # Sometimes we get gauges with no variables (seems to happen mostly across
@@ -67,3 +68,4 @@ get_variable_list <- function(state = "victoria",
 
   return(bodytib)
 }
+

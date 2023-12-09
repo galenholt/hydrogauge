@@ -24,3 +24,4 @@ test_that("handles missing", {
   expect_equal(names(miss_and_exist), namevec)
   expect_equal(sum(is.na(miss_and_exist$variable)), 3)
   })
+

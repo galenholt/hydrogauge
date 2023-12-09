@@ -61,7 +61,7 @@ get_ts_traces <- function(state = "victoria",
   # this takes a var_list, but can't get derived variables that way. I could use
   # var_list where possible, otherwise varfrom-varto. or just loop over each var
   # as varfrom/to. I think that might have overhead to communicate with the API,
-  # but splitting up means creating additional paramlists
+  # but splitting up means creating additional api_body_lists
 
   derived <- c('140', '141')
 
@@ -79,7 +79,7 @@ get_ts_traces <- function(state = "victoria",
   # if only asking for derived, bypass
   if (noderiv_list != "") {
     # build the list for the non-derived
-    paramlist = list("function" = 'get_ts_traces',
+    api_body_list = list("function" = 'get_ts_traces',
                      "version" = "2",
                      "params" = list("site_list" = site_list,
                                      "start_time" = start_time,
@@ -91,7 +91,7 @@ get_ts_traces <- function(state = "victoria",
                                      "multiplier" = multiplier))
 
     # hit the api
-    response_body <- get_response(baseURL, paramlist)
+    response_body <- get_response(baseURL, api_body_list)
 
     # clean up with a function because so ugly
     bodytib <- clean_trace_list(response_body, data_type)

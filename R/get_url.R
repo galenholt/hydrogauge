@@ -15,14 +15,23 @@ get_url <- function(state) {
    baseURL <- "https://data.water.vic.gov.au/cgi/webservice.exe?"
  }
 
-  if (grepl('nsw', state, ignore.case = TRUE) |
-      grepl('new', state, ignore.case = TRUE) |
-      grepl('wales', state, ignore.case = TRUE)) {
+  if (grepl('nsw', state, ignore.case = TRUE)) {
     baseURL <- "https://realtimedata.waternsw.com.au/cgi/webservice.exe?"
   }
 
   if (grepl('q', state, ignore.case = TRUE)) {
     baseURL <- "https://water-monitoring.information.qld.gov.au/cgi/webservice.exe?"
+  }
+
+
+  state_pattern <- "(vic|nsw|qld)"
+  if (!grepl(state_pattern, state, ignore.case = TRUE) |
+      grepl('bom', state, ignore.case = TRUE)) {
+
+    if (!grepl('bom', state, ignore.case = TRUE)) {
+      rlang::inform(glue::glue("Asking for state = {state}, which is not a supported option ('vic', 'nsw', 'qld', or 'bom'). Attempting to use BOM."))
+    }
+    baseURL <- "http://www.bom.gov.au/waterdata/services"
   }
 
   return(baseURL)

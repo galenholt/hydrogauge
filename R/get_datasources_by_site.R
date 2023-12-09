@@ -18,13 +18,13 @@ get_datasources_by_site <- function(state = "victoria",
   # site_list needs to be a comma separated length-1 vector
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
 
-  # The json request needs a paramlist
-  paramlist <- list("function" = 'get_datasources_by_site',
+  # The json request needs a api_body_list
+  api_body_list <- list("function" = 'get_datasources_by_site',
                     "version" = "1",
                     "params" = list("site_list" = site_list))
 
   # hit the api
-  response_body <- get_response(baseURL, paramlist)
+  response_body <- get_response(baseURL, api_body_list)
 
 
   # unpack the list
@@ -57,13 +57,13 @@ get_sites_by_datasource <- function(state = "Victoria",
 
   baseURL <- get_url(state)
 
-  # The json request needs a paramlist
-  paramlist <- list("function" = 'get_sites_by_datasource',
+  # The json request needs a api_body_list
+  api_body_list <- list("function" = 'get_sites_by_datasource',
                     "version" = "1",
                     "params" = list("datasources" = datasources))
 
   # hit the api
-  response_body <- get_response(baseURL, paramlist)
+  response_body <- get_response(baseURL, api_body_list)
 
 
   # unpack the list

@@ -1,6 +1,6 @@
 test_that("single variable ts works", {
   s1 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
-                     paramlist = list("function" = 'get_ts_traces',
+                     api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',
                                                       "start_time" = 20200101,
@@ -23,7 +23,7 @@ test_that("single variable ts works", {
 
 test_that("multiple variables work for ts", {
   s2 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
-                     paramlist = list("function" = 'get_ts_traces',
+                     api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',
                                                       "start_time" = 20200101,
@@ -40,7 +40,7 @@ test_that("multiple variables work for ts", {
 
 test_that("derived variables work for ts", {
   s3 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
-                     paramlist = list("function" = 'get_ts_traces',
+                     api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',
                                                       "start_time" = 20200101,
@@ -58,7 +58,7 @@ test_that("derived variables work for ts", {
 
 test_that("derived variables work for ts", {
   s3 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
-                     paramlist = list("function" = 'get_ts_traces',
+                     api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',
                                                       "start_time" = 20200101,
@@ -76,11 +76,11 @@ test_that("derived variables work for ts", {
 
 test_that("HTTP errors handled", {
   expect_error(s_stop <- get_response("http://httpbin.org/404",
-                     paramlist = list(dummy = 'testlist'),
+                     api_body_list = list(dummy = 'testlist'),
                      .errorhandling = 'stop'))
 
   s_pass <- get_response("http://httpbin.org/404",
-                         paramlist = list(dummy = 'testlist'),
+                         api_body_list = list(dummy = 'testlist'),
                          .errorhandling = 'pass')
 
   expect_equal(s_pass, 'HTTP error number: 404 Not Found')
@@ -89,5 +89,6 @@ test_that("HTTP errors handled", {
 
 
 # I could do more with the other functions, but I think it probably makes more
-# sense to check them at the wrapper level, rather than rebuild their paramlists
+# sense to check them at the wrapper level, rather than rebuild their api_body_lists
 # here
+
