@@ -3,36 +3,37 @@
 #' All the functions have been tested most with Victoria- the other states work
 #' though, so I've built this to allow querying them too.
 #'
-#' @param state character, name of state. Currently only accepts Victoria, New
-#'   South Wales, and Queensland (and various abbreviations, e.g. NSW, QLD, Vic)
+#' @param state character, URL or name of data portal for some Australian
+#'   portals. Currently accepts names for 'vic', 'nsw', 'qld', and 'bom' (case
+#'   insensitive).
 #'
 #' @return character URL for the API request
 #' @export
 #'
 #' @examples
-get_url <- function(state) {
- if (grepl('vic', state, ignore.case = TRUE)) {
-   baseURL <- "https://data.water.vic.gov.au/cgi/webservice.exe?"
- }
+get_url <- function(state, test = TRUE) {
+  state <- tolower(state)
 
-  if (grepl('nsw', state, ignore.case = TRUE)) {
-    baseURL <- "https://realtimedata.waternsw.com.au/cgi/webservice.exe?"
-  }
+  baseURL <- dplyr::case_when(
+    grepl("http", state) ~ state,
+    state %in% c("vic", "victoria") ~ "https://data.water.vic.gov.au/cgi/webservice.exe?",
+    state %in% c("nsw", "new south wales", "newsouthwales") ~ "https://realtimedata.waternsw.com.au/cgi/webservice.exe?",
+    state %in% c("qld", "queensland") ~ "https://water-monitoring.information.qld.gov.au/cgi/webservice.exe?",
+    # state %in% c('wa', 'westernaustralia', 'western australia') ~ "https://wir.water.wa.gov.au/cgi/webservice.exe?",
+    # state %in% c('sa', 'southaustralia', 'south australia') ~ "http://www.bom.gov.au/waterdata/services",
+    state %in% c("bom", "bureau") ~ "http://www.bom.gov.au/waterdata/services"
+  )
 
-  if (grepl('q', state, ignore.case = TRUE)) {
-    baseURL <- "https://water-monitoring.information.qld.gov.au/cgi/webservice.exe?"
-  }
+  if (test) {
+    url_fail <- httr2::request(baseURL) |>
+      httr2::req_perform() |>
+      httr2::resp_is_error()
 
-
-  state_pattern <- "(vic|nsw|qld)"
-  if (!grepl(state_pattern, state, ignore.case = TRUE) |
-      grepl('bom', state, ignore.case = TRUE)) {
-
-    if (!grepl('bom', state, ignore.case = TRUE)) {
-      rlang::inform(glue::glue("Asking for state = {state}, which is not a supported option ('vic', 'nsw', 'qld', or 'bom'). Attempting to use BOM."))
+    if (url_fail) {
+      rlang::abort(glue::glue("URL not responding correctly. Check {baseURL} is the correct URL and is live."))
     }
-    baseURL <- "http://www.bom.gov.au/waterdata/services"
   }
+
 
   return(baseURL)
 }

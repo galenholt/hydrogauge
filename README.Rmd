@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 
 ## Purpose
 
-This package is designed to query the [Victorian water data](https://data.water.vic.gov.au/static.htm) API to pull gauge information (and now [NSW](https://realtimedata.waternsw.com.au/) and [QLD](https://water-monitoring.information.qld.gov.au/) but these aren't as well tested or documented). It does not have complete coverage of the available API calls, but is under active development to add functionality. Initial focus has been on identifying what is available to pull and pulling timeseries.
+This package was originally designed to query various state water gauge networks and the Australian Bureau of Meteorology (BoM) APIs. Some Australian states use [Kisters](https://resources.kisters.com.au/public/kisters-web-publishing/) Hydstra (hydllp) while the BoM uses Kisters WISKI/KiWIS. Thus, this package is likely to work for many other services use these APIs with a simple change to the URL (argument `portal`).
 
 ## Installation
 
@@ -36,6 +36,34 @@ You can install the development version of vicwater from [GitHub](https://github
 devtools::install_github("galenholt/vicwater")
 ```
 
+## Background
+
+This package was originally conceived to enable a workflow of querying to discover data availability (variables, time spans, locations), followed by pulling data based on those findings. It has sets of functions that try to be as consistent as possible with the underlying API calls to expose as much functionality as possible and avoid making too many decisions for the user. This approach also allows easier translation to the [Kisters documentation](https://kisters.com.au/doco/hydllp.htm). We do provide convenience functions (primarly `get_ts_traces2` ) that automate some of the workflow (such as querying period of record and pulling that range). With the recent inclusion of BoM gauges, it is likely that harmonized wrapper functions will be developed to allow calling both types of databases with the same arguments and returning equivalent outputs.
+
+Caveat: this package does not have complete coverage of the available API calls or their arguments, but is under active development to add missing functionality. Initial focus has been on identifying what is available to pull and pulling timeseries, along with including new data portals.
+
+### Supported sources
+
+Users can input any url for a KiWIS or HYDSTRA portal, but there are also some that can be called by name (not case sensitive):
+
+-   'vic': the [Victorian water data](https://data.water.vic.gov.au/static.htm) (API url <https://data.water.vic.gov.au/cgi/webservice.exe?>)
+
+-   'nsw' : [New South Wales water data](https://realtimedata.waternsw.com.au/) (API url <https://realtimedata.waternsw.com.au/cgi/webservice.exe?>)
+
+-   'qld': [Queensland water data](https://water-monitoring.information.qld.gov.au/) (API url <https://water-monitoring.information.qld.gov.au/cgi/webservice.exe?>)
+
+-   'bom': [Australian Bureau of Meteorology](http://www.bom.gov.au/waterdata) (API url <http://www.bom.gov.au/waterdata/services>)
+
+Other Australian states are in progress and haven't been looked into very thoroughly; for the moment, use BoM as a fallback if you don't know their API urls.
+
+-   [WA](https://wir.water.wa.gov.au/Pages/Water-Information-Reporting.aspx) seems to use HYDSTRA, but the API url hasn't been found yet.
+
+-   Unclear what [SA](https://water.data.sa.gov.au/) is using as a backend
+
+-   [Tasmania](https://portal.wrt.tas.gov.au/Data) and [NT](https://ntg.aquaticinformatics.net/Data) have maps that look a lot like BoM
+
+If you're outside Australia, just use your URL. Create an issue (or pull request) to add other named portals.
+
 ## Example
 
 ```{r setup}
@@ -43,7 +71,6 @@ library(vicwater)
 library(ggplot2)
 ```
 
-This package is designed to query the [Victorian water data](https://data.water.vic.gov.au/static.htm) API to pull gauge information. It does not have complete coverage of the available API calls, but is under active development to add functionality. Initial focus has been on identifying what is available to pull and pulling timeseries.
 
 At present, we largely assume the user will have a list of gauges they want, as the current ability to programatically obtain gauge numbers according to criteria is limited (but see `get_sites_by_datasource`, which allows asking for all sites that have a given datasource).
 
@@ -359,3 +386,9 @@ ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) +
   facet_wrap(~variable_short_name, scales = 'free') + 
   geom_line()
 ```
+
+## Similar packages
+
+The [bomWater](https://github.com/buzacott/bomWater) and [kiwisR](https://github.com/rywhale/kiwisR) packages have much of the functionality needed to call the BoM API, targeted at Australia (bomWater) and generally (kiwisR). I have learned a lot from them, and have only chosen to reimplement the BoM work because neither quite had what I needed for my workflow without being convoluted.
+
+There are similar python packages [mdba-gauge-getter](https://github.com/MDBAuth/MDBA_Gauge_Getter), which calls state and BoM, and [bomwater](github.com/csiro-hydroinformatics/pybomwater), which is the BoM interface.
