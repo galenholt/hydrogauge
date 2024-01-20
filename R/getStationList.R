@@ -3,7 +3,8 @@
 #' This is the API used by Australian Bureau of Meteorology and many others. For
 #' consistency with similar state functions using Kisters hydllp, I have kept
 #' the site_list argument with the same name. Any of the return fields can be
-#' searched though, using extra_list. The equivalent state function is [get_db_info()] (sort of).
+#' searched though, using extra_list. The equivalent state (hydllp) function is
+#' [get_db_info()] (to a close approximation).
 #'
 #' @param baseURL URL to Kisters KiWIS database. Default is Australian BOM,
 #'   www.bom.gov.au/waterdata/services, but likely works for other KiWIS
@@ -20,10 +21,11 @@
 #' @export
 #'
 #' @examples
-getStationList <- function(baseURL = "http://www.bom.gov.au/waterdata/services",
+getStationList <- function(portal,
                            site_list = NULL, returnfields = 'all',
                            extra_list = list(NULL)) {
 
+  baseURL <- get_url(portal)
 
   # site_list and returnfields need to be a comma separated length-1 vector. Ensure
   site_list <- paste(site_list, sep = ', ', collapse = ', ')

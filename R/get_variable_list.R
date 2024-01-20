@@ -10,10 +10,10 @@
 #' @examples
 #' v2 <- get_variable_list(site_list = "233217, 405328, 405331, 405837",
 #'  datasource = c('A', 'TELEM'))
-get_variable_list <- function(state = "victoria",
+get_variable_list <- function(portal,
                               site_list, datasource) {
 
-  baseURL <- get_url(state)
+  baseURL <- get_url(portal)
 
   # site_list needs to be a comma separated length-1 vector. Ensure
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
@@ -61,7 +61,7 @@ get_variable_list <- function(state = "victoria",
   if (length(datasource) > 1) {
     datasource <- datasource[-1]
     bodytib <- dplyr::bind_rows(bodytib,
-                                get_variable_list(state,
+                                get_variable_list(portal,
                                                   site_list,
                                                   datasource))
   }

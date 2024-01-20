@@ -1,6 +1,6 @@
 #' Gets timeseries for sites and variables
 #'
-#' Takes a list of sites and variables and fetches them. Variables may include
+#' Takes a list of sites and variables and fetches the timeseries. Variables may include
 #' derived and base. This is very similar to the underlying API call, and does
 #' not do very much automation of finding variables, checking times, etc. If
 #' variables are not available for a site or for given times it just silently
@@ -8,7 +8,7 @@
 #' see [get_ts_traces2], which also allows a `.errorhandling` argument.
 #'
 #'
-#' @param state character for the state (partial matching accepted). Assumes Victoria, but other states may work as well, though are untested. Used to get the API URL
+#' @param portal character for the data portal (case insensitive). Default 'victoria'
 #' @param site_list character site code, either a single site code `"sitenumber"`, comma-separated codes in a single string `"sitenumber1, sitenumber2`, or a vector of site codes `c("sitenumber1", "sitenumber2")`
 #' @param datasource character for datasource code. To my knowledge, options are `"A"`, `"TELEM"`, `"TELEMCOPY"`. Passing multiple not currently supported.
 #' @param var_list character vector of variable codes. Needs to be either single code or vector (`c("code1", "code2")`), *not* a comma-separated string
@@ -38,7 +38,7 @@
 #' multiplier = 1, returnformat = 'df')
 
 
-get_ts_traces <- function(state = "victoria",
+get_ts_traces <- function(portal,
                           site_list,
                           datasource = 'A',
                           var_list = c('100', '140'),
@@ -49,7 +49,7 @@ get_ts_traces <- function(state = "victoria",
                           multiplier = 1,
                           returnformat = 'df') {
 
-  baseURL <- get_url(state)
+  baseURL <- get_url(portal)
 
   # clean up the start and end times.
   start_time <- fix_times(start_time)
@@ -258,7 +258,7 @@ clean_trace_list <- function(responsebody, data_type, gauge = NA, .errorhandling
 #'
 #' @examples
 
-get_ts_traces2 <- function(state = "victoria",
+get_ts_traces2 <- function(portal,
                            site_list,
                            datasource = 'A',
                            var_list = c('100', '140'),
@@ -269,7 +269,7 @@ get_ts_traces2 <- function(state = "victoria",
                            multiplier = 1,
                            returnformat = 'df',
                            .errorhandling = 'stop') {
-  baseURL <- get_url(state)
+  baseURL <- get_url(portal)
 
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 

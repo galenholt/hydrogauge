@@ -10,10 +10,10 @@
 #'
 #' @examples
 #' checkdata <- get_datasources_by_site(site_list = "233217, 405328, 405331, 405837")
-get_datasources_by_site <- function(state = "victoria",
+get_datasources_by_site <- function(portal,
                                     site_list) {
 
-  baseURL <- get_url(state)
+  baseURL <- get_url(portal)
 
   # site_list needs to be a comma separated length-1 vector
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
@@ -52,10 +52,10 @@ get_datasources_by_site <- function(state = "victoria",
 #'
 #' @examples
 #' sxd <- get_sites_by_datasource(datasources = c('A', 'TELEM'))
-get_sites_by_datasource <- function(state = "Victoria",
+get_sites_by_datasource <- function(portal,
                                     datasources) {
 
-  baseURL <- get_url(state)
+  baseURL <- get_url(portal)
 
   # The json request needs a api_body_list
   api_body_list <- list("function" = 'get_sites_by_datasource',

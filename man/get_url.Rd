@@ -4,11 +4,12 @@
 \alias{get_url}
 \title{Returns the base of the request URL given state name}
 \usage{
-get_url(state)
+get_url(portal, test = TRUE)
 }
 \arguments{
-\item{state}{character, name of state. Currently only accepts Victoria, New
-South Wales, and Queensland (and various abbreviations, e.g. NSW, QLD, Vic)}
+\item{portal}{character, URL or name of data portal for some Australian
+portals. Currently accepts names for 'vic', 'nsw', 'qld', and 'bom' (case
+insensitive).}
 }
 \value{
 character URL for the API request

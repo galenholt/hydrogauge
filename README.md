@@ -178,7 +178,7 @@ see whether the available variables (or timeperiods) differ. I’d like to
 automate that, but haven’t yet.
 
 ``` r
-ds <- get_datasources_by_site(state = 'Vic', 
+ds <- get_datasources_by_site(portal = 'Vic', 
                               site_list = c(barwon, steavenson, 
                                             taggerty, golf))
 ```
@@ -227,7 +227,7 @@ To demonstrate with the sites above that have a range of variable types
 and starts,
 
 ``` r
-var_info <- get_variable_list(state = 'Vic', 
+var_info <- get_variable_list(portal = 'Vic', 
                               site_list = c(barwon, taggerty, 
                                             steavenson, golf), 
                               datasource = "A")
@@ -283,7 +283,7 @@ can do that in one call, even for multiple gauges. Asking here for only
 5 days to keep the demo reasonable.
 
 ``` r
-ts_days <- get_ts_traces(state = 'Vic', 
+ts_days <- get_ts_traces(portal = 'Vic', 
                          site_list = c(barwon, steavenson, taggerty, golf),
                          datasource = "A", 
                          var_list = c("100", "141", "450"),
@@ -368,7 +368,7 @@ First, the separate `get_ts_traces`. Note that again this will ignore
 gauges without the info (Barwon)
 
 ``` r
-ts_rain <- get_ts_traces(state = 'Vic', 
+ts_rain <- get_ts_traces(portal = 'Vic', 
                          site_list = c(barwon, golf), 
                          datasource = "A", 
                          var_list = c("10"),
@@ -430,7 +430,7 @@ process, but is a bit slower per call (though probably faster than
 manually running two calls?).
 
 ``` r
-ts_days2 <- get_ts_traces2(state = 'Vic', 
+ts_days2 <- get_ts_traces2(portal = 'Vic', 
                            site_list = c(barwon, steavenson, 
                                          taggerty, golf), 
                          datasource = "A", 
@@ -491,7 +491,7 @@ year of data that covers when the Taggerty was running so it’s
 interesting and plot it
 
 ``` r
-ts_daysY <- get_ts_traces2(state = 'Vic', 
+ts_daysY <- get_ts_traces2(portal = 'Vic', 
                            site_list = c(barwon, steavenson, 
                                          taggerty, golf), 
                          datasource = "A", 
@@ -565,7 +565,7 @@ work if they use Kisters Hydstra.
 Using `get_datasources_by_site` to see what datasources are available:
 
 ``` r
-nsw_ds <- get_datasources_by_site(state = 'NSW', 
+nsw_ds <- get_datasources_by_site(portal = 'NSW', 
                                   site_list = c("422028", "410007"))
 ```
 
@@ -585,7 +585,7 @@ nsw_ds
 </div>
 
 ``` r
-qld_ds <- get_datasources_by_site(state = 'QLD', 
+qld_ds <- get_datasources_by_site(portal = 'QLD', 
                                   site_list = c("423203A", "424201A"))
 ```
 
@@ -615,7 +615,7 @@ qld_ds
 Now we can `get_ts_traces` for `A`, just to keep things consistent
 
 ``` r
-nsw_ts_days <- get_ts_traces(state = 'NSW', 
+nsw_ts_days <- get_ts_traces(portal = 'NSW', 
                          site_list = c("422028", "410007"),
                          datasource = "A", 
                          var_list = c("100", "141", "450"),
@@ -640,7 +640,7 @@ ggplot(nsw_ts_days, aes(x = time, y = value, color = site_short_name)) +
 I didn’t pick very interesting examples here.
 
 ``` r
-qld_ts_days <- get_ts_traces(state = 'QLD', 
+qld_ts_days <- get_ts_traces(portal = 'QLD', 
                          site_list = c("423203A", "424201A"),
                          datasource = "A", 
                          var_list = c("100", "141", "450"),

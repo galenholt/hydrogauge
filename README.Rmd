@@ -38,9 +38,11 @@ devtools::install_github("galenholt/vicwater")
 
 ## Background
 
-This package was originally conceived to enable a workflow of querying to discover data availability (variables, time spans, locations), followed by pulling data based on those findings. It has sets of functions that try to be as consistent as possible with the underlying API calls to expose as much functionality as possible and avoid making too many decisions for the user. This approach also allows easier translation to the [Kisters documentation](https://kisters.com.au/doco/hydllp.htm). We do provide convenience functions (primarly `get_ts_traces2` ) that automate some of the workflow (such as querying period of record and pulling that range). With the recent inclusion of BoM gauges, it is likely that harmonized wrapper functions will be developed to allow calling both types of databases with the same arguments and returning equivalent outputs.
+This package was originally conceived to enable a workflow of querying to discover data availability (variables, time spans, locations), followed by pulling data based on those findings. It has sets of functions that try to be as consistent as possible with the underlying API calls to expose as much functionality as possible and avoid making too many decisions for the user. Thus, the core functions try to stay as close as possible to simple translations of arguments from R to Kisters formats, and of output JSON back to R. This approach lets us get closer to exposing the full functionality and makes for clearer mapping to the [Kisters documentation](https://kisters.com.au/doco/hydllp.htm). 
 
-Caveat: this package does not have complete coverage of the available API calls or their arguments, but is under active development to add missing functionality. Initial focus has been on identifying what is available to pull and pulling timeseries, along with including new data portals.
+We do provide convenience functions (primarly `get_ts_traces2` ) that automate some of the workflow (such as querying period of record and pulling that range). With the recent inclusion of BoM gauges, it is likely that harmonized wrapper functions will be developed to allow calling both types of databases with the same arguments and returning equivalent outputs.
+
+Caveat: while the functionality provided maps as closely as possible to the underlying API calls, that functionality is not complete. This package does not have complete coverage of the available API calls or their arguments, but is under active development to add missing capabilities. Initial focus has been on identifying what is available to pull and pulling timeseries, along with including new data portals.
 
 ### Supported sources
 
@@ -144,7 +146,7 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 To see what datasources are available for a site, use `get_datasources_by_site`. I've largely just been using "A" to test, but it's worth looking to see what datasources are available for a target site(s), and then doing the next step (finding variables) for each, to see whether the available variables (or timeperiods) differ. I'd like to automate that, but haven't yet.
 
 ```{r}
-ds <- get_datasources_by_site(state = 'Vic', 
+ds <- get_datasources_by_site(portal = 'Vic', 
                               site_list = c(barwon, steavenson, 
                                             taggerty, golf))
 ```
@@ -166,7 +168,7 @@ Assuming for the moment the user knows the gauge numbers of interest, we then ne
 To demonstrate with the sites above that have a range of variable types and starts,
 
 ```{r}
-var_info <- get_variable_list(state = 'Vic', 
+var_info <- get_variable_list(portal = 'Vic', 
                               site_list = c(barwon, taggerty, 
                                             steavenson, golf), 
                               datasource = "A")
@@ -189,7 +191,7 @@ There are a few ways to request the timeseries, and some pitfalls to avoid.
 If we just want a set of variables that all need the same statistic applied (e.g. daily mean flows), we can pass that in as a vector. For example, to get daily mean stage height, discharge, and temperature, we can do that in one call, even for multiple gauges. Asking here for only 5 days to keep the demo reasonable.
 
 ```{r}
-ts_days <- get_ts_traces(state = 'Vic', 
+ts_days <- get_ts_traces(portal = 'Vic', 
                          site_list = c(barwon, steavenson, taggerty, golf),
                          datasource = "A", 
                          var_list = c("100", "141", "450"),
@@ -223,7 +225,7 @@ Now, if we want another set of variables that should have a different statistic 
 First, the separate `get_ts_traces`. Note that again this will ignore gauges without the info (Barwon)
 
 ```{r}
-ts_rain <- get_ts_traces(state = 'Vic', 
+ts_rain <- get_ts_traces(portal = 'Vic', 
                          site_list = c(barwon, golf), 
                          datasource = "A", 
                          var_list = c("10"),
@@ -244,7 +246,7 @@ If the user wants to combine, they can `dplyr::bind_rows` to combine post-hoc.
 The other option is to use `get_ts_traces2`, which allows paired `var_list` and `data_type`, and essentially automates that gluing process, but is a bit slower per call (though probably faster than manually running two calls?).
 
 ```{r}
-ts_days2 <- get_ts_traces2(state = 'Vic', 
+ts_days2 <- get_ts_traces2(portal = 'Vic', 
                            site_list = c(barwon, steavenson, 
                                          taggerty, golf), 
                          datasource = "A", 
@@ -266,7 +268,7 @@ head(ts_days2, 30)
 I need to make some standard plots, but in the meantime, we can get a year of data that covers when the Taggerty was running so it's interesting and plot it
 
 ```{r}
-ts_daysY <- get_ts_traces2(state = 'Vic', 
+ts_daysY <- get_ts_traces2(portal = 'Vic', 
                            site_list = c(barwon, steavenson, 
                                          taggerty, golf), 
                          datasource = "A", 
@@ -320,7 +322,7 @@ I haven't done as much investigation of the datasources and similar variables, b
 Using `get_datasources_by_site` to see what datasources are available:
 
 ```{r}
-nsw_ds <- get_datasources_by_site(state = 'NSW', 
+nsw_ds <- get_datasources_by_site(portal = 'NSW', 
                                   site_list = c("422028", "410007"))
 ```
 
@@ -329,7 +331,7 @@ nsw_ds
 ```
 
 ```{r}
-qld_ds <- get_datasources_by_site(state = 'QLD', 
+qld_ds <- get_datasources_by_site(portal = 'QLD', 
                                   site_list = c("423203A", "424201A"))
 ```
 
@@ -344,7 +346,7 @@ qld_ds
 Now we can `get_ts_traces` for `A`, just to keep things consistent
 
 ```{r}
-nsw_ts_days <- get_ts_traces(state = 'NSW', 
+nsw_ts_days <- get_ts_traces(portal = 'NSW', 
                          site_list = c("422028", "410007"),
                          datasource = "A", 
                          var_list = c("100", "141", "450"),
@@ -368,7 +370,7 @@ ggplot(nsw_ts_days, aes(x = time, y = value, color = site_short_name)) +
 I didn't pick very interesting examples here.
 
 ```{r}
-qld_ts_days <- get_ts_traces(state = 'QLD', 
+qld_ts_days <- get_ts_traces(portal = 'QLD', 
                          site_list = c("423203A", "424201A"),
                          datasource = "A", 
                          var_list = c("100", "141", "450"),
@@ -392,3 +394,15 @@ ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) +
 The [bomWater](https://github.com/buzacott/bomWater) and [kiwisR](https://github.com/rywhale/kiwisR) packages have much of the functionality needed to call the BoM API, targeted at Australia (bomWater) and generally (kiwisR). I have learned a lot from them, and have only chosen to reimplement the BoM work because neither quite had what I needed for my workflow without being convoluted.
 
 There are similar python packages [mdba-gauge-getter](https://github.com/MDBAuth/MDBA_Gauge_Getter), which calls state and BoM, and [bomwater](github.com/csiro-hydroinformatics/pybomwater), which is the BoM interface.
+
+## Useful API documentation
+
+### HYDSTRA
+
+I have tried to keep the function argument names the same as in the API, and the API restricts the options to the function arguments. The API functions are documented by [Kisters](https://kisters.com.au/doco/hydllp.htm) (the creators), and there is a bit more information about options from [Queensland](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf), though there are discrepancies between states.
+
+### WISKI/KiWIS
+
+Most of the documentation I've found here is from the [Scottish Environment Protection Agency](sepa.org.uk); I have not found good docs straight from Kisters. The [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo) do seem to be available from SEPA though.
+
+A good [SEPA walkthrough](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/principal-query-functions)

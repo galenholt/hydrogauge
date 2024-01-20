@@ -3,7 +3,7 @@ doFuture::registerDoFuture()
 future::plan('multisession')
 
 test_that("ts example", {
-  simpletrace <- get_ts_traces(site_list = "233217",
+  simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = c('100', '140'),
                                start_time = '20200101', end_time = '20200105',
@@ -16,7 +16,7 @@ test_that("ts_2 example", {
   # There's a weird API error in here that I can't figure out. It says it's
   # suspended, for 140, but the above works. Must be a date interaction?
 
-  # simpletrace <- get_ts_traces2(state= 'Vic',
+  # simpletrace <- get_ts_traces2(portal = 'Vic',
   #                               site_list = "233217",
   #                               datasource = 'A',
   #                               var_list = "all",
@@ -32,7 +32,7 @@ test_that("ts_2 example", {
 test_that("errorhandling for a single site, ts2", {
 
   # gauge 412107 throws an error for this var_list
-  pass412107 <- get_ts_traces2(state = 'NSW',
+  pass412107 <- get_ts_traces2(portal = 'NSW',
                                site_list = '412107',
                                var_list = "141",
                                start_time = 'all',
@@ -46,7 +46,7 @@ test_that("errorhandling for a single site, ts2", {
   expect_s3_class(pass412107[[1]], 'tbl_df')
   expect_equal(nrow(pass412107[[1]]), 1)
 
-  expect_error(stop412107 <- get_ts_traces2(state = 'NSW',
+  expect_error(stop412107 <- get_ts_traces2(portal = 'NSW',
                                             site_list = '412107',
                                             var_list = "141",
                                             start_time = 'all',
@@ -57,7 +57,7 @@ test_that("errorhandling for a single site, ts2", {
                                             .errorhandling = 'stop'))
 
 
-  remove412107 <- get_ts_traces2(state = 'NSW',
+  remove412107 <- get_ts_traces2(portal = 'NSW',
                                  site_list = '412107',
                                  var_list = "141",
                                  start_time = 'all',
@@ -74,7 +74,7 @@ test_that("errorhandling for a single site, ts2", {
 test_that("errorhandling appends correctly", {
 
   # gauge 412107 throws an error for this var_list
-  pass3 <- get_ts_traces2(state = 'NSW',
+  pass3 <- get_ts_traces2(portal = 'NSW',
                           site_list = c('422028', '412107', '410007'),
                           var_list = "141",
                           start_time = 'all',
@@ -95,7 +95,7 @@ test_that("errorhandling appends correctly", {
 
 
 
-  expect_error(stop3 <- get_ts_traces2(state = 'NSW',
+  expect_error(stop3 <- get_ts_traces2(portal = 'NSW',
                                        site_list = c('422028', '412107', '410007'),
                                        var_list = "141",
                                        start_time = 'all',
@@ -106,7 +106,7 @@ test_that("errorhandling appends correctly", {
                                        .errorhandling = 'stop'))
 
 
-  remove3 <- get_ts_traces2(state = 'NSW',
+  remove3 <- get_ts_traces2(portal = 'NSW',
                             site_list = c('422028', '412107', '410007'),
                             var_list = "141",
                             start_time = 'all',
@@ -131,7 +131,7 @@ test_that("ts either errors or works", {
   # I haven't implemented .errorhandling here.
 
   # gauge 412107 throws an error for this var_list
-  expect_error(pass412107 <- get_ts_traces(state = 'NSW',
+  expect_error(pass412107 <- get_ts_traces(portal = 'NSW',
                                            site_list = '412107',
                                            var_list = "141",
                                            start_time = '20200101',
@@ -140,7 +140,7 @@ test_that("ts either errors or works", {
                                            data_type = 'mean',
                                            returnformat = 'sitelist'))
 
-  working_ts <- get_ts_traces(state = 'NSW',
+  working_ts <- get_ts_traces(portal = 'NSW',
                               site_list = c('422028', '410007'),
                               var_list = "141",
                               start_time = '20200101',
@@ -168,14 +168,14 @@ test_that('HTTP errors work correctly for one gauge', {
   skip("The error that previously triggered these tests no longer occurs. Finding another one will be trial and error, skip until that happens, assuming it still works as it did.")
   # This site returns a 504 Gateway timeout for 'CP'
   # This is an idiosyncratic error, so I might have to
-  # do something different here like bypass `state` somehow.
+  # do something different here like bypass `portal` somehow.
 
   # I could feed it "http://httpbin.org/404" as in test-get_response, but this
   # needs to ensure the outputs can line up with other sites, so it's harder to
   # set that up
 
   # Should error with 'stop'
-  expect_error(man16_s <- get_ts_traces2(state = 'NSW',
+  expect_error(man16_s <- get_ts_traces2(portal = 'NSW',
                           site_list = '412038',
                           var_list = "141",
                           start_time = 'all',
@@ -187,7 +187,7 @@ test_that('HTTP errors work correctly for one gauge', {
                           .errorhandling = 'stop'))
 
   # Should return a simple tibble with no info if 'pass'
-  man16_p <- get_ts_traces2(state = 'NSW',
+  man16_p <- get_ts_traces2(portal = 'NSW',
                           site_list = '412038',
                           var_list = "141",
                           start_time = 'all',
@@ -202,7 +202,7 @@ test_that('HTTP errors work correctly for one gauge', {
   expect_equal(man16_p[[1]]$error_msg, 'HTTP error number: 504 Gateway Timeout')
 
   # should return NULL and leave a message if 'remove'
-  expect_message(man16_r <- get_ts_traces2(state = 'NSW',
+  expect_message(man16_r <- get_ts_traces2(portal = 'NSW',
                             site_list = '412038',
                             var_list = "141",
                             start_time = 'all',
@@ -225,14 +225,14 @@ test_that('HTTP errors work correctly for multiple gauges', {
 
 
   # It's entirely possible this is an idiosyncratic error, so I might have to
-  # do something different here like bypass `state` somehow.
+  # do something different here like bypass `portal` somehow.
 
   # I could feed it "http://httpbin.org/404" as in test-get_response, but this
   # needs to ensure the outputs can line up with other sites, so it's harder to
   # set that up
 
   # Should error with 'stop'
-  expect_error(man16_s <- get_ts_traces2(state = 'NSW',
+  expect_error(man16_s <- get_ts_traces2(portal = 'NSW',
                                          site_list = c('412038', '416072'),
                                          var_list = "141",
                                          start_time = 'all',
@@ -244,7 +244,7 @@ test_that('HTTP errors work correctly for multiple gauges', {
                                          .errorhandling = 'stop'))
 
   # Should return a simple tibble with no info if 'pass', but second should be unaffected
-  man16_p <- get_ts_traces2(state = 'NSW',
+  man16_p <- get_ts_traces2(portal = 'NSW',
                             site_list = c('412038', '416072'),
                             var_list = "141",
                             start_time = 'all',
@@ -265,7 +265,7 @@ test_that('HTTP errors work correctly for multiple gauges', {
   expect_gt(nrow(man16_p[[2]]), 4000)
 
   # should return NULL and leave a message if 'remove'
-  man16_r <- get_ts_traces2(state = 'NSW',
+  man16_r <- get_ts_traces2(portal = 'NSW',
                                            site_list = c('412038', '416072'),
                                            var_list = "141",
                                            start_time = 'all',

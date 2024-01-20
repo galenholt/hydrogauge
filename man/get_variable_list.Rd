@@ -4,10 +4,10 @@
 \alias{get_variable_list}
 \title{Gets the variables for sites and datasources}
 \usage{
-get_variable_list(state = "victoria", site_list, datasource)
+get_variable_list(portal, site_list, datasource)
 }
 \arguments{
-\item{state}{character for the state (partial matching accepted). Assumes Victoria, but other states may work as well, though are untested. Used to get the API URL}
+\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
 
 \item{site_list}{character site code, either a single site code \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
 

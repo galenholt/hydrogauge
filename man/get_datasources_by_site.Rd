@@ -4,10 +4,10 @@
 \alias{get_datasources_by_site}
 \title{Gets the available datasources for each site}
 \usage{
-get_datasources_by_site(state = "victoria", site_list)
+get_datasources_by_site(portal, site_list)
 }
 \arguments{
-\item{state}{character for the state (partial matching accepted). Assumes Victoria, but other states may work as well, though are untested. Used to get the API URL}
+\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
 
 \item{site_list}{character site code, either a single site code \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
 }

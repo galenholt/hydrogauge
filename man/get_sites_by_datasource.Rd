@@ -4,10 +4,10 @@
 \alias{get_sites_by_datasource}
 \title{Gets sites that have a given datasource}
 \usage{
-get_sites_by_datasource(state = "Victoria", datasources)
+get_sites_by_datasource(portal, datasources)
 }
 \arguments{
-\item{state}{character for the state (partial matching accepted). Assumes Victoria, but other states may work as well, though are untested. Used to get the API URL}
+\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
 
 \item{datasources}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
 }

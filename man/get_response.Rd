@@ -4,7 +4,12 @@
 \alias{get_response}
 \title{The actual API call}
 \usage{
-get_response(baseURL, api_body_list, .errorhandling = "stop")
+get_response(
+  baseURL,
+  api_body_list = NULL,
+  api_query_list = list(nullquery = NULL),
+  .errorhandling = "stop"
+)
 }
 \arguments{
 \item{baseURL}{character URL that the request gets appended to}

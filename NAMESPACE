@@ -2,6 +2,7 @@
 
 export(api_error_catch)
 export(clean_trace_list)
+export(getStationList)
 export(get_datasources_by_site)
 export(get_groups)
 export(get_response)

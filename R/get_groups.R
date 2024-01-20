@@ -10,10 +10,10 @@
 #' @export
 #'
 #' @examples
-get_groups <- function(state = "victoria",
+get_groups <- function(portal,
                        site_list) {
 
-  baseURL <- get_url(state)
+  baseURL <- get_url(portal)
   # site_list needs to be a comma separated length-1 vector
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
 

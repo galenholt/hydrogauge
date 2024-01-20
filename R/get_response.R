@@ -51,7 +51,7 @@ get_response <- function(baseURL, api_body_list = NULL,
  response_body <- response_body |>
     httr2::resp_body_json(check_type = FALSE)
 
- # The states use api_body_list, and return some API errors in the JSON, but BOM
+ # The states (hydllp) use api_body_list, and return some API errors in the JSON, but BOM
  # has a different JSON structure, so skip if BOM (which uses api_query_list)
  if (!is.null(api_body_list)) {
    response_body <- api_error_catch(response_body, .errorhandling = .errorhandling)
