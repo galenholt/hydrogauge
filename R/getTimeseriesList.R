@@ -1,34 +1,33 @@
-#' getStationList API call to Kisters KiWIS API
+#' Get the list of timeseries available
 #'
 #' This is the API used by Australian Bureau of Meteorology and many others. For
 #' consistency with similar state functions using Kisters hydllp, I have kept
 #' the site_list argument with the same name. Any of the return fields can be
 #' searched though, using extra_list. The equivalent state (hydllp) function is
-#' [get_db_info()] (to a close approximation).
+#' [get_variable_list()] (to a close approximation).
+#' The available return fields (and thus factors that can be filtered) are
+#' `'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'parametertype_id', 'parametertype_name'`, where the `site_list` argument matches `station_no` for consistency across state functions.
+#' There is an additional `returnfield` option, `coverage`, which returns the period of record.
 #'
-#' @param portal URL to Kisters KiWIS database. Default is Australian BOM,
-#'   www.bom.gov.au/waterdata/services, but likely works for other KiWIS
-#' @param site_list gauge numbers, as in all other functions. Converted to
-#'   `station_no` internally, since that is what BOM uses.
-#' @param returnfields default 'all', otherwise comma-separated string of fields
-#'   to return
-#' @param extra_list a named list of other fields to select on. Names should be
-#'   in `returnfields` (or returned when `returnfields = 'all'`), values should
-#'   be comma-separated characters, and can contain grep wildcards e.g.
-#'   `extra_list = list(station_name = 'RIVER MURRAY*)`
 #'
-#' @return
+#' @inheritParams getStationList
+#'
+#' @return A tibble of information about available timeseries
 #' @export
 #'
 #' @examples
-getStationList <- function(portal,
-                           site_list = NULL, returnfields = 'all',
-                           extra_list = list(NULL)) {
-
+getTimeseriesList <- function(portal,
+                              site_list = NULL,
+                              returnfields = 'all',
+                              extra_list = list(NULL)) {
   baseURL <- get_url(portal)
 
   # site_list and returnfields need to be a comma separated length-1 vector. Ensure
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
+
+  if (length(returnfields) == 1 && returnfields == 'all') {
+    returnfields <- c('station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'parametertype_id', 'parametertype_name', 'coverage')
+  }
 
   returnfields <- paste(returnfields, sep = ', ', collapse = ', ')
 
@@ -38,7 +37,7 @@ getStationList <- function(portal,
   api_query_list <- list(service = "kisters",
                          datasource = 0, # presumably there are others, but this is in all the documentation.
                          type = "queryServices",
-                         request = "getStationList",
+                         request = "getTimeseriesList",
                          kvp = 'true',
                          format = "json",
                          returnfields = returnfields)
@@ -64,6 +63,10 @@ getStationList <- function(portal,
     tidyr::unnest_wider(col = 1, names_sep = '_') |>
     setNames(tibnames)
 
-  return(bodytib)
+  # make times times- the returned values give the tz, which will vary across the basin. lubridate puts them all in UTC which is likely best anyway for consistency.
+  bodytib <- bodytib |>
+    dplyr::mutate(from = lubridate::ymd_hms(from),
+                  to = lubridate::ymd_hms(to))
 
+  return(bodytib)
 }
