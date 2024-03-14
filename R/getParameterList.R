@@ -1,10 +1,10 @@
 getParameterList <- function(portal,
-                             site_list = NULL, returnfields = 'all',
+                             station_no = NULL, returnfields = 'all',
                              extra_list = list(NULL)) {
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
-  # site_list and returnfields need to be a comma separated length-1 vector. Ensure
-  site_list <- paste(site_list, sep = ', ', collapse = ', ')
+  # station_no and returnfields need to be a comma separated length-1 vector. Ensure
+  station_no <- paste(station_no, sep = ', ', collapse = ', ')
 
   if (length(returnfields) == 1 && returnfields == 'all') {
     returnfields <- c('')
@@ -23,12 +23,12 @@ getParameterList <- function(portal,
                          format = "json",
                          returnfields = returnfields)
 
-  # I seem to assume that there is always a site_list. I guess if not I should
+  # I seem to assume that there is always a station_no. I guess if not I should
   # bypass? There are other things I could add to the list here, e.g.
   # station_name, station_id. I don't for the states, so keep it consistent for
   # now? That lack of flexibility in other packages though is a reason I'm
   # writing this myself, so maybe I should do better?
-  api_query_list$station_no <- site_list
+  api_query_list$station_no <- station_no
 
   api_query_list <- modifyList(api_query_list, extra_list)
 

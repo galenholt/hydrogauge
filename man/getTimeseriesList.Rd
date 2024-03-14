@@ -6,8 +6,8 @@
 \usage{
 getTimeseriesList(
   portal,
-  site_list = NULL,
-  returnfields = "all",
+  station_no = NULL,
+  returnfields = "default",
   extra_list = list(NULL)
 )
 }
@@ -15,16 +15,15 @@ getTimeseriesList(
 \item{portal}{URL to Kisters KiWIS database. Default is Australian BOM,
 www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 
-\item{site_list}{gauge numbers, as in all other functions. Converted to
-\code{station_no} internally, since that is what BOM uses.}
+\item{station_no}{gauge numbers, as \code{site_list} in the hydllp functions. There are many other fields that can be used to filter and select records, but this seems to be most common and so we give it special treatment. For others, use see \code{extra_list}}
 
-\item{returnfields}{default 'all', otherwise comma-separated string of fields
-to return}
+\item{returnfields}{default 'default', otherwise 'all' to get everything available, or comma-separated string of fields
+to return. Full list for each function available from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}}
 
-\item{extra_list}{a named list of other fields to select on. Names should be
-in \code{returnfields} (or returned when \code{returnfields = 'all'}), values should
-be comma-separated characters, and can contain grep wildcards e.g.
-\verb{extra_list = list(station_name = 'RIVER MURRAY*)}}
+\item{extra_list}{a named list of other fields to select on. Names (usually) should be
+in \code{returnfields} (or returned when \code{returnfields = 'all'}), though not all work- see the queryfields in the \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}.
+Values should be comma-separated characters, and can contain grep wildcards e.g.
+\verb{extra_list = list(station_name = 'RIVER MURRAY*)}. Can also use groups from \code{\link[=getGroupList]{getGroupList()}}, e.g. \code{extra_list = list(stationgroup_id = '20017550')} gets the MDB_WIP_Watercourse stations.}
 }
 \value{
 A tibble of information about available timeseries
@@ -32,11 +31,11 @@ A tibble of information about available timeseries
 \description{
 This is the API used by Australian Bureau of Meteorology and many others. For
 consistency with similar state functions using Kisters hydllp, I have kept
-the site_list argument with the same name. Any of the return fields can be
+the station_no argument with the same name. Any of the return fields can be
 searched though, using extra_list. The equivalent state (hydllp) function is
 \code{\link[=get_variable_list]{get_variable_list()}} (to a close approximation).
 The available return fields (and thus factors that can be filtered) are
-\verb{'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name'}, where the \code{site_list} argument matches \code{station_no} for consistency across state functions.
+\verb{'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name'}, where the \code{station_no} argument matches \code{station_no} for consistency across state functions.
 There is an additional \code{returnfield} option, \code{coverage}, which returns the period of record.
 There may be additional undocumented returnfield options; it appears that most of what is returned by \code{getStationList} is available, e.g. 'station_latitude'
 }

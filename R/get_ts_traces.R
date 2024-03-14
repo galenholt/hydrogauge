@@ -49,7 +49,7 @@ get_ts_traces <- function(portal,
                           multiplier = 1,
                           returnformat = 'df') {
 
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   # clean up the start and end times.
   start_time <- fix_times(start_time)
@@ -267,7 +267,7 @@ get_ts_traces2 <- function(portal,
                            multiplier = 1,
                            returnformat = 'df',
                            .errorhandling = 'stop') {
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 

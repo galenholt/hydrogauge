@@ -13,7 +13,7 @@
 get_datasources_by_site <- function(portal,
                                     site_list) {
 
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   # site_list needs to be a comma separated length-1 vector
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
@@ -55,7 +55,7 @@ get_datasources_by_site <- function(portal,
 get_sites_by_datasource <- function(portal,
                                     datasources) {
 
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   # The json request needs a api_body_list
   api_body_list <- list("function" = 'get_sites_by_datasource',

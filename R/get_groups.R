@@ -12,7 +12,7 @@
 get_groups <- function(portal,
                        site_list) {
 
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
   # site_list needs to be a comma separated length-1 vector
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
 

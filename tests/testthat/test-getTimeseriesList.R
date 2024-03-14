@@ -1,5 +1,5 @@
 test_that("simple works", {
-  bomout <- getTimeseriesList(portal = 'bom', site_list = c('410730', 'A4260505'))
+  bomout <- getTimeseriesList(portal = 'bom', station_no = c('410730', 'A4260505'))
   expect_snapshot(names(bomout))
   expect_equal(nrow(bomout), 200)
 
@@ -23,7 +23,7 @@ test_that("more returnfields", {
   # I get http 500 errors unless I cut to
   sub_return <- all_return[c(1:34, 37:40)]
   bomout <- getTimeseriesList(portal = 'bom',
-                              site_list = c('410730', 'A4260505'),
+                              station_no = c('410730', 'A4260505'),
                               returnfields =  sub_return)
   expect_snapshot(names(bomout))
   expect_equal(nrow(bomout), 200)

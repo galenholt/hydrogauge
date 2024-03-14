@@ -10,7 +10,7 @@
 #' @return character URL for the API request
 #' @export
 #'
-get_url <- function(portal, test = TRUE) {
+parse_url <- function(portal, test = TRUE) {
   portal <- tolower(portal)
 
   baseURL <- dplyr::case_when(

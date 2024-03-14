@@ -30,14 +30,14 @@ www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 
 \item{period}{character, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See \href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}}
 
-\item{returnfields}{return fields for the data itself. Default is \code{c('Timestamp', 'Value', 'Quality Code')}, which seems to be all of them, but there may be undocumented.}
+\item{returnfields}{return fields for the data itself. Default is \code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
-\item{meta_returnfields}{return fields about the variable and site. seems to be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its \code{returnfields}}
+\item{meta_returnfields}{return fields about the variable and site. seems to be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its \code{returnfields}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
-\item{extra_list}{a named list of other fields to select on. Names should be
-in \code{returnfields} (or returned when \code{returnfields = 'all'}), values should
-be comma-separated characters, and can contain grep wildcards e.g.
-\verb{extra_list = list(station_name = 'RIVER MURRAY*)}}
+\item{extra_list}{a named list of other fields to select on. Names (usually) should be
+in \code{returnfields} (or returned when \code{returnfields = 'all'}), though not all work- see the queryfields in the \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}.
+Values should be comma-separated characters, and can contain grep wildcards e.g.
+\verb{extra_list = list(station_name = 'RIVER MURRAY*)}. Can also use groups from \code{\link[=getGroupList]{getGroupList()}}, e.g. \code{extra_list = list(stationgroup_id = '20017550')} gets the MDB_WIP_Watercourse stations.}
 }
 \value{
 a tibble of the timeseries values. Times are in UTC.

@@ -13,7 +13,7 @@
 get_variable_list <- function(portal,
                               site_list, datasource) {
 
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   # site_list needs to be a comma separated length-1 vector. Ensure
   site_list <- paste(site_list, sep = ', ', collapse = ', ')

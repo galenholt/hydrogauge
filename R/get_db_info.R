@@ -3,7 +3,7 @@ get_db_info <- function(portal,
                         station_filter,
                         return_type = "hash") {
 
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   # The json request needs a api_body_list
   api_body_list <- list("function" = 'get_db_info',

@@ -10,7 +10,7 @@
 #' @export
 #'
 getGroupList <- function(portal) {
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   api_query_list <- list(service = "kisters",
                          datasource = 0, # presumably there are others, but this is in all the documentation.

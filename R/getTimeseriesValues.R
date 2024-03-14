@@ -47,7 +47,7 @@ getTimeseriesValues <- function(portal,
   # that they are local, but then I return UTC. need to clean that up. Specify
   # start and end as in get_ts_traces for consistency
 
-  baseURL <- get_url(portal)
+  baseURL <- parse_url(portal)
 
   # Set defaults. For some reason getting the API default differs between returnfields and meta_returnfields
   if (length(returnfields) == 1 && returnfields == 'all') {
