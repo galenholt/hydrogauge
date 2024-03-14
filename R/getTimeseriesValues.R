@@ -11,8 +11,8 @@
 #' @param start_time character or date or date time for the start. Default NULL.
 #' @param end_time character or date or date time for the end. Default NULL.
 #' @param period character, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See [documentation](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/)
-#' @param returnfields return fields for the data itself. Default is `c('Timestamp', 'Value', 'Quality Code')`, which seems to be all of them, but there may be undocumented.
-#' @param meta_returnfields return fields about the variable and site. seems to be able to access most of what [getTimeseriesList()] has in its `returnfields`
+#' @param returnfields return fields for the data itself. Default is `c('Timestamp', 'Value', 'Quality Code')`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
+#' @param meta_returnfields return fields about the variable and site. seems to be able to access most of what [getTimeseriesList()] has in its `returnfields`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
 #'
 #' @return a tibble of the timeseries values. Times are in UTC.
 #' @export

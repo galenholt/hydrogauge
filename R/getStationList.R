@@ -10,24 +10,32 @@
 #'   www.bom.gov.au/waterdata/services, but likely works for other KiWIS
 #' @param site_list gauge numbers, as in all other functions. Converted to
 #'   `station_no` internally, since that is what BOM uses.
-#' @param returnfields default 'all', otherwise comma-separated string of fields
-#'   to return
-#' @param extra_list a named list of other fields to select on. Names should be
-#'   in `returnfields` (or returned when `returnfields = 'all'`), values should
-#'   be comma-separated characters, and can contain grep wildcards e.g.
-#'   `extra_list = list(station_name = 'RIVER MURRAY*)`
+#' @param returnfields default 'default', otherwise 'all' to get everything available, or comma-separated string of fields
+#'   to return. Full list for each function available from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo)
+#' @param extra_list a named list of other fields to select on. Names (usually) should be
+#'   in `returnfields` (or returned when `returnfields = 'all'`), though not all work- see the queryfields in the [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo).
+#'   Values should be comma-separated characters, and can contain grep wildcards e.g.
+#'   `extra_list = list(station_name = 'RIVER MURRAY*)`. Can also use groups from [getGroupList()], e.g. `extra_list = list(stationgroup_id = '20017550')` gets the MDB_WIP_Watercourse stations.
 #'
 #' @return a tibble
 #' @export
 #'
 getStationList <- function(portal,
-                           site_list = NULL, returnfields = 'all',
+                           site_list = NULL,
+                           returnfields = 'default',
                            extra_list = list(NULL)) {
 
   baseURL <- get_url(portal)
 
   # site_list and returnfields need to be a comma separated length-1 vector. Ensure
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
+
+  if (length(returnfields) == 1 && returnfields == 'all') {
+    returnfields <- c('station_no', 'station_id', 'station_uuid', 'station_name', 'catchment_no', 'catchment_id', 'catchment_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'site_no', 'site_id', 'site_uuid', 'site_name', 'parametertype_id', 'parametertype_name', 'parametertype_shortname', 'stationparameter_name', 'stationparameter_no', 'stationparameter_id', 'parametertype_longname', 'object_type', 'object_type_shortname', 'station_georefsystem', 'station_longname', 'station_area_wkt', 'station_area_wkt_org', 'river_id', 'river_name', 'area_id', 'area_name', 'ca_site', 'ca_sta')
+  }
+  if (length(returnfields == 1 && returnfields == 'default')) {
+    returnfields <- c('station_no', 'station_id', 'station_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'site_no', 'site_id', 'site_name', 'parametertype_id', 'parametertype_name', 'parametertype_shortname', 'stationparameter_name', 'stationparameter_no', 'stationparameter_id', 'parametertype_longname', 'object_type', 'object_type_shortname', 'station_georefsystem', 'station_longname')
+  }
 
   returnfields <- paste(returnfields, sep = ', ', collapse = ', ')
 

@@ -18,7 +18,7 @@
 #'
 getTimeseriesList <- function(portal,
                               site_list = NULL,
-                              returnfields = 'all',
+                              returnfields = 'default',
                               extra_list = list(NULL)) {
   baseURL <- get_url(portal)
 
@@ -26,7 +26,10 @@ getTimeseriesList <- function(portal,
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
 
   if (length(returnfields) == 1 && returnfields == 'all') {
-    returnfields <- c('station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name', 'coverage')
+    returnfields <- c('station_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'station_georefsystem', 'station_longname', 'ts_id', 'ts_name', 'ts_shortname', 'ts_path', 'ts_type_id', 'ts_type_name', 'parametertype_id', 'parametertype_name', 'stationparameter_name', 'stationparameter_no', 'stationparameter_longname', 'ts_unitname', 'ts_unitsymbol', 'ts_unitname_abs', 'ts_unitsymbol_abs', 'site_no', 'site_id', 'site_name', 'catchment_no', 'catchment_id', 'catchment_name', 'coverage', 'ts_density', 'ts_exchange', 'ts_spacing', 'ca_site', 'ca_sta', 'ca_par', 'ca_ts')
+  }
+  if (length(returnfields == 1 && returnfields == 'default')) {
+    returnfields <- c('station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_unitname', 'ts_unitsymbol', 'ts_path', 'parametertype_id', 'parametertype_name', 'stationparameter_name', 'coverage')
   }
 
   returnfields <- paste(returnfields, sep = ', ', collapse = ', ')
@@ -63,10 +66,13 @@ getTimeseriesList <- function(portal,
     tidyr::unnest_wider(col = 1, names_sep = '_') |>
     setNames(tibnames)
 
-  # make times times- the returned values give the tz, which will vary across the basin. lubridate puts them all in UTC which is likely best anyway for consistency.
-  bodytib <- bodytib |>
-    dplyr::mutate(from = lubridate::ymd_hms(from),
-                  to = lubridate::ymd_hms(to))
+  # make times times- the returned values give the tz, which will vary across the basin. lubridate puts them all in UTC which is maybe not expected.
+  if (grepl('coverage', returnfields)) {
+    bodytib <- bodytib |>
+      dplyr::mutate(from = lubridate::ymd_hms(from),
+                    to = lubridate::ymd_hms(to))
+  }
+
 
   return(bodytib)
 }

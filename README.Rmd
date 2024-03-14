@@ -403,6 +403,6 @@ I have tried to keep the function argument names the same as in the API, and the
 
 ### WISKI/KiWIS
 
-Most of the documentation I've found here is from the [Scottish Environment Protection Agency](sepa.org.uk); I have not found good docs straight from Kisters. The [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo) do seem to be available from SEPA though.
+Most of the documentation I've found here is from the [Scottish Environment Protection Agency](sepa.org.uk); I have not found good docs straight from Kisters. The [Kisters docs themselves](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo) do seem to be available from SEPA though. These provide information about available functions, allowed variables to request, etc.
 
 A good [SEPA walkthrough](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/principal-query-functions)
