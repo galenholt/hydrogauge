@@ -10,7 +10,6 @@
 #' @return character URL for the API request
 #' @export
 #'
-#' @examples
 get_url <- function(portal, test = TRUE) {
   portal <- tolower(portal)
 

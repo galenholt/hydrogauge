@@ -6,8 +6,9 @@
 #' searched though, using extra_list. The equivalent state (hydllp) function is
 #' [get_variable_list()] (to a close approximation).
 #' The available return fields (and thus factors that can be filtered) are
-#' `'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'parametertype_id', 'parametertype_name'`, where the `site_list` argument matches `station_no` for consistency across state functions.
+#' `'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name'`, where the `site_list` argument matches `station_no` for consistency across state functions.
 #' There is an additional `returnfield` option, `coverage`, which returns the period of record.
+#' There may be additional undocumented returnfield options; it appears that most of what is returned by `getStationList` is available, e.g. 'station_latitude'
 #'
 #'
 #' @inheritParams getStationList
@@ -15,7 +16,6 @@
 #' @return A tibble of information about available timeseries
 #' @export
 #'
-#' @examples
 getTimeseriesList <- function(portal,
                               site_list = NULL,
                               returnfields = 'all',
@@ -26,7 +26,7 @@ getTimeseriesList <- function(portal,
   site_list <- paste(site_list, sep = ', ', collapse = ', ')
 
   if (length(returnfields) == 1 && returnfields == 'all') {
-    returnfields <- c('station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'parametertype_id', 'parametertype_name', 'coverage')
+    returnfields <- c('station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name', 'coverage')
   }
 
   returnfields <- paste(returnfields, sep = ', ', collapse = ', ')

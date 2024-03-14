@@ -54,7 +54,7 @@ get_ts_traces(
 tibble(s) with requested variables at requested sites (where they exist). See \code{returnformat}, either a tibble or list of tibbles
 }
 \description{
-Takes a list of sites and variables and fetches them. Variables may include
+Takes a list of sites and variables and fetches the timeseries. Variables may include
 derived and base. This is very similar to the underlying API call, and does
 not do very much automation of finding variables, checking times, etc. If
 variables are not available for a site or for given times it just silently

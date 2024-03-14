@@ -9,7 +9,6 @@
 #' @return depends on presence of errors and value of `.errorhandling`
 #' @export
 #'
-#' @examples
 api_error_catch <- function(bodylist, call = rlang::caller_env(), .errorhandling = 'stop') {
   e_value <- bodylist[1]
 
@@ -38,7 +37,6 @@ api_error_catch <- function(bodylist, call = rlang::caller_env(), .errorhandling
 #' @return typically `bodytib`, unless there are errors, then determined by `.errorhandling`
 #' @export
 #'
-#' @examples
 ts_error_catch <- function(bodytib, call = rlang::caller_env(), .errorhandling = 'stop') {
 
   # if no errors, return

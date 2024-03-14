@@ -9,7 +9,6 @@
 #' @return a tibble of the sites and datasources present
 #' @export
 #'
-#' @examples
 get_groups <- function(portal,
                        site_list) {
 

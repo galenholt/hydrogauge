@@ -256,8 +256,6 @@ clean_trace_list <- function(responsebody, data_type, gauge = NA, .errorhandling
 #' @inherit get_ts_traces return
 #' @export
 #'
-#' @examples
-
 get_ts_traces2 <- function(portal,
                            site_list,
                            datasource = 'A',

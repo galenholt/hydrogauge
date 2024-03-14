@@ -17,10 +17,9 @@
 #'   be comma-separated characters, and can contain grep wildcards e.g.
 #'   `extra_list = list(station_name = 'RIVER MURRAY*)`
 #'
-#' @return
+#' @return a tibble
 #' @export
 #'
-#' @examples
 getStationList <- function(portal,
                            site_list = NULL, returnfields = 'all',
                            extra_list = list(NULL)) {
