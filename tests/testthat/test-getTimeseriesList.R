@@ -9,7 +9,7 @@ test_that("extra_list and returnfields", {
   bomout <- getTimeseriesList(portal = 'bom',
                            extra_list = list(station_name = 'River Murray*',
                                              ts_name = 'DMQaQc.Merged.DailyMean.24HR'),
-                           returnfields = c('station_no', 'station_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'))
+                           returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'))
 
   namevec <- c('station_no', 'station_name', 'ts_id', 'from', 'to')
   expect_snapshot(names(bomout))

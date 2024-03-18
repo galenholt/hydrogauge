@@ -12,6 +12,7 @@
 #'
 #'
 #' @inheritParams getStationList
+#' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
 #'
 #' @return A tibble of information about available timeseries
 #' @export
@@ -19,7 +20,8 @@
 getTimeseriesList <- function(portal,
                               station_no = NULL,
                               returnfields = 'default',
-                              extra_list = list(NULL)) {
+                              extra_list = list(NULL),
+                              timetype = 'char') {
   baseURL <- parse_url(portal)
 
   # station_no and returnfields need to be a comma separated length-1 vector. Ensure
@@ -28,7 +30,7 @@ getTimeseriesList <- function(portal,
   if (length(returnfields) == 1 && returnfields == 'all') {
     returnfields <- c('station_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'station_georefsystem', 'station_longname', 'ts_id', 'ts_name', 'ts_shortname', 'ts_path', 'ts_type_id', 'ts_type_name', 'parametertype_id', 'parametertype_name', 'stationparameter_name', 'stationparameter_no', 'stationparameter_longname', 'ts_unitname', 'ts_unitsymbol', 'ts_unitname_abs', 'ts_unitsymbol_abs', 'site_no', 'site_id', 'site_name', 'catchment_no', 'catchment_id', 'catchment_name', 'coverage', 'ts_density', 'ts_exchange', 'ts_spacing', 'ca_site', 'ca_sta', 'ca_par', 'ca_ts')
   }
-  if (length(returnfields == 1 && returnfields == 'default')) {
+  if (length(returnfields) == 1 && returnfields == 'default') {
     returnfields <- c('station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_unitname', 'ts_unitsymbol', 'ts_path', 'parametertype_id', 'parametertype_name', 'stationparameter_name', 'coverage')
   }
 
@@ -66,11 +68,20 @@ getTimeseriesList <- function(portal,
     tidyr::unnest_wider(col = 1, names_sep = '_') |>
     setNames(tibnames)
 
-  # make times times- the returned values give the tz, which will vary across the basin. lubridate puts them all in UTC which is maybe not expected.
-  if (grepl('coverage', returnfields)) {
+  # If we have times, parse them if desired
+ if (grepl('coverage', returnfields)) {
+   # Return the desired times
+   # Don't allow more than 1, or it gets confusing
+   if (length(timetype) > 1) {
+     rlang::warn(c("getTimeseriesList() only accepts one `timetype`",
+                   "i" = glue::glue("Defaulting to the first, {timetype[1]}."),
+                   "i" = "if you want more, use `parse_bom_times` post-hoc, likely with `'char'` here to make tz parsing work."))
+     timetype <- timetype[1]
+   }
+
     bodytib <- bodytib |>
-      dplyr::mutate(from = lubridate::ymd_hms(from),
-                    to = lubridate::ymd_hms(to))
+      dplyr::mutate(from = parse_bom_times(from, timetype),
+                    to = parse_bom_times(to, timetype))
   }
 
 

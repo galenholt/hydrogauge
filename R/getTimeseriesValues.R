@@ -10,9 +10,10 @@
 #' @param ts_path timeseries path, which can be constructed, including wildcards, e.g. `ts_path = '*/A4260505/Water*/*DailyMean'` Gets the daily means for all 'Water' variables at gauge A4260505, which might include Level, Discharge, Temperature, etc..
 #' @param start_time character or date or date time for the start. Default NULL.
 #' @param end_time character or date or date time for the end. Default NULL.
-#' @param period character, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See [documentation](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/)
+#' @param period character, default NULL. The special case 'complete' returns the full set of data. Otherwise, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See [documentation](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/).
 #' @param returnfields return fields for the data itself. Default is `c('Timestamp', 'Value', 'Quality Code')`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
 #' @param meta_returnfields return fields about the variable and site. seems to be able to access most of what [getTimeseriesList()] has in its `returnfields`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
+#' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
 #'
 #' @return a tibble of the timeseries values. Times are in UTC.
 #' @export
@@ -23,9 +24,10 @@ getTimeseriesValues <- function(portal,
                                 start_time = NULL,
                                 end_time = NULL,
                                 period = NULL,
-                                returnfields = 'all',
-                                meta_returnfields = 'all',
-                                extra_list = list(NULL)) {
+                                returnfields = 'default',
+                                meta_returnfields = 'default',
+                                extra_list = list(NULL),
+                                timetype = 'char') {
 
   # See scottish help- it looks like the ts_path can be constructed in-situ rather than needing to get ts_id from getTimeseriesList
   # though does it matter?
@@ -42,19 +44,14 @@ getTimeseriesValues <- function(portal,
     rlang::abort("ts_id and ts_path both specified. Choose one.")
   }
 
-
-  # SHOULD THE START AND END BE IN UTC OR other? I think but am not positive
-  # that they are local, but then I return UTC. need to clean that up. Specify
-  # start and end as in get_ts_traces for consistency
-
   baseURL <- parse_url(portal)
 
   # Set defaults. For some reason getting the API default differs between returnfields and meta_returnfields
-  if (length(returnfields) == 1 && returnfields == 'all') {
+  if (length(returnfields) == 1 && returnfields == 'default') {
     returnfields <- c('Timestamp', 'Value', 'Quality Code')
   }
 
-  if (length(meta_returnfields) == 1 && meta_returnfields == 'all') {
+  if (length(meta_returnfields) == 1 && meta_returnfields == 'default') {
     meta_returnfields <- ''
   }
 
@@ -65,21 +62,18 @@ getTimeseriesValues <- function(portal,
   meta_returnfields <- paste(meta_returnfields, sep = ',', collapse = ',')
 
 
-  # This is a bit roundabout, but it lets us be consistent across the kiwis and
-  # hydllp functions. hydllp needs a 14 digit character vector, this needs
-  # dashes and such in the right places, but will take date objects. So create
-  # the 14 string, and then make it a date since the formatting works here
+  # These times should be character vectors in LOCAL time. hydllp needs a 14
+  # digit character vector, this needs dashes and such in the right places, but
+  # will take date objects. The problem is those date objects end up in UTC. So
+  # instead, parse the 14 digits into the kiwis format
   if (!is.null(start_time)) {
-    start_time <- fix_times(start_time) |>
-      lubridate::ymd_hms()
+    start_time <- fix_times(start_time, type = 'kiwis')
   }
   if (!is.null(end_time)) {
-    end_time <- fix_times(end_time) |>
-      lubridate::ymd_hms()
+    end_time <- fix_times(end_time, type = 'kiwis')
   }
 
   # bom has different requirements, and they go into the `query`, not the `body`
-
   api_query_list <- list(service = "kisters",
                          datasource = 0, # presumably there are others, but this is in all the documentation.
                          type = "queryServices",
@@ -105,7 +99,7 @@ getTimeseriesValues <- function(portal,
 
   # extract the data
   # For a single ts_id, then purrr
-  bodytib <- purrr::map(response_body, clean_bom_timeseries) |>
+  bodytib <- purrr::map(response_body, \(x) clean_bom_timeseries(x, timetype)) |>
     purrr::list_rbind()
 
   bodytib
@@ -119,11 +113,12 @@ getTimeseriesValues <- function(portal,
 #' This takes a single list, and so if multiple ts_ids have been extracted, should be looped over, e.g. with [purrr::map()].
 #'
 #' @param x the response list
+#' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
 #'
 #' @return a tibble
 #' @export
 #'
-clean_bom_timeseries <- function(x) {
+clean_bom_timeseries <- function(x, timetype = 'char') {
   response_names <- names(x)
 
   data_names <- x$columns |>
@@ -137,10 +132,24 @@ clean_bom_timeseries <- function(x) {
 
     names(data_df)[grepl('data.', names(data_df))] <- data_names
 
-  # return UTC in keeping with getStationList
   data_df <- data_df |>
-    dplyr::mutate(Timestamp = lubridate::ymd_hms(Timestamp)) |>
     dplyr::select(-rows, -columns)
+
+  # Return the desired times
+  # Should I allow > 1? I'm leaning towards no for this function. A user can always re-parse later, or we can in a wrapper function
+  # Should I parse times at all here? I guess?
+  if (length(timetype) > 1) {
+    rlang::warn(c("getTimeseriesValues() only accepts one `timetype`",
+                  "i" = glue::glue("Defaulting to the first, {timetype[1]}."),
+                  "i" = "if you want more, use `parse_bom_times` post-hoc, likely with `'char'` here to make tz parsing work."))
+    timetype <- timetype[1]
+  }
+
+  # do the time parse
+  data_df <- data_df |>
+    dplyr::mutate(time = parse_bom_times(Timestamp, timetype)) |>
+    dplyr::select(-Timestamp)
+
 
   # I'm trying to be as consistent as possible with the underlying API, but some of the column names are causing issues
   names(data_df) <- names(data_df) |>

@@ -4,7 +4,7 @@
 #'
 #' @return 14-digit character vector
 
-fix_times <- function(usertime) {
+fix_times <- function(usertime, type = 'hydllp') {
 
   # accept a few formats for the start_time and end_time
   # it wants a 14-character long string, e.g. '19750510000000'
@@ -22,4 +22,22 @@ fix_times <- function(usertime) {
   pad <- rep('0', 14-startlen) |> stringr::str_flatten()
 
   clean_time <- paste0(collapsetime, pad)
+
+  # if type is 'hydllp', that's all we need.
+  # if type is 'kiwis', we need dashes and colons.
+  if (type == 'kiwis') {
+    # This is annoying, since we could use lubridate directly, but that turns it
+    # into UTC, and we want to be consistent that the times stay in local time a
+    # la the API
+    y <- substr(clean_time, start = 1, stop = 4)
+    mo <- substr(clean_time, start = 5, stop = 6)
+    d <- substr(clean_time, start = 7, stop = 8)
+    h <- substr(clean_time, start = 9, stop = 10)
+    m <- substr(clean_time, start = 11, stop = 12)
+    s <- substr(clean_time, start = 13, stop = 14)
+    clean_time <- paste0(y, '-', mo, '-', d, 'T', h, ':', m, ':', s)
+  }
+
+  return(clean_time)
+
 }
