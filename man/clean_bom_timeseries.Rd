@@ -4,10 +4,12 @@
 \alias{clean_bom_timeseries}
 \title{Clean the raw output from the BOM getTimeseriesValue call}
 \usage{
-clean_bom_timeseries(x)
+clean_bom_timeseries(x, timetype = "char")
 }
 \arguments{
 \item{x}{the response list}
+
+\item{timetype}{character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.}
 }
 \value{
 a tibble

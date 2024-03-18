@@ -8,7 +8,8 @@ getTimeseriesList(
   portal,
   station_no = NULL,
   returnfields = "default",
-  extra_list = list(NULL)
+  extra_list = list(NULL),
+  timetype = "char"
 )
 }
 \arguments{
@@ -24,6 +25,8 @@ to return. Full list for each function available from \href{https://timeseries.s
 in \code{returnfields} (or returned when \code{returnfields = 'all'}), though not all work- see the queryfields in the \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}.
 Values should be comma-separated characters, and can contain grep wildcards e.g.
 \verb{extra_list = list(station_name = 'RIVER MURRAY*)}. Can also use groups from \code{\link[=getGroupList]{getGroupList()}}, e.g. \code{extra_list = list(stationgroup_id = '20017550')} gets the MDB_WIP_Watercourse stations.}
+
+\item{timetype}{character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.}
 }
 \value{
 A tibble of information about available timeseries

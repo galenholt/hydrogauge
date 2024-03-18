@@ -11,9 +11,10 @@ getTimeseriesValues(
   start_time = NULL,
   end_time = NULL,
   period = NULL,
-  returnfields = "all",
-  meta_returnfields = "all",
-  extra_list = list(NULL)
+  returnfields = "default",
+  meta_returnfields = "default",
+  extra_list = list(NULL),
+  timetype = "char"
 )
 }
 \arguments{
@@ -28,7 +29,7 @@ www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 
 \item{end_time}{character or date or date time for the end. Default NULL.}
 
-\item{period}{character, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See \href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}}
+\item{period}{character, default NULL. The special case 'complete' returns the full set of data. Otherwise, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See \href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}.}
 
 \item{returnfields}{return fields for the data itself. Default is \code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
@@ -38,6 +39,8 @@ www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 in \code{returnfields} (or returned when \code{returnfields = 'all'}), though not all work- see the queryfields in the \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}.
 Values should be comma-separated characters, and can contain grep wildcards e.g.
 \verb{extra_list = list(station_name = 'RIVER MURRAY*)}. Can also use groups from \code{\link[=getGroupList]{getGroupList()}}, e.g. \code{extra_list = list(stationgroup_id = '20017550')} gets the MDB_WIP_Watercourse stations.}
+
+\item{timetype}{character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.}
 }
 \value{
 a tibble of the timeseries values. Times are in UTC.
@@ -46,4 +49,7 @@ a tibble of the timeseries values. Times are in UTC.
 This expects a \code{ts_id} or \code{ts_path} (but not both) to identify the timeseries (>= 1) to pull. \code{ts_path} can be generated on the fly with wildcards, but isn't straightforward to parse- see the output of \code{\link[=getTimeseriesList]{getTimeseriesList()}}. Though \code{ts_id} would need to be extracted from \code{\link[=getTimeseriesList]{getTimeseriesList()}}, and so may not be any easier to get programatically.
 The equivalent state (hydllp) function is \code{\link[=get_ts_traces]{get_ts_traces()}} (to a close approximation).
 If \code{period} is used, only one (or none) of \code{start_time} and \code{end_time} can be used. If neither is used, it gets the most recent period.
+}
+\details{
+Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, and nearly but not exactly in the API. States on the half-hour get returned on the hour, which makes parsing easier, but they are not exactly local time. For programmatic use, it's likely easiest to just work in UTC, with the caveat that the \code{start_time} and \code{end_time} need to be in 'local'.
 }

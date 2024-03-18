@@ -4,7 +4,13 @@
 \alias{clean_trace_list}
 \title{Cleans ts_trace API list body into tibble}
 \usage{
-clean_trace_list(responsebody, data_type, gauge = NA, .errorhandling = "stop")
+clean_trace_list(
+  responsebody,
+  data_type,
+  gauge = NA,
+  timetype = "char",
+  .errorhandling = "stop"
+)
 }
 \arguments{
 \item{responsebody}{response body from the API call to get_ts_traces}

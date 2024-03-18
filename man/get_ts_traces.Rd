@@ -14,6 +14,7 @@ get_ts_traces(
   interval = "day",
   data_type = "mean",
   multiplier = 1,
+  timetype = "char",
   returnformat = "df"
 )
 }
@@ -60,6 +61,9 @@ not do very much automation of finding variables, checking times, etc. If
 variables are not available for a site or for given times it just silently
 does not return them. For a more automated (but currently slower) approach,
 see \link{get_ts_traces2}, which also allows a \code{.errorhandling} argument.
+}
+\details{
+Timezone note: Data is returned from the API in local time, and the default here is to make that a standard character format for consistency. However, for programmatic use, it's likely easiest to just work in UTC, with the caveat that the \code{start_time} and \code{end_time} need to be in 'local'.
 }
 \examples{
 simpletrace <- get_ts_traces(site_list = "233217",

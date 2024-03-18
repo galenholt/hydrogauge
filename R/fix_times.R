@@ -18,6 +18,7 @@ fix_times <- function(usertime, type = 'hydllp') {
   # why do this, and not not flatten? because it works to pad character input
   startlen <- nchar(collapsetime)
   if (startlen < 8) {rlang::warn("time specified is not long enough to give a day. Padding with zeros, but may not work.")}
+  if (startlen > 14) {rlang::abort("Time specified has too many digits, check for typos.")}
 
   pad <- rep('0', 14-startlen) |> stringr::str_flatten()
 
@@ -29,15 +30,27 @@ fix_times <- function(usertime, type = 'hydllp') {
     # This is annoying, since we could use lubridate directly, but that turns it
     # into UTC, and we want to be consistent that the times stay in local time a
     # la the API
-    y <- substr(clean_time, start = 1, stop = 4)
-    mo <- substr(clean_time, start = 5, stop = 6)
-    d <- substr(clean_time, start = 7, stop = 8)
-    h <- substr(clean_time, start = 9, stop = 10)
-    m <- substr(clean_time, start = 11, stop = 12)
-    s <- substr(clean_time, start = 13, stop = 14)
-    clean_time <- paste0(y, '-', mo, '-', d, 'T', h, ':', m, ':', s)
+    clean_time <- format_chartimes(clean_time)
   }
 
   return(clean_time)
+
+}
+
+format_chartimes <- function(t14) {
+
+  if (is.numeric(t14)) {
+    t14 <- format(t14, digits = 14)
+  }
+
+  y <- substr(t14, start = 1, stop = 4)
+  mo <- substr(t14, start = 5, stop = 6)
+  d <- substr(t14, start = 7, stop = 8)
+  h <- substr(t14, start = 9, stop = 10)
+  m <- substr(t14, start = 11, stop = 12)
+  s <- substr(t14, start = 13, stop = 14)
+  t14 <- paste0(y, '-', mo, '-', d, 'T', h, ':', m, ':', s)
+
+  return(t14)
 
 }

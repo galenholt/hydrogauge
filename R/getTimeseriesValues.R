@@ -4,6 +4,8 @@
 #' The equivalent state (hydllp) function is [get_ts_traces()] (to a close approximation).
 #' If `period` is used, only one (or none) of `start_time` and `end_time` can be used. If neither is used, it gets the most recent period.
 #'
+#' Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, and nearly but not exactly in the API. States on the half-hour get returned on the hour, which makes parsing easier, but they are not exactly local time. For programmatic use, it's likely easiest to just work in UTC, with the caveat that the `start_time` and `end_time` need to be in 'local'.
+#'
 #' @inheritParams getStationList
 #'
 #' @param ts_id timeseries id, typically found from [getTimeseriesList()]
@@ -148,6 +150,9 @@ clean_bom_timeseries <- function(x, timetype = 'char') {
   # do the time parse
   data_df <- data_df |>
     dplyr::mutate(time = parse_bom_times(Timestamp, timetype)) |>
+    # add a timezone on here to make it easier no matter what the timetype is.
+    dplyr::mutate(timezone = stringr::str_extract(Timestamp, "\\+.*$"),
+                  timezone = stringr::str_remove(timezone, '\\+')) |>
     dplyr::select(-Timestamp)
 
 

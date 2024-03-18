@@ -7,6 +7,7 @@
 #' does not return them. For a more automated (but currently slower) approach,
 #' see [get_ts_traces2], which also allows a `.errorhandling` argument.
 #'
+#' Timezone note: Data is returned from the API in local time, and the default here is to make that a standard character format for consistency. However, for programmatic use, it's likely easiest to just work in UTC, with the caveat that the `start_time` and `end_time` need to be in 'local'.
 #'
 #' @param portal character for the data portal (case insensitive). Default 'victoria'
 #' @param site_list character site code, either a single site code `"sitenumber"`, comma-separated codes in a single string `"sitenumber1, sitenumber2`, or a vector of site codes `c("sitenumber1", "sitenumber2")`
@@ -47,6 +48,7 @@ get_ts_traces <- function(portal,
                           interval = 'day',
                           data_type = 'mean',
                           multiplier = 1,
+                          timetype = 'char',
                           returnformat = 'df') {
 
   baseURL <- parse_url(portal)
@@ -94,7 +96,9 @@ get_ts_traces <- function(portal,
     response_body <- get_response(baseURL, api_body_list)
 
     # clean up with a function because so ugly
-    bodytib <- clean_trace_list(response_body, data_type)
+    bodytib <- clean_trace_list(responsebody = response_body,
+                                data_type = data_type,
+                                timetype = timetype)
 
   } else {
     bodytib <- tibble::tibble(.rows = 0)
@@ -123,7 +127,9 @@ get_ts_traces <- function(portal,
                    rb <- get_response(baseURL, pl)
 
                    # clean up with a function because so ugly
-                   bt <- clean_trace_list(rb, data_type)
+                   bt <- clean_trace_list(responsebody = rb,
+                                          data_type = data_type,
+                                          timetype = timetype)
 
                  }
 
@@ -158,7 +164,11 @@ get_ts_traces <- function(portal,
 #' @return a tibble with the rectangled response
 #' @export
 #'
-clean_trace_list <- function(responsebody, data_type, gauge = NA, .errorhandling = 'stop') {
+clean_trace_list <- function(responsebody,
+                             data_type,
+                             gauge = NA,
+                             timetype = 'char',
+                             .errorhandling = 'stop') {
 
   # Some error handling
   if (is.character(responsebody) && grepl("error number", responsebody)) {
@@ -208,8 +218,13 @@ clean_trace_list <- function(responsebody, data_type, gauge = NA, .errorhandling
 
   # clean up
   bodytib <- bodytib |>
-    dplyr::rename(value = v, time = t, quality_codes_id = q) |>
-    dplyr::mutate(time = lubridate::ymd_hms(time)) |>
+    dplyr::rename(value = v, time = t, quality_codes_id = q)
+
+  # handle different sorts of time-parsing
+  bodytib <- bodytib |>
+    dplyr::mutate(time = parse_state_times(time, timezone, timetype))
+
+  bodytib2 <- bodytib |>
     dplyr::left_join(qc, by = c('quality_codes_id', 'site', 'variable')) |>
     dplyr::mutate(across(c(longitude, latitude, value), as.numeric)) |>   # leaving some others because they either are names (gauges, variable) or display better (precision)
     dplyr::mutate(data_type = data_type) # record the statistic
@@ -266,6 +281,7 @@ get_ts_traces2 <- function(portal,
                            data_type = 'mean',
                            multiplier = 1,
                            returnformat = 'df',
+                           timetype = 'char',
                            .errorhandling = 'stop') {
   baseURL <- parse_url(portal)
 
@@ -357,9 +373,10 @@ get_ts_traces2 <- function(portal,
                        rb <- get_response(baseURL, pl, .errorhandling = .errorhandling)
 
                        # clean up with a function because so ugly
-                       bt <- clean_trace_list(rb,
+                       bt <- clean_trace_list(responsebody = rb,
                                               data_type = possibles$data_type[i],
                                               gauge = possibles$site,
+                                              timetype = timetype,
                                               .errorhandling = .errorhandling)
 
                      }

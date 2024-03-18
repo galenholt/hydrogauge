@@ -97,6 +97,11 @@ taggerty <- '405331'
 golf <- '405837'
 ```
 
+## Times
+
+Both sets of API (hydllp and kiwis) expect times to be gauge-local and return times local to the gauge. This package provides some functionality to return times in other formats (see `timetype` argument), including a standard parseable character format, UTC, and local time objects. In general, working with UTC and offsets is preferable, but care should be taken when giving desired start and end times, as these need to be in gauge-local time.
+
+
 ## Definitions and available options
 
 I have tried to keep the function argument names the same as in the API, and the API restricts the options to the function arguments. The API functions are documented by [Kisters](https://kisters.com.au/doco/hydllp.htm) (the creators), and there is a bit more information about options from [Queensland](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf), though there are discrepancies between states.

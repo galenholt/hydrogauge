@@ -4,7 +4,7 @@
 \alias{fix_times}
 \title{Creates 14-digit character string needed for times in the API}
 \usage{
-fix_times(usertime)
+fix_times(usertime, type = "hydllp")
 }
 \arguments{
 \item{usertime}{time value from user. may be date, numeric, or character}

@@ -280,3 +280,76 @@ test_that('HTTP errors work correctly for multiple gauges', {
   expect_gt(nrow(man16_r[[1]]), 4000)
 
 })
+
+test_that("ts timezone checks", {
+  simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
+                               datasource = 'A',
+                               var_list = c('100', '140'),
+                               start_time = '20200101000000', end_time = '20200101235900',
+                               interval = 'default', data_type = 'point',
+                               multiplier = 1, returnformat = 'df')
+  expect_equal(simpletrace$time[1], "2020-01-01T00:00:00+10")
+
+  simpletrace_utc <- get_ts_traces(portal = 'vic', site_list = "233217",
+                               datasource = 'A',
+                               var_list = c('100', '140'),
+                               start_time = '20200101000000', end_time = '20200101235900',
+                               interval = 'default', data_type = 'point',
+                               multiplier = 1,
+                               timetype = 'utc',
+                               returnformat = 'df')
+
+  expect_equal(simpletrace_utc$time[1], lubridate::ymd_hms('2019-12-31 14:00:00', tz = "UTC"))
+
+  simpletrace_local <- get_ts_traces(portal = 'vic', site_list = "233217",
+                                   datasource = 'A',
+                                   var_list = c('100', '140'),
+                                   start_time = '20200101000000', end_time = '20200101235900',
+                                   interval = 'default', data_type = 'point',
+                                   multiplier = 1,
+                                   timetype = 'local',
+                                   returnformat = 'df')
+
+  expect_equal(simpletrace_local$time[1], lubridate::ymd_hms('2020-01-01 00:00:00', tz = "Etc/GMT-10"))
+
+  # are we sure this *is* returning data at local and not UTC? Use TELEM, not archive
+
+  # This gauge is 10 hours ahead of UTC, so grab a timeperiod that's in that gap.
+    # go three hours back to make sure there's data and less than 10, so this time hasn't happened in UTC yet
+  londontime <- lubridate::now(tz = 'UTC')
+  starttime <- londontime - lubridate::dhours(3)
+
+  # This bit puts it in +10 and removes tz info
+  starttime <- starttime |>
+    lubridate::with_tz('Etc/GMT-10') |>
+    as.character() |>
+    stringr::str_remove_all('\\.[0-9]*') |>
+    fix_times()
+
+  endtime <- lubridate::now(tz = 'UTC')|>
+    lubridate::with_tz('Etc/GMT-10') |>
+    as.character() |>
+    stringr::str_remove_all('\\.[0-9]*') |>
+    fix_times()
+
+  # get times as char, so there's no internal time zone manipulation
+  nowtrace <- get_ts_traces(portal = 'vic',
+                            site_list = "233217",
+                            datasource = 'TELEM',
+                            var_list = c('100', '140'),
+                            # at the time of writing this test, it is 4:30 am in London on the 18th, so this start time hasn't happened.
+                            start_time = starttime, end_time = endtime,
+                            interval = 'default', data_type = 'point',
+                            multiplier = 1,
+                            timetype = 'char',
+                            returnformat = 'df')
+
+  # all of them should be after current UTC time if we ignore the tz appended on them and treat as UTC, and so they must be local
+  notz <- nowtrace$time |>
+    substr(1, 19) |>
+    lubridate::ymd_hms(tz = 'UTC')
+
+  expect_true(all(notz > londontime))
+
+
+})

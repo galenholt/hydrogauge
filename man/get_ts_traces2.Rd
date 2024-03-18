@@ -16,6 +16,7 @@ get_ts_traces2(
   data_type = "mean",
   multiplier = 1,
   returnformat = "df",
+  timetype = "char",
   .errorhandling = "stop"
 )
 }

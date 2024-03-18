@@ -155,6 +155,70 @@ test_that("time testing", {
   expect_equal(storedout_local$time[1], lubridate::ymd_hms('2020-01-01 00:00:00', tz = 'Etc/GMT-10'))
 
 
+
+})
+
+test_that("times are local", {
+
+  # BOM states "Time of day is presented in local standard time. Coordinated Universal Timezones (UTC) are:
+
+  # Eastern States (QLD, NSW, ACT, VIC, TAS) - UTC +10:00
+  # Central States (NT, SA) - UTC +09:30
+  # Western Australia - UTC +08:00.
+    # It's not clear to me that's correct, SA sites are coming in not as 9:30
+
+  # also, "Most data are supplied once a day", so that makes these checks hard.
+
+  # need as stored that reports continuously
+  tsrm <- getTimeseriesList(portal = 'bom',
+                            station_no = 'A4261162',
+                            extra_list = list(ts_name = 'DMQaQc.Merged.AsStored.1',
+                                              stationparameter_name = 'WaterCourseLevel'),
+                            returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'))
+
+  # # This gauge is 10 hours ahead of UTC, so grab a timeperiod that's in that gap.
+  # # go three hours back to make sure there's data and less than 10, so this time hasn't happened in UTC yet
+  # londontime <- lubridate::now(tz = 'UTC')
+  # starttime <- londontime - lubridate::dhours(3)
+  #
+  # # This bit puts it in +10 and removes tz info
+  # starttime <- starttime |>
+  #   lubridate::with_tz('Etc/GMT-10') |>
+  #   as.character() |>
+  #   stringr::str_remove_all('\\.[0-9]*') |>
+  #   fix_times(type = 'kiwis')
+  #
+  # endtime <- lubridate::now(tz = 'UTC')|>
+  #   lubridate::with_tz('Etc/GMT-10') |>
+  #   as.character() |>
+  #   stringr::str_remove_all('\\.[0-9]*') |>
+  #   fix_times(type = 'kiwis')
+
+  # Since nothing updates, this is going to have to be a manual check across to this gauge on the website.
+  # ie go to http://www.bom.gov.au/waterdata/, find gauge 218625010, download teh csv, and look at it.
+
+  # I have done that check, and the web returns in +9:30 while the API returns in +10, but they do match, half an hour off. So it *is* returning in 'local' time, but east coast, not SA.
+
+  starttime <- '2024-03-16'
+  endtime <- '2024-03-18'
+  #
+  # # get times as char, so there's no internal time zone manipulation
+  # # Get something with AsStored
+  nowtrace <- getTimeseriesValues(portal = 'bom',
+                                   ts_id = 218625010,
+                                   start_time = starttime,
+                                   end_time = endtime,
+                                  timetype = 'char')
+
+  # To match the csv
+  nowtrace |> dplyr::select(time, value, quality_code) |> View()
+
+  # all of them should be after current UTC time if we ignore the tz appended on them and treat as UTC, and so they must be local
+  notz <- nowtrace$time |>
+    substr(1, 19) |>
+    lubridate::ymd_hms(tz = 'UTC')
+
+  expect_true(all(notz > londontime))
 })
 
 

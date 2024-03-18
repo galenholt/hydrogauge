@@ -4,14 +4,16 @@
 #' @inheritParams get_ts_traces
 #' @param datasource as in [get_ts_traces()], but can be a vector. As far as I can tell, options are `'A'`, `'TELEM'`, `'TELEMCOPY'`. If multiple, `c('A', 'TELEM')`
 #'
-#' @return a tibble of the variables for each site and datasource
+#' @return a tibble of the variables for each site and datasource.
 #' @export
 #'
 #' @examples
 #' v2 <- get_variable_list(site_list = "233217, 405328, 405331, 405837",
 #'  datasource = c('A', 'TELEM'))
 get_variable_list <- function(portal,
-                              site_list, datasource) {
+                              site_list,
+                              datasource,
+                              timetype = 'char') {
 
   baseURL <- parse_url(portal)
 
@@ -65,6 +67,11 @@ get_variable_list <- function(portal,
                                                   site_list,
                                                   datasource))
   }
+
+  # deal with the times
+  bodytib <- bodytib |>
+    dplyr::mutate(period_start = parse_state_times(period_start, timezone, timetype),
+                  period_end = parse_state_times(period_end, timezone, timetype))
 
   return(bodytib)
 }

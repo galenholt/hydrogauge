@@ -5,7 +5,7 @@
 #' @param timevec output with a Timestamp column with format as BOM, e.g. `'2020-01-01T00:00:00.000+10:00'`
 #' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
 #'
-#' @return a df with requested time columns
+#' @return a vector, either character or POSIX
 #' @export
 #'
 parse_bom_times <- function(timevec, timetype = 'char') {
@@ -19,6 +19,8 @@ parse_bom_times <- function(timevec, timetype = 'char') {
 
   # Getting local time is a surprising amount of hassle. We need to extract the tz and pass it as an argument. And for some reason 'Etc/GMT-10' gives tz +10, etc.
   if (grepl('local', timetype, ignore.case = TRUE)) {
+
+    ## TODO:: ADD A CATCH FOR PARTIAL HOURS (SA)
     time_offset <- stringr::str_extract(timevec, '(\\+|-)[0-9][0-9](:00)*$')
     time_offsetdir <- substr(time_offset, 1, 1)
     # have to switch the direction for the tz

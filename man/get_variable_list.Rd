@@ -4,7 +4,7 @@
 \alias{get_variable_list}
 \title{Gets the variables for sites and datasources}
 \usage{
-get_variable_list(portal, site_list, datasource)
+get_variable_list(portal, site_list, datasource, timetype = "char")
 }
 \arguments{
 \item{portal}{character for the data portal (case insensitive). Default 'victoria'}
@@ -14,7 +14,7 @@ get_variable_list(portal, site_list, datasource)
 \item{datasource}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
 }
 \value{
-a tibble of the variables for each site and datasource
+a tibble of the variables for each site and datasource.
 }
 \description{
 Gets the variables for sites and datasources
