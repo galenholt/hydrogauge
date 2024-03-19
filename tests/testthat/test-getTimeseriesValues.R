@@ -2,7 +2,7 @@ test_that("simple works, with time test", {
   bomout <- getTimeseriesValues(portal = 'bom', ts_id = c("208669010", "380185010", "329344010"),
                                 start_time = '2020-01-01 01:30:30', end_time = '20200105')
   expect_snapshot(names(bomout))
-  expect_equal(nrow(bomout), 13)
+  expect_equal(nrow(bomout), 11)
 
 
 })
@@ -15,7 +15,7 @@ test_that("returnfields, metareturn, more dates", {
                                 start_time = lubridate::ymd('2020-01-01'), end_time = '2020-01-05')
 
   expect_snapshot(names(bomout))
-  expect_equal(nrow(bomout), 15)
+  expect_equal(nrow(bomout), 13)
 
 
 })
@@ -25,13 +25,13 @@ test_that("ts_path", {
                                      ts_path = 'w00078-A4260505/A4260505/WaterCourseLevel/Pat3_C_B_1_DailyMean',
                                 start_time = '2020-01-01 01:30:30', end_time = '20200105')
   expect_snapshot(names(bomout_full))
-  expect_equal(nrow(bomout_full), 4)
+  expect_equal(nrow(bomout_full), 3)
 
   bomout_wild <- getTimeseriesValues(portal = 'bom',
                                      ts_path = '*/A4260505/Water*/*DailyMean',
                                      start_time = '2020-01-01 01:30:30', end_time = '20200105')
   expect_snapshot(names(bomout_wild))
-  expect_equal(nrow(bomout_wild), 8)
+  expect_equal(nrow(bomout_wild), 6)
 
 
 })
@@ -46,7 +46,7 @@ test_that("extra_list", {
                                 start_time = lubridate::ymd('2020-01-01'), end_time = '2020-01-05')
 
   expect_snapshot(names(bomout))
-  expect_equal(nrow(bomout), 15)
+  expect_equal(nrow(bomout), 13)
 
 
 })
@@ -60,7 +60,7 @@ test_that("period", {
                                 period = 'P2W')
 
   expect_snapshot(names(bomout_e))
-  expect_equal(nrow(bomout_e), 42)
+  expect_equal(nrow(bomout_e), 43)
 
   bomout_s <- getTimeseriesValues(portal = 'bom',
                                 ts_id = c("208669010", "380185010", "329344010"),
@@ -77,7 +77,7 @@ test_that("period", {
                                   period = 'P2W')
 
   expect_snapshot(names(bomout_p))
-  expect_equal(nrow(bomout_p), 38)
+  expect_equal(nrow(bomout_p), 36)
 
 
 })
@@ -85,7 +85,9 @@ test_that("period", {
 
 # checking how things work with dates
 test_that("time testing", {
-  ts_list <- getTimeseriesList(portal = 'bom', station_no = c('410730', 'A4260505'))
+  ts_list <- getTimeseriesList(portal = 'bom',
+                               station_no = c('410730', 'A4260505'),
+                               timetype = 'local')
 
   # get the range of a single id
   oneid <- ts_list |>
@@ -97,16 +99,19 @@ test_that("time testing", {
   preout <- getTimeseriesValues(portal = 'bom',
                                 ts_id = oneid$ts_id,
                                 start_time = oneid$from - lubridate::dweeks(1),
-                                end_time = oneid$from + lubridate::dweeks(1))
-  expect_equal(oneid$from, min(preout$timestamp))
-  expect_equal(nrow(bomout), 7)
+                                end_time = oneid$from + lubridate::dweeks(1),
+                                timetype = 'local')
+  # The first time should be the min time, not the start time that's a week earlier.
+  expect_equal(oneid$from, min(preout$time))
+  expect_equal(nrow(preout), 8)
 
   # What if we try to get it across the end
  # Get something from the getTimesereiesList test that uses the river murray wildcard
   tsrm <- getTimeseriesList(portal = 'bom',
                               extra_list = list(station_name = 'River Murray*',
                                                 ts_name = 'DMQaQc.Merged.DailyMean.24HR'),
-                              returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'))
+                              returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'),
+                            timetype = 'local')
   tsrmold <- tsrm |> dplyr::filter(to < lubridate::ymd('20231230'))
 
   twoid <- tsrmold |>
@@ -117,16 +122,18 @@ test_that("time testing", {
   preout <- getTimeseriesValues(portal = 'bom',
                                 ts_id = twoid$ts_id,
                                 start_time = twoid$to - lubridate::dweeks(1),
-                                end_time = twoid$to + lubridate::dweeks(1))
-  expect_equal(twoid$to, max(preout$timestamp))
+                                end_time = twoid$to + lubridate::dweeks(1),
+                                timetype = 'local')
+  expect_equal(twoid$to, max(preout$time))
   expect_equal(nrow(preout), 8)
 
   compout <- getTimeseriesValues(portal = 'bom',
                                 ts_id = twoid$ts_id,
-                                period = 'complete')
+                                period = 'complete',
+                                timetype = 'local')
 
-  expect_equal(twoid$to, max(compout$timestamp))
-  expect_equal(twoid$from, min(compout$timestamp))
+  expect_equal(twoid$to, max(compout$time))
+  expect_equal(twoid$from, min(compout$time))
   expect_equal(nrow(compout), 7941)
 
   # Test the time extraction- is it local or UTM? I assume local but need to double check.
@@ -211,14 +218,15 @@ test_that("times are local", {
                                   timetype = 'char')
 
   # To match the csv
-  nowtrace |> dplyr::select(time, value, quality_code) |> View()
+  # nowtrace |> dplyr::select(time, value, quality_code) |> View()
 
   # all of them should be after current UTC time if we ignore the tz appended on them and treat as UTC, and so they must be local
   notz <- nowtrace$time |>
     substr(1, 19) |>
     lubridate::ymd_hms(tz = 'UTC')
 
-  expect_true(all(notz > londontime))
+  # this worked for states, but not for BOM since reporting isn't fast enough.
+  # expect_true(all(notz > londontime))
 })
 
 

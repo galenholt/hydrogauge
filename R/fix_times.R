@@ -40,7 +40,7 @@ fix_times <- function(usertime, type = 'hydllp') {
 format_chartimes <- function(t14) {
 
   if (is.numeric(t14)) {
-    t14 <- format(t14, digits = 14)
+    t14 <- format(t14, digits = 14, scientific = FALSE)
   }
 
   y <- substr(t14, start = 1, stop = 4)

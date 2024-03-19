@@ -1,5 +1,5 @@
 # avoid warnings about plans
-doFuture::registerDoFuture()
+# doFuture::registerDoFuture() # Shouldn't be needed anymore
 future::plan('multisession')
 
 test_that("ts example", {
@@ -10,6 +10,7 @@ test_that("ts example", {
                                interval = 'day', data_type = 'mean',
                                multiplier = 1, returnformat = 'df')
   expect_s3_class(simpletrace, 'tbl_df')
+  expect_snapshot(simpletrace)
 })
 
 test_that("ts_2 example", {
@@ -44,7 +45,7 @@ test_that("errorhandling for a single site, ts2", {
 
   # It's a list of one tibble
   expect_s3_class(pass412107[[1]], 'tbl_df')
-  expect_equal(nrow(pass412107[[1]]), 1)
+  expect_snapshot(pass412107[[1]])
 
   expect_error(stop412107 <- get_ts_traces2(portal = 'NSW',
                                             site_list = '412107',

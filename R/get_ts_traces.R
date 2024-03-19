@@ -109,7 +109,7 @@ get_ts_traces <- function(portal,
   # could package the list-making, responsing, and unpacking in a function and
   # furrr it instead of foreach.
   btd <- foreach::foreach(v = deriv_list,
-                 .combine = dplyr::bind_rows) %dopar% {
+                 .combine = dplyr::bind_rows) %dofuture% {
                    pl = list("function" = 'get_ts_traces',
                              "version" = "2",
                              "params" = list("site_list" = site_list,
@@ -224,7 +224,7 @@ clean_trace_list <- function(responsebody,
   bodytib <- bodytib |>
     dplyr::mutate(time = parse_state_times(time, timezone, timetype))
 
-  bodytib2 <- bodytib |>
+  bodytib <- bodytib |>
     dplyr::left_join(qc, by = c('quality_codes_id', 'site', 'variable')) |>
     dplyr::mutate(across(c(longitude, latitude, value), as.numeric)) |>   # leaving some others because they either are names (gauges, variable) or display better (precision)
     dplyr::mutate(data_type = data_type) # record the statistic
@@ -288,7 +288,8 @@ get_ts_traces2 <- function(portal,
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 
   # Available variables, start and end times, and sites
-  possibles <- get_variable_list(baseURL, site_list, datasource) |>
+    # use 'raw' timetype since this passes times around in the state format
+  possibles <- get_variable_list(baseURL, site_list, datasource, timetype = 'raw') |>
     dplyr::select(site, short_name, variable, var_name, datasource,
                   period_start, period_end) |>
     dplyr::mutate(varfrom = variable, varto = variable)
@@ -354,7 +355,7 @@ get_ts_traces2 <- function(portal,
 
   # I'm going to write this as loops and then see if I can flatten/function
   bodytib <- foreach::foreach(i = 1:nrow(possibles),
-                     .combine = dplyr::bind_rows) %dopar% {
+                     .combine = dplyr::bind_rows) %dofuture% {
 
                        pl = list("function" = 'get_ts_traces',
                                  "version" = "2",
