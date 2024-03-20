@@ -81,7 +81,8 @@ getTimeseriesList <- function(portal,
 
     bodytib <- bodytib |>
       dplyr::mutate(from = parse_bom_times(from, timetype),
-                    to = parse_bom_times(to, timetype))
+                    to = parse_bom_times(to, timetype),
+                    timezone = extract_timezone(from))
   }
 
 

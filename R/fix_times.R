@@ -6,6 +6,9 @@
 
 fix_times <- function(usertime, type = 'hydllp') {
 
+  # short-circuit NULL
+  if (is.null(usertime)) {return(NULL)}
+
   # accept a few formats for the start_time and end_time
   # it wants a 14-character long string, e.g. '19750510000000'
 
@@ -53,4 +56,33 @@ format_chartimes <- function(t14) {
 
   return(t14)
 
+}
+
+extract_timezone <- function(x) {
+  if (is.character(x)) {
+
+    # the API uses 'Z' to denote UTC
+    if (grepl('Z$', x)) {
+      timezone <- 'UTC'
+    }
+
+    time_offset <- stringr::str_extract(x, '(\\+|-)[0-9][0-9](:[0-9][0-9])*$')
+    if (grepl(':[1-9]', time_offset)) {
+      rlang::warn(c("Gauge timezone has partial-hour offset, does not abide by OlsonNames()",
+                    "Returning the offset as-is, which will require manual work to convert to date objects"))
+      timezone <- time_offset
+    } else {
+      time_offset <- substr(time_offset, 1,3)
+      time_offsetdir <- substr(time_offset, 1, 1)
+      # have to switch the direction for the tz
+      time_offsetdir <- ifelse(time_offsetdir == '+', '-', '+')
+      timezone = paste0('Etc/GMT', time_offsetdir, substr(time_offset, 2, 3))
+    }
+
+  }
+  if (inherits(x, 'POSIXt')) {
+    timezone <- lubridate::tz(x)
+  }
+
+  return(timezone)
 }
