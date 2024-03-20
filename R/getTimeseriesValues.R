@@ -4,20 +4,20 @@
 #' The equivalent state (hydllp) function is [get_ts_traces()] (to a close approximation).
 #' If `period` is used, only one (or none) of `start_time` and `end_time` can be used. If neither is used, it gets the most recent period.
 #'
-#' Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, and nearly but not exactly in the API. States on the half-hour get returned on the hour, which makes parsing easier, but they are not exactly local time. For programmatic use, it's likely easiest to just work in UTC, with the caveat that the `start_time` and `end_time` need to be in 'local'.
+#' Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, but not the API. The API defaults to +10, but we can choose, so here we default to `return_timezone = 'UTC'` for consistency.
+#' Further, `start_time` and `end_time` *must* be in database-local time; setting a different return time, either here or directly to the API with a `timezone` argument in `extra_list`, does not affect the interpretation of these times. [getTimeseriesList()] returns the `database_timezone` to make this easier. [fetch_kiwiws_timeseries()] handles some of this work automatically.
 #'
-#' @inheritParams getStationList
+#' @inheritParams getTimeseriesList
 #'
 #' @param ts_id timeseries id, typically found from [getTimeseriesList()]
 #' @param ts_path timeseries path, which can be constructed, including wildcards, e.g. `ts_path = '*/A4260505/Water*/*DailyMean'` Gets the daily means for all 'Water' variables at gauge A4260505, which might include Level, Discharge, Temperature, etc..
-#' @param start_time character or date or date time for the start. Default NULL.
-#' @param end_time character or date or date time for the end. Default NULL.
+#' @param start_time character or date or date time for the start *in database default timezone*. Default NULL.
+#' @param end_time character or date or date time for the end *in database default timezone*. Default NULL.
 #' @param period character, default NULL. The special case 'complete' returns the full set of data. Otherwise, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See [documentation](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/).
 #' @param returnfields return fields for the data itself. Default is `c('Timestamp', 'Value', 'Quality Code')`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
 #' @param meta_returnfields return fields about the variable and site. seems to be able to access most of what [getTimeseriesList()] has in its `returnfields`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
-#' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
 #'
-#' @return a tibble of the timeseries values. Times are in UTC.
+#' @return a tibble of the timeseries values. Times are POSIXct in UTC by default.
 #' @export
 #'
 getTimeseriesValues <- function(portal,
@@ -29,7 +29,7 @@ getTimeseriesValues <- function(portal,
                                 returnfields = 'default',
                                 meta_returnfields = 'default',
                                 extra_list = list(NULL),
-                                timetype = 'char') {
+                                return_timezone = 'UTC') {
 
   # See scottish help- it looks like the ts_path can be constructed in-situ rather than needing to get ts_id from getTimeseriesList
   # though does it matter?
@@ -101,7 +101,7 @@ getTimeseriesValues <- function(portal,
 
   # extract the data
   # For a single ts_id, then purrr
-  bodytib <- purrr::map(response_body, \(x) clean_bom_timeseries(x, timetype)) |>
+  bodytib <- purrr::map(response_body, \(x) clean_bom_timeseries(x, return_timezone)) |>
     purrr::list_rbind()
 
   bodytib
@@ -115,12 +115,12 @@ getTimeseriesValues <- function(portal,
 #' This takes a single list, and so if multiple ts_ids have been extracted, should be looped over, e.g. with [purrr::map()].
 #'
 #' @param x the response list
-#' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
+#' @param return_timezone character in [OlsonNames()]. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10
 #'
 #' @return a tibble
 #' @export
 #'
-clean_bom_timeseries <- function(x, timetype = 'char') {
+clean_bom_timeseries <- function(x, return_timezone = 'UTC') {
   response_names <- names(x)
 
   data_names <- x$columns |>
@@ -138,23 +138,27 @@ clean_bom_timeseries <- function(x, timetype = 'char') {
     dplyr::select(-rows, -columns)
 
   # Return the desired times
-  # Should I allow > 1? I'm leaning towards no for this function. A user can always re-parse later, or we can in a wrapper function
-  # Should I parse times at all here? I guess?
-  if (length(timetype) > 1) {
-    rlang::warn(c("getTimeseriesValues() only accepts one `timetype`",
-                  "i" = glue::glue("Defaulting to the first, {timetype[1]}."),
-                  "i" = "if you want more, use `parse_bom_times` post-hoc, likely with `'char'` here to make tz parsing work."))
-    timetype <- timetype[1]
+
+  # Get the db timezone no matter what
+  tz <- purrr::map_chr(data_df$Timestamp, extract_timezone)
+
+  # if the tz aren't all the same, going to need to bail out
+  if (return_timezone == 'db_default') {
+    if (!all(tz == tz[1])) {
+      rlang::warn(c("Multiple timezones returned, but `return_timezone = 'db_default'`",
+                    "i" = "Setting `return_timezones = 'UTC'."))
+      return_timezone = 'UTC'
+    } else {
+      return_timezone <- tz[1]
+    }
   }
 
   # do the time parse
   data_df <- data_df |>
-    dplyr::mutate(time = parse_bom_times(Timestamp, timetype)) |>
-    # add a timezone on here to make it easier no matter what the timetype is.
-    dplyr::mutate(timezone = stringr::str_extract(Timestamp, "\\+.*$"),
-                  timezone = stringr::str_remove(timezone, '\\+')) |>
+    dplyr::mutate(time = lubridate::ymd_hms(Timestamp) |>
+                    lubridate::with_tz(return_timezone),
+                  database_timezone = tz) |>
     dplyr::select(-Timestamp)
-
 
   # I'm trying to be as consistent as possible with the underlying API, but some of the column names are causing issues
   names(data_df) <- names(data_df) |>

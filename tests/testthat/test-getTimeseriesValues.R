@@ -71,13 +71,14 @@ test_that("period", {
   expect_snapshot(names(bomout_s))
   expect_equal(nrow(bomout_s), 43)
 
+  # This depends on the current date, so the rows fluctuat a bit
   bomout_p <- getTimeseriesValues(portal = 'bom',
                                   ts_id = c("208669010", "380185010", "329344010"),
                                   meta_returnfields = c('station_name', 'station_no', 'ts_id', 'ts_unitsymbol'),
                                   period = 'P2W')
 
   expect_snapshot(names(bomout_p))
-  expect_equal(nrow(bomout_p), 36)
+  expect_true(nrow(bomout_p) > 34 & nrow(bomout_p) < 40)
 
 
 })
@@ -87,7 +88,7 @@ test_that("period", {
 test_that("time testing for the period", {
   ts_list <- getTimeseriesList(portal = 'bom',
                                station_no = c('410730', 'A4260505'),
-                               timetype = 'local')
+                               return_timezone = 'UTC')
 
   # get the range of a single id
   oneid <- ts_list |>
@@ -100,10 +101,10 @@ test_that("time testing for the period", {
                                 ts_id = oneid$ts_id,
                                 start_time = oneid$from - lubridate::dweeks(1),
                                 end_time = oneid$from + lubridate::dweeks(1),
-                                timetype = 'local')
+                                return_timezone = 'UTC')
   # The first time should be the min time, not the start time that's a week earlier.
   expect_equal(oneid$from, min(preout$time))
-  expect_equal(nrow(preout), 8)
+  expect_equal(nrow(preout), 7)
 
   # What if we try to get it across the end
  # Get something from the getTimesereiesList test that uses the river murray wildcard
@@ -111,7 +112,7 @@ test_that("time testing for the period", {
                               extra_list = list(station_name = 'River Murray*',
                                                 ts_name = 'DMQaQc.Merged.DailyMean.24HR'),
                               returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'),
-                            timetype = 'local')
+                            return_timezone = 'UTC')
   tsrmold <- tsrm |> dplyr::filter(to < lubridate::ymd('20231230'))
 
   twoid <- tsrmold |>
@@ -123,67 +124,47 @@ test_that("time testing for the period", {
                                 ts_id = twoid$ts_id,
                                 start_time = twoid$to - lubridate::dweeks(1),
                                 end_time = twoid$to + lubridate::dweeks(1),
-                                timetype = 'local')
+                                return_timezone = 'UTC')
   expect_equal(twoid$to, max(preout$time))
   expect_equal(nrow(preout), 8)
 
   compout <- getTimeseriesValues(portal = 'bom',
                                 ts_id = twoid$ts_id,
                                 period = 'complete',
-                                timetype = 'local')
+                                return_timezone = 'UTC')
 
   expect_equal(twoid$to, max(compout$time))
   expect_equal(twoid$from, min(compout$time))
   expect_equal(nrow(compout), 7941)
 
-  # Test the time extraction- is it local or UTM? I assume local but need to double check.
-
-  # Get something with AsStored
-  storedout <- getTimeseriesValues(portal = 'bom',
-                                   ts_id = 208665010,
-                                   start_time = '2020-01-01 00:00:00',
-                                   end_time = '2020-01-01 23:59:00')
-  expect_equal(storedout$time[1], '2020-01-01T00:00:00.000+10:00')
-
-  # check the timeparse
-  storedout_UTC <- getTimeseriesValues(portal = 'bom',
-                                   ts_id = 208665010,
-                                   start_time = '2020-01-01 00:00:00',
-                                   end_time = '2020-01-01 23:59:00',
-                                   timetype = 'UTC')
-  expect_equal(storedout_UTC$time[1], lubridate::ymd_hms('2019-12-31 14:00:00'))
-
-  # check the timeparse
-  storedout_local <- getTimeseriesValues(portal = 'bom',
-                                       ts_id = 208665010,
-                                       start_time = '2020-01-01 00:00:00',
-                                       end_time = '2020-01-01 23:59:00',
-                                       timetype = 'local')
-  expect_equal(storedout_local$time[1], lubridate::ymd_hms('2020-01-01 00:00:00', tz = 'Etc/GMT-10'))
 
 
 
 })
 
-test_that("times are local", {
+test_that("timezones work right", {
 
   # BOM states "Time of day is presented in local standard time. Coordinated Universal Timezones (UTC) are:
 
-  # THIS DOCUMENTATION IS NOT TRUE- SA seems to return 10
+  # THIS DOCUMENTATION IS NOT TRUE-by API default (here, `timezone = NULL`), we get +10 everywhere.
   # Eastern States (QLD, NSW, ACT, VIC, TAS) - UTC +10:00
   # Central States (NT, SA) - UTC +09:30
   # Western Australia - UTC +08:00.
-    # It's not clear to me that's correct, SA sites are coming in not as 9:30
 
-  # also, "Most data are supplied once a day", so that makes these checks hard.
+  # also, "Most data are supplied once a day", so that makes checking differences difficult
 
-  # A4261162 is Murray Bridge, and reports at +9:30 in the web interface but +10 here
-  # need as stored that reports continuously
+  # The API default for each state is +10 These ARE returned at +10, but
+  # lubridate automatically does the shift to UTC. So, the values here should
+  # match if we just ask for UTC, even though they were returned from the API as
+  # +10
+  # A4261162 is Murray Bridge, and reports at +9:30 in the web interface but
+  # +10 here need as stored that reports continuously
   ts_SA <- getTimeseriesList(portal = 'bom',
                             station_no = 'A4261162',
                             extra_list = list(ts_name = 'DMQaQc.Merged.AsStored.1',
                                               stationparameter_name = 'WaterCourseLevel'),
-                            returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'))
+                            returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'),
+                            return_timezone = 'db_default')
 
   # Checking that the times couldn't be London worked for states, but not for BOM since reporting isn't fast enough.
 
@@ -193,16 +174,63 @@ test_that("times are local", {
                             station_no = '412078',
                             extra_list = list(ts_name = 'DMQaQc.Merged.AsStored.1',
                                               stationparameter_name = 'WaterCourseLevel'),
-                            returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'))
+                            returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'),
+                            return_timezone = 'db_default')
 
   # WA
   ts_WA <- getTimeseriesList(portal = 'bom',
                               station_no = '615026',
                               extra_list = list(ts_name = 'DMQaQc.Merged.AsStored.1',
                                                 stationparameter_name = 'WaterCourseLevel'),
-                              returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'))
+                              returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'),
+                             return_timezone = 'db_default')
 
-  expect_equal(ts_SA$timezone, ts_NSW$timezone)
+  expect_equal(ts_SA$from |> lubridate::tz(), 'Etc/GMT-10')
+  expect_equal(ts_NSW$from |> lubridate::tz(), 'Etc/GMT-10')
+  expect_equal(ts_WA$from |> lubridate::tz(), 'Etc/GMT-10')
+
+  # Does 'timezone = 'individual' directly to the API let us get gauge-specific? Doesn't seem to be supported by BOM
+  # ts_SA_i <- getTimeseriesList(portal = 'bom',
+  #                            station_no = 'A4261162',
+  #                            extra_list = list(ts_name = 'DMQaQc.Merged.AsStored.1',
+  #                                              stationparameter_name = 'WaterCourseLevel',
+  #                                              timezone = 'individual'),
+  #                            returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'),
+  #                            return_timezone = 'db_default')
+
+  # and can we put something arbitrary in and still get the right db_tz?
+  ts_WA_CET <- getTimeseriesList(portal = 'bom',
+                             station_no = '615026',
+                             extra_list = list(ts_name = 'DMQaQc.Merged.AsStored.1',
+                                               stationparameter_name = 'WaterCourseLevel'),
+                             returnfields = c('station_no', 'station_name', 'ts_name', 'ts_id', 'ts_path', 'coverage', 'station_latitude'),
+                             return_timezone = 'CET')
+  expect_equal(ts_WA_CET$from |> lubridate::tz(), 'CET')
+  expect_equal(ts_WA_CET$database_timezone, 'Etc/GMT-10')
+
+  # Test the time extraction- if we give it a time, does it treat it as a time in the `timezone` we give it?
+  # NO- input times are interpreted in the database default timezone.
+
+  # Get something with AsStored
+  storedout <- getTimeseriesValues(portal = 'bom',
+                                   ts_id = 208665010,
+                                   start_time = '2020-01-01 00:00:00',
+                                   end_time = '2020-01-01 23:59:00',
+                                   return_timezone = 'db_default')
+  # use [2] because 1 is midnight and as.character drops it
+  expect_equal(as.character(storedout$time[2]), '2020-01-01 00:05:00')
+  expect_equal(storedout$time |> lubridate::tz(), "Etc/GMT-10")
+
+  # check UTC- the input time is *local*, so the returned time in UTC will be off by 10h
+  storedout_UTC <- getTimeseriesValues(portal = 'bom',
+                                       ts_id = 208665010,
+                                       start_time = '2020-01-01 00:00:00',
+                                       end_time = '2020-01-01 23:59:00',
+                                       return_timezone = 'UTC')
+  expect_equal(as.character(storedout_UTC$time[1]), "2019-12-31 14:00:00")
+  expect_equal(storedout_UTC$time |> lubridate::tz(), "UTC")
+
+
 })
 
 

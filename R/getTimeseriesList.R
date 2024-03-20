@@ -12,16 +12,17 @@
 #'
 #'
 #' @inheritParams getStationList
-#' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
+#' @param extra_list a named list, see [getSectionList()], with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a `timezone` in `extra_list` may yield unexpected outcomes when requesting dates. A better option is to use `return_timezone` to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with `timezone = 'UTC'` in extralist to make all outputs on the same tz.
+#' @param return_timezone character in [OlsonNames()]. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10
 #'
-#' @return A tibble of information about available timeseries
+#' @return A tibble of information about available timeseries.Times are POSIXct in UTC by default.
 #' @export
 #'
 getTimeseriesList <- function(portal,
                               station_no = NULL,
                               returnfields = 'default',
                               extra_list = list(NULL),
-                              timetype = 'char') {
+                              return_timezone = 'UTC') {
   baseURL <- parse_url(portal)
 
   # station_no and returnfields need to be a comma separated length-1 vector. Ensure
@@ -45,7 +46,9 @@ getTimeseriesList <- function(portal,
                          request = "getTimeseriesList",
                          kvp = 'true',
                          format = "json",
-                         returnfields = returnfields)
+                         returnfields = returnfields
+                         # timezone = timezone # I had this capacity, but it's likely not needed and gets in the way of discovering the db default tz, which we need for requests.
+                         )
 
   # I seem to assume that there is always a station_no. I guess if not I should
   # bypass? There are other things I could add to the list here, e.g.
@@ -70,19 +73,27 @@ getTimeseriesList <- function(portal,
 
   # If we have times, parse them if desired
  if (grepl('coverage', returnfields)) {
-   # Return the desired times
-   # Don't allow more than 1, or it gets confusing
-   if (length(timetype) > 1) {
-     rlang::warn(c("getTimeseriesList() only accepts one `timetype`",
-                   "i" = glue::glue("Defaulting to the first, {timetype[1]}."),
-                   "i" = "if you want more, use `parse_bom_times` post-hoc, likely with `'char'` here to make tz parsing work."))
-     timetype <- timetype[1]
+
+    # Get the db timezone no matter what
+   tz <- purrr::map_chr(bodytib$from, extract_timezone)
+
+   # if the tz aren't all the same, going to need to bail out
+   if (return_timezone == 'db_default') {
+     if (!all(tz == tz[1])) {
+       rlang::warn(c("Multiple timezones returned, but `return_timezone = 'db_default'`",
+                     "i" = "Setting `return_timezones = 'UTC'."))
+       return_timezone = 'UTC'
+     } else {
+       return_timezone <- tz[1]
+     }
    }
 
     bodytib <- bodytib |>
-      dplyr::mutate(from = parse_bom_times(from, timetype),
-                    to = parse_bom_times(to, timetype),
-                    timezone = extract_timezone(from))
+      dplyr::mutate(from = lubridate::ymd_hms(from) |>
+                      lubridate::with_tz(return_timezone),
+                    to = lubridate::ymd_hms(to) |>
+                      lubridate::with_tz(return_timezone),
+                    database_timezone = tz)
   }
 
 

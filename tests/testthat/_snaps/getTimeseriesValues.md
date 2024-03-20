@@ -7,15 +7,16 @@
        [4] "station_longitude"  "parametertype_name" "ts_name"           
        [7] "ts_unitname"        "ts_unitsymbol"      "station_no"        
       [10] "station_id"         "value"              "quality_code"      
-      [13] "time"               "timezone"          
+      [13] "time"               "database_timezone" 
 
 # returnfields, metareturn, more dates
 
     Code
       names(bomout)
     Output
-      [1] "station_name"  "station_no"    "ts_id"         "ts_unitsymbol"
-      [5] "value"         "time"          "timezone"     
+      [1] "station_name"      "station_no"        "ts_id"            
+      [4] "ts_unitsymbol"     "value"             "time"             
+      [7] "database_timezone"
 
 # ts_path
 
@@ -26,7 +27,7 @@
        [4] "station_longitude"  "parametertype_name" "ts_name"           
        [7] "ts_unitname"        "ts_unitsymbol"      "station_no"        
       [10] "station_id"         "value"              "quality_code"      
-      [13] "time"               "timezone"          
+      [13] "time"               "database_timezone" 
 
 ---
 
@@ -37,38 +38,41 @@
        [4] "station_longitude"  "parametertype_name" "ts_name"           
        [7] "ts_unitname"        "ts_unitsymbol"      "station_no"        
       [10] "station_id"         "value"              "quality_code"      
-      [13] "time"               "timezone"          
+      [13] "time"               "database_timezone" 
 
 # extra_list
 
     Code
       names(bomout)
     Output
-      [1] "station_name"  "station_no"    "ts_id"         "ts_unitsymbol"
-      [5] "value"         "quality_code"  "time"          "timezone"     
+      [1] "station_name"      "station_no"        "ts_id"            
+      [4] "ts_unitsymbol"     "value"             "quality_code"     
+      [7] "time"              "database_timezone"
 
 # period
 
     Code
       names(bomout_e)
     Output
-      [1] "station_name"  "station_no"    "ts_name"       "ts_id"        
-      [5] "ts_unitsymbol" "value"         "quality_code"  "time"         
-      [9] "timezone"     
+      [1] "station_name"      "station_no"        "ts_name"          
+      [4] "ts_id"             "ts_unitsymbol"     "value"            
+      [7] "quality_code"      "time"              "database_timezone"
 
 ---
 
     Code
       names(bomout_s)
     Output
-      [1] "station_name"  "station_no"    "ts_id"         "ts_unitsymbol"
-      [5] "value"         "quality_code"  "time"          "timezone"     
+      [1] "station_name"      "station_no"        "ts_id"            
+      [4] "ts_unitsymbol"     "value"             "quality_code"     
+      [7] "time"              "database_timezone"
 
 ---
 
     Code
       names(bomout_p)
     Output
-      [1] "station_name"  "station_no"    "ts_id"         "ts_unitsymbol"
-      [5] "value"         "quality_code"  "time"          "timezone"     
+      [1] "station_name"      "station_no"        "ts_id"            
+      [4] "ts_unitsymbol"     "value"             "quality_code"     
+      [7] "time"              "database_timezone"
 

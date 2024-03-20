@@ -58,6 +58,7 @@ format_chartimes <- function(t14) {
 
 }
 
+# Get timezones from various formats
 extract_timezone <- function(x) {
   if (is.character(x)) {
 
