@@ -5,7 +5,7 @@
 #' not do very much automation of finding variables, checking times, etc. If
 #' variables are not available for a site or for given times it just silently
 #' does not return them. For a more automated (but currently slower) approach,
-#' see [fetch_hydllp_timeseries()], which also allows a `.errorhandling` argument.
+#' see [fetch_hydstra_timeseries()], which also allows a `.errorhandling` argument.
 #'
 #' Timezone note: Data is returned from the API in local time, but the default here is to output UTC for consistency. Note, however that the `start_time` and `end_time` *must* be in database-local time. Thus, when using programatically, it can be easiest to use `'raw'` or `'db_default'`.
 #' Further, the API returns 0 for data outside the range if a request spans across the boundary. Check your data with [get_timeseries_list()] or use [fetch_hydllp_timeseries()], which does the check automatically.
@@ -306,7 +306,7 @@ clean_trace_list <- function(responsebody,
 #                            return_timezone = 'UTC',
 #                            .errorhandling = 'stop') {
 #
-#   rlang::warn("`get_ts_traces2 is being deprecated in favor of `fetch_hydllp_timeseries. Please change your code.")
+#   rlang::warn("`get_ts_traces2 is being deprecated in favor of `fetch_hydstra_timeseries. Please change your code.")
 #
 #   baseURL <- parse_url(portal)
 #

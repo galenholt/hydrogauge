@@ -1,4 +1,4 @@
-#' Wrapper for hydllp to find and return desired timeseries
+#' Wrapper for Hydstra/hydllp to find and return desired timeseries
 #'
 #' This wraps [get_variable_list()] and [get_ts_traces()], allowing a bit more automation and a bit
 #' more flexibility than [get_ts_traces()], but is currently slower due to more
@@ -15,6 +15,8 @@
 #'
 #' @inheritParams get_ts_traces
 #' @inheritParams clean_trace_list
+#'
+#' @param gauge character vector of gauge numbers, as `site_list` for Hydstra functions (`station_no` for Kiwis functions)
 #' @param var_list as in [get_ts_traces()], but can also take `"all"` to get all
 #'   available variables at each site in `site_list`
 #' @param start_time as in [get_ts_traces()], but can also take `"all"` to start
@@ -34,7 +36,7 @@
 #' @param request_timezone ignored if start_time and end_time are time objects, otherwise a timezone from [OlsonNames()] or 'db_default'
 
 
-fetch_hydllp_timeseries <- function(portal,
+fetch_hydstra_timeseries <- function(portal,
                                     gauge,
                                     datasource = 'A',
                                     var_list = c('100', '140'),

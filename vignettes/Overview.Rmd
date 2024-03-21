@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 ```
 
 ```{r setup}
-library(vicwater)
+library(hydrogauge)
 ```
 
 This package is designed to query the [Victorian water data](https://data.water.vic.gov.au/static.htm) API to pull gauge information. It does not have complete coverage of the available API calls, but is under active development to add functionality. Initial focus has been on identifying what is available to pull and pulling timeseries.

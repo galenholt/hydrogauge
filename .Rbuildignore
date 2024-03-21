@@ -1,6 +1,6 @@
 ^renv$
 ^renv\.lock$
-^vicwater\.Rproj$
+^hydrogauge\.Rproj$
 ^\.Rproj\.user$
 ^LICENSE\.md$
 ^\.github$

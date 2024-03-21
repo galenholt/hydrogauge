@@ -8,7 +8,7 @@
 #'
 #' @inheritParams getTimeseriesValues
 #'
-#' @param gauge character vector of gauge numbers, as `station_no` for Kiwis functions or `site_list` for hydllp
+#' @param gauge character vector of gauge numbers, as `station_no` for Kiwis functions (`site_list` for Hydstra)
 #' @param variable character vector of variables we want to extract. Matches on `parametertype_name`
 #' @param units units of the variable, used when there may be > 1 e.g. cumecs, ML/d for discharge. If NULL, gets all available. Matches to `ts_unitsymbol`
 #' @param timeunit The time interval to request, e.g. "Daily", the default. Main values seem to be 'Daily', 'Monthly', 'Yearly', and 'AsStored' (the raw data). Matches to part of `ts_name`
@@ -79,7 +79,7 @@ fetch_kiwis_timeseries <- function(portal,
   end_req <- request_to_gaugetime(end_time, gaugetz, request_timezone)
 
   # Can I check for duplication somehow?
-  # We don't need to be as loopy here as with the hydllp, since each record has a unique identifier
+  # We don't need to be as loopy here as with the hydstra, since each record has a unique identifier
   timeseries <- getTimeseriesValues(portal = portal,
                                   ts_id = ts_ids$ts_id,
                                   start_time = start_req,

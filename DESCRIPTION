@@ -1,5 +1,5 @@
-Package: vicwater
-Title: Pulls information from the Victoria water API
+Package: hydrogauge
+Title: Pulls information from the Kisters Kiwis and Hydstra APIs
 Version: 0.0.0.9000
 Authors@R: 
     person("Galen", "Holt", , "g.holt@deakin.edu.au", role = c("aut", "cre"),

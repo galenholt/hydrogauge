@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/reference/test_package.html#special-files
 
 library(testthat)
-library(vicwater)
+library(hydrogauge)
 
-test_check("vicwater")
+test_check("hydrogauge")

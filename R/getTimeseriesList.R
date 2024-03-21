@@ -1,9 +1,9 @@
 #' Get the list of timeseries available
 #'
 #' This is the API used by Australian Bureau of Meteorology and many others. For
-#' consistency with similar state functions using Kisters hydllp, I have kept
+#' consistency with similar state functions using Kisters Hydstra, I have kept
 #' the station_no argument with the same name. Any of the return fields can be
-#' searched though, using extra_list. The equivalent state (hydllp) function is
+#' searched though, using extra_list. The equivalent state (Hydstra) function is
 #' [get_variable_list()] (to a close approximation).
 #' The available return fields (and thus factors that can be filtered) are
 #' `'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name'`, where the `station_no` argument matches `station_no` for consistency across state functions.

@@ -1,11 +1,11 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# vicwater
+# hydrogauge
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/galenholt/vicwater/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/galenholt/vicwater/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/galenholt/hydrogauge/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/galenholt/hydrogauge/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
 
@@ -22,18 +22,18 @@ to pull and pulling timeseries.
 
 ## Installation
 
-You can install the development version of vicwater from
+You can install the development version of hydrogauge from
 [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("galenholt/vicwater")
+devtools::install_github("galenholt/hydrogauge")
 ```
 
 ## Example
 
 ``` r
-library(vicwater)
+library(hydrogauge)
 library(ggplot2)
 ```
 

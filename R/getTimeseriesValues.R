@@ -1,7 +1,7 @@
 #' Get timeseries from Kiwis (BOM)
 #'
 #' This expects a `ts_id` or `ts_path` (but not both) to identify the timeseries (>= 1) to pull. `ts_path` can be generated on the fly with wildcards, but isn't straightforward to parse- see the output of [getTimeseriesList()]. Though `ts_id` would need to be extracted from [getTimeseriesList()], and so may not be any easier to get programatically.
-#' The equivalent state (hydllp) function is [get_ts_traces()] (to a close approximation).
+#' The equivalent state (Hydstra) function is [get_ts_traces()] (to a close approximation).
 #' If `period` is used, only one (or none) of `start_time` and `end_time` can be used. If neither is used, it gets the most recent period.
 #'
 #' Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, but not the API. The API defaults to +10, but we can choose, so here we default to `return_timezone = 'UTC'` for consistency.
@@ -64,7 +64,7 @@ getTimeseriesValues <- function(portal,
   meta_returnfields <- paste(meta_returnfields, sep = ',', collapse = ',')
 
 
-  # These times should be character vectors in LOCAL time. hydllp needs a 14
+  # These times should be character vectors in LOCAL time. Hydstra needs a 14
   # digit character vector, this needs dashes and such in the right places, but
   # will take date objects. The problem is those date objects end up in UTC. So
   # instead, parse the 14 digits into the kiwis format

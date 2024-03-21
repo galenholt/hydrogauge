@@ -1,14 +1,14 @@
 #' getStationList API call to Kisters KiWIS API
 #'
 #' This is the API used by Australian Bureau of Meteorology and many others. For
-#' consistency with similar state functions using Kisters hydllp, I have kept
+#' consistency with similar state functions using Kisters Hydstra, I have kept
 #' the station_no argument with the same name. Any of the return fields can be
-#' searched though, using extra_list. The equivalent state (hydllp) function is
+#' searched though, using extra_list. The equivalent state (Hydstra) function is
 #' [get_db_info()] (to a close approximation).
 #'
 #' @param portal URL to Kisters KiWIS database. Default is Australian BOM,
 #'   www.bom.gov.au/waterdata/services, but likely works for other KiWIS
-#' @param station_no gauge numbers, as `site_list` in the hydllp functions. There are many other fields that can be used to filter and select records, but this seems to be most common and so we give it special treatment. For others, use see `extra_list`
+#' @param station_no gauge numbers, as `site_list` in the Hydstra functions. There are many other fields that can be used to filter and select records, but this seems to be most common and so we give it special treatment. For others, use see `extra_list`
 #' @param returnfields default 'default', otherwise 'all' to get everything available, or comma-separated string of fields
 #'   to return. Full list for each function available from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo)
 #' @param extra_list a named list of other fields to select on. Names (usually) should be

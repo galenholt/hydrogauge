@@ -15,11 +15,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-# vicwater
+# hydrogauge
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/galenholt/vicwater/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/galenholt/vicwater/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/galenholt/hydrogauge/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/galenholt/hydrogauge/actions/workflows/R-CMD-check.yaml)
 
 <!-- badges: end -->
 
@@ -27,13 +27,15 @@ knitr::opts_chunk$set(
 
 This package was originally designed to query various state water gauge networks and the Australian Bureau of Meteorology (BoM) APIs. Some Australian states use [Kisters](https://resources.kisters.com.au/public/kisters-web-publishing/) Hydstra (hydllp) while the BoM uses Kisters WISKI/KiWIS. Thus, this package is likely to work for many other services use these APIs with a simple change to the URL (argument `portal`).
 
+I have taken an approach that tries to blend functionality with ease of use. I use a set of core functions that give the user access to most of the API functionality when needed, but have then wrapped these in an outer set of functions that attempt to make the most common use-cases easier and avoid the need to dig into API documentation.
+
 ## Installation
 
-You can install the development version of vicwater from [GitHub](https://github.com/) with:
+You can install the development version of hydrogauge from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("galenholt/vicwater")
+devtools::install_github("galenholt/hydrogauge")
 ```
 
 ## Background
@@ -46,7 +48,7 @@ Caveat: while the functionality provided maps as closely as possible to the unde
 
 ### Supported sources
 
-Users can input any url for a KiWIS or HYDSTRA portal, but there are also some that can be called by name (not case sensitive):
+Users can input any url for a KiWIS or HYDSTRA (hydllp) portal, but there are also some that can be called by name (not case sensitive):
 
 -   'vic': the [Victorian water data](https://data.water.vic.gov.au/static.htm) (API url <https://data.water.vic.gov.au/cgi/webservice.exe?>)
 
@@ -66,10 +68,12 @@ Other Australian states are in progress and haven't been looked into very thorou
 
 If you're outside Australia, just use your URL. Create an issue (or pull request) to add other named portals.
 
+The [Kisters website](https://resources.kisters.com.au/public/kisters-web-publishing/) provides a list of sites that are likely to work with these functions, but it may take work to find the correct API url, and those not in the list above are untested.
+
 ## Example
 
 ```{r setup}
-library(vicwater)
+library(hydrogauge)
 library(ggplot2)
 ```
 
@@ -99,7 +103,7 @@ golf <- '405837'
 
 ## Times
 
-Both sets of API (hydllp and kiwis) expect times to be gauge-local and return times local to the gauge. This package provides some functionality to return times in other formats (see `timetype` argument), including a standard parseable character format, UTC, and local time objects. In general, working with UTC and offsets is preferable, but care should be taken when giving desired start and end times, as these need to be in gauge-local time.
+Both sets of API (Hydstra/hydllp and kiwis) expect times to be gauge-local and return times local to the gauge. This package provides some functionality to return times in other formats (see `timetype` argument), including a standard parseable character format, UTC, and local time objects. In general, working with UTC and offsets is preferable, but care should be taken when giving desired start and end times, as these need to be in gauge-local time.
 
 
 ## Definitions and available options
@@ -398,7 +402,9 @@ ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) +
 
 The [bomWater](https://github.com/buzacott/bomWater) and [kiwisR](https://github.com/rywhale/kiwisR) packages have much of the functionality needed to call the BoM API, targeted at Australia (bomWater) and generally (kiwisR). I have learned a lot from them, and have only chosen to reimplement the BoM work because neither quite had what I needed for my workflow without being convoluted.
 
-There are similar python packages [mdba-gauge-getter](https://github.com/MDBAuth/MDBA_Gauge_Getter), which calls state and BoM, and [bomwater](github.com/csiro-hydroinformatics/pybomwater), which is the BoM interface.
+There are similar python packages [mdba-gauge-getter](https://github.com/MDBAuth/MDBA_Gauge_Getter), which calls state and BoM, and [bomwater](github.com/csiro-hydroinformatics/pybomwater), which is the BoM interface. Both of these are tailored for flow and stage timeseries, with less emphasis than here on identifying available data and exposing API funcationality.
+
+An obvious missing piece is USGS gauges. The USGS provides the in-house [dataRetrieval](https://github.com/DOI-USGS/dataRetrieval) package. At present, I have not explored wrapping that here. 
 
 ## Useful API documentation
 

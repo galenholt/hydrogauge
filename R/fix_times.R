@@ -4,7 +4,7 @@
 #'
 #' @return 14-digit character vector
 
-fix_times <- function(usertime, type = 'hydllp') {
+fix_times <- function(usertime, type = 'hydstra') {
 
   # short-circuit NULL
   if (is.null(usertime)) {return(NULL)}
@@ -27,7 +27,7 @@ fix_times <- function(usertime, type = 'hydllp') {
 
   clean_time <- paste0(collapsetime, pad)
 
-  # if type is 'hydllp', that's all we need.
+  # if type is 'hydstra', that's all we need.
   # if type is 'kiwis', we need dashes and colons.
   if (type == 'kiwis') {
     # This is annoying, since we could use lubridate directly, but that turns it

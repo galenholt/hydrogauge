@@ -1,6 +1,6 @@
 #' Gets groups in the database
 #'
-#' Closest hydllp is [get_groups()], neither seem particularly useful.
+#' Closest Hydstra is [get_groups()], neither seem particularly useful.
 #' Might make [getStationList()], [getTimeseriesList()] and [getTimeseriesValues()] easier, though not obviously by much.
 #' Note that 'the group identifiers are returned as group_id but specified in getStationList, getTimeseriesList, getTimeseriesValues, and getTimeseriesValueLayer as stationgroup_id, parametergroup_id or timeseriesgroup_id' per [docs](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/principal-query-functions#getGroupList)
 #'

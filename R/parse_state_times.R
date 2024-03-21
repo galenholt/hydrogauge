@@ -1,8 +1,8 @@
-#' Deal with parsing the hydllp timestamps into UTC or local time
+#' Deal with parsing the Hydstra/hydllp timestamps into UTC or local time
 #'
 #' Very similar to [parse_bom_times()] but has to deal with tz differently, and return character versions differently
 #'
-#' @param timevec the output of the `t` column from hydllp, typically a 14-digit double
+#' @param timevec the output of the `t` column from Hydstra, typically a 14-digit double
 #' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' returns a character in the format `YYYY-MM-DDTHH:MM:SS+TZ` matching BOM-style (and so containing all necessary info). `'raw'` simply returns the unmodified numeric, which does not.
 #' @param tz_name the name of the incoming timezone, as in OlsonNames, needed for lubridate
 #' @param tz_offset the offset of the incoming timezone, easier to parse for 'char'
