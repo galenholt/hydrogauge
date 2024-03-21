@@ -10,32 +10,13 @@
 #'
 parse_bom_times <- function(timevec, timetype = 'char') {
 
-  # Doing this with a vector because that makes it easy to do for different dfs with different column names.
-  # lubridate does utc by default
-  if (grepl('utc', timetype, ignore.case = TRUE)) {
-    timevec <- lubridate::ymd_hms(timevec)
-  }
-
-
-  # Getting local time is a surprising amount of hassle. We need to extract the tz and pass it as an argument. And for some reason 'Etc/GMT-10' gives tz +10, etc.
-  if (grepl('local', timetype, ignore.case = TRUE)) {
-
-    # Get the timezone
-    tz <- extract_timezone(timevec)
-
-    # There's probably a cleverer way to do this with base::aggregate, but I'm
-    # just going to do this because we can only have one tz for lubridate, but
-    # may have > 1 in thedata
-    bom_df <- tibble::tibble(time = timevec, tz = tz) |>
-      dplyr::group_by(tz) |>
-      dplyr::mutate(time_local = lubridate::ymd_hms(time, tz = unique(tz))) |>
-      dplyr::ungroup()
-
-    timevec <- bom_df$time_local
-  }
-
   if (!grepl('char|raw', timetype, ignore.case = TRUE)) {
     timevec <- timevec
+  }
+
+  if (timetype %in% OlsonNames()) {
+    timevec <- lubridate::ymd_hms(timevec) |>
+      lubridate::with_tz(timetype)
   }
 
   return(timevec)

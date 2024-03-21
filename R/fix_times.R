@@ -40,7 +40,15 @@ fix_times <- function(usertime, type = 'hydllp') {
 
 }
 
+#' turns 14-character time string into 'YYYY-MM-DDTHH:MM:SS'
+#'
+#' @param t14
+#'
+#' @return
 format_chartimes <- function(t14) {
+
+  # NA get turned into characters here, we dont want that.
+  incoming_na <- which(is.na(t14))
 
   if (is.numeric(t14)) {
     t14 <- format(t14, digits = 14, scientific = FALSE)
@@ -54,21 +62,61 @@ format_chartimes <- function(t14) {
   s <- substr(t14, start = 13, stop = 14)
   t14 <- paste0(y, '-', mo, '-', d, 'T', h, ':', m, ':', s)
 
+  # make the NA NA
+  t14[incoming_na] <- NA
+
   return(t14)
 
 }
 
-# Get timezones from various formats
+#' Get timezones from various formats
+#'
+#' @param x vector with tz info, either times with it included or tz
+#'
+#' @return vector of OlsonName timezones if possible
+#'
 extract_timezone <- function(x) {
+
+  # we don't want to check that this is a single tz, since we could just return as a character to preserve that.
+
+  # NA get turned into characters here, we dont want that.
+  incoming_na <- which(is.na(x) | x == '')
+  incoming_good <- which(!is.na(x) & x != '')
+
+  # just return NA if there's nothing else
+  if (length(incoming_good) == 0) {return(NA)}
+
+  # This bit is mostly to handle the states, which have numeric e.g. 10.0
+  if (is.numeric(x)) {
+    if (x > 0) {
+      sign <- '+'
+    } else {
+      sign <- '' # - gets retained in as.character
+    }
+    x <- paste0(sign, as.character(x))
+  }
+
   if (is.character(x)) {
 
     # the API uses 'Z' to denote UTC
-    if (grepl('Z$', x)) {
+    if (any(grepl('Z$', x))) {
       timezone <- 'UTC'
     }
 
+    # This bit is mostly to handle the states, e.g. "10.0"
+    if (all(nchar(x[incoming_good]) %in% c(4,5))) {
+      # make numeric to find the direction
+      x <- as.numeric(x)
+      if (x > 0) {
+        sign <- '+'
+      } else {
+        sign <- '' # - gets retained in as.character
+      }
+      x <- paste0(sign, as.character(x))
+    }
+
     time_offset <- stringr::str_extract(x, '(\\+|-)[0-9][0-9](:[0-9][0-9])*$')
-    if (grepl(':[1-9]', time_offset)) {
+    if (any(grepl(':[1-9]|\\.[1-9]', time_offset))) {
       rlang::warn(c("Gauge timezone has partial-hour offset, does not abide by OlsonNames()",
                     "Returning the offset as-is, which will require manual work to convert to date objects"))
       timezone <- time_offset
@@ -81,9 +129,34 @@ extract_timezone <- function(x) {
     }
 
   }
+
   if (inherits(x, 'POSIXt')) {
     timezone <- lubridate::tz(x)
   }
 
+  # reset NAs
+  timezone[incoming_na] <- NA
+
+  return(timezone)
+}
+
+#' returns single tz from vector, with check for equality
+#'
+#' @param tzvec
+#'
+#' @return
+multi_tz_check <- function(tzvec) {
+  # ignore na- all of them
+  if (all(is.na(tzvec))) {return(NA)}
+  # when some, we don't care which, we just want everything else to be the same.
+  tzvec <- tzvec[!is.na(tzvec)]
+
+  if (!all(tzvec == tzvec[1])) {
+    rlang::warn(c("Multiple timezones returned, cannot be used to make a single time vector.",
+                  "i" = "Setting timezone returned to 'UTC' (original will be preserved)"))
+    timezone = 'UTC'
+  } else {
+    timezone <- tzvec[1]
+  }
   return(timezone)
 }

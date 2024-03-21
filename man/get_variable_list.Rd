@@ -4,7 +4,7 @@
 \alias{get_variable_list}
 \title{Gets the variables for sites and datasources}
 \usage{
-get_variable_list(portal, site_list, datasource, timetype = "char")
+get_variable_list(portal, site_list, datasource, return_timezone = "UTC")
 }
 \arguments{
 \item{portal}{character for the data portal (case insensitive). Default 'victoria'}
@@ -12,6 +12,11 @@ get_variable_list(portal, site_list, datasource, timetype = "char")
 \item{site_list}{character site code, either a single site code \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
 
 \item{datasource}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
+
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. If \code{'char'}, returns a string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis returns). If \code{'raw'}, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+\itemize{
+\item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
+}}
 }
 \value{
 a tibble of the variables for each site and datasource.

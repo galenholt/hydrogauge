@@ -3,60 +3,42 @@
 #' Very similar to [parse_bom_times()] but has to deal with tz differently, and return character versions differently
 #'
 #' @param timevec the output of the `t` column from hydllp, typically a 14-digit double
-#' @param tz a timezone vector, also returned from hydllp
 #' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' returns a character in the format `YYYY-MM-DDTHH:MM:SS+TZ` matching BOM-style (and so containing all necessary info). `'raw'` simply returns the unmodified numeric, which does not.
+#' @param tz_name the name of the incoming timezone, as in OlsonNames, needed for lubridate
+#' @param tz_offset the offset of the incoming timezone, easier to parse for 'char'
 #'
 #' @return a vector, either character, numeric, or POSIX
 #' @export
 #'
-parse_state_times <- function(timevec, tz, timetype) {
+parse_state_times <- function(timevec, tz_name, tz_offset, timetype) {
 
-  # Doing this with a vector because that makes it easy to do for different dfs with different column names.
-  # Both UTC and local need to know the tz, since unlike BOM its not encoded
-  # We could just create a bom-style character vector and then get that function to do the work, but it's a bit roundabout.
-  if (grepl('utc|local|char', timetype, ignore.case = TRUE)) {
-    # none of the local stuff works with other than whole hours
-    timeoffset <- as.numeric(tz)
-    if (any(timeoffset %% 1 != 0)) {
-      rlang::abort(c("Cannot use partial-hour timezones.",
-                     "i" = "Try using `timetype = 'char'` and post-hoc manually parsing."))
-    }
-    timeoffset <- as.integer(timeoffset)
-  }
-
-  if (grepl('utc|local', timetype, ignore.case = TRUE)) {
-    # needed for utc and local with lubridate
-    timedir <- ifelse(timeoffset > 0, '-', '+') # This is backwards to if we return it as char
-    tz_name <- paste0('Etc/GMT', timedir, timeoffset)
-
-    state_df <- tibble::tibble(time = timevec, tz_name = tz_name) |>
-      dplyr::group_by(tz_name) |>
-      dplyr::mutate(time_local = lubridate::ymd_hms(time, tz = unique(tz_name)),
-                    time_utc = lubridate::with_tz(time_local, tz = 'UTC')) |>
-      dplyr::ungroup()
-
-    if (grepl('utc', timetype, ignore.case = TRUE)) {
-      timevec <- state_df$time_utc
-    }
-    if (grepl('local', timetype, ignore.case = TRUE)) {
-      timevec <- state_df$time_local
-    }
-  }
-
-
+  ### Need to re-figure this- we need a database_timezone column and a time column. Does that mean this needs to be two functions? Or return a 2-col tibble that then gets unpacked?
   if (grepl('char', timetype, ignore.case = TRUE)) {
 
-    timedir <- ifelse(timeoffset > 0, '+', '')
+    tzoffnum <- as.numeric(tz_offset)
+    timedir  <- ifelse(tzoffnum > 0, '+', '') # '-' gets included with as.character
 
     timevec <- format_chartimes(timevec)
 
-    timevec <- paste0(timevec, timedir, timeoffset)
+    timevec[!is.na(timevec)] <- paste0(timevec[!is.na(timevec)], timedir, tzoffnum)
   }
+
 
   if (!grepl('raw', timetype, ignore.case = TRUE)) {
     timevec <- timevec
   }
 
+  if (timetype %in% OlsonNames()) {
+    # get a single tz, but check it's not multiple
+    tz_name <- multi_tz_check(tz_name)
+    # Unlike BOM, the tz info isn't in the timevec, so it gets put directly into UTC with no shift unless we give it tz.
+    timevec <- lubridate::ymd_hms(timevec, tz = tz_name) |>
+      lubridate::with_tz(timetype)
+  }
+
 
   return(timevec)
 }
+
+
+

@@ -126,6 +126,14 @@ clean_bom_timeseries <- function(x, return_timezone = 'UTC') {
   data_names <- x$columns |>
     stringr::str_split_1(",")
 
+  # handle the situation of no data
+  if (length(x$data) == 0) {
+    numcols <- stringr::str_split(x$columns, ',', simplify = TRUE) |>
+      length()
+
+    x$data <- list(as.vector(rep(NA, numcols), mode = 'list'))
+  }
+
   # Getting the col names is annoying
   data_df <- tibble::tibble(variable = response_names, value = x) |>
     tidyr::pivot_wider(names_from = variable, values_from = value) |>
@@ -140,23 +148,17 @@ clean_bom_timeseries <- function(x, return_timezone = 'UTC') {
   # Return the desired times
 
   # Get the db timezone no matter what
-  tz <- purrr::map_chr(data_df$Timestamp, extract_timezone)
+  tz <- extract_timezone(data_df$Timestamp)
 
   # if the tz aren't all the same, going to need to bail out
   if (return_timezone == 'db_default') {
-    if (!all(tz == tz[1])) {
-      rlang::warn(c("Multiple timezones returned, but `return_timezone = 'db_default'`",
-                    "i" = "Setting `return_timezones = 'UTC'."))
-      return_timezone = 'UTC'
-    } else {
-      return_timezone <- tz[1]
-    }
+    # This gives either the database timezone tz or UTC if there are multiple
+    return_timezone <- multi_tz_check(tz)
   }
 
   # do the time parse
   data_df <- data_df |>
-    dplyr::mutate(time = lubridate::ymd_hms(Timestamp) |>
-                    lubridate::with_tz(return_timezone),
+    dplyr::mutate(time = parse_bom_times(Timestamp, return_timezone),
                   database_timezone = tz) |>
     dplyr::select(-Timestamp)
 

@@ -17,5 +17,5 @@ a tibble of the sites and datasources present
 \description{
 This is not particularly useful, as far as I can tell, but it in theory lets
 us use various \code{filter}s in \code{get_db_info}. The problem is the groups don't
-seem very useful
+seem very useful. And it takes forever
 }

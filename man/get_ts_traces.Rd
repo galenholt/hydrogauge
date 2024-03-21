@@ -14,7 +14,7 @@ get_ts_traces(
   interval = "day",
   data_type = "mean",
   multiplier = 1,
-  timetype = "char",
+  return_timezone = "UTC",
   returnformat = "df"
 )
 }
@@ -43,12 +43,16 @@ get_ts_traces(
 
 \item{multiplier}{character, interval multiplier. I \emph{think} this allows intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}. Not tested other than 1 at present.}
 
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. If \code{'char'}, returns a string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis returns). If \code{'raw'}, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+\itemize{
+\item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
+}}
+
 \item{returnformat}{character, one of
 \itemize{
 \item \code{"df"} returns a tibble
 \item \code{"varlist"} returns a list with an separate tibble for each variable (may have multiple sites per tibble)
 \item \code{"sitelist"} returns a list with an separate tibble for each site (may have multiple variables per tibble)
-\item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
 }}
 }
 \value{
@@ -63,7 +67,7 @@ does not return them. For a more automated (but currently slower) approach,
 see \link{get_ts_traces2}, which also allows a \code{.errorhandling} argument.
 }
 \details{
-Timezone note: Data is returned from the API in local time, and the default here is to make that a standard character format for consistency. However, for programmatic use, it's likely easiest to just work in UTC, with the caveat that the \code{start_time} and \code{end_time} need to be in 'local'.
+Timezone note: Data is returned from the API in local time, but the default here is to use UTC for consistency. Note, however that the \code{start_time} and \code{end_time} \emph{must} be in database-local time. Thus, when using programatically, it can be easiest to use \code{'raw'}.
 }
 \examples{
 simpletrace <- get_ts_traces(site_list = "233217",

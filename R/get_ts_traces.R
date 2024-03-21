@@ -7,7 +7,7 @@
 #' does not return them. For a more automated (but currently slower) approach,
 #' see [get_ts_traces2], which also allows a `.errorhandling` argument.
 #'
-#' Timezone note: Data is returned from the API in local time, and the default here is to make that a standard character format for consistency. However, for programmatic use, it's likely easiest to just work in UTC, with the caveat that the `start_time` and `end_time` need to be in 'local'.
+#' Timezone note: Data is returned from the API in local time, but the default here is to use UTC for consistency. Note, however that the `start_time` and `end_time` *must* be in database-local time. Thus, when using programatically, it can be easiest to use `'raw'`.
 #'
 #' @param portal character for the data portal (case insensitive). Default 'victoria'
 #' @param site_list character site code, either a single site code `"sitenumber"`, comma-separated codes in a single string `"sitenumber1, sitenumber2`, or a vector of site codes `c("sitenumber1", "sitenumber2")`
@@ -24,8 +24,8 @@
 #'  * `"df"` returns a tibble
 #'  * `"varlist"` returns a list with an separate tibble for each variable (may have multiple sites per tibble)
 #'  * `"sitelist"` returns a list with an separate tibble for each site (may have multiple variables per tibble)
+#' @param return_timezone character in [OlsonNames()] or one of three special cases: `'db_default'`, `'char'` or `'raw'`. Default 'UTC'. If 'db_default', uses the API default. If `'char'`, returns a string in the format `'YYYY-MM-DDTHH:MM:SS+TZ'`, having all needed info (and matching Kiwis returns). If `'raw'`, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
 #'  * `"sxvlist"` returns a list with an separate tibble for each site x variable combination
-
 #' @return tibble(s) with requested variables at requested sites (where they exist). See `returnformat`, either a tibble or list of tibbles
 #' @export
 #'
@@ -37,8 +37,6 @@
 #' start_time = '20200101', end_time = '20200105',
 #' interval = 'day', data_type = 'mean',
 #' multiplier = 1, returnformat = 'df')
-
-
 get_ts_traces <- function(portal,
                           site_list,
                           datasource = 'A',
@@ -48,7 +46,7 @@ get_ts_traces <- function(portal,
                           interval = 'day',
                           data_type = 'mean',
                           multiplier = 1,
-                          timetype = 'char',
+                          return_timezone = 'UTC',
                           returnformat = 'df') {
 
   baseURL <- parse_url(portal)
@@ -98,7 +96,7 @@ get_ts_traces <- function(portal,
     # clean up with a function because so ugly
     bodytib <- clean_trace_list(responsebody = response_body,
                                 data_type = data_type,
-                                timetype = timetype)
+                                return_timezone = return_timezone)
 
   } else {
     bodytib <- tibble::tibble(.rows = 0)
@@ -129,7 +127,7 @@ get_ts_traces <- function(portal,
                    # clean up with a function because so ugly
                    bt <- clean_trace_list(responsebody = rb,
                                           data_type = data_type,
-                                          timetype = timetype)
+                                          return_timezone = return_timezone)
 
                  }
 
@@ -151,6 +149,8 @@ get_ts_traces <- function(portal,
 
 #' Cleans ts_trace API list body into tibble
 #'
+#' @inheritParams get_ts_traces
+#'
 #' @param responsebody response body from the API call to get_ts_traces
 #' @param data_type the data_type used to calculate the statistic over the
 #'   `interval`, glued on for record
@@ -167,7 +167,7 @@ get_ts_traces <- function(portal,
 clean_trace_list <- function(responsebody,
                              data_type,
                              gauge = NA,
-                             timetype = 'char',
+                             return_timezone = 'UTC',
                              .errorhandling = 'stop') {
 
   # Some error handling
@@ -220,9 +220,24 @@ clean_trace_list <- function(responsebody,
   bodytib <- bodytib |>
     dplyr::rename(value = v, time = t, quality_codes_id = q)
 
+  # Get the db timezone no matter what
+  tz <- purrr::map_chr(bodytib$timezone, extract_timezone)
+
+  # if the tz aren't all the same, going to need to bail out
+  if (return_timezone == 'db_default') {
+    # This gives either the database timezone tz or UTC if there are multiple
+    return_timezone <- multi_tz_check(tz)
+  }
+
+
   # handle different sorts of time-parsing
   bodytib <- bodytib |>
-    dplyr::mutate(time = parse_state_times(time, timezone, timetype))
+    dplyr::mutate(database_timezone = tz,
+                  time = parse_state_times(time,
+                                           tz_name = database_timezone,
+                                           tz_offset = timezone,
+                                           timetype = return_timezone)) |>
+    dplyr::select(-timezone) # Remove the tz as-returned, it can get confusing
 
   bodytib <- bodytib |>
     dplyr::left_join(qc, by = c('quality_codes_id', 'site', 'variable')) |>
@@ -281,15 +296,15 @@ get_ts_traces2 <- function(portal,
                            data_type = 'mean',
                            multiplier = 1,
                            returnformat = 'df',
-                           timetype = 'char',
+                           return_timezone = 'UTC',
                            .errorhandling = 'stop') {
   baseURL <- parse_url(portal)
 
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 
   # Available variables, start and end times, and sites
-    # use 'raw' timetype since this passes times around in the state format
-  possibles <- get_variable_list(baseURL, site_list, datasource, timetype = 'raw') |>
+    # use 'raw' return_timezone since this passes times around in the state format
+  possibles <- get_variable_list(baseURL, site_list, datasource, return_timezone = 'raw') |>
     dplyr::select(site, short_name, variable, var_name, datasource,
                   period_start, period_end) |>
     dplyr::mutate(varfrom = variable, varto = variable)
@@ -377,7 +392,7 @@ get_ts_traces2 <- function(portal,
                        bt <- clean_trace_list(responsebody = rb,
                                               data_type = possibles$data_type[i],
                                               gauge = possibles$site,
-                                              timetype = timetype,
+                                              return_timezone = return_timezone,
                                               .errorhandling = .errorhandling)
 
                      }

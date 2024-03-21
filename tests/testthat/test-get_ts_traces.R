@@ -1,14 +1,18 @@
 # avoid warnings about plans
 # doFuture::registerDoFuture() # Shouldn't be needed anymore
-future::plan('multisession')
+future::plan('sequential')
 
 test_that("ts example", {
   simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = c('100', '140'),
-                               start_time = '20200101', end_time = '20200105',
-                               interval = 'day', data_type = 'mean',
-                               multiplier = 1, returnformat = 'df')
+                               start_time = '20200101',
+                               end_time = '20200105',
+                               interval = 'day',
+                               data_type = 'mean',
+                               multiplier = 1,
+                               returnformat = 'df',
+                               return_timezone = 'raw')
   expect_s3_class(simpletrace, 'tbl_df')
   expect_snapshot(simpletrace)
 })
@@ -90,7 +94,7 @@ test_that("errorhandling appends correctly", {
   # this should be the failure
   expect_s3_class(pass3[[2]], 'tbl_df')
 
-  expect_equal(nrow(pass3[[2]]), 1)
+  expect_equal(nrow(pass3[[2]]), 1) # The error
   expect_true(nrow(pass3[[1]]) > 1)
   expect_true(nrow(pass3[[3]]) > 1)
 
@@ -286,9 +290,13 @@ test_that("ts timezone checks", {
   simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = c('100', '140'),
-                               start_time = '20200101000000', end_time = '20200101235900',
-                               interval = 'default', data_type = 'point',
-                               multiplier = 1, returnformat = 'df')
+                               start_time = '20200101000000',
+                               end_time = '20200101235900',
+                               interval = 'default',
+                               data_type = 'point',
+                               multiplier = 1,
+                               returnformat = 'df',
+                               return_timezone = 'char')
   expect_equal(simpletrace$time[1], "2020-01-01T00:00:00+10")
 
   simpletrace_utc <- get_ts_traces(portal = 'vic', site_list = "233217",
@@ -297,7 +305,7 @@ test_that("ts timezone checks", {
                                start_time = '20200101000000', end_time = '20200101235900',
                                interval = 'default', data_type = 'point',
                                multiplier = 1,
-                               timetype = 'utc',
+                               return_timezone = 'UTC',
                                returnformat = 'df')
 
   expect_equal(simpletrace_utc$time[1], lubridate::ymd_hms('2019-12-31 14:00:00', tz = "UTC"))
@@ -308,7 +316,7 @@ test_that("ts timezone checks", {
                                    start_time = '20200101000000', end_time = '20200101235900',
                                    interval = 'default', data_type = 'point',
                                    multiplier = 1,
-                                   timetype = 'local',
+                                   return_timezone = 'db_default',
                                    returnformat = 'df')
 
   expect_equal(simpletrace_local$time[1], lubridate::ymd_hms('2020-01-01 00:00:00', tz = "Etc/GMT-10"))
@@ -342,7 +350,7 @@ test_that("ts timezone checks", {
                             start_time = starttime, end_time = endtime,
                             interval = 'default', data_type = 'point',
                             multiplier = 1,
-                            timetype = 'char',
+                            return_timezone = 'char',
                             returnformat = 'df')
 
   # all of them should be after current UTC time if we ignore the tz appended on them and treat as UTC, and so they must be local

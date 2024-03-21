@@ -14,7 +14,7 @@ getTimeseriesValues(
   returnfields = "default",
   meta_returnfields = "default",
   extra_list = list(NULL),
-  timetype = "char"
+  return_timezone = "UTC"
 )
 }
 \arguments{
@@ -25,9 +25,9 @@ www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 
 \item{ts_path}{timeseries path, which can be constructed, including wildcards, e.g. \code{ts_path = '*/A4260505/Water*/*DailyMean'} Gets the daily means for all 'Water' variables at gauge A4260505, which might include Level, Discharge, Temperature, etc..}
 
-\item{start_time}{character or date or date time for the start. Default NULL.}
+\item{start_time}{character or date or date time for the start \emph{in database default timezone}. Default NULL.}
 
-\item{end_time}{character or date or date time for the end. Default NULL.}
+\item{end_time}{character or date or date time for the end \emph{in database default timezone}. Default NULL.}
 
 \item{period}{character, default NULL. The special case 'complete' returns the full set of data. Otherwise, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See \href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}.}
 
@@ -35,15 +35,12 @@ www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 
 \item{meta_returnfields}{return fields about the variable and site. seems to be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its \code{returnfields}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
-\item{extra_list}{a named list of other fields to select on. Names (usually) should be
-in \code{returnfields} (or returned when \code{returnfields = 'all'}), though not all work- see the queryfields in the \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}.
-Values should be comma-separated characters, and can contain grep wildcards e.g.
-\verb{extra_list = list(station_name = 'RIVER MURRAY*)}. Can also use groups from \code{\link[=getGroupList]{getGroupList()}}, e.g. \code{extra_list = list(stationgroup_id = '20017550')} gets the MDB_WIP_Watercourse stations.}
+\item{extra_list}{a named list, see \code{\link[=getSectionList]{getSectionList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
-\item{timetype}{character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 }
 \value{
-a tibble of the timeseries values. Times are in UTC.
+a tibble of the timeseries values. Times are POSIXct in UTC by default.
 }
 \description{
 This expects a \code{ts_id} or \code{ts_path} (but not both) to identify the timeseries (>= 1) to pull. \code{ts_path} can be generated on the fly with wildcards, but isn't straightforward to parse- see the output of \code{\link[=getTimeseriesList]{getTimeseriesList()}}. Though \code{ts_id} would need to be extracted from \code{\link[=getTimeseriesList]{getTimeseriesList()}}, and so may not be any easier to get programatically.
@@ -51,5 +48,6 @@ The equivalent state (hydllp) function is \code{\link[=get_ts_traces]{get_ts_tra
 If \code{period} is used, only one (or none) of \code{start_time} and \code{end_time} can be used. If neither is used, it gets the most recent period.
 }
 \details{
-Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, and nearly but not exactly in the API. States on the half-hour get returned on the hour, which makes parsing easier, but they are not exactly local time. For programmatic use, it's likely easiest to just work in UTC, with the caveat that the \code{start_time} and \code{end_time} need to be in 'local'.
+Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, but not the API. The API defaults to +10, but we can choose, so here we default to \code{return_timezone = 'UTC'} for consistency.
+Further, \code{start_time} and \code{end_time} \emph{must} be in database-local time; setting a different return time, either here or directly to the API with a \code{timezone} argument in \code{extra_list}, does not affect the interpretation of these times. \code{\link[=getTimeseriesList]{getTimeseriesList()}} returns the \code{database_timezone} to make this easier. \code{\link[=fetch_kiwiws_timeseries]{fetch_kiwiws_timeseries()}} handles some of this work automatically.
 }

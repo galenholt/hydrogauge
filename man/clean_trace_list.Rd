@@ -8,7 +8,7 @@ clean_trace_list(
   responsebody,
   data_type,
   gauge = NA,
-  timetype = "char",
+  return_timezone = "UTC",
   .errorhandling = "stop"
 )
 }
@@ -19,6 +19,11 @@ clean_trace_list(
 \code{interval}, glued on for record}
 
 \item{gauge}{character gauge name- allows building an informative error-handled output}
+
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. If \code{'char'}, returns a string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis returns). If \code{'raw'}, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+\itemize{
+\item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
+}}
 
 \item{.errorhandling}{as in \code{\link[foreach:foreach]{foreach::foreach()}} (but handled in
 \code{\link[=api_error_catch]{api_error_catch()}}) Default 'stop'. Made available here primarily to use

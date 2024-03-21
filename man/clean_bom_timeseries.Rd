@@ -4,12 +4,12 @@
 \alias{clean_bom_timeseries}
 \title{Clean the raw output from the BOM getTimeseriesValue call}
 \usage{
-clean_bom_timeseries(x, timetype = "char")
+clean_bom_timeseries(x, return_timezone = "UTC")
 }
 \arguments{
 \item{x}{the response list}
 
-\item{timetype}{character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10}
 }
 \value{
 a tibble

@@ -16,7 +16,7 @@ get_ts_traces2(
   data_type = "mean",
   multiplier = 1,
   returnformat = "df",
-  timetype = "char",
+  return_timezone = "UTC",
   .errorhandling = "stop"
 )
 }
@@ -58,6 +58,10 @@ change between sits, and so \code{data_type} should be a single function.}
 \item \code{"df"} returns a tibble
 \item \code{"varlist"} returns a list with an separate tibble for each variable (may have multiple sites per tibble)
 \item \code{"sitelist"} returns a list with an separate tibble for each site (may have multiple variables per tibble)
+}}
+
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. If \code{'char'}, returns a string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis returns). If \code{'raw'}, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+\itemize{
 \item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
 }}
 

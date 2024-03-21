@@ -20,7 +20,7 @@ test_that("groups in extra_list", {
   bomout <- getStationList(portal = 'bom',
                            extra_list = list(stationgroup_id = '20017550'))
 
-  expect_snapshot(names(bomout))
+  expect_snapshot_value(names(bomout))
   expect_equal(nrow(bomout), 207)
 })
 

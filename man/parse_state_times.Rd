@@ -4,12 +4,14 @@
 \alias{parse_state_times}
 \title{Deal with parsing the hydllp timestamps into UTC or local time}
 \usage{
-parse_state_times(timevec, tz, timetype)
+parse_state_times(timevec, tz_name, tz_offset, timetype)
 }
 \arguments{
 \item{timevec}{the output of the \code{t} column from hydllp, typically a 14-digit double}
 
-\item{tz}{a timezone vector, also returned from hydllp}
+\item{tz_name}{the name of the incoming timezone, as in OlsonNames, needed for lubridate}
+
+\item{tz_offset}{the offset of the incoming timezone, easier to parse for 'char'}
 
 \item{timetype}{character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' returns a character in the format \code{YYYY-MM-DDTHH:MM:SS+TZ} matching BOM-style (and so containing all necessary info). \code{'raw'} simply returns the unmodified numeric, which does not.}
 }

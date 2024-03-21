@@ -9,7 +9,7 @@ getTimeseriesList(
   station_no = NULL,
   returnfields = "default",
   extra_list = list(NULL),
-  timetype = "char"
+  return_timezone = "UTC"
 )
 }
 \arguments{
@@ -21,15 +21,12 @@ www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 \item{returnfields}{default 'default', otherwise 'all' to get everything available, or comma-separated string of fields
 to return. Full list for each function available from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}}
 
-\item{extra_list}{a named list of other fields to select on. Names (usually) should be
-in \code{returnfields} (or returned when \code{returnfields = 'all'}), though not all work- see the queryfields in the \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}.
-Values should be comma-separated characters, and can contain grep wildcards e.g.
-\verb{extra_list = list(station_name = 'RIVER MURRAY*)}. Can also use groups from \code{\link[=getGroupList]{getGroupList()}}, e.g. \code{extra_list = list(stationgroup_id = '20017550')} gets the MDB_WIP_Watercourse stations.}
+\item{extra_list}{a named list, see \code{\link[=getSectionList]{getSectionList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
-\item{timetype}{character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 }
 \value{
-A tibble of information about available timeseries
+A tibble of information about available timeseries.Times are POSIXct in UTC by default.
 }
 \description{
 This is the API used by Australian Bureau of Meteorology and many others. For

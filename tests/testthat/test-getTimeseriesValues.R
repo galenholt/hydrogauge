@@ -1,7 +1,7 @@
 test_that("simple works, with time test", {
   bomout <- getTimeseriesValues(portal = 'bom', ts_id = c("208669010", "380185010", "329344010"),
                                 start_time = '2020-01-01 01:30:30', end_time = '20200105')
-  expect_snapshot(names(bomout))
+  expect_snapshot_value(names(bomout), style = 'deparse')
   expect_equal(nrow(bomout), 11)
 
 
@@ -14,7 +14,7 @@ test_that("returnfields, metareturn, more dates", {
                                 meta_returnfields = c('station_name', 'station_no', 'ts_id', 'ts_unitsymbol'),
                                 start_time = lubridate::ymd('2020-01-01'), end_time = '2020-01-05')
 
-  expect_snapshot(names(bomout))
+  expect_snapshot_value(names(bomout), style = 'deparse')
   expect_equal(nrow(bomout), 13)
 
 
@@ -24,13 +24,13 @@ test_that("ts_path", {
   bomout_full <- getTimeseriesValues(portal = 'bom',
                                      ts_path = 'w00078-A4260505/A4260505/WaterCourseLevel/Pat3_C_B_1_DailyMean',
                                 start_time = '2020-01-01 01:30:30', end_time = '20200105')
-  expect_snapshot(names(bomout_full))
+  expect_snapshot_value(names(bomout_full), style = 'deparse')
   expect_equal(nrow(bomout_full), 3)
 
   bomout_wild <- getTimeseriesValues(portal = 'bom',
                                      ts_path = '*/A4260505/Water*/*DailyMean',
                                      start_time = '2020-01-01 01:30:30', end_time = '20200105')
-  expect_snapshot(names(bomout_wild))
+  expect_snapshot_value(names(bomout_wild), style = 'deparse')
   expect_equal(nrow(bomout_wild), 6)
 
 
@@ -45,7 +45,7 @@ test_that("extra_list", {
                                 meta_returnfields = c('station_name', 'station_no', 'ts_id', 'ts_unitsymbol'),
                                 start_time = lubridate::ymd('2020-01-01'), end_time = '2020-01-05')
 
-  expect_snapshot(names(bomout))
+  expect_snapshot_value(names(bomout), style = 'deparse')
   expect_equal(nrow(bomout), 13)
 
 
@@ -59,7 +59,7 @@ test_that("period", {
                                 end_time = '2020-01-05',
                                 period = 'P2W')
 
-  expect_snapshot(names(bomout_e))
+  expect_snapshot_value(names(bomout_e), style = 'deparse')
   expect_equal(nrow(bomout_e), 43)
 
   bomout_s <- getTimeseriesValues(portal = 'bom',
@@ -68,7 +68,7 @@ test_that("period", {
                                 start_time = '2020-01-01',
                                 period = 'P2W')
 
-  expect_snapshot(names(bomout_s))
+  expect_snapshot_value(names(bomout_s), style = 'deparse')
   expect_equal(nrow(bomout_s), 43)
 
   # This depends on the current date, so the rows fluctuat a bit
@@ -77,7 +77,7 @@ test_that("period", {
                                   meta_returnfields = c('station_name', 'station_no', 'ts_id', 'ts_unitsymbol'),
                                   period = 'P2W')
 
-  expect_snapshot(names(bomout_p))
+  expect_snapshot_value(names(bomout_p), style = 'deparse')
   expect_true(nrow(bomout_p) > 34 & nrow(bomout_p) < 40)
 
 
@@ -230,6 +230,13 @@ test_that("timezones work right", {
   expect_equal(as.character(storedout_UTC$time[1]), "2019-12-31 14:00:00")
   expect_equal(storedout_UTC$time |> lubridate::tz(), "UTC")
 
+  # and can we still get the characters?
+  storedout_char <- getTimeseriesValues(portal = 'bom',
+                                       ts_id = 208665010,
+                                       start_time = '2020-01-01 00:00:00',
+                                       end_time = '2020-01-01 23:59:00',
+                                       return_timezone = 'char')
+  expect_equal(storedout_char$time[1], "2020-01-01T00:00:00.000+10:00")
 
 })
 

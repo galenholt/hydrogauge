@@ -13,7 +13,7 @@
 get_variable_list <- function(portal,
                               site_list,
                               datasource,
-                              timetype = 'char') {
+                              return_timezone = 'UTC') {
 
   baseURL <- parse_url(portal)
 
@@ -56,6 +56,29 @@ get_variable_list <- function(portal,
     dplyr::mutate(datasource = datasource[1]) |> # add a datasource column so we can cross-ref
     dplyr::select(site, short_name, long_name, variable, units, var_name, period_start, period_end, subdesc, datasource, timezone)
 
+  # deal with the times
+
+  # Get the db timezone no matter what
+  tz <- purrr::map_chr(bodytib$timezone, extract_timezone)
+
+  # if the tz aren't all the same, going to need to bail out
+  if (return_timezone == 'db_default') {
+    # This gives either the database timezone tz or UTC if there are multiple
+    return_timezone <- multi_tz_check(tz)
+  }
+
+  bodytib <- bodytib |>
+    dplyr::mutate(database_timezone = tz,
+                  period_start = parse_state_times(period_start,
+                                                   tz_name = database_timezone,
+                                                   tz_offset = timezone,
+                                                   timetype = return_timezone),
+                  period_end = parse_state_times(period_end,
+                                                 tz_name = database_timezone,
+                                                 tz_offset = timezone,
+                                                 timetype = return_timezone)) |>
+    dplyr::select(-timezone)
+
   # would be good to preallocate, but no idea how big it'll be. I guess just
   # recurse and bind_rows? Could fairly easily just to a purrr::map or
   # furrr::map across datasources? Then at least we'd hit the api in parallel.
@@ -63,15 +86,11 @@ get_variable_list <- function(portal,
   if (length(datasource) > 1) {
     datasource <- datasource[-1]
     bodytib <- dplyr::bind_rows(bodytib,
-                                get_variable_list(portal,
-                                                  site_list,
-                                                  datasource))
+                                get_variable_list(portal = portal,
+                                                  site_list = site_list,
+                                                  datasource = datasource,
+                                                  return_timezone = return_timezone))
   }
-
-  # deal with the times
-  bodytib <- bodytib |>
-    dplyr::mutate(period_start = parse_state_times(period_start, timezone, timetype),
-                  period_end = parse_state_times(period_end, timezone, timetype))
 
   return(bodytib)
 }
