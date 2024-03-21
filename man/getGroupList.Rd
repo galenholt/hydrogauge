@@ -14,7 +14,7 @@ www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 a tibble
 }
 \description{
-Closest hydllp is \code{\link[=get_groups]{get_groups()}}, neither seem particularly useful.
+Closest Hydstra is \code{\link[=get_groups]{get_groups()}}, neither seem particularly useful.
 Might make \code{\link[=getStationList]{getStationList()}}, \code{\link[=getTimeseriesList]{getTimeseriesList()}} and \code{\link[=getTimeseriesValues]{getTimeseriesValues()}} easier, though not obviously by much.
 Note that 'the group identifiers are returned as group_id but specified in getStationList, getTimeseriesList, getTimeseriesValues, and getTimeseriesValueLayer as stationgroup_id, parametergroup_id or timeseriesgroup_id' per \href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/principal-query-functions#getGroupList}{docs}
 }

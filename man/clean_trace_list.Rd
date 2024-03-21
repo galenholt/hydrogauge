@@ -28,8 +28,7 @@ clean_trace_list(
 \item{.errorhandling}{as in \code{\link[foreach:foreach]{foreach::foreach()}} (but handled in
 \code{\link[=api_error_catch]{api_error_catch()}}) Default 'stop'. Made available here primarily to use
 'pass' so big requests don't die due to API errors. \strong{Be careful}- those
-errors then just get passed and so the data will be missing. Only currently
-implemented and working in \code{\link[=get_ts_traces2]{get_ts_traces2()}}}
+errors then just get passed and so the data will be missing.}
 }
 \value{
 a tibble with the rectangled response

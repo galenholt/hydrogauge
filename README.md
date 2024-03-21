@@ -293,7 +293,6 @@ ts_days <- get_ts_traces(portal = 'Vic',
                          data_type = "mean",
                          multiplier = 1,
                          returnformat = 'df')
-#> Warning: executing %dopar% sequentially: no parallel backend registered
 ```
 
 That returns a tall dataframe, which the user can then split up or plot

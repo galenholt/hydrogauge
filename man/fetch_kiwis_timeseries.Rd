@@ -26,7 +26,7 @@ fetch_kiwis_timeseries(
 \item{portal}{URL to Kisters KiWIS database. Default is Australian BOM,
 www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
 
-\item{gauge}{character vector of gauge numbers, as \code{station_no} for Kiwis functions or \code{site_list} for hydllp}
+\item{gauge}{character vector of gauge numbers, as \code{station_no} for Kiwis functions (\code{site_list} for Hydstra)}
 
 \item{start_time}{character or date or date time for the start \emph{in database default timezone}. Default NULL.}
 

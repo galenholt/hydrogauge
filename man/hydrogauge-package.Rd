@@ -4,7 +4,7 @@
 \name{hydrogauge-package}
 \alias{hydrogauge}
 \alias{hydrogauge-package}
-\title{hydrogauge: Pulls information from the Victoria water API}
+\title{hydrogauge: Pulls information from the Kisters Kiwis and Hydstra APIs}
 \description{
 This package provides R wrappers to (some) of the API calls possible to the Victorian gauge network. I have tried to provide functionality to query available options for the different arguments.
 }

@@ -15,7 +15,8 @@ get_ts_traces(
   data_type = "mean",
   multiplier = 1,
   return_timezone = "UTC",
-  returnformat = "df"
+  returnformat = "df",
+  .errorhandling = "stop"
 )
 }
 \arguments{
@@ -54,6 +55,11 @@ get_ts_traces(
 \item \code{"varlist"} returns a list with an separate tibble for each variable (may have multiple sites per tibble)
 \item \code{"sitelist"} returns a list with an separate tibble for each site (may have multiple variables per tibble)
 }}
+
+\item{.errorhandling}{as in \code{\link[foreach:foreach]{foreach::foreach()}} (but handled in
+\code{\link[=api_error_catch]{api_error_catch()}}) Default 'stop'. Made available here primarily to use
+'pass' so big requests don't die due to API errors. \strong{Be careful}- those
+errors then just get passed and so the data will be missing.}
 }
 \value{
 tibble(s) with requested variables at requested sites (where they exist). See \code{returnformat}, either a tibble or list of tibbles
@@ -64,10 +70,11 @@ derived and base. This is very similar to the underlying API call, and does
 not do very much automation of finding variables, checking times, etc. If
 variables are not available for a site or for given times it just silently
 does not return them. For a more automated (but currently slower) approach,
-see \link{get_ts_traces2}, which also allows a \code{.errorhandling} argument.
+see \code{\link[=fetch_hydstra_timeseries]{fetch_hydstra_timeseries()}}, which also allows a \code{.errorhandling} argument.
 }
 \details{
-Timezone note: Data is returned from the API in local time, but the default here is to use UTC for consistency. Note, however that the \code{start_time} and \code{end_time} \emph{must} be in database-local time. Thus, when using programatically, it can be easiest to use \code{'raw'}.
+Timezone note: Data is returned from the API in local time, but the default here is to output UTC for consistency. Note, however that the \code{start_time} and \code{end_time} \emph{must} be in database-local time. Thus, when using programatically, it can be easiest to use \code{'raw'} or \code{'db_default'}.
+Further, the API returns 0 for data outside the range if a request spans across the boundary. Check your data with \code{\link[=get_timeseries_list]{get_timeseries_list()}} or use \code{\link[=fetch_hydllp_timeseries]{fetch_hydllp_timeseries()}}, which does the check automatically.
 }
 \examples{
 simpletrace <- get_ts_traces(site_list = "233217",

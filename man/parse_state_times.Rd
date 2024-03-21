@@ -2,12 +2,12 @@
 % Please edit documentation in R/parse_state_times.R
 \name{parse_state_times}
 \alias{parse_state_times}
-\title{Deal with parsing the hydllp timestamps into UTC or local time}
+\title{Deal with parsing the Hydstra/hydllp timestamps into UTC or local time}
 \usage{
 parse_state_times(timevec, tz_name, tz_offset, timetype)
 }
 \arguments{
-\item{timevec}{the output of the \code{t} column from hydllp, typically a 14-digit double}
+\item{timevec}{the output of the \code{t} column from Hydstra, typically a 14-digit double}
 
 \item{tz_name}{the name of the incoming timezone, as in OlsonNames, needed for lubridate}
 

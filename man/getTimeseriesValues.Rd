@@ -44,7 +44,7 @@ a tibble of the timeseries values. Times are POSIXct in UTC by default.
 }
 \description{
 This expects a \code{ts_id} or \code{ts_path} (but not both) to identify the timeseries (>= 1) to pull. \code{ts_path} can be generated on the fly with wildcards, but isn't straightforward to parse- see the output of \code{\link[=getTimeseriesList]{getTimeseriesList()}}. Though \code{ts_id} would need to be extracted from \code{\link[=getTimeseriesList]{getTimeseriesList()}}, and so may not be any easier to get programatically.
-The equivalent state (hydllp) function is \code{\link[=get_ts_traces]{get_ts_traces()}} (to a close approximation).
+The equivalent state (Hydstra) function is \code{\link[=get_ts_traces]{get_ts_traces()}} (to a close approximation).
 If \code{period} is used, only one (or none) of \code{start_time} and \code{end_time} can be used. If neither is used, it gets the most recent period.
 }
 \details{
