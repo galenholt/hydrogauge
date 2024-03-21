@@ -14,7 +14,9 @@ parse_url <- function(portal, test = TRUE) {
   portal <- tolower(portal)
 
   baseURL <- dplyr::case_when(
+    # Allow passing in addresses directly
     grepl("http", portal) ~ portal,
+    # Some known Australian portals
     portal %in% c("vic", "victoria") ~ "https://data.water.vic.gov.au/cgi/webservice.exe?",
     portal %in% c("nsw", "new south wales", "newsouthwales") ~ "https://realtimedata.waternsw.com.au/cgi/webservice.exe?",
     portal %in% c("qld", "queensland") ~ "https://water-monitoring.information.qld.gov.au/cgi/webservice.exe?",

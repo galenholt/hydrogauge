@@ -63,7 +63,7 @@ fetch_kiwis_timeseries <- function(portal,
     start_time <- min(ts_ids$from)
   }
 
-  # use a different set of defaults here than for later functions
+  # use a different set of defaults here than for deeper functions
   if (length(returnfields) == 1 && returnfields == 'default') {
     returnfields <- c('Timestamp', 'Value', 'Quality Code')
   }
@@ -74,44 +74,16 @@ fetch_kiwis_timeseries <- function(portal,
 
 
 
-  if (inherits(start_time, 'POSIXt') | inherits(end_time, 'POSIXt')) {
-    # catch errors
-    if ((!inherits(start_time, 'POSIXt')) | (!inherits(end_time, 'POSIXt'))) {
-      rlang::abort(c("One but not both of `start_time` and `end_time` are date objects.",
-                     "Either make both dates or both not dates"))
-    }
-
-    start_time <- start_time |>
-        lubridate::with_tz(tzone = gaugetz)
-
-    end_time <- end_time |>
-        lubridate::with_tz(tzone = gaugetz)
-  } else {
-
-    # If the incoming times should be treated as gauge-local, get the tz
-    if (grepl('db_default', request_timezone, ignore.case = TRUE)) {
-      # put those incoming times into the gauge times
-      # because we used 'db_default' on the list, we can extract from here directly
-      request_timezone <- gaugetz
-    }
-
-    start_time <- start_time |>
-        fix_times() |>
-        lubridate::ymd_hms(tz = request_timezone) |>
-        lubridate::with_tz(tzone = gaugetz)
-
-    end_time <- end_time |>
-        fix_times() |>
-        lubridate::ymd_hms(tz = request_timezone) |>
-        lubridate::with_tz(tzone = gaugetz)
-  }
+  # Put the request times on the gauge timezone
+  start_req <- request_to_gaugetime(start_time, gaugetz, request_timezone)
+  end_req <- request_to_gaugetime(end_time, gaugetz, request_timezone)
 
   # Can I check for duplication somehow?
   # We don't need to be as loopy here as with the hydllp, since each record has a unique identifier
   timeseries <- getTimeseriesValues(portal = portal,
                                   ts_id = ts_ids$ts_id,
-                                  start_time = start_time,
-                                  end_time = end_time,
+                                  start_time = start_req,
+                                  end_time = end_req,
                                   period = period,
                                   returnfields = returnfields,
                                   meta_returnfields = meta_returnfields,
