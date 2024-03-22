@@ -9,6 +9,9 @@ multi_tz_check(tzvec)
 \arguments{
 \item{tzvec}{}
 }
+\value{
+character tz name
+}
 \description{
 returns single tz from vector, with check for equality
 }

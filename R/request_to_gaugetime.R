@@ -4,7 +4,7 @@
 #' @param gaugetz database timezone
 #' @param request_timezone declared timezone of `reqtime`, ignored if `reqtime` is `POSIXt`, in which case its tz is known.
 #'
-#' @return
+#' @return requested time in the timezone `gaugetz`
 #'
 request_to_gaugetime <- function(reqtime, gaugetz, request_timezone) {
   if (inherits(reqtime, 'POSIXt')) {

@@ -44,7 +44,7 @@ fix_times <- function(usertime, type = 'hydstra') {
 #'
 #' @param t14
 #'
-#' @return
+#' @return character in format 'YYYY-MM-DDTHH:MM:SS'
 format_chartimes <- function(t14) {
 
   # NA get turned into characters here, we dont want that.
@@ -144,7 +144,7 @@ extract_timezone <- function(x) {
 #'
 #' @param tzvec
 #'
-#' @return
+#' @return character tz name
 multi_tz_check <- function(tzvec) {
   # ignore na- all of them
   if (all(is.na(tzvec))) {return(NA)}

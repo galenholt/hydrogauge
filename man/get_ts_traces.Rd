@@ -8,7 +8,7 @@ get_ts_traces(
   portal,
   site_list,
   datasource = "A",
-  var_list = c("100", "140"),
+  var_list = c("100", "141"),
   start_time,
   end_time,
   interval = "day",
@@ -79,7 +79,7 @@ Further, the API returns 0 for data outside the range if a request spans across 
 \examples{
 simpletrace <- get_ts_traces(site_list = "233217",
 datasource = 'A',
-var_list = c('100', '140'),
+var_list = c('100', '141'),
 start_time = '20200101', end_time = '20200105',
 interval = 'day', data_type = 'mean',
 multiplier = 1, returnformat = 'df')

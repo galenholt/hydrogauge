@@ -13,6 +13,9 @@ request_to_gaugetime(reqtime, gaugetz, request_timezone)
 
 \item{request_timezone}{declared timezone of \code{reqtime}, ignored if \code{reqtime} is \code{POSIXt}, in which case its tz is known.}
 }
+\value{
+requested time in the timezone \code{gaugetz}
+}
 \description{
 Transform requested times to the gauge timezones, whatever their tz and the tz of the gauge/database
 }

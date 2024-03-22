@@ -1,0 +1,6 @@
+portal	variable	units	var_list
+hydstra	level	m	100
+hydstra	discharge	ML/d	141
+hydstra	discharge	cumec	140
+hydstra	rain	mm	10
+	temp	°C	2080

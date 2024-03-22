@@ -5,7 +5,7 @@ future::plan('sequential')
 test_that("ts example", {
   simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
-                               var_list = c('100', '140'),
+                               var_list = c('100', '141'),
                                start_time = '20200101',
                                end_time = '20200105',
                                interval = 'day',
@@ -304,7 +304,7 @@ test_that('HTTP errors work correctly for multiple gauges', {
 test_that("ts timezone checks", {
   simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
-                               var_list = c('100', '140'),
+                               var_list = c('100', '141'),
                                start_time = '20200101000000',
                                end_time = '20200101235900',
                                interval = 'default',
@@ -316,7 +316,7 @@ test_that("ts timezone checks", {
 
   simpletrace_utc <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
-                               var_list = c('100', '140'),
+                               var_list = c('100', '141'),
                                start_time = '20200101000000', end_time = '20200101235900',
                                interval = 'default', data_type = 'point',
                                multiplier = 1,
@@ -327,7 +327,7 @@ test_that("ts timezone checks", {
 
   simpletrace_local <- get_ts_traces(portal = 'vic', site_list = "233217",
                                    datasource = 'A',
-                                   var_list = c('100', '140'),
+                                   var_list = c('100', '141'),
                                    start_time = '20200101000000', end_time = '20200101235900',
                                    interval = 'default', data_type = 'point',
                                    multiplier = 1,
@@ -360,7 +360,7 @@ test_that("ts timezone checks", {
   nowtrace <- get_ts_traces(portal = 'vic',
                             site_list = "233217",
                             datasource = 'TELEM',
-                            var_list = c('100', '140'),
+                            var_list = c('100', '141'),
                             # at the time of writing this test, it is 4:30 am in London on the 18th, so this start time hasn't happened.
                             start_time = starttime, end_time = endtime,
                             interval = 'default', data_type = 'point',
