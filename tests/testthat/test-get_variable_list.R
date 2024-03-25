@@ -22,3 +22,13 @@ test_that("handles missing", {
   expect_equal(sum(is.na(miss_and_exist$variable)), 3)
 })
 
+test_that("lake level and other", {
+  # first is normal, second is a reservoir with levels
+  lakelist <- get_variable_list(portal = 'nsw',
+                                                site_list = c("422028", "412107"),
+                                                datasource = 'A')
+
+  # Those two should match
+  expect_snapshot(lakelist)
+})
+

@@ -24,7 +24,9 @@ get_groups <- function(portal,
   # hit the api
   response_body <- get_response(baseURL, api_body_list)
 
-  body_tib <- tibble::as_tibble(response_body[2])  |>  # the [2] drops the error column
+  # This list structure is strange, and we can't just call $return because the names are sometimes names and sometimes list items.
+  returnid <- which(names(response_body) == 'return')
+  body_tib <- tibble::as_tibble(response_body[returnid])  |>  # the [2] drops the error column
     tidyr::unnest_wider(col = where(is.list))  |>  # a `return` list
     tidyr::unnest_longer(col = where(is.list))
 

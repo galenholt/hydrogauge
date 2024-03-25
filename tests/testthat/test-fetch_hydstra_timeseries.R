@@ -88,3 +88,22 @@ test_that("ignore unavailable gauges", {
                                              request_timezone = 'db_default',
                                              return_timezone = 'UTC'))
 })
+
+test_that("lake level", {
+  # This should just get 141
+  simpletrace_lakes <- fetch_hydstra_timeseries(portal = 'nsw',
+                                             gauge = c("412107", "425020", "425022", "425023"),
+                                             datasource = 'A',
+                                             start_time = '20200101',
+                                             end_time = '20200105',
+                                              variable = 'discharge',
+                                             timeunit = 'day',
+                                             statistic = 'mean',
+                                             multiplier = 1,
+                                             returnformat = 'df',
+                                             request_timezone = 'db_default',
+                                             return_timezone = 'UTC')
+
+  # Those two should match
+  expect_snapshot(simpletrace_lakes)
+})

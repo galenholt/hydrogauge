@@ -193,8 +193,8 @@ clean_trace_list <- function(responsebody,
   if (is.null(responsebody)) {return(responsebody)}
 
   # unpack the list
-  bodytib <- tibble::as_tibble(responsebody[2]) |> # the [2] drops the error column
-    tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list
+  bodytib <- tibble::as_tibble(responsebody$return) |> # just get the return value (drop error col and disclaimer, etc)
+    # tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list, not needed with $ indexing
     tidyr::unnest_wider(col = tidyselect::where(is.list)) |> # complex set of lists
     tidyr::unnest_wider(col = site_details) |> # columns of info about the site
     dplyr::rename(site_name = name, site_short_name = short_name) |>

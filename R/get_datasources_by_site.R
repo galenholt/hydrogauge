@@ -28,8 +28,8 @@ get_datasources_by_site <- function(portal,
 
 
   # unpack the list
-  bodytib <- tibble::as_tibble(response_body[2]) |> # the [2] drops the error column
-    tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # error and a `return` list
+  bodytib <- tibble::as_tibble(response_body$return) |> # the [2] drops the error column
+    # tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # error and a `return` list
     tidyr::unnest_wider(col = tidyselect::where(is.list)) |> # error, site, and a `datasources` list
     tidyr::unnest_longer(col = tidyselect::where(is.list)) # fully unpacked into a long df
 
@@ -67,8 +67,8 @@ get_sites_by_datasource <- function(portal,
 
 
   # unpack the list
-  bodytib <- tibble::as_tibble(response_body[2]) |> # the [2] drops the error column
-    tidyr::unnest_longer(col = tidyselect::where(is.list)) |> #  `return` list
+  bodytib <- tibble::as_tibble(response_body$return) |> # the [2] drops the error column
+    # tidyr::unnest_longer(col = tidyselect::where(is.list)) |> #  `return` list
     tidyr::unnest_wider(col = tidyselect::where(is.list)) |> # site, and a `datasources` list
     tidyr::unnest_longer(col = tidyselect::where(is.list)) # fully unpacked into a long df
 

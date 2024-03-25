@@ -71,3 +71,4 @@ test_that("Unavailable gauges disappear", {
 
 })
 
+

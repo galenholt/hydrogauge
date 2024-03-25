@@ -2,8 +2,8 @@
 # doFuture::registerDoFuture() # Shouldn't be needed anymore
 future::plan('sequential')
 
-test_that("ts example", {
-  simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
+test_that("ts example all states", {
+  simpletracev <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = c('100', '141'),
                                start_time = '20200101',
@@ -13,8 +13,34 @@ test_that("ts example", {
                                multiplier = 1,
                                returnformat = 'df',
                                return_timezone = 'raw')
-  expect_s3_class(simpletrace, 'tbl_df')
-  expect_snapshot(simpletrace)
+  expect_s3_class(simpletracev, 'tbl_df')
+  expect_snapshot(simpletracev)
+
+  simpletraceq <- get_ts_traces(portal = 'qld', site_list = "422211A",
+                               datasource = 'A',
+                               var_list = c('100', '141'),
+                               start_time = '20200101',
+                               end_time = '20200105',
+                               interval = 'day',
+                               data_type = 'mean',
+                               multiplier = 1,
+                               returnformat = 'df',
+                               return_timezone = 'raw')
+  expect_s3_class(simpletraceq, 'tbl_df')
+  expect_snapshot(simpletraceq)
+
+  simpletracen <- get_ts_traces(portal = 'nsw', site_list = "422004",
+                               datasource = 'A',
+                               var_list = c('100', '141'),
+                               start_time = '20200101',
+                               end_time = '20200105',
+                               interval = 'day',
+                               data_type = 'mean',
+                               multiplier = 1,
+                               returnformat = 'df',
+                               return_timezone = 'raw')
+  expect_s3_class(simpletracen, 'tbl_df')
+  expect_snapshot(simpletracen)
 })
 
 test_that("ts example, just 140", {
