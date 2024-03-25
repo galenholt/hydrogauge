@@ -71,6 +71,11 @@ getTimeseriesList <- function(portal,
     tidyr::unnest_wider(col = 1, names_sep = '_') |>
     setNames(tibnames)
 
+  # If nothing there, drop it
+  if (nrow(bodytib) == 0) {
+    return(NULL)
+  }
+
   # If we have times, parse them if desired
  if (grepl('coverage', returnfields)) {
 

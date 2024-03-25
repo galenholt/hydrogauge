@@ -55,3 +55,19 @@ test_that("I can separate the 09 vs 24 in the QaQc, and it doesn't fail when ask
 
 })
 
+test_that("Unavailable gauges disappear", {
+  # 'B18230938' is made up, this should be the same as the first test.
+  bomout <- fetch_kiwis_timeseries(portal = 'bom',
+                                   gauge = c('410730', 'A4260505', 'B18230938'),
+                                   start_time = '2020-01-01 01:30:30',
+                                   end_time = '20200105')
+  expect_snapshot_value(names(bomout), style = 'deparse')
+  expect_equal(nrow(bomout), 8)
+  expect_equal(lubridate::tz(bomout$time[1]), 'UTC')
+  # The discharge is at 09am at GMT +10, so the value that gets grabbed is the next one after start_time
+  expect_equal(bomout$time[1], lubridate::ymd_hms('2020-01-01 09:00:00', tz = 'Etc/GMT-10') |>
+                 lubridate::with_tz('UTC'))
+
+
+})
+

@@ -57,6 +57,10 @@ get_ts_traces <- function(portal,
                           returnformat = 'df',
                           .errorhandling = 'stop') {
 
+  # If this gets a NA portal return NULL (which happens sometimes with auto-finding from get_variable_list) and the variable doesn't exist
+  if (is.na(portal) | length(portal) == 0 | is.null(portal)) {
+    return(NULL)
+  }
   baseURL <- parse_url(portal)
 
   # clean up the start and end times.

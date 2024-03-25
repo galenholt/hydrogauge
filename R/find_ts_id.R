@@ -20,6 +20,11 @@ find_ts_id <- function(portal,
                                station_no = gauge,
                                return_timezone = return_timezone)
 
+  if (is.null(ts_list)) {
+    rlang::warn(glue::glue("Gauge(s) {paste0(gauge, collapse = ', ')} do not exist in portal {portal}"))
+    return(NULL)
+  }
+
   # allow 'all' as shorthand for variable and units, where NULL means we don't filter on those values here
   if ('all' %in% variable) {variable <- NULL}
   if ('all' %in% units) {units <- NULL}
@@ -66,7 +71,7 @@ find_ts_id <- function(portal,
 
   if (nrow(ts_list) == 0) {
     rlang::warn(c("Filters do not match any timeseries.",
-                  "i" = glue::glue("Run `ts_list <- getTimeseriesList(portal = {portal}, station_no = {gauge})`"),
+                  "i" = glue::glue("Run `ts_list <- getTimeseriesList(portal = '{portal}', station_no = '{gauge}')`"),
                   "and check output manually to find the error.",
                   "see argument description for columns filtered on, all done with `grepl(argument, column, ignore.case = TRUE)"))
   }

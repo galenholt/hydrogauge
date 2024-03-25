@@ -13,7 +13,8 @@ find_hydstra_request(
   units = NULL,
   statistic = "mean",
   timeunit = "day",
-  multiplier = 1
+  multiplier = 1,
+  warnmissing = TRUE
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ change between sits, and so \code{statistic} should be a single function.}
 \item{timeunit}{same as \code{interval} in \code{\link[=get_ts_traces]{get_ts_traces()}}. Name changed for consistency and interpretation.}
 
 \item{multiplier}{character, interval multiplier. I \emph{think} this allows intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}. Not tested other than 1 at present.}
+
+\item{warnmissing}{warns if a gauge is missing. TRUE by default, but able to be silenced for programmatic use.}
 }
 \value{
 a tibble, each row of which has the information needed for a Hydstra request

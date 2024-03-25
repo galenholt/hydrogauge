@@ -47,4 +47,13 @@ test_that("all returnfields", {
   namevec <- c('station_id', 'station_no', 'station_name', 'site_id', 'station_latitude', 'station_longitude')
   expect_equal(names(bomout), namevec)
   expect_true(nrow(bomout) > 132000) # The actual number keeps changing. Currently 132205
+
+  # get the data owner- useful for later
+  # According to kisters, these exist
+  ownerreturn <- c('station_no', 'station_name', 'station_latitude', 'station_longitude','parametertype_id', 'parametertype_name', 'ca_sta')
+  bomout_own <- getStationList(portal = 'bom',
+                               extra_list = list(station_name = 'River Murray*'),
+                           returnfields = ownerreturn)
+
+  expect_equal(names(bomout), namevec)
 })

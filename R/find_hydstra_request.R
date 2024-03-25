@@ -3,6 +3,7 @@
 #' Similar to [find_ts_id()] for Kiwis in spirit
 #'
 #' @inheritParams fetch_hydstra_timeseries
+#' @param warnmissing warns if a gauge is missing. TRUE by default, but able to be silenced for programmatic use.
 #'
 #' @return a tibble, each row of which has the information needed for a Hydstra request
 #' @export
@@ -14,7 +15,8 @@ find_hydstra_request <- function(portal,
                                  units = NULL,
                                  statistic = 'mean',
                                  timeunit = 'day', #point is raw
-                                 multiplier = 1) {
+                                 multiplier = 1,
+                                 warnmissing = TRUE) {
 
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` (that is, aggregation function) to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 
@@ -35,6 +37,17 @@ find_hydstra_request <- function(portal,
     dplyr::select(site, short_name, variable, var_name, datasource,
                   period_start, period_end) |>
     dplyr::mutate(varfrom = variable, varto = variable)
+
+  # if null, bail out
+  if (nrow(hyd_req_tib) == 0 | all(is.na(hyd_req_tib$varto))) {
+    rlang::warn(glue::glue("Gauge(s) {paste0(gauge, collapse = ', ')} do not exist in portal {portal}"))
+    return(NULL)
+  }
+
+  # If variable is NA, we won't be able to request it, and it's likely because we asked for a gauge that doesn't exist in this portal.
+  # I'm tempted to throw a warning, but that will get messy if I rely on this later to toss extra gauges.
+  hyd_req_tib <- hyd_req_tib |>
+    dplyr::filter(!is.na(variable))
 
   # add derived if they exist
   poss140 <- hyd_req_tib[hyd_req_tib$variable == '100.00', ]
@@ -111,6 +124,16 @@ find_hydstra_request <- function(portal,
   hyd_req_tib$interval <- timeunit
   hyd_req_tib$multiplier <- multiplier
 
+
+  if (warnmissing) {
+    missing_gauges <- gauge[!gauge %in% hyd_req_tib$site]
+
+    if (length(missing_gauges > 0)) {
+      rlang::warn(c("Not all gauges selected.",
+                    glue::glue("missing {paste0(missing_gauges, collapse = '.')}."),
+                    "If expected, check arguments."))
+    }
+  }
 
   return(hyd_req_tib)
 

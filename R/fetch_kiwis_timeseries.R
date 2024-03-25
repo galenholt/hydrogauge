@@ -47,6 +47,10 @@ fetch_kiwis_timeseries <- function(portal,
              namefilters = namefilters,
              return_timezone = 'db_default') # make it less likely to stuff up times when we ask for them in the same tz
 
+    # bubble the null up
+    if (is.null(ts_ids) || nrow(ts_ids) == 0) {
+      return(NULL)
+    }
     # we need to know the timezone of the database
     gaugetz <- lubridate::tz(ts_ids$from)
 
@@ -80,6 +84,7 @@ fetch_kiwis_timeseries <- function(portal,
 
   # Can I check for duplication somehow?
   # We don't need to be as loopy here as with the hydstra, since each record has a unique identifier
+  # Though do we want to for safety?
   timeseries <- getTimeseriesValues(portal = portal,
                                   ts_id = ts_ids$ts_id,
                                   start_time = start_req,

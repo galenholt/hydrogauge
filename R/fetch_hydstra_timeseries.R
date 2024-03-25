@@ -66,6 +66,11 @@ fetch_hydstra_timeseries <- function(portal,
                                     timeunit = timeunit,
                                     multiplier = multiplier)
 
+  # bubble the null up
+  if (is.null(possibles) || nrow(possibles) == 0) {
+    return(NULL)
+  }
+
   # we need to know the timezone of the database
   gaugetz <- lubridate::tz(possibles$period_start)
 
@@ -96,24 +101,30 @@ fetch_hydstra_timeseries <- function(portal,
   possibles <- possibles[!misstimes, ]
 
 
-  # This is ideally suited to `furrr::imap` over, but I already depend on foreach, so I guess stick with that.
+  # This is ideally suited to `furrr::pmap` over, but I already depend on foreach, so I guess stick with that.
   # There's obvious space here to do a better job identifying common things that can hit the API together, e.g. a bunch of gauges all asking for the same thing.
 
-  bodytib <- foreach::foreach(i = 1:nrow(possibles),
-                              .combine = dplyr::bind_rows) %dofuture% {
+  # If there's nothing here, just return NULL. otherwise the loop is messed up because 1:0 is 1,0. Another reason to furrr.
+  if (nrow(possibles) == 0) {
+    bodytib <- NULL
+  } else {
+    bodytib <- foreach::foreach(i = 1:nrow(possibles),
+                                .combine = dplyr::bind_rows) %dofuture% {
 
-                                thisreq <- get_ts_traces(portal = possibles$portal[i],
-                                                         site_list = possibles$site[i],
-                                                         datasource = possibles$datasource[i],
-                                                         var_list = possibles$varto[i], # I think this works, but will be double the API calls if we also want the var_from
-                                                         start_time = possibles$start_time[i],
-                                                         end_time = possibles$end_time[i],
-                                                         interval = possibles$interval[i],
-                                                         data_type = possibles$data_type[i],
-                                                         multiplier = possibles$multiplier[i],
-                                                         return_timezone = 'UTC',
-                                                         returnformat = 'df',
-                                                         .errorhandling = .errorhandling)
+                                  thisreq <- get_ts_traces(portal = possibles$portal[i],
+                                                           site_list = possibles$site[i],
+                                                           datasource = possibles$datasource[i],
+                                                           var_list = possibles$varto[i], # I think this works, but will be double the API calls if we also want the var_from
+                                                           start_time = possibles$start_time[i],
+                                                           end_time = possibles$end_time[i],
+                                                           interval = possibles$interval[i],
+                                                           data_type = possibles$data_type[i],
+                                                           multiplier = possibles$multiplier[i],
+                                                           return_timezone = 'UTC',
+                                                           returnformat = 'df',
+                                                           .errorhandling = .errorhandling)
+  }
+
 
                               }
 

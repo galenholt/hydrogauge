@@ -4,7 +4,7 @@
 \alias{parse_url}
 \title{Returns the base of the request URL given state name}
 \usage{
-parse_url(portal, test = TRUE)
+parse_url(portal, test = TRUE, type = FALSE, .errorhandling = "stop")
 }
 \arguments{
 \item{portal}{character, URL or name of data portal for some Australian
