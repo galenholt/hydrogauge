@@ -121,7 +121,7 @@ get_ts_traces <- function(portal,
   # could package the list-making, responsing, and unpacking in a function and
   # furrr it instead of foreach.
   btd <- foreach::foreach(v = deriv_list,
-                 .combine = dplyr::bind_rows) %dofuture% {
+                 .combine = dplyr::bind_rows) %do% {
                    pl = list("function" = 'get_ts_traces',
                              "version" = "2",
                              "params" = list("site_list" = site_list,

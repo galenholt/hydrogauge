@@ -46,6 +46,8 @@ parse_url <- function(portal, test = TRUE, type = FALSE,
   if (test | type) {
     url_ping <- httr2::request(baseURL) |>
       httr2::req_error(is_error = errorfun) |>
+      httr2::req_retry(is_transient = \(resp) httr2::resp_status(resp) %in% c(429, 408, 503),
+                       max_tries = 5) |>
       httr2::req_perform()
 
     url_fail <- url_ping |>

@@ -4,7 +4,7 @@
 #'
 #' @inheritParams fetch_hydstra_timeseries
 #' @param warnmissing warns if a gauge is missing. TRUE by default, but able to be silenced for programmatic use.
-#'
+#' @param ignore_fromderived logical, default TRUE. Sometimes a derived variable (140, 141) is *also* available as a var_from, seemingly usually with a longer historical record. TRUE (the default) ignores that, and uses just the e.g. var_from = 100, var_to = 140. FALSE returns both sets, e.g. all records with the derived variable as var_to. If FALSE, *look at the output carefully, it's often very strange*
 #' @return a tibble, each row of which has the information needed for a Hydstra request
 #' @export
 find_hydstra_request <- function(portal,
@@ -16,7 +16,8 @@ find_hydstra_request <- function(portal,
                                  statistic = 'mean',
                                  timeunit = 'day', #point is raw
                                  multiplier = 1,
-                                 warnmissing = TRUE) {
+                                 warnmissing = TRUE,
+                                 ignore_fromderived = TRUE) {
 
   if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` (that is, aggregation function) to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 
@@ -98,6 +99,18 @@ find_hydstra_request <- function(portal,
 
   if (!is.null(var_list)) {
     hyd_req_tib <- hyd_req_tib[hyd_req_tib$varto %in% var_list, ]
+    # sometimes a derived value is available (often historically) as a varfrom.
+    if (ignore_fromderived) {
+      deriv <- c('140.00', '141.00')
+      dfrom <- deriv[deriv %in% hyd_req_tib$varfrom]
+      if (length(dfrom) > 0) {
+        rlang::inform(c("Derived variables present as var_to",
+                        glue::glue("Removing variable(s) {paste0(dfrom, collapse = ', ')} from var_from and using only derived versions (var_to).")))
+
+        hyd_req_tib <- hyd_req_tib[!hyd_req_tib$varfrom %in% dfrom, ]
+
+        }
+    }
   }
 
 

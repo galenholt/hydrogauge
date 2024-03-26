@@ -36,8 +36,10 @@
 #'   the last timepoint for each variable in `var_list` at each site in
 #'   `site_list`
 #' @param request_timezone ignored if start_time and end_time are time objects, otherwise a timezone from [OlsonNames()] or 'db_default'
-
-
+#'
+#' @return a tibble of the requested timeseries
+#' @export
+#'
 fetch_hydstra_timeseries <- function(portal,
                                     gauge,
                                     datasource = 'A',
@@ -100,7 +102,22 @@ fetch_hydstra_timeseries <- function(portal,
 
   possibles <- possibles[!misstimes, ]
 
+  # This should work to furrr::future_pmap or purrr::pmap, but isn't.
+  # # To make the arguments correct
+  p2 <- possibles |>
+    dplyr::rename(var_list = varto,
+                  site_list = site) |>
+    dplyr::mutate(return_timezone = 'UTC',
+                  returnformat = 'df',
+                  .errorhandling = .errorhandling) |>
+    dplyr::select(portal, site_list, datasource,
+                  var_list, start_time, end_time,
+                  interval, data_type, multiplier,
+                  return_timezone,
+                  returnformat,
+                  .errorhandling)
 
+  outtib <- purrr::pmap(p2, get_ts_traces)
   # This is ideally suited to `furrr::pmap` over, but I already depend on foreach, so I guess stick with that.
   # There's obvious space here to do a better job identifying common things that can hit the API together, e.g. a bunch of gauges all asking for the same thing.
 
@@ -109,7 +126,8 @@ fetch_hydstra_timeseries <- function(portal,
     bodytib <- NULL
   } else {
     bodytib <- foreach::foreach(i = 1:nrow(possibles),
-                                .combine = dplyr::bind_rows) %dofuture% {
+                                .combine = dplyr::bind_rows,
+                                .options.future = list(seed = TRUE)) %dofuture% {
 
                                   thisreq <- get_ts_traces(portal = possibles$portal[i],
                                                            site_list = possibles$site[i],

@@ -47,7 +47,8 @@ send_to_type <- function(request_table,
     # of it, since if we're using this function, we only have one variable,
     # etc, and that's what the inner ones loop over.
     ts_out <- foreach::foreach(r = 1:nrow(request_table),
-                      .combine = dplyr::bind_rows) %do% {
+                      .combine = dplyr::bind_rows,
+                      .options.future = list(seed = TRUE)) %dofuture% {
                         ts <- fetch_kiwis_timeseries(portal = request_table$portal[r],
                                                gauge = request_table$gauge[r],
                                                start_time = request_table$start_time[r],
@@ -87,7 +88,8 @@ send_to_type <- function(request_table,
     # of it, since if we're using this function, we only have one variable,
     # etc, and that's what the inner ones loop over.
     ts_out <- foreach::foreach(r = 1:nrow(request_table),
-                      .combine = dplyr::bind_rows) %do% {
+                      .combine = dplyr::bind_rows,
+                      .options.future = list(seed = TRUE)) %dofuture% {
                        ts <- fetch_hydstra_timeseries(portal = request_table$portal[r],
                                                  gauge = request_table$gauge[r],
                                                  start_time = request_table$start_time[r],

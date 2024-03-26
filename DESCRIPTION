@@ -13,6 +13,7 @@ Imports:
     doFuture,
     dplyr,
     foreach,
+    furrr,
     ggplot2,
     httr2,
     lubridate,

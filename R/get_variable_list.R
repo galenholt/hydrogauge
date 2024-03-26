@@ -46,7 +46,7 @@ get_variable_list <- function(portal,
                   \(x) {x$variables <- dummyvarlist; x})
   # unpack
   bodytib <- tibble::as_tibble(response_body$return) |> # use $return instead of [2] to drops the error column because qld has a 'disclaimer' in 2
-    tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list
+    # tidyr::unnest_longer(col = tidyselect::where(is.list)) |> # a `return` list
     tidyr::unnest_wider(col = tidyselect::where(is.list)) |> # sites, and a `datasource` list
     tidyr::unnest_wider(col = site_details) |> # site details in new cols
     tidyr::unnest_longer(col = variables) |> # one line per variable, details of variables in a list

@@ -74,6 +74,9 @@ the last timepoint for each variable in \code{var_list} at each site in
 'pass' so big requests don't die due to API errors. \strong{Be careful}- those
 errors then just get passed and so the data will be missing.}
 }
+\value{
+a tibble of the requested timeseries
+}
 \description{
 This wraps \code{\link[=get_variable_list]{get_variable_list()}} and \code{\link[=get_ts_traces]{get_ts_traces()}}, allowing a bit more automation and a bit
 more flexibility than \code{\link[=get_ts_traces]{get_ts_traces()}}, but is currently slower due to more

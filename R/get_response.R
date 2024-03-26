@@ -27,7 +27,8 @@ get_response <- function(baseURL, api_body_list = NULL,
     httr2::req_url_query(!!!api_query_list) |>
     httr2::req_body_json(api_body_list) |>
     httr2::req_error(is_error = errorfun) |>
-    httr2::req_retry(is_transient = \(resp) httr2::resp_status(resp) %in% c(429, 408, 503)) |>
+    httr2::req_retry(is_transient = \(resp) httr2::resp_status(resp) %in% c(429, 408, 503),
+                     max_tries = 5) |>
     httr2::req_perform()
 
   # more HTTP error management- we only get here with an error if .errorhandling
