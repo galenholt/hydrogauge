@@ -44,3 +44,10 @@
       #   variable <chr>, units <chr>, variable_name <chr>, database_timezone <chr>,
       #   quality_codes <chr>, data_type <chr>
 
+# lake level
+
+    Code
+      simpletrace_lakes
+    Output
+      NULL
+

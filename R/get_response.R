@@ -6,8 +6,7 @@
 #' @param baseURL character URL that the request gets appended to
 #' @param api_body_list a list with arguments for a particular call
 #' @param .errorhandling intended to allow passing or removing errors. Currently
-#'   only implemented in a way that works for [get_ts_traces2()]; see
-#'   documentation there.
+#'   only implemented in some places.
 #'
 #' @return the response body as a list
 #' @export

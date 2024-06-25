@@ -80,7 +80,7 @@ library(ggplot2)
 
 At present, we largely assume the user will have a list of gauges they want, as the current ability to programatically obtain gauge numbers according to criteria is limited (but see `get_sites_by_datasource`, which allows asking for all sites that have a given datasource).
 
-To get the timeseries, the user *should*, but does not need to (see `get_ts_traces2`), know the available variables. However, finding what they are can be done through the functions here.
+To get the timeseries, the user *should*, but does not need to (examples in development), know the available variables. However, finding what they are can be done through the functions here.
 
 This vignette will proceed with a set of sites chosen to span a range of characteristics (which we know from test queries).
 
@@ -148,7 +148,7 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
         1.  run `get_ts_traces` multiple times, with different subsets of `var_type`, each with an appropriate `data_types`.
 
-        2.  Use `get_ts_traces2`, which allows matched vectors of `var_type` and `data_type`, effectively automating option 1.
+        2.  Use `get_ts_traces2`, which allows matched vectors of `var_type` and `data_type`, effectively automating option 1. (Deprecated, new approach pending)
 
 ## Finding datasources
 
@@ -250,57 +250,14 @@ ts_rain <- get_ts_traces(portal = 'Vic',
 head(ts_rain, 30)
 ```
 
-If the user wants to combine, they can `dplyr::bind_rows` to combine post-hoc.
+If the user wants to combine, they can `dplyr::bind_rows` to combine post-hoc. 
 
-The other option is to use `get_ts_traces2`, which allows paired `var_list` and `data_type`, and essentially automates that gluing process, but is a bit slower per call (though probably faster than manually running two calls?).
+An automated approach is pending.
 
-```{r}
-ts_days2 <- get_ts_traces2(portal = 'Vic', 
-                           site_list = c(barwon, steavenson, 
-                                         taggerty, golf), 
-                         datasource = "A", 
-                         var_list = c("100", "141", "450", "10"),
-                         start_time = 20200101,
-                         end_time = 20201231,
-                         interval = "day",
-                         data_type = c("mean", "mean", "mean", "tot"),
-                         multiplier = 1,
-                         returnformat = 'df')
-```
-
-```{r rows.print = 30}
-head(ts_days2, 30)
-```
-
-## A quick plot
-
-I need to make some standard plots, but in the meantime, we can get a year of data that covers when the Taggerty was running so it's interesting and plot it
-
-```{r}
-ts_daysY <- get_ts_traces2(portal = 'Vic', 
-                           site_list = c(barwon, steavenson, 
-                                         taggerty, golf), 
-                         datasource = "A", 
-                         var_list = c("100", "141", "450", "10"),
-                         start_time = 20100101,
-                         end_time = 20110101,
-                         interval = "day",
-                         data_type = c("mean", "mean", "mean", "tot"),
-                         multiplier = 1,
-                         returnformat = 'df')
-```
-
-```{r}
-ggplot(ts_daysY, aes(x = time, y = value, color = site_short_name)) + 
-  facet_wrap(~variable_short_name, scales = 'free') + 
-  geom_point() + geom_line()
-```
 
 ## Notes
 
-The `get_ts_traces2` function also can take "all" for `var_list`, `start_date` and `end_date`. It's safe to use for `start_date` and `end_date`, but probably not for `var_list` for the reasons above- the vars should *not* all have the same statistic applied.
-
-I have not done much systematic testing of speed for big requests (long periods of record for lots of sites and variables). There does not seem to be much time difference to ask for a year vs 5 days above, and asking for the full period of record for one variable for 140 sites using `get_ts_traces2` (each of which needs a separate call internally to `get_ts_traces` because the periods differ) takes approximately 120 seconds. I do not know if there are limits, or if those sorts of requests work better broken up and output glued together or done in one go. It's certainly possible to overflow your memory if you ask for everything for all sites.
+I have not done much systematic testing of speed for big requests (long periods of record for lots of sites and variables). I am working on optimizing the API calls. It's certainly possible to overflow your memory if you ask for everything for all sites.
 
 ## Development plans
 
