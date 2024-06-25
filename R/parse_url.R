@@ -35,11 +35,11 @@ parse_url <- function(portal, test = TRUE, type = FALSE,
     # Allow passing in addresses directly
     grepl("http", portal) ~ portal,
     # Some known Australian portals
-    portal %in% c("vic", "victoria") ~ "https://data.water.vic.gov.au/cgi/webservice.exe?",
+    portal %in% c("vic", "victoria") ~ "https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
     portal %in% c("nsw", "new south wales", "newsouthwales") ~ "https://realtimedata.waternsw.com.au/cgi/webservice.exe?",
     portal %in% c("qld", "queensland") ~ "https://water-monitoring.information.qld.gov.au/cgi/webservice.exe?",
     # portal %in% c('wa', 'westernaustralia', 'western australia') ~ "https://wir.water.wa.gov.au/cgi/webservice.exe?",
-    # portal %in% c('sa', 'southaustralia', 'south australia') ~ "http://www.bom.gov.au/waterdata/services",
+    portal %in% c('sa', 'southaustralia', 'south australia') ~ "http://www.bom.gov.au/waterdata/services",
     portal %in% c("bom", "bureau") ~ "http://www.bom.gov.au/waterdata/services"
   )
 

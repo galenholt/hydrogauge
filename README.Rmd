@@ -50,7 +50,7 @@ Caveat: while the functionality provided maps as closely as possible to the unde
 
 Users can input any url for a KiWIS or HYDSTRA (hydllp) portal, but there are also some that can be called by name (not case sensitive):
 
--   'vic': the [Victorian water data](https://data.water.vic.gov.au/static.htm) (API url <https://data.water.vic.gov.au/cgi/webservice.exe?>)
+-   'vic': the [Victorian water data](https://data.water.vic.gov.au/static.htm) (API url <https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?>)
 
 -   'nsw' : [New South Wales water data](https://realtimedata.waternsw.com.au/) (API url <https://realtimedata.waternsw.com.au/cgi/webservice.exe?>)
 

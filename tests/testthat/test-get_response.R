@@ -1,5 +1,5 @@
 test_that("single variable ts works", {
-  s1 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
+  s1 <- get_response("https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
                      api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',
@@ -22,7 +22,7 @@ test_that("single variable ts works", {
 
 
 test_that("multiple variables work for ts", {
-  s2 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
+  s2 <- get_response("https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
                      api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',
@@ -39,7 +39,7 @@ test_that("multiple variables work for ts", {
 })
 
 test_that("derived variables work for ts", {
-  s3 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
+  s3 <- get_response("https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
                      api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',
@@ -57,7 +57,7 @@ test_that("derived variables work for ts", {
 })
 
 test_that("derived variables work for ts", {
-  s3 <- get_response("https://data.water.vic.gov.au/cgi/webservice.exe?",
+  s3 <- get_response("https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
                      api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
                                       "params" = list("site_list" = '233217',

@@ -1,6 +1,6 @@
 test_that("parse_url works", {
 
-  expect_equal(parse_url('vic'), "https://data.water.vic.gov.au/cgi/webservice.exe?")
+  expect_equal(parse_url('vic'), "https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?")
   expect_equal(parse_url('nsw'), "https://realtimedata.waternsw.com.au/cgi/webservice.exe?")
   expect_equal(parse_url('qld'),  "https://water-monitoring.information.qld.gov.au/cgi/webservice.exe?")
   expect_equal(parse_url('bom'), "http://www.bom.gov.au/waterdata/services")
