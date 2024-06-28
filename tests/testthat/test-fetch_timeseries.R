@@ -2,6 +2,7 @@ test_that("simple check", {
   bomout <- fetch_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505'),
                              variable = 'discharge',
+                             datatype = 'QaQc',
                              units = 'ML/d',
                              timeunit = 'Daily', #AsStored is the raw data
                              statistic = 'Mean',

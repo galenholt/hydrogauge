@@ -96,7 +96,7 @@ test_that("lake level", {
                                              datasource = 'A',
                                              start_time = '20200101',
                                              end_time = '20200105',
-                                              variable = 'discharge',
+                                              variable = 'level',
                                              timeunit = 'day',
                                              statistic = 'mean',
                                              multiplier = 1,

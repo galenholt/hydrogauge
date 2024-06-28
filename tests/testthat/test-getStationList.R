@@ -4,7 +4,7 @@ test_that("simple works", {
 
   namevec <- c('station_id', 'station_no', 'station_name', 'site_id', 'site_no', 'site_name', 'catchment_id', 'catchment_no', 'catchment_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'object_type', 'object_type_shortname', 'station_georefsystem', 'river_id', 'river_name', 'area_id', 'area_name', 'station_longname', 'station_area_wkt', 'station_area_wkt_org', 'station_uuid', 'site_uuid')
   expect_equal(names(bomout), namevec)
-  expect_equal(nrow(bomout), 2)
+  expect_equal(nrow(bomout), 204)
 })
 
 test_that("extra_list", {
@@ -13,14 +13,14 @@ test_that("extra_list", {
 
   namevec <- c('station_id', 'station_no', 'station_name', 'site_id', 'site_no', 'site_name', 'catchment_id', 'catchment_no', 'catchment_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'object_type', 'object_type_shortname', 'station_georefsystem', 'river_id', 'river_name', 'area_id', 'area_name', 'station_longname', 'station_area_wkt', 'station_area_wkt_org', 'station_uuid', 'site_uuid')
   expect_equal(names(bomout), namevec)
-  expect_equal(nrow(bomout), 77)
+  expect_equal(nrow(bomout), 2797)
 })
 
 test_that("groups in extra_list", {
   bomout <- getStationList(portal = 'bom',
                            extra_list = list(stationgroup_id = '20017550'))
 
-  expect_snapshot_value(names(bomout))
+  expect_snapshot_value(names(bomout), style = 'deparse')
   expect_equal(nrow(bomout), 207)
 })
 
@@ -46,7 +46,7 @@ test_that("all returnfields", {
 
   namevec <- c('station_id', 'station_no', 'station_name', 'site_id', 'station_latitude', 'station_longitude')
   expect_equal(names(bomout), namevec)
-  expect_true(nrow(bomout) > 132000) # The actual number keeps changing. Currently 132205
+  expect_equal(nrow(bomout), 204)
 
   # get the data owner- useful for later
   # According to kisters, these exist

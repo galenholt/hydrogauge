@@ -7,8 +7,6 @@
       variable = "discharge", units = "ML/d", datatype = c("A", "QaQc", "A"),
       timeunit = "day", statistic = "mean", robustness = "speed", check_output = TRUE)
     Message
-      Loading required package: foreach
-      Loading required package: future
       NULL return- likely everything errored and was 'removed' with .errorhandling
     Condition
       Warning:
