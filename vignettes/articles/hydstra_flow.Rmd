@@ -1,0 +1,221 @@
+---
+vignette: >
+  %\VignetteIndexEntry{hydstra_flow}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(hydrogauge)
+library(ggplot2)
+```
+
+
+At present, we largely assume the user will have a list of gauges they want, as the current ability to programatically obtain gauge numbers according to criteria is limited (but see `get_sites_by_datasource`, which allows asking for all sites that have a given datasource).
+
+To get the timeseries, the user *should*, but does not need to (examples in development), know the available variables. However, finding what they are can be done through the functions here.
+
+This vignette will proceed with a set of sites chosen to span a range of characteristics (which we know from test queries).
+
+-   The Upper Steavenson (405328) only has flow
+
+-   Barwon (233217) has many variables, but their start dates differ
+
+-   Taggerty (405331) is no longer in operation- ran 2010-2013
+
+-   Marysville golf course (405837) is only rainfall
+
+The functions all require gauges to be their numeric codes as characters. The API needs a comma-separated string (`"number1, number2"` ) , but the functions here will accept a vector `c("number1", "number2"`) and decompose it internally. This is typically easier and reflects more common R workflows such as having a column of site numbers in a dataframe.
+
+```{r}
+barwon <- '233217'
+steavenson <- '405328'
+taggerty <- '405331'
+golf <- '405837'
+```
+
+
+
+## Finding datasources
+
+To see what datasources are available for a site, use `get_datasources_by_site`. I've largely just been using "A" to test, but it's worth looking to see what datasources are available for a target site(s), and then doing the next step (finding variables) for each, to see whether the available variables (or timeperiods) differ. I'd like to automate that, but haven't yet.
+
+```{r}
+ds <- get_datasources_by_site(portal = 'Vic', 
+                              site_list = c(barwon, steavenson, 
+                                            taggerty, golf))
+```
+
+```{r rows.print = 15}
+ds
+```
+
+And we can plot that to get a visualisation. I'm planning to have this sort of plot for lots of the functions, but for now this is it.
+
+```{r}
+plot_datasources_by_site(ds)
+```
+
+## Finding available variables
+
+Assuming for the moment the user knows the gauge numbers of interest, we then need to know what variables are available to extract timeseries of. We use `get_variable_list` to get this information, including both their names and numbers, as well as other details such as the time period of record and units.
+
+To demonstrate with the sites above that have a range of variable types and starts,
+
+```{r}
+var_info <- get_variable_list(portal = 'Vic', 
+                              site_list = c(barwon, taggerty, 
+                                            steavenson, golf), 
+                              datasource = "A")
+```
+
+That returns a tibble with information about each gauge and variable. A few things to note- it gives the names of the gauges, the names and values of the variables, and a start and end date for each. For example, the Barwon's start date for stage (100) is 1961, while the others (pH, ppm, etc) didn't start until 2010.
+
+*Note that this does **not** return derived discharge variables (140 and 141)*. If variable 100 (stage height) exists, the other two always seem to, though I'm not positive.
+
+```{r rows.print = 15}
+var_info
+```
+
+## Obtaining timeseries
+
+This is the main use of the package, with the other bits getting us to the point of knowing what to ask for. Specifically, `get_variable_list` gives us a reference to know what the variables are to ask for and the relevant timeperiods.
+
+There are a few ways to request the timeseries, and some pitfalls to avoid.
+
+If we just want a set of variables that all need the same statistic applied (e.g. daily mean flows), we can pass that in as a vector. For example, to get daily mean stage height, discharge, and temperature, we can do that in one call, even for multiple gauges. Asking here for only 5 days to keep the demo reasonable.
+
+```{r}
+ts_days <- get_ts_traces(portal = 'Vic', 
+                         site_list = c(barwon, steavenson, taggerty, golf),
+                         datasource = "A", 
+                         var_list = c("100", "141", "450"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "mean",
+                         multiplier = 1,
+                         returnformat = 'df')
+```
+
+That returns a tall dataframe, which the user can then split up or plot how they want. There are other options that return lists of dataframes if the user does not want all sites and variables combined-
+
+-   `returnformat = "varlist"` a list with one tibble per variable
+
+-   `returnformat = "sitelist"` a list with one tibble per site
+
+-   `returnformat = "sxvlist"` a list with one tibble per site x variable combo (including empty lists for missing combos)
+
+```{r rows.print = 30}
+# rows.print doesn't really work with devtools::build_readme(), so use head
+head(ts_days, 30)
+```
+
+Note that if a variable isn't available for a gauge it just isn't returned, and same with timeperiods. So, the Barwon returns all variables, the golf course gauge does not return anything because it does not collect these variables, the Steavenson returns level and discharge but not temp, and the Taggerty doesn't appear at all despite having these variables because we've asked for data after it was decommissioned.
+
+### Multiple variables, multiple statistics
+
+Now, if we want another set of variables that should have a different statistic (e.g. rainfall makes sense as the daily sum, not the mean), there are two options- a separate call of `get_ts_traces` or `get_ts_traces2`.
+
+First, the separate `get_ts_traces`. Note that again this will ignore gauges without the info (Barwon)
+
+```{r}
+ts_rain <- get_ts_traces(portal = 'Vic', 
+                         site_list = c(barwon, golf), 
+                         datasource = "A", 
+                         var_list = c("10"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "tot",
+                         multiplier = 1,
+                         returnformat = 'df')
+```
+
+```{r}
+head(ts_rain, 30)
+```
+
+If the user wants to combine, they can `dplyr::bind_rows` to combine post-hoc. 
+
+An automated approach is pending.
+
+## datasources
+
+Using `get_datasources_by_site` to see what datasources are available:
+
+```{r}
+nsw_ds <- get_datasources_by_site(portal = 'NSW', 
+                                  site_list = c("422028", "410007"))
+```
+
+```{r}
+nsw_ds
+```
+
+```{r}
+qld_ds <- get_datasources_by_site(portal = 'QLD', 
+                                  site_list = c("423203A", "424201A"))
+```
+
+```{r}
+qld_ds
+```
+
+## Traces and plots
+
+### NSW
+
+Now we can `get_ts_traces` for `A`, just to keep things consistent
+
+```{r}
+nsw_ts_days <- get_ts_traces(portal = 'NSW', 
+                         site_list = c("422028", "410007"),
+                         datasource = "A", 
+                         var_list = c("100", "141", "450"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "mean",
+                         multiplier = 1,
+                         returnformat = 'df')
+
+```
+
+```{r}
+ggplot(nsw_ts_days, aes(x = time, y = value, color = site_short_name)) + 
+  facet_wrap(~variable_short_name, scales = 'free') + 
+  geom_line()
+```
+
+### QLD
+
+I didn't pick very interesting examples here.
+
+```{r}
+qld_ts_days <- get_ts_traces(portal = 'QLD', 
+                         site_list = c("423203A", "424201A"),
+                         datasource = "A", 
+                         var_list = c("100", "141", "450"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "mean",
+                         multiplier = 1,
+                         returnformat = 'df')
+
+```
+
+```{r}
+ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) + 
+  facet_wrap(~variable_short_name, scales = 'free') + 
+  geom_line()
+```
+

@@ -1,0 +1,88 @@
+---
+vignette: >
+  %\VignetteIndexEntry{hydrogauge}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(hydrogauge)
+```
+
+A typical workflow for hydrogauge involves querying the database to find gauges, querying the available records for a set of gauges, and then pulling desired timeseries. Both APIs (hydllp and KiWIS) have similar ability to perform these steps, but are called differently. 
+
+In general, the function names that hit the API directly are named as in the relevant API calls, with hydstra names looking like `get_hydstra_function()`, and KiWIS looking like `getKiwisFunction()`. 
+
+For an example of this common workflow, see the respective [hydstra](hydstra_flow.qmd) and [KiWIS](kiwis_flow.qmd) articles.
+
+## Which API?
+
+How do you know which API style you have? It's best to find documentation. hydrogauge does try to infer, though there are no guarantees it always will guess right. To find this inference, run [parse_url()] with `test = TRUE, type = TRUE`:  
+
+BOM (KiWIS)
+```{r}
+parse_url('http://www.bom.gov.au/waterdata/services', test = TRUE, type = TRUE)
+```
+
+NSW (hydstra)
+```{r}
+parse_url('https://realtimedata.waternsw.com.au/cgi/webservice.exe?', test = TRUE, type = TRUE)
+```
+
+An API-agnostic wrapper is in development, though it will always still work best if the type is known *a priori*.
+
+## Times
+
+Both sets of API (Hydstra/hydllp and kiwis) expect times to be database-local and return times local to the database (not the user, not necessarily the gauge itself). This package provides some functionality to return times in other formats (see `return_timezone` argument), including a standard parseable character format, UTC, and local time objects. In general, working with UTC and offsets is preferable, but care should be taken when giving desired start and end times, as these need to be in database-local time.
+
+
+## Hydstra definitions and available options
+
+I have tried to keep the function argument names the same as in the API, and the API restricts the options to the function arguments. The API functions are documented by [Kisters](https://kisters.com.au/doco/hydllp.htm) (the creators), and there is a bit more information about options from [Queensland](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf), though there are discrepancies between states.
+
+After quite a lot of digging and testing, an incomplete set of definitions of common arguments and their potential values follows:
+
+-   `site_list` is the gauge number as a character (and the functions here accept a vector of these gauge numbers). Can be any gauge number in the database. Obtaining them programatically is limited currently, except in `get_sites_by_datasource`.
+
+-   `datasource` The type of data. Currently aware of `"A"`, `"TELEM"`, and `"TELEMCOPY"`, but have done this in a roundabout way and there may be others and sites I have not examined. `A` is likely to mean 'archive', `TELEM` seems to mean 'telemetry', and I'm not sure why there's a copy.
+
+    -   Some quick testing with `get_sites_by_datasource` shows that there are many more sites with `A` than `TELEM`, but that `TELEM` is not a subset- there are sites with `TELEM` and not `A`. Initial testing of `get_db_info` also finds sites that do not appear with any of these, and seem to have no data.
+
+-   `var_list` is the type of variable, e.g. rainfall, flow, temp. Should be a character of the numeric code, with or without trailing ".00", and can be a vector, e.g. c("100", "210.00").
+
+    -   I do not currently have a comprehensive list of possible variables and their meaning, but `get_variables_by_site` will provide one for a set of sites.
+
+    -   The [Queensland documentation](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf) gives some more information, but the numbers are not always the same.
+
+    -   Some variables (typically discharge) are calculated, and *do not appear in queries of available variables* such as `get_variables_by_site`. Those I'm aware of are "141"- discharge in ML, and "140", discharge in cumecs ($m^3/sec$).
+
+-   `start_time` and `end_time` are the start and end times of the period requested. The API is strict that these should be 14-digit strings "YYYYMMDDHHIIEE", but the functions here will take them in date formats (posix), character, or numeric, and they do not need to be 14-digits.
+
+    -   If not dates, they *should* be at least YYYYMMDD (either character or numeric), and the rest will be padded with zeros.
+
+-   `interval` is the time interval of the return values for timeseries. Options seem to be (base on API error messages)
+
+    -   `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`. I don't think capitalisation matters.
+
+    -   Also have not thoroughly tested if only some are available for some variables at some sites
+
+-   `multiplier` I \*think\* this allows intervals like 5 days, by passing `interval = 'day'` and `multiplier = 5`. Not tested other than 1 at present.
+
+-   `data_type` is the statistic to apply within each interval to get the values.
+
+    -   Options (from API error messages): `"mean"`, `"max"`, `"min"`, `"start"`, `"end"`, `"first"`, `"last"`, `"tot"`, `"maxmin"`, `"point"`, `"cum"`. Not all are currently tested.
+
+    -   *Warning:* any given API call can only takes one value, which is applied to all variables. *This is unlikely to be appropriate if asking for many variables.*
+
+    -   Two options (both requiring *a priori* knowledge of available variables):
+
+        1.  run `get_ts_traces` multiple times, with different subsets of `var_type`, each with an appropriate `data_types`.
+
+        2.  Use `get_ts_traces2`, which allows matched vectors of `var_type` and `data_type`, effectively automating option 1. (Deprecated, new approach pending)
