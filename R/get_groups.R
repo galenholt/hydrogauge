@@ -2,7 +2,7 @@
 #'
 #' This is not particularly useful, as far as I can tell, but it in theory lets
 #' us use various `filter`s in `get_db_info`. The problem is the groups don't
-#' seem very useful. And it takes forever
+#' seem very useful in practice and it takes forever.
 #'
 #' @inheritParams get_ts_traces
 #'

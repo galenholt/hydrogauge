@@ -5,7 +5,7 @@ get_db_info <- function(portal,
 
   baseURL <- parse_url(portal)
 
-  # The json request needs a api_body_list
+  # The json request needs an api_body_list
   api_body_list <- list("function" = 'get_db_info',
                     "version" = "3",
                     "params" = list("table_name" = table_name,

@@ -51,7 +51,7 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
 -   `site_list` is the gauge number as a character (and the functions here accept a vector of these gauge numbers). Can be any gauge number in the database. Obtaining them programatically is limited currently, except in `get_sites_by_datasource`.
 
--   `datasource` The type of data. Currently aware of `"A"`, `"TELEM"`, and `"TELEMCOPY"`, but have done this in a roundabout way and there may be others and sites I have not examined. `A` is likely to mean 'archive', `TELEM` seems to mean 'telemetry', and I'm not sure why there's a copy.
+-   `datasource` The type of data. Victoria returns `"A"`, `"TELEM"`, and `"TELEMCOPY"` from [get_datasources_by_site()], but there may be others and sites I have not examined. `A` is 'archive', `TELEM` is 'telemetry', and I'm not sure why there's a copy. `"CP"` seems to work in NSW, Victoria, and QLD, but isn't documented anywhere I can find.
 
     -   Some quick testing with `get_sites_by_datasource` shows that there are many more sites with `A` than `TELEM`, but that `TELEM` is not a subset- there are sites with `TELEM` and not `A`. Initial testing of `get_db_info` also finds sites that do not appear with any of these, and seem to have no data.
 
@@ -59,21 +59,21 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
     -   I do not currently have a comprehensive list of possible variables and their meaning, but `get_variables_by_site` will provide one for a set of sites.
 
-    -   The [Queensland documentation](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf) gives some more information, but the numbers are not always the same.
+    -   The [Queensland documentation](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf) gives some more information, but the numbers are not always the same for different databases.
 
-    -   Some variables (typically discharge) are calculated, and *do not appear in queries of available variables* such as `get_variables_by_site`. Those I'm aware of are "141"- discharge in ML, and "140", discharge in cumecs ($m^3/sec$).
+    -   Some variables (typically discharge) are calculated, and *do not appear in queries of available variables* such as `get_variables_by_site`. Those I'm aware of are "141"- discharge in ML/day, and "140", discharge in cumecs ($m^3/sec$).
 
 -   `start_time` and `end_time` are the start and end times of the period requested. The API is strict that these should be 14-digit strings "YYYYMMDDHHIIEE", but the functions here will take them in date formats (posix), character, or numeric, and they do not need to be 14-digits.
 
     -   If not dates, they *should* be at least YYYYMMDD (either character or numeric), and the rest will be padded with zeros.
 
--   `interval` is the time interval of the return values for timeseries. Options seem to be (base on API error messages)
+-   `interval` is the time interval of the return values for timeseries. Options seem to be (based on API error messages)
 
     -   `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`. I don't think capitalisation matters.
 
     -   Also have not thoroughly tested if only some are available for some variables at some sites
 
--   `multiplier` I \*think\* this allows intervals like 5 days, by passing `interval = 'day'` and `multiplier = 5`. Not tested other than 1 at present.
+-   `multiplier` allows intervals like 5 days, by passing `interval = 'day'` and `multiplier = 5`.
 
 -   `data_type` is the statistic to apply within each interval to get the values.
 
@@ -81,8 +81,4 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
     -   *Warning:* any given API call can only takes one value, which is applied to all variables. *This is unlikely to be appropriate if asking for many variables.*
 
-    -   Two options (both requiring *a priori* knowledge of available variables):
-
-        1.  run `get_ts_traces` multiple times, with different subsets of `var_type`, each with an appropriate `data_types`.
-
-        2.  Use `get_ts_traces2`, which allows matched vectors of `var_type` and `data_type`, effectively automating option 1. (Deprecated, new approach pending)
+    -   run `get_ts_traces` multiple times, with different subsets of `var_type`, each with an appropriate `data_types`

@@ -29,3 +29,14 @@ test_that("states", {
   expect_snapshot(qds)
   expect_snapshot(nds)
 })
+
+test_that("groups", {
+  # This works, but it's unclear what this means.
+  vdsg <- get_groups(portal = 'vic', site_list = "GROUP(WEB_SW_TELEM)")
+  qdsg <- get_groups(portal = 'qld', site_list = "GROUP(OPEN_STATIONS)")
+  ndsg <- get_groups(portal = 'nsw', site_list = "GROUP(WATER_QUALITY)")
+
+  expect_snapshot(vdsg)
+  expect_snapshot(qdsg)
+  expect_snapshot(ndsg)
+})
