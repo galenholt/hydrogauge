@@ -65,6 +65,7 @@ fetch_hydstra_timeseries <- function(portal,
                                     var_list = var_list,
                                     variable = variable,
                                     units = units,
+                                    statistic = statistic,
                                     timeunit = timeunit,
                                     multiplier = multiplier)
 
@@ -77,13 +78,13 @@ fetch_hydstra_timeseries <- function(portal,
   gaugetz <- lubridate::tz(possibles$period_start)
 
   # times
-  if (start_time == 'all') {
+  if (is.character(start_time) && start_time == 'all') {
     possibles$start_time <- possibles$period_start
   } else {
     possibles$start_time <- request_to_gaugetime(start_time, gaugetz, request_timezone)
   }
 
-  if (end_time == 'all') {
+  if (is.character(end_time) && end_time == 'all') {
     possibles$end_time <- possibles$period_end
   } else {
     possibles$end_time <- request_to_gaugetime(end_time, gaugetz, request_timezone)
@@ -103,21 +104,23 @@ fetch_hydstra_timeseries <- function(portal,
   possibles <- possibles[!misstimes, ]
 
   # This should work to furrr::future_pmap or purrr::pmap, but isn't.
+  # WHY WAS THIS DOING ANYTHING- IT DOESN"T GO ANYWHERE?
   # # To make the arguments correct
-  p2 <- possibles |>
-    dplyr::rename(var_list = varto,
-                  site_list = site) |>
-    dplyr::mutate(return_timezone = 'UTC',
-                  returnformat = 'df',
-                  .errorhandling = .errorhandling) |>
-    dplyr::select(portal, site_list, datasource,
-                  var_list, start_time, end_time,
-                  interval, data_type, multiplier,
-                  return_timezone,
-                  returnformat,
-                  .errorhandling)
+  # p2 <- possibles |>
+  #   dplyr::rename(var_list = varto,
+  #                 site_list = site) |>
+  #   dplyr::mutate(return_timezone = 'UTC',
+  #                 returnformat = 'df',
+  #                 .errorhandling = .errorhandling) |>
+  #   dplyr::select(portal, site_list, datasource,
+  #                 var_list, start_time, end_time,
+  #                 interval, data_type, multiplier,
+  #                 return_timezone,
+  #                 returnformat,
+  #                 .errorhandling)
+  #
+  # outtib <- purrr::pmap(p2, get_ts_traces)
 
-  outtib <- purrr::pmap(p2, get_ts_traces)
   # This is ideally suited to `furrr::pmap` over, but I already depend on foreach, so I guess stick with that.
   # There's obvious space here to do a better job identifying common things that can hit the API together, e.g. a bunch of gauges all asking for the same thing.
 
@@ -152,9 +155,10 @@ fetch_hydstra_timeseries <- function(portal,
   }
 
 
-  # sort
+  # sort and rename
   bodytib <- bodytib |>
-    dplyr::arrange(site, variable)
+    dplyr::arrange(site, variable) |>
+    dplyr::rename(statistic = data_type)
 
   # return
   if (returnformat == 'df') {return(bodytib)}

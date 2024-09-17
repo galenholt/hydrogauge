@@ -19,7 +19,7 @@ find_hydstra_request <- function(portal,
                                  warnmissing = TRUE,
                                  ignore_fromderived = TRUE) {
 
-  if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `data_type` (that is, aggregation function) to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
+  if ("all" %in% var_list) {rlang::warn("`var_list = 'all'` is *very* dangerous, since it applies the same `statistic` (`data_type` in get_ts_traces), i.e. aggregation function, to all variables, which is rarely appropriate. Check the variables available for your sites and make sure you want to do this.")}
 
   if (is.null(var_list) & is.null(variable) & is.null(units)) {
     rlang::abort('no selections have been made. All of `var_list`, `variable` and `units` are NULL.')
@@ -76,6 +76,7 @@ find_hydstra_request <- function(portal,
       units <- NULL
       rlang::warn("`'all'` in `var_list`, ignoring `variable` and `units`")
     }
+    var_list <- unique(hyd_req_tib$variable)
   } else if (!is.null(var_list)) {
     # hyd_req_tib has variables with .00 on the end, var_list might or might not. make it consistent
     var_list <- var_list |>
@@ -119,7 +120,7 @@ find_hydstra_request <- function(portal,
   if (length(statistic) == 1) {
     hyd_req_tib$data_type <- statistic
   } else if (length(statistic) == length(var_list) & length(var_list) != 1) {
-    varfun <- tibble::tibble(varto = var_list, statistic)
+    varfun <- tibble::tibble(varto = var_list, data_type = statistic)
     hyd_req_tib <- dplyr::left_join(hyd_req_tib, varfun, by = 'varto')
   } else {
     rlang::abort("statistic is wrong length. Need to either use one or match the var_list")
@@ -127,7 +128,7 @@ find_hydstra_request <- function(portal,
 
   if (nrow(hyd_req_tib) == 0) {
     rlang::warn(c("Filters do not match any timeseries.",
-                  "i" = glue::glue("Run `hyd_req_tib <- get_timeseries_list(portal = {portal}, site_list = {gauge}, datasource = {datasource})`"),
+                  "i" = glue::glue("Run `hyd_req_tib <- get_variable_list(portal = {portal}, site_list = {gauge}, datasource = {datasource})`"),
                   "and check output manually to find the error."))
   }
 
@@ -143,7 +144,7 @@ find_hydstra_request <- function(portal,
 
     if (length(missing_gauges > 0)) {
       rlang::warn(c("Not all gauges selected.",
-                    glue::glue("missing {paste0(missing_gauges, collapse = '.')}."),
+                    glue::glue("missing {paste0(missing_gauges, collapse = ',')}."),
                     "If expected, check arguments."))
     }
   }
