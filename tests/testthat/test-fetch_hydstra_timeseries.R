@@ -19,6 +19,59 @@ test_that("ts simple", {
 
 })
 
+test_that("statistic vectors", {
+  # same as the main get_ts_traces test
+  simpletrace_stats <- fetch_hydstra_timeseries(portal = 'vic',
+                                          gauge = c("233217", '405837'),
+                                          datasource = 'A',
+                                          var_list = c('141', '10', '450'),
+                                          start_time = '20200101',
+                                          end_time = '20200105',
+                                          timeunit = 'day',
+                                          statistic = c('mean', 'tot', 'max'),
+                                          multiplier = 1,
+                                          returnformat = 'df',
+                                          request_timezone = 'db_default',
+                                          return_timezone = 'raw')
+  expect_s3_class(simpletrace_stats, 'tbl_df')
+  expect_snapshot(table(simpletrace_stats$variable, simpletrace_stats$statistic))
+
+})
+
+test_that("date formats", {
+  # same as the main get_ts_traces test
+  simpletrace_num <- fetch_hydstra_timeseries(portal = 'vic',
+                                          gauge = "233217",
+                                          datasource = 'A',
+                                          var_list = c('100', '141'),
+                                          start_time = 20200101,
+                                          end_time = 20200105,
+                                          timeunit = 'day',
+                                          statistic = 'mean',
+                                          multiplier = 1,
+                                          returnformat = 'df',
+                                          request_timezone = 'db_default',
+                                          return_timezone = 'raw')
+  expect_s3_class(simpletrace_num, 'tbl_df')
+  expect_snapshot(simpletrace_num)
+
+  simpletrace_date <- fetch_hydstra_timeseries(portal = 'vic',
+                                              gauge = "233217",
+                                              datasource = 'A',
+                                              var_list = c('100', '141'),
+                                              start_time = lubridate::ymd(20200101),
+                                              end_time = lubridate::ymd(20200105),
+                                              timeunit = 'day',
+                                              statistic = 'mean',
+                                              multiplier = 1,
+                                              returnformat = 'df',
+                                              request_timezone = 'db_default',
+                                              return_timezone = 'raw')
+  expect_s3_class(simpletrace_date, 'tbl_df')
+  expect_snapshot(simpletrace_date)
+
+})
+
 test_that("timezones behave", {
   simpletrace_UTC <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",

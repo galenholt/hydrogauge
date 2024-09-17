@@ -197,33 +197,128 @@ ts_rain |>
 
 If the user wants to combine across different statistics, use [dplyr::bind_rows()] to combine post-hoc.
 
-An automated approach is available in [fetch_hydstra_timeseries()], but care must be taken to avoid inappropriate statistics.
+An automated approach that can simplify some common workflows (especially pulling period of record for many gauges) is available in [fetch_hydstra_timeseries()], but care must be taken to avoid inappropriate statistics.
 
-## Experimental wrapper
+# Experimental wrapper
 
-The [fetch_hydstra_timeseries()] function wraps [get_variable_list()] and [get_ts_traces()], which allows some extra functionality and smoother workflows, but also introduces some danger. Some argument names have been changed compared to [get_ts_traces()] (which uses the Kisters names nearly verbatim) for more clarity and to move towards a unified interface across both API styles.
+The [fetch_hydstra_timeseries()] function wraps [get_variable_list()] and [get_ts_traces()], which allows some extra functionality and smoother workflows but also introduces some danger and sometimes inefficiency. Some argument names have been changed compared to [get_ts_traces()] (which uses the Kisters names nearly verbatim) for more clarity and to move towards a unified interface across both API styles.
 
-This function allows requests for the full period of record by passing `'all'` for the `start_time` and `end_time` (or the earliest and latest possible dates, respectively), and for all available variables by passing `'all'` to `var_list`. *DANGER: if `var_type = 'all'`, the same statistic will be applied to all variables.* Calling `'all'` for the `start_time` and `'end_time'` *will* give each variable a different period of record; the times are found from each row returned by [get_variable_list()]. The downside of this approach is that the calls to the API are inefficient (each row is called separately). It will be possible to do some inferences and combinations here, but it has not been high priority. 
+This function allows requests for the full period of record by passing `'all'` for the `start_time` and `end_time` (or the earliest and latest possible dates, respectively). The downside of this approach is that the calls to the API are inefficient (each row is called separately), though this is also necessarily the case if asking for the period of record manually for gauges with different periods. It will be possible to do some inferences and combinations here, but it has not been high priority. 
 
-**DEMO HERE**
+This function is most useful when we want to pull the period of record of the same variable for a set of gauges. For example, we might want to pull discharge for the period of record, which we can do by passing `'all'` to `start_time` and `end_time`, yielding @fig-discharge-period.
+
+```{r}
+discharge_record <- fetch_hydstra_timeseries(portal = 'vic', 
+                                       gauge = c(barwon, steavenson, taggerty),
+                                       var_list = '141',
+                                       start_time = 'all',
+                                       end_time = 'all',
+                                       timeunit = 'day',
+                                       statistic = 'mean')
+```
+
+```{r}
+#| label: fig-discharge-period
+#| fig-cap: Discharge for the period of record for three gauges.
+discharge_record |> 
+  ggplot(aes(x = time, y = value, color = site_short_name)) +
+  geom_line() +
+  facet_grid(site_short_name~., scales = 'free_y') +
+  labs(y = unique(discharge_record$variable_short_name))
+```
+We can also pull data for all available variables by passing `'all'` to `var_list`. *DANGER: if `var_type = 'all'`, the same statistic will be applied to all variables.* Calling `'all'` for the `start_time` and `'end_time'` *will* give each variable a different period of record if they differ; the times are found from each row returned by [get_variable_list()]. 
+
+For the sake of demonstration, we make the bad choice here of getting all the data, summarised in @tbl-all. This throws a warning because it's a bad idea in general.
+
+```{r}
+all_vars_fullperiod <- fetch_hydstra_timeseries(portal = 'vic', 
+                                       gauge = c(barwon, golf),
+                                       var_list = 'all',
+                                       start_time = 'all',
+                                       end_time = 'all',
+                                       timeunit = 'day',
+                                       statistic = 'mean')
+```
+```{r}
+#| label: tbl-all
+#| tbl-cap: Number of records for the period of record pulled by code above. Note that the Rainfall measurements will be daily means, which is not appropriate.
+#| 
+all_vars_fullperiod |> 
+  dplyr::summarise(n_records = dplyr::n(), 
+                   .by = c(site_short_name, variable_short_name, statistic)) |> 
+  knitr::kable()
+```
 
 We *can* request different statistics for different variables if the variables are passed in as a vector of arguments to `var_list`, though then you have to know what they are. In that case, the `statistic` argument should be a vector of matched length to `var_list`.
 
-**DEMO HERE**
+Let's ask for the period of record for daily mean discharge, total daily rainfall, and maximum daily temperature in the Barwon (233217), which returns different statistics for each variable (@tbl-diffstats).
 
-We can also use the `variable` argument instead of `var_list` to search for variables by name, as in `fetch_kiwis_timeseries`. This is very experimental, moving towards a unified wrapper.
+```{r}
+different_statistics <- fetch_hydstra_timeseries(portal = 'vic', 
+                                       gauge = c(barwon, golf),
+                                       var_list = c('141', '10', '450'),
+                                       start_time = 'all',
+                                       end_time = 'all',
+                                       timeunit = 'day',
+                                       statistic = c('mean', 'tot', 'max'))
+```
+
+```{r}
+#| label: tbl-diffstats
+#| tbl-cap: Number of records for the period of record pulled by code above. By using a vector of statistics matching the vector of var_list, we can use different statistics for each variable.
+#| 
+different_statistics |> 
+  dplyr::summarise(n_records = dplyr::n(), 
+                   .by = c(site_short_name, variable_short_name, statistic)) |> 
+  knitr::kable()
+```
+
+We can also use the `variable` and `unit` arguments instead of `var_list` to search for variables by name, as in `fetch_kiwis_timeseries`. This is very experimental, moving towards a unified wrapper. We can use this to recapitulate the pull of discharge for the gauges (@fig-discharge-byname).
+
+```{r}
+by_name <- fetch_hydstra_timeseries(portal = 'vic', 
+                                       gauge = c(barwon, steavenson, taggerty),
+                                       variable = 'discharge',
+                                       unit = 'ML/d',
+                                       start_time = 'all',
+                                       end_time = 'all',
+                                       timeunit = 'day',
+                                       statistic = 'mean')
+```
+
+```{r}
+#| label: fig-discharge-byname
+#| fig-cap: Discharge for the period of record for three gauges, obtained by name.
+by_name |> 
+  ggplot(aes(x = time, y = value, color = site_short_name)) +
+  geom_line() +
+  facet_grid(site_short_name~., scales = 'free_y') +
+  labs(y = unique(by_name$variable_short_name))
+```
 
 ## Large requests
 
-*Note: with big pulls, especially of full periods of record, it is recommended to use the bare [get_variable_list()] and [get_ts_traces()] approach.* In my experience, there are often errors with some gauges or other issues that mean clean pulls need some troubleshooting of the variable availability and other issues. It is often easiest to find and solve problems at the low-level API interface. Making [fetch_hydstra_timeseries()] incorporate some of this is in development.
-
-**DEMO HERE**
+*Note: with big pulls, it can be useful to recommended to use the bare [get_variable_list()] and [get_ts_traces()] approach, or at least a manual check of [get_variable_list()].* In my experience, there are often errors with some gauges or other issues that mean clean pulls need some troubleshooting of the variable availability etc. It is often easiest to find and solve problems at the low-level API interface. Making [fetch_hydstra_timeseries()] incorporate some of this is in development.
 
 # Other portals
 
-The above uses Victorian water data, here we do the same process for Queensland and New South Wales by changing the `portal` argument.
+Most examples use Victorian water data, but this should work wherever we have a link to a hydstra API. 
 
-Using `get_datasources_by_site` to see what datasources are available (note the major differences between the states):
+At the most basic, we can use a raw https path, demonstrated with Victoria,
+
+```{r}
+ds_http <- get_datasources_by_site(portal = 'https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?', 
+                              site_list = c(barwon, steavenson, 
+                                            taggerty, golf))
+```
+
+```{r rows.print = 15}
+ds_http
+```
+
+In theory, that should work with any Hydstra source, many of which are listed by [Kisters](https://resources.kisters.com.au/public/kisters-web-publishing/). The catch is, finding the API path is not always straightforward. For example, this *should* work for [Washington Department of Ecology](https://apps.ecology.wa.gov/continuousflowandwq/), [California department of water resources](https://wdl.water.ca.gov/waterdatalibrary/), and [Western Australia](https://kumina.water.wa.gov.au/waterinformation/telem/stage.cfm), but none of those addresses work. Either those orgs don't publish their APIs, or there are undiscovered '.../webservice.exe?' paths there waiting to be discovered and used.  
+
+In addition to Victoria, New South Wales and Queensland have public portals and are available by name as `portal` arguments. To demonstrate, we can use `get_datasources_by_site` to see what datasources are available (note the major differences between the states):
 
 ```{r}
 nsw_ds <- get_datasources_by_site(portal = 'NSW', 

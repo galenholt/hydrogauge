@@ -1,3 +1,8 @@
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -56,13 +61,13 @@ they are can be done through the functions here.
 This vignette will proceed with a set of sites chosen to span a range of
 characteristics (which we know from test queries).
 
-- The Upper Steavenson (405328) only has flow
+-   The Upper Steavenson (405328) only has flow
 
-- Barwon (233217) has many variables, but their start dates differ
+-   Barwon (233217) has many variables, but their start dates differ
 
-- Taggerty (405331) is no longer in operation- ran 2010-2013
+-   Taggerty (405331) is no longer in operation- ran 2010-2013
 
-- Marysville golf course (405837) is only rainfall
+-   Marysville golf course (405837) is only rainfall
 
 The functions all require gauges to be their numeric codes as
 characters. The API needs a comma-separated string (`"number1, number2"`
@@ -91,82 +96,82 @@ though there are discrepancies between states.
 After quite a lot of digging and testing, an incomplete set of
 definitions of common arguments and their potential values follows:
 
-- `site_list` is the gauge number as a character (and the functions here
-  accept a vector of these gauge numbers). Can be any gauge number in
-  the database. Obtaining them programatically is limited currently,
-  except in `get_sites_by_datasource`.
+-   `site_list` is the gauge number as a character (and the functions
+    here accept a vector of these gauge numbers). Can be any gauge
+    number in the database. Obtaining them programatically is limited
+    currently, except in `get_sites_by_datasource`.
 
-- `datasource` The type of data. Currently aware of `"A"`, `"TELEM"`,
-  and `"TELEMCOPY"`, but have done this in a roundabout way and there
-  may be others and sites I have not examined. `A` is likely to mean
-  ‘archive’, `TELEM` seems to mean ‘telemetry’, and I’m not sure why
-  there’s a copy.
+-   `datasource` The type of data. Currently aware of `"A"`, `"TELEM"`,
+    and `"TELEMCOPY"`, but have done this in a roundabout way and there
+    may be others and sites I have not examined. `A` is likely to mean
+    ‘archive’, `TELEM` seems to mean ‘telemetry’, and I’m not sure why
+    there’s a copy.
 
-  - Some quick testing with `get_sites_by_datasource` shows that there
-    are many more sites with `A` than `TELEM`, but that `TELEM` is not a
-    subset- there are sites with `TELEM` and not `A`. Initial testing of
-    `get_db_info` also finds sites that do not appear with any of these,
-    and seem to have no data.
+    -   Some quick testing with `get_sites_by_datasource` shows that
+        there are many more sites with `A` than `TELEM`, but that
+        `TELEM` is not a subset- there are sites with `TELEM` and not
+        `A`. Initial testing of `get_db_info` also finds sites that do
+        not appear with any of these, and seem to have no data.
 
-- `var_list` is the type of variable, e.g. rainfall, flow, temp. Should
-  be a character of the numeric code, with or without trailing “.00”,
-  and can be a vector, e.g. c(“100”, “210.00”).
+-   `var_list` is the type of variable, e.g. rainfall, flow, temp.
+    Should be a character of the numeric code, with or without trailing
+    “.00”, and can be a vector, e.g. c(“100”, “210.00”).
 
-  - I do not currently have a comprehensive list of possible variables
-    and their meaning, but `get_variables_by_site` will provide one for
-    a set of sites.
+    -   I do not currently have a comprehensive list of possible
+        variables and their meaning, but `get_variables_by_site` will
+        provide one for a set of sites.
 
-  - The [Queensland
-    documentation](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf)
-    gives some more information, but the numbers are not always the
-    same.
+    -   The [Queensland
+        documentation](https://water-monitoring.information.qld.gov.au/wini/Documents/RDMW_API_doco.pdf)
+        gives some more information, but the numbers are not always the
+        same.
 
-  - Some variables (typically discharge) are calculated, and *do not
-    appear in queries of available variables* such as
-    `get_variables_by_site`. Those I’m aware of are “141”- discharge in
-    ML, and “140”, discharge in cumecs ($m^3/sec$).
+    -   Some variables (typically discharge) are calculated, and *do not
+        appear in queries of available variables* such as
+        `get_variables_by_site`. Those I’m aware of are “141”- discharge
+        in ML, and “140”, discharge in cumecs ($m^3/sec$).
 
-- `start_time` and `end_time` are the start and end times of the period
-  requested. The API is strict that these should be 14-digit strings
-  “YYYYMMDDHHIIEE”, but the functions here will take them in date
-  formats (posix), character, or numeric, and they do not need to be
-  14-digits.
+-   `start_time` and `end_time` are the start and end times of the
+    period requested. The API is strict that these should be 14-digit
+    strings “YYYYMMDDHHIIEE”, but the functions here will take them in
+    date formats (posix), character, or numeric, and they do not need to
+    be 14-digits.
 
-  - If not dates, they *should* be at least YYYYMMDD (either character
-    or numeric), and the rest will be padded with zeros.
+    -   If not dates, they *should* be at least YYYYMMDD (either
+        character or numeric), and the rest will be padded with zeros.
 
-- `interval` is the time interval of the return values for timeseries.
-  Options seem to be (base on API error messages)
+-   `interval` is the time interval of the return values for timeseries.
+    Options seem to be (base on API error messages)
 
-  - `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`. I
-    don’t think capitalisation matters.
+    -   `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`.
+        I don’t think capitalisation matters.
 
-  - Also have not thoroughly tested if only some are available for some
-    variables at some sites
+    -   Also have not thoroughly tested if only some are available for
+        some variables at some sites
 
-- `multiplier` I \*think\* this allows intervals like 5 days, by passing
-  `interval = 'day'` and `multiplier = 5`. Not tested other than 1 at
-  present.
+-   `multiplier` I \*think\* this allows intervals like 5 days, by
+    passing `interval = 'day'` and `multiplier = 5`. Not tested other
+    than 1 at present.
 
-- `data_type` is the statistic to apply within each interval to get the
-  values.
+-   `data_type` is the statistic to apply within each interval to get
+    the values.
 
-  - Options (from API error messages): `"mean"`, `"max"`, `"min"`,
-    `"start"`, `"end"`, `"first"`, `"last"`, `"tot"`, `"maxmin"`,
-    `"point"`, `"cum"`. Not all are currently tested.
+    -   Options (from API error messages): `"mean"`, `"max"`, `"min"`,
+        `"start"`, `"end"`, `"first"`, `"last"`, `"tot"`, `"maxmin"`,
+        `"point"`, `"cum"`. Not all are currently tested.
 
-  - *Warning:* any given API call can only takes one value, which is
-    applied to all variables. *This is unlikely to be appropriate if
-    asking for many variables.*
+    -   *Warning:* any given API call can only takes one value, which is
+        applied to all variables. *This is unlikely to be appropriate if
+        asking for many variables.*
 
-  - Two options (both requiring *a priori* knowledge of available
-    variables):
+    -   Two options (both requiring *a priori* knowledge of available
+        variables):
 
-    1.  run `get_ts_traces` multiple times, with different subsets of
-        `var_type`, each with an appropriate `data_types`.
+        1.  run `get_ts_traces` multiple times, with different subsets
+            of `var_type`, each with an appropriate `data_types`.
 
-    2.  Use `get_ts_traces2`, which allows matched vectors of `var_type`
-        and `data_type`, effectively automating option 1.
+        2.  Use `get_ts_traces2`, which allows matched vectors of
+            `var_type` and `data_type`, effectively automating option 1.
 
 ## Finding datasources
 
@@ -187,8 +192,7 @@ ds <- get_datasources_by_site(portal = 'Vic',
 ds
 ```
 
-<div class="kable-table">
-
+::: kable-table
 | site   | datasource |
 |:-------|:-----------|
 | 233217 | A          |
@@ -202,8 +206,7 @@ ds
 | 405837 | A          |
 | 405837 | TELEM      |
 | 405837 | TELEMCOPY  |
-
-</div>
+:::
 
 And we can plot that to get a visualisation. I’m planning to have this
 sort of plot for lots of the functions, but for now this is it.
@@ -213,7 +216,7 @@ plot_datasources_by_site(ds)
 #> Joining, by = c("site", "datasource")
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%"/>
 
 ## Finding available variables
 
@@ -247,24 +250,22 @@ to, though I’m not positive.
 var_info
 ```
 
-<div class="kable-table">
-
-| site   | short_name           | long_name                                       | variable | units                                                  | var_name                | period_start   | period_end     | subdesc               | datasource | timezone |
-|:-------|:---------------------|:------------------------------------------------|:---------|:-------------------------------------------------------|:------------------------|:---------------|:---------------|:----------------------|:-----------|:---------|
-| 233217 | BARWON @ GEELONG     | BARWON RIVER @ GEELONG                          | 100.00   | metres                                                 | Stream Water Level (m)  | 19610306171500 | 20230202063000 | Available for release | A          | 10.0     |
-| 233217 | BARWON @ GEELONG     | BARWON RIVER @ GEELONG                          | 210.00   | pH                                                     | Acidity/Alkalinity (pH) | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
-| 233217 | BARWON @ GEELONG     | BARWON RIVER @ GEELONG                          | 215.00   | ppm                                                    | Dissolved Oxygen (ppm)  | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
-| 233217 | BARWON @ GEELONG     | BARWON RIVER @ GEELONG                          | 450.00   | Degrees celsius                                        | Water Temperature (°C)  | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
-| 233217 | BARWON @ GEELONG     | BARWON RIVER @ GEELONG                          | 810.00   | NTU                                                    | Turbidity (NTU)         | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
-| 233217 | BARWON @ GEELONG     | BARWON RIVER @ GEELONG                          | 820.00   | <a href="mailto:µS/cm@25" class="email">µS/cm@25</a>°C | Conductivity (µS/cm)    | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
-| 405331 | TAGGERTY R LADY TALT | TAGGERTY RV @ LADY TALBOT DRIVE NEAR MARYSVILLE | 100.00   | metres                                                 | Stream Water Level (m)  | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
-| 405331 | TAGGERTY R LADY TALT | TAGGERTY RV @ LADY TALBOT DRIVE NEAR MARYSVILLE | 450.00   | Degrees celsius                                        | Water Temperature (°C)  | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
-| 405331 | TAGGERTY R LADY TALT | TAGGERTY RV @ LADY TALBOT DRIVE NEAR MARYSVILLE | 810.00   | NTU                                                    | Turbidity (NTU)         | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
-| 405331 | TAGGERTY R LADY TALT | TAGGERTY RV @ LADY TALBOT DRIVE NEAR MARYSVILLE | 820.00   | <a href="mailto:µS/cm@25" class="email">µS/cm@25</a>°C | Conductivity (µS/cm)    | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
-| 405328 | STEAVENSON R @ FALLS | STEAVENSON RIVER @ FALLS ROAD MARYSVILLE        | 100.00   | metres                                                 | Stream Water Level (m)  | 20091119170800 | 20230203084840 | Available for release | A          | 10.0     |
-| 405837 | R.G. MARYSVILLE      | RAINGAUGE @ MARYSVILLE GOLF CLUB                | 10.00    | mm                                                     | Rainfall (mm)           | 20010621142700 | 20230203090000 | Available for release | A          | 10.0     |
-
-</div>
+::: kable-table
+| site   | short_name            | long_name                                        | variable | units                                                   | var_name                | period_start   | period_end     | subdesc               | datasource | timezone |
+|:------|:------|:------|:------|:------|:------|:------|:------|:------|:------|:------|
+| 233217 | BARWON \@ GEELONG     | BARWON RIVER \@ GEELONG                          | 100.00   | metres                                                  | Stream Water Level (m)  | 19610306171500 | 20230202063000 | Available for release | A          | 10.0     |
+| 233217 | BARWON \@ GEELONG     | BARWON RIVER \@ GEELONG                          | 210.00   | pH                                                      | Acidity/Alkalinity (pH) | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
+| 233217 | BARWON \@ GEELONG     | BARWON RIVER \@ GEELONG                          | 215.00   | ppm                                                     | Dissolved Oxygen (ppm)  | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
+| 233217 | BARWON \@ GEELONG     | BARWON RIVER \@ GEELONG                          | 450.00   | Degrees celsius                                         | Water Temperature (°C)  | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
+| 233217 | BARWON \@ GEELONG     | BARWON RIVER \@ GEELONG                          | 810.00   | NTU                                                     | Turbidity (NTU)         | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
+| 233217 | BARWON \@ GEELONG     | BARWON RIVER \@ GEELONG                          | 820.00   | <a href="mailto:µS/cm@25" class="email">µS/cm\@25</a>°C | Conductivity (µS/cm)    | 20100706123100 | 20230202063000 | Available for release | A          | 10.0     |
+| 405331 | TAGGERTY R LADY TALT  | TAGGERTY RV \@ LADY TALBOT DRIVE NEAR MARYSVILLE | 100.00   | metres                                                  | Stream Water Level (m)  | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
+| 405331 | TAGGERTY R LADY TALT  | TAGGERTY RV \@ LADY TALBOT DRIVE NEAR MARYSVILLE | 450.00   | Degrees celsius                                         | Water Temperature (°C)  | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
+| 405331 | TAGGERTY R LADY TALT  | TAGGERTY RV \@ LADY TALBOT DRIVE NEAR MARYSVILLE | 810.00   | NTU                                                     | Turbidity (NTU)         | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
+| 405331 | TAGGERTY R LADY TALT  | TAGGERTY RV \@ LADY TALBOT DRIVE NEAR MARYSVILLE | 820.00   | <a href="mailto:µS/cm@25" class="email">µS/cm\@25</a>°C | Conductivity (µS/cm)    | 20100729122000 | 20130211110700 | Available for release | A          | 10.0     |
+| 405328 | STEAVENSON R \@ FALLS | STEAVENSON RIVER \@ FALLS ROAD MARYSVILLE        | 100.00   | metres                                                  | Stream Water Level (m)  | 20091119170800 | 20230203084840 | Available for release | A          | 10.0     |
+| 405837 | R.G. MARYSVILLE       | RAINGAUGE \@ MARYSVILLE GOLF CLUB                | 10.00    | mm                                                      | Rainfall (mm)           | 20010621142700 | 20230203090000 | Available for release | A          | 10.0     |
+:::
 
 ## Obtaining timeseries
 
@@ -299,54 +300,52 @@ That returns a tall dataframe, which the user can then split up or plot
 how they want. There are other options that return lists of dataframes
 if the user does not want all sites and variables combined-
 
-- `returnformat = "varlist"` a list with one tibble per variable
+-   `returnformat = "varlist"` a list with one tibble per variable
 
-- `returnformat = "sitelist"` a list with one tibble per site
+-   `returnformat = "sitelist"` a list with one tibble per site
 
-- `returnformat = "sxvlist"` a list with one tibble per site x variable
-  combo (including empty lists for missing combos)
+-   `returnformat = "sxvlist"` a list with one tibble per site x
+    variable combo (including empty lists for missing combos)
 
 ``` r
 # rows.print doesn't really work with devtools::build_readme(), so use head
 head(ts_days, 30)
 ```
 
-<div class="kable-table">
-
-| error_num | compressed | timezone | site_short_name  | longitude | site_name              |  latitude | org_name                             | value | time       | quality_codes_id | site   | variable_short_name | precision | subdesc               | variable | units  | variable_name          | quality_codes                                                                 | data_type |
-|----------:|:-----------|:---------|:-----------------|----------:|:-----------------------|----------:|:-------------------------------------|------:|:-----------|-----------------:|:-------|:--------------------|:----------|:----------------------|:---------|:-------|:-----------------------|:------------------------------------------------------------------------------|:----------|
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.838 | 2020-01-01 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.834 | 2020-01-02 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.827 | 2020-01-03 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.821 | 2020-01-04 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.816 | 2020-01-05 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.814 | 2020-01-06 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-07 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.802 | 2020-01-08 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.791 | 2020-01-09 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-10 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.831 | 2020-01-11 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.824 | 2020-01-12 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.820 | 2020-01-13 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.812 | 2020-01-14 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.817 | 2020-01-15 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.829 | 2020-01-16 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-17 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.807 | 2020-01-18 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.809 | 2020-01-19 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.810 | 2020-01-20 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-21 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.803 | 2020-01-22 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.956 | 2020-01-23 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.904 | 2020-01-24 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.865 | 2020-01-25 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.851 | 2020-01-26 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.872 | 2020-01-27 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.926 | 2020-01-28 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.916 | 2020-01-29 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.897 | 2020-01-30 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-
-</div>
+::: kable-table
+| error_num | compressed | timezone | site_short_name   | longitude | site_name               |  latitude | org_name                             | value | time       | quality_codes_id | site   | variable_short_name | precision | subdesc               | variable | units  | variable_name          | quality_codes                                                                 | data_type |
+|---:|:---|:---|:---|---:|:---|---:|:---|---:|:---|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.838 | 2020-01-01 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.834 | 2020-01-02 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.827 | 2020-01-03 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.821 | 2020-01-04 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.816 | 2020-01-05 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.814 | 2020-01-06 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-07 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.802 | 2020-01-08 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.791 | 2020-01-09 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-10 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.831 | 2020-01-11 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.824 | 2020-01-12 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.820 | 2020-01-13 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.812 | 2020-01-14 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.817 | 2020-01-15 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.829 | 2020-01-16 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-17 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.807 | 2020-01-18 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.809 | 2020-01-19 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.810 | 2020-01-20 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-21 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.803 | 2020-01-22 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.956 | 2020-01-23 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.904 | 2020-01-24 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.865 | 2020-01-25 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.851 | 2020-01-26 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.872 | 2020-01-27 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.926 | 2020-01-28 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.916 | 2020-01-29 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.897 | 2020-01-30 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+:::
 
 Note that if a variable isn’t available for a gauge it just isn’t
 returned, and same with timeperiods. So, the Barwon returns all
@@ -383,42 +382,40 @@ ts_rain <- get_ts_traces(portal = 'Vic',
 head(ts_rain, 30)
 ```
 
-<div class="kable-table">
-
-| error_num | compressed | timezone | site_short_name | longitude | site_name                        |  latitude | org_name                             | value | time       | quality_codes_id | site   | variable_short_name | precision | subdesc               | variable | units | variable_name | quality_codes                                                                 | data_type |
-|----------:|:-----------|:---------|:----------------|----------:|:---------------------------------|----------:|:-------------------------------------|------:|:-----------|-----------------:|:-------|:--------------------|:----------|:----------------------|:---------|:------|:--------------|:------------------------------------------------------------------------------|:----------|
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-01 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-02 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-03 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-04 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   5.8 | 2020-01-05 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   4.0 | 2020-01-06 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-07 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-08 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-09 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  10.4 | 2020-01-10 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.4 | 2020-01-11 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-12 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-13 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-14 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  20.4 | 2020-01-15 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.2 | 2020-01-16 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-17 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-18 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  18.2 | 2020-01-19 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  17.6 | 2020-01-20 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.2 | 2020-01-21 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.6 | 2020-01-22 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  22.0 | 2020-01-23 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-24 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-25 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-26 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-27 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-28 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-29 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE @ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-30 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
-
-</div>
+::: kable-table
+| error_num | compressed | timezone | site_short_name | longitude | site_name                         |  latitude | org_name                             | value | time       | quality_codes_id | site   | variable_short_name | precision | subdesc               | variable | units | variable_name | quality_codes                                                                 | data_type |
+|---:|:---|:---|:---|---:|:---|---:|:---|---:|:---|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-01 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-02 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-03 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-04 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   5.8 | 2020-01-05 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   4.0 | 2020-01-06 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-07 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-08 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-09 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  10.4 | 2020-01-10 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.4 | 2020-01-11 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-12 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-13 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-14 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  20.4 | 2020-01-15 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.2 | 2020-01-16 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-17 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-18 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  18.2 | 2020-01-19 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  17.6 | 2020-01-20 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.2 | 2020-01-21 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.6 | 2020-01-22 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |  22.0 | 2020-01-23 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-24 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-25 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-26 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-27 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-28 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-29 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+|         0 | 0          | 10.0     | R.G. MARYSVILLE |  145.7478 | RAINGAUGE \@ MARYSVILLE GOLF CLUB | -37.49575 | Dept. Sustainability and Environment |   0.0 | 2020-01-30 |                2 | 405837 | Rainfall (mm)       | 0.100000  | Available for release | 10.00    | mm    | Rainfall (mm) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | tot       |
+:::
 
 If the user wants to combine, they can `dplyr::bind_rows` to combine
 post-hoc.
@@ -446,42 +443,40 @@ ts_days2 <- get_ts_traces2(portal = 'Vic',
 head(ts_days2, 30)
 ```
 
-<div class="kable-table">
-
-| error_num | compressed | timezone | site_short_name  | longitude | site_name              |  latitude | org_name                             | value | time       | quality_codes_id | site   | variable_short_name | precision | subdesc               | variable | units  | variable_name          | quality_codes                                                                 | data_type |
-|----------:|:-----------|:---------|:-----------------|----------:|:-----------------------|----------:|:-------------------------------------|------:|:-----------|-----------------:|:-------|:--------------------|:----------|:----------------------|:---------|:-------|:-----------------------|:------------------------------------------------------------------------------|:----------|
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.838 | 2020-01-01 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.834 | 2020-01-02 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.827 | 2020-01-03 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.821 | 2020-01-04 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.816 | 2020-01-05 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.814 | 2020-01-06 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-07 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.802 | 2020-01-08 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.791 | 2020-01-09 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-10 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.831 | 2020-01-11 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.824 | 2020-01-12 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.820 | 2020-01-13 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.812 | 2020-01-14 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.817 | 2020-01-15 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.829 | 2020-01-16 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-17 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.807 | 2020-01-18 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.809 | 2020-01-19 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.810 | 2020-01-20 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-21 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.803 | 2020-01-22 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.956 | 2020-01-23 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.904 | 2020-01-24 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.865 | 2020-01-25 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.851 | 2020-01-26 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.872 | 2020-01-27 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.926 | 2020-01-28 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.916 | 2020-01-29 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-|         0 | 0          | 10.0     | BARWON @ GEELONG |  144.3469 | BARWON RIVER @ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.897 | 2020-01-30 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
-
-</div>
+::: kable-table
+| error_num | compressed | timezone | site_short_name   | longitude | site_name               |  latitude | org_name                             | value | time       | quality_codes_id | site   | variable_short_name | precision | subdesc               | variable | units  | variable_name          | quality_codes                                                                 | data_type |
+|---:|:---|:---|:---|---:|:---|---:|:---|---:|:---|---:|:---|:---|:---|:---|:---|:---|:---|:---|:---|
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.838 | 2020-01-01 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.834 | 2020-01-02 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.827 | 2020-01-03 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.821 | 2020-01-04 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.816 | 2020-01-05 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.814 | 2020-01-06 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-07 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.802 | 2020-01-08 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.791 | 2020-01-09 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-10 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.831 | 2020-01-11 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.824 | 2020-01-12 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.820 | 2020-01-13 |               15 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Minor editing. +/-11mm - 20mm drift correction                                | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.812 | 2020-01-14 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.817 | 2020-01-15 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.829 | 2020-01-16 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.811 | 2020-01-17 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.807 | 2020-01-18 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.809 | 2020-01-19 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.810 | 2020-01-20 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.805 | 2020-01-21 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.803 | 2020-01-22 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.956 | 2020-01-23 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.904 | 2020-01-24 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.865 | 2020-01-25 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.851 | 2020-01-26 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.872 | 2020-01-27 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.926 | 2020-01-28 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.916 | 2020-01-29 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+|         0 | 0          | 10.0     | BARWON \@ GEELONG |  144.3469 | BARWON RIVER \@ GEELONG | -38.16361 | Dept. Sustainability and Environment | 0.897 | 2020-01-30 |                2 | 233217 | Water Level (m)     | 0.001000  | Available for release | 100.00   | metres | Stream Water Level (m) | Good quality data - minimal editing required. +/- 0mm - 10mm Drift correction | mean      |
+:::
 
 ## A quick plot
 
@@ -509,7 +504,7 @@ ggplot(ts_daysY, aes(x = time, y = value, color = site_short_name)) +
   geom_point() + geom_line()
 ```
 
-<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-15-1.png" width="100%"/>
 
 ## Notes
 
@@ -531,25 +526,25 @@ This package is under active development, and has been put on github as
 soon as the main functionality (`get_ts_traces`) was working. The
 current high-priority next steps are:
 
-- Diagnostic plots (heatmaps of data availability in a few dimensions-
-  see e.g. `plot_datasources_by_site` for a simple implementation)
+-   Diagnostic plots (heatmaps of data availability in a few dimensions-
+    see e.g. `plot_datasources_by_site` for a simple implementation)
 
-  - And some plots in here
+    -   And some plots in here
 
-- Simple timeseries plots for data inspection, though those will in
-  general be made by the user
+-   Simple timeseries plots for data inspection, though those will in
+    general be made by the user
 
-  - And throw some plots in here
+    -   And throw some plots in here
 
-- Selecting and finding sites based on criteria
+-   Selecting and finding sites based on criteria
 
-  - *Especially* geographic
+    -   *Especially* geographic
 
-- Smarter/faster handling of `data_type` matching to `var_list`
+-   Smarter/faster handling of `data_type` matching to `var_list`
 
-- Other states- NSW and QLD use a similar system, though it looks like
-  there are small differences at least in `datasource` values and some
-  variable codes. Still, shouldn’t take much to extend, I don’t think.
+-   Other states- NSW and QLD use a similar system, though it looks like
+    there are small differences at least in `datasource` values and some
+    variable codes. Still, shouldn’t take much to extend, I don’t think.
 
 # Other states
 
@@ -572,16 +567,14 @@ nsw_ds <- get_datasources_by_site(portal = 'NSW',
 nsw_ds
 ```
 
-<div class="kable-table">
-
+::: kable-table
 | site   | datasource |
 |:-------|:-----------|
 | 422028 | A          |
 | 422028 | PROV       |
 | 410007 | A          |
 | 410007 | PROV       |
-
-</div>
+:::
 
 ``` r
 qld_ds <- get_datasources_by_site(portal = 'QLD', 
@@ -592,8 +585,7 @@ qld_ds <- get_datasources_by_site(portal = 'QLD',
 qld_ds
 ```
 
-<div class="kable-table">
-
+::: kable-table
 | site    | datasource |
 |:--------|:-----------|
 | 423203A | FDR        |
@@ -604,8 +596,7 @@ qld_ds
 | 424201A | A          |
 | 424201A | TE         |
 | 424201A | RAW        |
-
-</div>
+:::
 
 ## Traces and plots
 
@@ -632,7 +623,7 @@ ggplot(nsw_ts_days, aes(x = time, y = value, color = site_short_name)) +
   geom_line()
 ```
 
-<img src="man/figures/README-unnamed-chunk-21-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-21-1.png" width="100%"/>
 
 ### QLD
 
@@ -657,4 +648,4 @@ ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) +
   geom_line()
 ```
 
-<img src="man/figures/README-unnamed-chunk-23-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-23-1.png" width="100%"/>

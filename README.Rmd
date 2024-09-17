@@ -38,7 +38,7 @@ devtools::install_github("galenholt/hydrogauge")
 
 ## Background
 
-This package was originally conceived to enable a workflow of querying to discover data availability (variables, time spans, locations), followed by pulling data based on those findings. This differs from other, more tailored, approaches to e.g. pulling flow gauges for a specific location, trading off querying ability with ease of use. 
+This package was originally conceived to enable a workflow of querying to discover data availability (variables, time spans, locations), followed by pulling data based on those findings. This differs from other, more tailored, approaches to e.g. pulling flow gauges for a specific location, trading off querying ability with ease of use.
 
 hydrogauge attempts to smooth out this tradeoff by providing a set of core functions that give the user access to most of the API functionality using syntax as close to API documentation as possible, as well as a set of wrapper functions that attempt to make the most common use-cases easier and avoid the need to dig into API documentation.
 
@@ -96,7 +96,7 @@ The [bomWater](https://github.com/buzacott/bomWater) and [kiwisR](https://github
 
 There are similar python packages [mdba-gauge-getter](https://github.com/MDBAuth/MDBA_Gauge_Getter), which calls state and BoM, and [bomwater](github.com/csiro-hydroinformatics/pybomwater), which is the BoM interface. Both of these are tailored for flow and stage timeseries, with less emphasis than here on identifying available data and exposing API funcationality.
 
-An obvious missing piece is USGS gauges. The USGS provides the in-house [dataRetrieval](https://github.com/DOI-USGS/dataRetrieval) package. At present, I have not explored wrapping that here and doubt that would make sense, given the existing tool. 
+An obvious missing piece is USGS gauges. The USGS provides the in-house [dataRetrieval](https://github.com/DOI-USGS/dataRetrieval) package. At present, I have not explored wrapping that here and doubt that would make sense, given the existing tool.
 
 ## Notes
 
@@ -113,7 +113,7 @@ This package is under active development, and has been put on github as soon as 
 -   Selecting and finding sites based on criteria
 
     -   *Especially* geographic
-    
+
 -   Diagnostic plots for data inspection, though those will in general be made by the user
 
 -   Smarter/faster handling of multiple calls (optimising API calling)
@@ -122,4 +122,4 @@ This package is under active development, and has been put on github as soon as 
 
 Please submit issues on [GitHub](https://github.com/galenholt/hydrogauge/issues)
 
-* Galen Holt, g.holt@deakin.edu.au
+-   Galen Holt, [g.holt\@deakin.edu.au](mailto:g.holt@deakin.edu.au){.email}
