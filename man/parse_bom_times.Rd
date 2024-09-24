@@ -17,3 +17,4 @@ a vector, either character or POSIX
 \description{
 Local time can be fraught, if there are issues, use one of the others and do the local time parsing manually based on your particular situation.
 }
+\keyword{internal}

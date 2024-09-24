@@ -6,7 +6,7 @@
 #' @param timetype character, one of 'char' (default), 'raw', 'UTC', or 'local'. 'char' and 'raw' both return the Timestamp as it comes from BOM, the others parse into dates.
 #'
 #' @return a vector, either character or POSIX
-#' @export
+#' @keywords internal
 #'
 parse_bom_times <- function(timevec, timetype = 'char') {
 

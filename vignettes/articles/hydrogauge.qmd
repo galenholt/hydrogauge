@@ -1,18 +1,22 @@
 ---
+format: 
+  html:
+    toc: true
 vignette: >
   %\VignetteIndexEntry{hydrogauge}
   %\VignetteEngine{quarto::html}
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r}
+#| include: false
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r setup}
+```{r}
 library(hydrogauge)
 ```
 

@@ -17,3 +17,4 @@ a tibble
 \description{
 This takes a single list, and so if multiple ts_ids have been extracted, should be looped over, e.g. with \code{\link[purrr:map]{purrr::map()}}.
 }
+\keyword{internal}

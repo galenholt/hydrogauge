@@ -21,3 +21,4 @@ depends on presence of errors and value of \code{.errorhandling}
 \description{
 Handle and parse errors from the API calls
 }
+\keyword{internal}

@@ -21,3 +21,4 @@ a vector, either character, numeric, or POSIX
 \description{
 Very similar to \code{\link[=parse_bom_times]{parse_bom_times()}} but has to deal with tz differently, and return character versions differently
 }
+\keyword{internal}

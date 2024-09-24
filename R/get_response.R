@@ -9,8 +9,7 @@
 #'   only implemented in some places.
 #'
 #' @return the response body as a list
-#' @export
-#'
+#' @keywords internal
 get_response <- function(baseURL, api_body_list = NULL,
                          api_query_list = list(nullquery = NULL),
                          .errorhandling = 'stop') {

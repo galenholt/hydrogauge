@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_variable_list.R
 \name{get_variable_list}
 \alias{get_variable_list}
-\title{Gets the variables for sites and datasources}
+\title{Gets the variables available for sites and datasources}
 \usage{
 get_variable_list(portal, site_list, datasource, return_timezone = "UTC")
 }
@@ -22,7 +22,7 @@ get_variable_list(portal, site_list, datasource, return_timezone = "UTC")
 a tibble of the variables for each site and datasource.
 }
 \description{
-Gets the variables for sites and datasources
+Gets the variables available for sites and datasources
 }
 \examples{
 v2 <- get_variable_list(site_list = "233217, 405328, 405331, 405837",

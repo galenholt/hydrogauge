@@ -1,4 +1,4 @@
-#' Gets the variables for sites and datasources
+#' Gets the variables available for sites and datasources
 #'
 #'
 #' @inheritParams get_ts_traces

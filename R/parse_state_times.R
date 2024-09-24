@@ -8,7 +8,7 @@
 #' @param tz_offset the offset of the incoming timezone, easier to parse for 'char'
 #'
 #' @return a vector, either character, numeric, or POSIX
-#' @export
+#' @keywords internal
 #'
 parse_state_times <- function(timevec, tz_name, tz_offset, timetype) {
 

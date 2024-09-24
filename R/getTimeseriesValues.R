@@ -118,8 +118,7 @@ getTimeseriesValues <- function(portal,
 #' @param return_timezone character in [OlsonNames()]. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10
 #'
 #' @return a tibble
-#' @export
-#'
+#' @keywords internal
 clean_bom_timeseries <- function(x, return_timezone = 'UTC') {
   response_names <- names(x)
 

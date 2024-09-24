@@ -17,8 +17,7 @@ get_response(
 \item{api_body_list}{a list with arguments for a particular call}
 
 \item{.errorhandling}{intended to allow passing or removing errors. Currently
-only implemented in a way that works for \code{\link[=get_ts_traces2]{get_ts_traces2()}}; see
-documentation there.}
+only implemented in some places.}
 }
 \value{
 the response body as a list
@@ -27,3 +26,4 @@ the response body as a list
 The other functions build the param list and process output. This always goes
 in the middle to actually hit the API. Exposing it for ad-hoc testing, etc.
 }
+\keyword{internal}

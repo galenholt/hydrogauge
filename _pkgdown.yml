@@ -2,3 +2,48 @@ url: https://galenholt.github.io/hydrogauge/
 template:
   bootstrap: 5
 
+reference:
+- title: "Obtain database information"
+  desc: "Functions for finding out what's in the database"
+- subtitle: hydstra
+  contents:
+  - get_groups
+  - get_sites_by_datasource
+  - get_datasources_by_site
+- subtitle: KiWIS
+  contents:
+  - getGroupList
+  - getStationList
+
+- title: "Query data available at a gauge"
+  desc: "Functions for querying variables and times available at gauges"
+- subtitle: hydstra
+  contents:
+  - get_variable_list
+- subtitle: KiWIS
+  contents:
+  - getTimeseriesList
+
+- title: "Pull timeseries"
+  desc: "Functions to pull timeseries of variables at gauges"
+- subtitle: hydstra
+  contents:
+  - get_ts_traces
+- subtitle: KiWIS
+  contents:
+  - getTimeseriesValues
+- subtitle: "Wrappers and helpers"
+  contents:
+  - fetch_hydstra_timeseries
+  - fetch_kiwis_timeseries
+  - fetch_timeseries
+
+- title: "Other helpers"
+  desc: "Assorted useful helper functions"
+  contents:
+  - fetch_from_table
+  - find_hydstra_request
+  - find_ts_id
+  - parse_url
+  - plot_datasources_by_site
+  - send_to_type

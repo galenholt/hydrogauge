@@ -3,7 +3,7 @@
 #' @param usertime time value from user. may be date, numeric, or character
 #'
 #' @return 14-digit character vector
-
+#' @keywords internal
 fix_times <- function(usertime, type = 'hydstra') {
 
   # short-circuit NULL
@@ -45,6 +45,7 @@ fix_times <- function(usertime, type = 'hydstra') {
 #' @param t14
 #'
 #' @return character in format 'YYYY-MM-DDTHH:MM:SS'
+#' @keywords internal
 format_chartimes <- function(t14) {
 
   # NA get turned into characters here, we dont want that.
@@ -74,7 +75,7 @@ format_chartimes <- function(t14) {
 #' @param x vector with tz info, either times with it included or tz
 #'
 #' @return vector of OlsonName timezones if possible
-#'
+#' @keywords internal
 extract_timezone <- function(x) {
 
   # we don't want to check that this is a single tz, since we could just return as a character to preserve that.
@@ -145,6 +146,7 @@ extract_timezone <- function(x) {
 #' @param tzvec
 #'
 #' @return character tz name
+#' @keywords internal
 multi_tz_check <- function(tzvec) {
   # ignore na- all of them
   if (all(is.na(tzvec))) {return(NA)}

@@ -13,8 +13,7 @@ getTimeseriesList(
 )
 }
 \arguments{
-\item{portal}{URL to Kisters KiWIS database. Default is Australian BOM,
-www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
+\item{portal}{URL to Kisters KiWIS database.}
 
 \item{station_no}{gauge numbers, as \code{site_list} in the Hydstra functions. There are many other fields that can be used to filter and select records, but this seems to be most common and so we give it special treatment. For others, use see \code{extra_list}}
 

@@ -7,8 +7,7 @@
 getGroupList(portal)
 }
 \arguments{
-\item{portal}{URL to Kisters KiWIS database. Default is Australian BOM,
-www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
+\item{portal}{URL to Kisters KiWIS database.}
 }
 \value{
 a tibble

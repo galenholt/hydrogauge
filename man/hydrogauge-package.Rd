@@ -6,7 +6,14 @@
 \alias{hydrogauge-package}
 \title{hydrogauge: Pulls information from the Kisters Kiwis and Hydstra APIs}
 \description{
-This package provides R wrappers to (some) of the API calls possible to the Victorian gauge network. I have tried to provide functionality to query available options for the different arguments.
+This package provides R wrappers to (some) of the API calls possible to the Kisters Kiwis and Hydstra APIs. Its focus was initially for Victoria, Australia using Hydstra, and is best-tested there, but expansion to BOM has brought in KiWis. Both are likely to be generic across other jurisdictions using these services. I have tried to provide functionality to query available options for the different arguments.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://galenholt.github.io/hydrogauge/}
+}
+
 }
 \author{
 \strong{Maintainer}: Galen Holt \email{g.holt@deakin.edu.au} (\href{https://orcid.org/0000-0002-7455-9275}{ORCID})

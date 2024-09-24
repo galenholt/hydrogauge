@@ -23,8 +23,7 @@ fetch_timeseries(
 )
 }
 \arguments{
-\item{portal}{URL to Kisters KiWIS database. Default is Australian BOM,
-www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
+\item{portal}{URL to Kisters KiWIS database.}
 
 \item{gauge}{character vector of gauge numbers, as \code{station_no} for Kiwis functions (\code{site_list} for Hydstra)}
 

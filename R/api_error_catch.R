@@ -7,8 +7,7 @@
 #'   simply `abort`ing vs doing something with the error and continuing
 #'
 #' @return depends on presence of errors and value of `.errorhandling`
-#' @export
-#'
+#' @keywords internal
 api_error_catch <- function(bodylist, call = rlang::caller_env(), .errorhandling = 'stop') {
   e_value <- bodylist[1]
 
@@ -35,7 +34,7 @@ api_error_catch <- function(bodylist, call = rlang::caller_env(), .errorhandling
 #' @inheritParams api_error_catch
 #'
 #' @return typically `bodytib`, unless there are errors, then determined by `.errorhandling`
-#' @export
+#' @keywords internal
 #'
 ts_error_catch <- function(bodytib, call = rlang::caller_env(), .errorhandling = 'stop') {
 

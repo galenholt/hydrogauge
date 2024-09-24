@@ -18,8 +18,7 @@ getTimeseriesValues(
 )
 }
 \arguments{
-\item{portal}{URL to Kisters KiWIS database. Default is Australian BOM,
-www.bom.gov.au/waterdata/services, but likely works for other KiWIS}
+\item{portal}{URL to Kisters KiWIS database.}
 
 \item{ts_id}{timeseries id, typically found from \code{\link[=getTimeseriesList]{getTimeseriesList()}}}
 

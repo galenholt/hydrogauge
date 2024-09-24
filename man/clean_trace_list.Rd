@@ -36,3 +36,4 @@ a tibble with the rectangled response
 \description{
 Cleans ts_trace API list body into tibble
 }
+\keyword{internal}

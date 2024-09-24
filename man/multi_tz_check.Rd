@@ -15,3 +15,4 @@ character tz name
 \description{
 returns single tz from vector, with check for equality
 }
+\keyword{internal}

@@ -1,0 +1,25 @@
+---
+title: "KiWIS workflow"
+format: 
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Base-hydstra-workflow}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(hydrogauge)
+library(ggplot2)
+```
+
+

@@ -173,8 +173,7 @@ get_ts_traces <- function(portal,
 #' @param gauge character gauge name- allows building an informative error-handled output
 #'
 #' @return a tibble with the rectangled response
-#' @export
-#'
+#' @keywords internal
 clean_trace_list <- function(responsebody,
                              data_type,
                              gauge = NA,

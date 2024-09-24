@@ -19,3 +19,4 @@ requested time in the timezone \code{gaugetz}
 \description{
 Transform requested times to the gauge timezones, whatever their tz and the tz of the gauge/database
 }
+\keyword{internal}

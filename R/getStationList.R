@@ -6,8 +6,7 @@
 #' searched though, using extra_list. The equivalent state (Hydstra) function is
 #' [get_db_info()] (to a close approximation).
 #'
-#' @param portal URL to Kisters KiWIS database. Default is Australian BOM,
-#'   www.bom.gov.au/waterdata/services, but likely works for other KiWIS
+#' @param portal URL to Kisters KiWIS database.
 #' @param station_no gauge numbers, as `site_list` in the Hydstra functions. There are many other fields that can be used to filter and select records, but this seems to be most common and so we give it special treatment. For others, use see `extra_list`
 #' @param returnfields default 'default', otherwise 'all' to get everything available, or comma-separated string of fields
 #'   to return. Full list for each function available from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo)

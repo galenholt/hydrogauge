@@ -21,3 +21,4 @@ typically \code{bodytib}, unless there are errors, then determined by \code{.err
 \description{
 Catch API errors that don't appear until the list is unpacked
 }
+\keyword{internal}

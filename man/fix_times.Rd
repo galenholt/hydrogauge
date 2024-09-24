@@ -15,3 +15,4 @@ fix_times(usertime, type = "hydstra")
 \description{
 Creates 14-digit character string needed for times in the API
 }
+\keyword{internal}

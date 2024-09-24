@@ -1,0 +1,109 @@
+---
+title: "Data portals"
+format: 
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Data-portals}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(hydrogauge)
+library(ggplot2)
+```
+
+Most examples use Victorian water data for hydstra or BOM for KiWIS, but this should work wherever we have a link to a hydstra or Kiwis API. Many sites are listed by [Kisters](https://resources.kisters.com.au/public/kisters-web-publishing/), though not all make it easy to find their path. 
+
+At the most basic, we can use a raw https path, demonstrated with Victoria,
+
+
+```{r}
+ds_http <- get_datasources_by_site(portal = 'https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?', 
+                              site_list = c('233217', '405328', '405331', '405837'))
+```
+
+```{r rows.print = 15}
+ds_http
+```
+
+## Hydstra
+
+In theory, we should be able to call the hydstra functions at any Hydstra source. The catch is, finding the API path is not always straightforward. For example, this *should* work for [Washington Department of Ecology](https://apps.ecology.wa.gov/continuousflowandwq/), [California department of water resources](https://wdl.water.ca.gov/waterdatalibrary/), and [Western Australia](https://kumina.water.wa.gov.au/waterinformation/telem/stage.cfm), but none of those addresses work. Either those orgs don't publish their APIs, or there are undiscovered '.../webservice.exe?' paths there waiting to be discovered and used.  
+
+### Australian states
+
+In addition to Victoria, New South Wales and Queensland have public portals and are available by name as `portal` arguments. To demonstrate, we can use `get_datasources_by_site` to see what datasources are available (note the major differences between the states):
+
+```{r}
+nsw_ds <- get_datasources_by_site(portal = 'NSW', 
+                                  site_list = c("422028", "410007"))
+```
+
+```{r}
+nsw_ds
+```
+
+```{r}
+qld_ds <- get_datasources_by_site(portal = 'QLD', 
+                                  site_list = c("423203A", "424201A"))
+```
+
+```{r}
+qld_ds
+```
+
+#### Traces and plots
+
+Now we can `get_ts_traces` for `A`, just to keep things consistent for NSW:
+
+```{r}
+nsw_ts_days <- get_ts_traces(portal = 'NSW', 
+                         site_list = c("422028", "410007"),
+                         datasource = "A", 
+                         var_list = c("100", "141", "450"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "mean",
+                         multiplier = 1,
+                         returnformat = 'df')
+
+```
+
+```{r}
+ggplot(nsw_ts_days, aes(x = time, y = value, color = site_short_name)) + 
+  facet_wrap(~variable_short_name, scales = 'free') + 
+  geom_line()
+```
+
+and QLD:
+
+```{r}
+qld_ts_days <- get_ts_traces(portal = 'QLD', 
+                         site_list = c("423203A", "424201A"),
+                         datasource = "A", 
+                         var_list = c("100", "141", "450"),
+                         start_time = 20200101,
+                         end_time = 20201231,
+                         interval = "day",
+                         data_type = "mean",
+                         multiplier = 1,
+                         returnformat = 'df')
+
+```
+
+```{r}
+ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) + 
+  facet_wrap(~variable_short_name, scales = 'free') + 
+  geom_line()
+```

@@ -15,3 +15,4 @@ vector of OlsonName timezones if possible
 \description{
 Get timezones from various formats
 }
+\keyword{internal}
