@@ -1,3 +1,12 @@
+#' Interface to the getParameterList function
+#'
+#' It is unclear why this exists, it returns a subset of [getStationList()].
+#'
+#' @inheritParams getStationList
+#'
+#' @return a tibble
+#' @export
+#'
 getParameterList <- function(portal,
                              station_no = NULL, returnfields = 'all',
                              extra_list = list(NULL)) {

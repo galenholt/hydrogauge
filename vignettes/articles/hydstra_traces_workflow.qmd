@@ -22,7 +22,7 @@ library(hydrogauge)
 library(ggplot2)
 ```
 
-At present, we largely assume the user will have a list of gauges they want, as the current ability to programatically obtain gauge numbers according to criteria is limited (but see [get_sites_by_datasource()], which allows asking for all sites that have a given datasource). This vignette walks through the process with the core functions, for experimental wrappers that abstract some of this, see [their vignette](Hydstra-wrapper.Rmd).
+At present, we largely assume the user will have a list of gauges they want, as the current ability to programatically obtain gauge numbers according to criteria is limited (but see [get_sites_by_datasource()], which allows asking for all sites that have a given datasource). This vignette walks through the process with the core functions, for experimental wrappers that abstract some of this, see [their vignette](Hydstra-wrapper.qmd).
 
 To get timeseries, the user needs to ask for specific variables and timespans. Sometimes these are known *a priori*, e.g. if a gauge was chosen because it is known to have flow for a desired period. However, finding available variables and their periods of record can also be done through the functions here. This is one of the main purposes of this package; we want to be able to query available data.
 

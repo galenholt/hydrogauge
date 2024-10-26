@@ -1,0 +1,25 @@
+---
+title: "KiWIS wrapper"
+format: 
+  html:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{kiwis-wrapper}
+  %\VignetteEngine{quarto::html}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r}
+#| include: false
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r}
+library(hydrogauge)
+library(ggplot2)
+```
+
+The [fetch_kiwis_timeseries()] function wraps [find_ts_id()] (which itself wraps [getTimeseriesList()]) and [getTimeseriesValues()], which allows some extra functionality and smoother workflows but also introduces some danger and sometimes inefficiency. Some argument names have been changed compared to [getTimeseriesValues()] (which gives the user full access to KiWIS names) for more clarity and to move towards a unified interface across both API styles.

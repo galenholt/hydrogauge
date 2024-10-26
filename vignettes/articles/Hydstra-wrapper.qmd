@@ -137,4 +137,4 @@ by_name |>
 
 ## Large requests
 
-*Note: with big pulls, it can be useful to recommended to use the bare [get_variable_list()] and [get_ts_traces()] approach, or at least a manual check of [get_variable_list()].* In my experience, there are often errors with some gauges or other issues that mean clean pulls need some troubleshooting of the variable availability etc. It is often easiest to find and solve problems at the low-level API interface. Making [fetch_hydstra_timeseries()] incorporate some of this is in development.
+*Note: with big pulls, it can be useful to use the bare [get_variable_list()] and [get_ts_traces()] approach, or at least a manual check of [get_variable_list()].* In my experience, there are often errors with some gauges or other issues that mean clean pulls need some troubleshooting of the variable availability etc. It is often easiest to find and solve problems at the low-level API interface. Making [fetch_hydstra_timeseries()] incorporate some of this is in development.

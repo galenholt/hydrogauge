@@ -48,7 +48,7 @@ This package was originally designed to query various Australian state water gau
 
 The core functions try to stay as close as possible to simple translations of arguments from R to Kisters formats, and of output JSON back to R. This approach lets us get closer to exposing the full functionality and makes for clearer mapping to the [Kisters documentation](https://kisters.com.au/doco/hydllp.htm). The goal here is to expose as much functionality as possible and avoid making too many decisions for the user.
 
-hydrobot provides convenience functions (primarly `fetch_timeseries`, `fetch_kiwis_timeseries`, and `fetch_hydstra_timeseries`) that automate some of the workflow (such as querying period of record and pulling that range). With the recent inclusion of BoM gauges in WISKi/KiWIS format, it is likely that harmonized wrapper functions will be developed to allow calling both types of databases with the same arguments and returning equivalent outputs.
+hydrogauge provides convenience functions (primarly `fetch_timeseries`, `fetch_kiwis_timeseries`, and `fetch_hydstra_timeseries`) that automate some of the workflow (such as querying period of record and pulling that range). With the recent inclusion of BoM gauges in WISKi/KiWIS format, it is likely that harmonized wrapper functions will be developed to allow calling both types of databases with the same arguments and returning equivalent outputs.
 
 Caveat: while the functionality provided maps as closely as possible to the underlying API calls, that functionality is not complete. This package does not have complete coverage of the available API calls or their arguments, but is under active development to add missing capabilities. Initial focus has been on identifying what is available to pull and pulling timeseries, along with including new data portals.
 
@@ -88,7 +88,9 @@ I have tried to keep the function argument names the same as in the API, and the
 
 Most of the documentation I've found here is from the [Scottish Environment Protection Agency](sepa.org.uk); I have not found good docs straight from Kisters. The [Kisters docs themselves](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo) do seem to be available from SEPA though. These provide information about available functions, allowed variables to request, etc.
 
-A good [SEPA walkthrough](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/principal-query-functions)
+A good [SEPA walkthrough](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/principal-query-functions).
+
+Unlike Hydstra, which provides tailored arguments for different sorts of API control, KiWIS primarily uses text search within columns. This can be more flexible, but means we need to know column names and pay close attention to the regex used to filter those columns to avoid contaminating outputs.
 
 ## Similar packages
 
