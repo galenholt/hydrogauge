@@ -22,11 +22,13 @@ library(hydrogauge)
 library(ggplot2)
 ```
 
-The [fetch_hydstra_timeseries()] function wraps [get_variable_list()] and [get_ts_traces()], which allows some extra functionality and smoother workflows but also introduces some danger and sometimes inefficiency. Some argument names have been changed compared to [get_ts_traces()] (which uses the Kisters names nearly verbatim) for more clarity and to move towards a unified interface across both API styles.
+The [fetch_hydstra_timeseries()] function wraps [get_variable_list()] and [get_ts_traces()], which allows some extra functionality and smoother workflows but also introduces some danger and sometimes inefficiency. Some argument names have been changed compared to [get_ts_traces()] (which uses the Kisters names nearly verbatim) for more clarity and to move towards a unified interface across the KiWIS and hydstra API styles.
 
 This function allows requests for the full period of record by passing `'all'` for the `start_time` and `end_time` (or the earliest and latest possible dates, respectively). The downside of this approach is that the calls to the API are inefficient (each row is called separately), though this is also necessarily the case if asking for the period of record manually for gauges with different periods. It will be possible to do some inferences and combinations here, but it has not been high priority. 
 
 This function is most useful when we want to pull the period of record of the same variable for a set of gauges. For example, we might want to pull discharge for the period of record, which we can do by passing `'all'` to `start_time` and `end_time`, yielding @fig-discharge-period.
+
+## Period of record
 
 I'll use the same set of sites as in the [core hydstra demonstration](hydstra_traces_workflow.qmd), chosen to capture a range of periods of records and available variables.
 
@@ -64,6 +66,8 @@ discharge_record |>
   facet_grid(site_short_name~., scales = 'free_y') +
   labs(y = unique(discharge_record$variable_short_name))
 ```
+
+## Multiple data types
 
 We can also pull data for all available variables by passing `'all'` to `var_list`. *DANGER: if `var_type = 'all'`, the same statistic will be applied to all variables.* Calling `'all'` for the `start_time` and `'end_time'` *will* give each variable a different period of record if they differ; the times are found from each row returned by [get_variable_list()]. 
 
@@ -112,7 +116,9 @@ different_statistics |>
   knitr::kable()
 ```
 
-We can also use the `variable` and `unit` arguments instead of `var_list` to search for variables by name, as in `fetch_kiwis_timeseries`. This is very experimental, moving towards a unified wrapper. We can use this to recapitulate the pull of discharge for the gauges (@fig-discharge-byname).
+## Regex selection
+
+We can also use the `variable` and `unit` arguments instead of `var_list` to search for variables by name, as in [fetch_kiwis_timeseries()]. This is very experimental, moving towards a unified wrapper. We can use this to recapitulate the pull of discharge for the gauges (@fig-discharge-byname).
 
 ```{r}
 by_name <- fetch_hydstra_timeseries(portal = 'vic', 

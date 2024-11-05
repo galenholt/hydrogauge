@@ -1,23 +1,56 @@
 #' Get timeseries from Kiwis (BOM)
 #'
-#' This expects a `ts_id` or `ts_path` (but not both) to identify the timeseries (>= 1) to pull. `ts_path` can be generated on the fly with wildcards, but isn't straightforward to parse- see the output of [getTimeseriesList()]. Though `ts_id` would need to be extracted from [getTimeseriesList()], and so may not be any easier to get programatically.
-#' The equivalent state (Hydstra) function is [get_ts_traces()] (to a close approximation).
-#' If `period` is used, only one (or none) of `start_time` and `end_time` can be used. If neither is used, it gets the most recent period.
+#' This expects a `ts_id` or `ts_path` (but not both) to identify the timeseries
+#' (>= 1) to pull. `ts_path` can be generated on the fly with wildcards, but
+#' isn't straightforward to parse- see the output of [getTimeseriesList()].
+#' Though `ts_id` would need to be extracted from [getTimeseriesList()], and so
+#' may not be any easier to get programatically. The equivalent state (Hydstra)
+#' function is [get_ts_traces()] (to a close approximation). If `period` is
+#' used, only one (or none) of `start_time` and `end_time` can be used. If
+#' neither is used, it gets the most recent period.
 #'
-#' Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, but not the API. The API defaults to +10, but we can choose, so here we default to `return_timezone = 'UTC'` for consistency.
-#' Further, `start_time` and `end_time` *must* be in database-local time; setting a different return time, either here or directly to the API with a `timezone` argument in `extra_list`, does not affect the interpretation of these times. [getTimeseriesList()] returns the `database_timezone` to make this easier. [fetch_kiwiws_timeseries()] handles some of this work automatically.
+#' Timezone note: BOM documentation says data is returned in local time. This is
+#' true on the web interface, but not the API. The API defaults to +10, but we
+#' can choose, so here we default to `return_timezone = 'UTC'` for consistency.
+#' Further, `start_time` and `end_time` *must* be in database-local time;
+#' setting a different return time, either here or directly to the API with a
+#' `timezone` argument in `extra_list`, does not affect the interpretation of
+#' these times. [getTimeseriesList()] returns the `database_timezone` to make
+#' this easier. [fetch_kiwiws_timeseries()] handles some of this work
+#' automatically.
+#'
+#' Data size note: If you request too much data, this will throw a 500 error.
+#' "Maximum number of timeseries values surpassed. Please narrow your request.
+#' Limit is: 250000" Try to reduce the amount of data being requested in a
+#' single call. The limit in reality seems much lower; I frequently encounter it
+#' when asking for abou 120,000 records
 #'
 #' @inheritParams getTimeseriesList
 #'
 #' @param ts_id timeseries id, typically found from [getTimeseriesList()]
-#' @param ts_path timeseries path, which can be constructed, including wildcards, e.g. `ts_path = '*/A4260505/Water*/*DailyMean'` Gets the daily means for all 'Water' variables at gauge A4260505, which might include Level, Discharge, Temperature, etc..
-#' @param start_time character or date or date time for the start *in database default timezone*. Default NULL.
-#' @param end_time character or date or date time for the end *in database default timezone*. Default NULL.
-#' @param period character, default NULL. The special case 'complete' returns the full set of data. Otherwise, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See [documentation](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/).
-#' @param returnfields return fields for the data itself. Default is `c('Timestamp', 'Value', 'Quality Code')`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
-#' @param meta_returnfields return fields about the variable and site. seems to be able to access most of what [getTimeseriesList()] has in its `returnfields`. Full list from [Kisters](from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
+#' @param ts_path timeseries path, which can be constructed, including
+#'   wildcards, e.g. `ts_path = '*/A4260505/Water*/*DailyMean'` Gets the daily
+#'   means for all 'Water' variables at gauge A4260505, which might include
+#'   Level, Discharge, Temperature, etc..
+#' @param start_time character or date or date time for the start *in database
+#'   default timezone*. Default NULL.
+#' @param end_time character or date or date time for the end *in database
+#'   default timezone*. Default NULL.
+#' @param period character, default NULL. The special case 'complete' returns
+#'   the full set of data. Otherwise, beginning with 'P', followed by numbers
+#'   and characers indicating timespan, e.g. 'P2W'. See
+#'   [documentation](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/).
+#' @param returnfields return fields for the data itself. Default is
+#'   `c('Timestamp', 'Value', 'Quality Code')`. Full list from [Kisters](from
+#'   [Kisters
+#'   docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
+#' @param meta_returnfields return fields about the variable and site. seems to
+#'   be able to access most of what [getTimeseriesList()] has in its
+#'   `returnfields`. Full list from [Kisters](from [Kisters
+#'   docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
 #'
-#' @return a tibble of the timeseries values. Times are POSIXct in UTC by default.
+#' @return a tibble of the timeseries values. Times are POSIXct in UTC by
+#'   default.
 #' @export
 #'
 getTimeseriesValues <- function(portal,

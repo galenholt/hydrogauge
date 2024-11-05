@@ -13,11 +13,13 @@ find_ts_id <- function(portal,
                        statistic = 'Mean',
                        datatype = 'QaQc',
                        namefilters = NULL,
+                       extra_list = list(NULL),
                        return_timezone = 'char') {
 
   # Get the timeseries list
   ts_list <- getTimeseriesList(portal = portal,
                                station_no = gauge,
+                               extra_list = extra_list,
                                return_timezone = return_timezone)
 
   if (is.null(ts_list)) {

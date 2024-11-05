@@ -7,7 +7,7 @@
 #' [get_variable_list()] (to a close approximation).
 #' The available return fields (and thus factors that can be filtered) are
 #' `'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name'`, where the `station_no` argument matches `station_no` for consistency across state functions.
-#' There is an additional `returnfield` option, `coverage`, which returns the period of record.
+#' *Important*- There is an additional `returnfield` option, `coverage`, which returns the period of record. It is included by default, but if you limit `returnfields`, you must include it to get the time period.
 #' There may be additional undocumented returnfield options; it appears that most of what is returned by `getStationList` is available, e.g. 'station_latitude'
 #'
 #'

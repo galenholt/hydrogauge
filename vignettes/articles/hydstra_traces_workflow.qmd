@@ -70,7 +70,7 @@ Plot that to see data availability (@fig-datasource).
 #| fig-cap: Datasources available for each gauge. These are what are returned by the API, but may not be complete. Specifying other datasources on a pull may work.
 plot_datasources_by_site(ds)
 ```
-## Finding available variables
+## Finding available variables and timespans
 
 We then need to know what variables are available to extract timeseries of. We use [get_variable_list()] to get this information, including both their names and numbers, as well as other details such as the time period of record and units.
 
@@ -122,7 +122,7 @@ This is typically the main goal, with the other steps getting us to the point of
 
 In general, we use [get_ts_traces()] for a set of sites, variables, timeperiods, and statistics. The experimental wrapper functions [fetch_hydstra_timeseries()] and [fetch_timeseries()] call [get_ts_traces()] internally. In any case, there are some pitfalls to avoid.
 
-If we just want a set of variables that all need the same statistic applied (e.g. daily mean flows), we can pass that in as a vector. For example, to get daily mean stage height (100), discharge (here in ML/day, 141), and temperature (450), we can do that in one call, even for multiple gauges. Asking here for only 5 days to keep the call quick.
+If we just want a set of variables that all need the same statistic applied (e.g. daily mean flows), we can pass that in as a vector. For example, to get daily mean stage height (100), discharge (here in ML/day, 141), and temperature (450), we can do that in one call, even for multiple gauges. Asking here for one year to keep the call quick.
 
 ```{r}
 ts_days <- get_ts_traces(portal = 'Vic', 
@@ -137,7 +137,7 @@ ts_days <- get_ts_traces(portal = 'Vic',
                          returnformat = 'df')
 ```
 
-That returns a tall dataframe with boththe requested values and some site metadata including the site name, location, etc (@tbl-ts), which the user can then split up or plot how they want (e.g. @fig-ts). There are other options that return lists of dataframes if the user does not want all sites and variables combined-
+That returns a tall dataframe with both the requested values and some site metadata including the site name, location, etc (@tbl-ts), which the user can then split up or plot how they want (e.g. @fig-ts). There are other options that return lists of dataframes if the user does not want all sites and variables combined-
 
 -   `returnformat = "varlist"` a list with one tibble per variable
 

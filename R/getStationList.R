@@ -7,13 +7,23 @@
 #' [get_db_info()] (to a close approximation).
 #'
 #' @param portal URL to Kisters KiWIS database.
-#' @param station_no gauge numbers, as `site_list` in the Hydstra functions. There are many other fields that can be used to filter and select records, but this seems to be most common and so we give it special treatment. For others, use see `extra_list`
-#' @param returnfields default 'default', otherwise 'all' to get everything available, or comma-separated string of fields
-#'   to return. Full list for each function available from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo)
-#' @param extra_list a named list of other fields to select on. Names (usually) should be
-#'   in `returnfields` (or returned when `returnfields = 'all'`), though not all work- see the queryfields in the [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo).
-#'   Values should be comma-separated characters, and can contain grep wildcards e.g.
-#'   `extra_list = list(station_name = 'RIVER MURRAY*)`. Can also use groups from [getGroupList()], e.g. `extra_list = list(stationgroup_id = '20017550')` gets the MDB_WIP_Watercourse stations.
+#' @param station_no gauge numbers, as `site_list` in the Hydstra functions.
+#'   There are many other fields that can be used to filter and select records,
+#'   but this seems to be most common and so we give it special treatment. For
+#'   others, use see `extra_list`
+#' @param returnfields default 'default', otherwise 'all' to get everything
+#'   available, or comma-separated string of fields to return. *Important*-
+#'   'coverage' is required to return start and end dates. It is included by
+#'   default. Full list for each function available from [Kisters
+#'   docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo)
+#' @param extra_list a named list of other fields to select on. Names (usually)
+#'   should be in `returnfields` (or returned when `returnfields = 'all'`),
+#'   though not all work- see the queryfields in the [Kisters
+#'   docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo).
+#'   Values should be comma-separated characters, and can contain grep wildcards
+#'   e.g. `extra_list = list(station_name = 'RIVER MURRAY*)`. Can also use
+#'   groups from [getGroupList()], e.g. `extra_list = list(stationgroup_id =
+#'   '20017550')` gets the MDB_WIP_Watercourse stations.
 #'
 #' @return a tibble
 #' @export

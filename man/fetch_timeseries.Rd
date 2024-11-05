@@ -25,19 +25,29 @@ fetch_timeseries(
 \arguments{
 \item{portal}{URL to Kisters KiWIS database.}
 
-\item{gauge}{character vector of gauge numbers, as \code{station_no} for Kiwis functions (\code{site_list} for Hydstra)}
+\item{gauge}{character vector of gauge numbers, as \code{station_no} for Kiwis
+functions (\code{site_list} for Hydstra)}
 
-\item{start_time}{character or date or date time for the start \emph{in database default timezone}. Default NULL.}
+\item{start_time}{character or date or date time for the start \emph{in database
+default timezone}. Default NULL.}
 
-\item{end_time}{character or date or date time for the end \emph{in database default timezone}. Default NULL.}
+\item{end_time}{character or date or date time for the end \emph{in database
+default timezone}. Default NULL.}
 
-\item{variable}{character vector of variables we want to extract. Matches on \code{parametertype_name}}
+\item{variable}{character vector of variables we want to extract. Matches on
+\code{parametertype_name}}
 
-\item{units}{units of the variable, used when there may be > 1 e.g. cumecs, ML/d for discharge. If NULL, gets all available. Matches to \code{ts_unitsymbol}}
+\item{units}{units of the variable, used when there may be > 1 e.g. cumecs,
+ML/d for discharge. If NULL, gets all available. Matches to \code{ts_unitsymbol}}
 
-\item{timeunit}{The time interval to request, e.g. "Daily", the default. Main values seem to be 'Daily', 'Monthly', 'Yearly', and 'AsStored' (the raw data). Matches to part of \code{ts_name}}
+\item{timeunit}{The time interval to request, e.g. "Daily", the default. Main
+values seem to be 'Daily', 'Monthly', 'Yearly', and 'AsStored' (the raw
+data). Matches to part of \code{ts_name}}
 
-\item{statistic}{The aggregation statistic, e.g. "Mean", the default. Main values seem to be 'Mean', 'Max', 'Min', 'Total', though not all are available for each variable- rainfall tends to use Total, while discharge tends to use mean, max, min. Matches to part of \code{ts_name}}
+\item{statistic}{The aggregation statistic, e.g. "Mean", the default. Main
+values seem to be 'Mean', 'Max', 'Min', 'Total', though not all are
+available for each variable- rainfall tends to use Total, while discharge
+tends to use mean, max, min. Matches to part of \code{ts_name}}
 
 \item{datatype}{as in \code{\link[=fetch_kiwis_timeseries]{fetch_kiwis_timeseries()}}, or the \code{datasource} argument for hydstra, e.g. \code{\link[=fetch_hydstra_timeseries]{fetch_hydstra_timeseries()}}}
 
@@ -45,7 +55,8 @@ fetch_timeseries(
 
 \item{gauge_portal}{I want to either be able to pass this a named list of length \code{portal} or a tibble with \code{portal} and \code{gauge} columns, or 'auto' to do our best at auto-detecting.}
 
-\item{request_timezone}{ignored if start_time and end_time are time objects, otherwise a timezone from \code{\link[=OlsonNames]{OlsonNames()}} or 'db_default'}
+\item{request_timezone}{ignored if start_time and end_time are time objects,
+otherwise a timezone from \code{\link[=OlsonNames]{OlsonNames()}} or 'db_default'}
 
 \item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 

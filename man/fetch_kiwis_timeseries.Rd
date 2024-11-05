@@ -6,7 +6,7 @@
 \usage{
 fetch_kiwis_timeseries(
   portal,
-  gauge,
+  gauge = NULL,
   start_time = NULL,
   end_time = NULL,
   period = NULL,
@@ -16,6 +16,7 @@ fetch_kiwis_timeseries(
   statistic = "Mean",
   datatype = "QaQc",
   namefilters = NULL,
+  extra_list = list(NULL),
   returnfields = "default",
   meta_returnfields = "default",
   request_timezone = "db_default",
@@ -25,31 +26,61 @@ fetch_kiwis_timeseries(
 \arguments{
 \item{portal}{URL to Kisters KiWIS database.}
 
-\item{gauge}{character vector of gauge numbers, as \code{station_no} for Kiwis functions (\code{site_list} for Hydstra)}
+\item{gauge}{character vector of gauge numbers, as \code{station_no} for Kiwis
+functions (\code{site_list} for Hydstra)}
 
-\item{start_time}{character or date or date time for the start \emph{in database default timezone}. Default NULL.}
+\item{start_time}{character or date or date time for the start \emph{in database
+default timezone}. Default NULL.}
 
-\item{end_time}{character or date or date time for the end \emph{in database default timezone}. Default NULL.}
+\item{end_time}{character or date or date time for the end \emph{in database
+default timezone}. Default NULL.}
 
-\item{period}{character, default NULL. The special case 'complete' returns the full set of data. Otherwise, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See \href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}.}
+\item{period}{character, default NULL. The special case 'complete' returns
+the full set of data. Otherwise, beginning with 'P', followed by numbers
+and characers indicating timespan, e.g. 'P2W'. See
+\href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}.}
 
-\item{variable}{character vector of variables we want to extract. Matches on \code{parametertype_name}}
+\item{variable}{character vector of variables we want to extract. Matches on
+\code{parametertype_name}}
 
-\item{units}{units of the variable, used when there may be > 1 e.g. cumecs, ML/d for discharge. If NULL, gets all available. Matches to \code{ts_unitsymbol}}
+\item{units}{units of the variable, used when there may be > 1 e.g. cumecs,
+ML/d for discharge. If NULL, gets all available. Matches to \code{ts_unitsymbol}}
 
-\item{timeunit}{The time interval to request, e.g. "Daily", the default. Main values seem to be 'Daily', 'Monthly', 'Yearly', and 'AsStored' (the raw data). Matches to part of \code{ts_name}}
+\item{timeunit}{The time interval to request, e.g. "Daily", the default. Main
+values seem to be 'Daily', 'Monthly', 'Yearly', and 'AsStored' (the raw
+data). Matches to part of \code{ts_name}}
 
-\item{statistic}{The aggregation statistic, e.g. "Mean", the default. Main values seem to be 'Mean', 'Max', 'Min', 'Total', though not all are available for each variable- rainfall tends to use Total, while discharge tends to use mean, max, min. Matches to part of \code{ts_name}}
+\item{statistic}{The aggregation statistic, e.g. "Mean", the default. Main
+values seem to be 'Mean', 'Max', 'Min', 'Total', though not all are
+available for each variable- rainfall tends to use Total, while discharge
+tends to use mean, max, min. Matches to part of \code{ts_name}}
 
-\item{datatype}{The type of data to return, default 'QaQc'. Some other options seem to be 'Recieved', 'Harmonised', and 'Obs'. \emph{Note}- 'QaQc' matches to both 'DMQaQc' and 'PR01QaQc'. In many cases only one is available, but if you get 2x too much data, check and specify which you want. Matches to part of \code{ts_name}}
+\item{datatype}{The type of data to return, default 'QaQc'. Some other
+options seem to be 'Recieved', 'Harmonised', and 'Obs'. \emph{Note}- 'QaQc'
+matches to both 'DMQaQc' and 'PR01QaQc'. In many cases only one is
+available, but if you get 2x too much data, check and specify which you
+want. Matches to part of \code{ts_name}}
 
-\item{namefilters}{character vector giving the ability to match to other parts of \code{ts_name} in case those specified in timeunit, statistic, and datatype aren't sufficient to find the desired \code{ts_id}. One frequent occurrence is two Daily datasets that differ in whether they split at 9am or midnight, in which case you should use either \verb{namefilters = '09HR} or \verb{namefilters = '24HR}. In some situations, this can be easier than using regex, e.g.  \code{datatype = 'QaQc.*09'}}
+\item{namefilters}{character vector giving the ability to match to other
+parts of \code{ts_name} in case those specified in timeunit, statistic, and
+datatype aren't sufficient to find the desired \code{ts_id}. One frequent
+occurrence is two Daily datasets that differ in whether they split at 9am
+or midnight, in which case you should use either \verb{namefilters = '09HR} or
+\verb{namefilters = '24HR}. In some situations, this can be easier than using
+regex, e.g.  \code{datatype = 'QaQc.*09'}}
 
-\item{returnfields}{return fields for the data itself. Default is \code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
+\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
-\item{meta_returnfields}{return fields about the variable and site. seems to be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its \code{returnfields}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
+\item{returnfields}{return fields for the data itself. Default is
+\code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \link{Kisters}(from
+\href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
-\item{request_timezone}{ignored if start_time and end_time are time objects, otherwise a timezone from \code{\link[=OlsonNames]{OlsonNames()}} or 'db_default'}
+\item{meta_returnfields}{return fields about the variable and site. seems to
+be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its
+\code{returnfields}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
+
+\item{request_timezone}{ignored if start_time and end_time are time objects,
+otherwise a timezone from \code{\link[=OlsonNames]{OlsonNames()}} or 'db_default'}
 
 \item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 }
@@ -57,10 +88,22 @@ fetch_kiwis_timeseries(
 a tibble of the requested timeseries
 }
 \description{
-Wraps \code{\link[=getTimeseriesList]{getTimeseriesList()}} and \code{\link[=getTimeseriesValues]{getTimeseriesValues()}} to find the \code{ts_id} that matches the sort of timeseries we want and go get it (them)
-For help with the arguments, run \code{ts_list <- getTimeseriesList(portal = portal,station_no = gauge)} to see the \code{\link[=getTimeseriesList]{getTimeseriesList()}} output that is parsed to give the \code{ts_id}. This can be very helpful if you're getting incorrect records or too many or not enough. Each argument below says which column it filters on, using \code{\link[=grepl]{grepl()}} with \code{ignore.case = TRUE}
+Wraps \code{\link[=getTimeseriesList]{getTimeseriesList()}} (via \code{\link[=find_ts_id]{find_ts_id()}}) and \code{\link[=getTimeseriesValues]{getTimeseriesValues()}}
+to find the \code{ts_id} that matches the sort of timeseries we want and go get it
+(them) For help with the arguments, run \code{ts_list <- getTimeseriesList(portal = portal, station_no = gauge)} to see the \code{\link[=getTimeseriesList]{getTimeseriesList()}} output that is
+parsed to give the \code{ts_id}. This can be very helpful if you're getting
+incorrect records or too many or not enough. Each argument below says which
+column it filters on, using \code{\link[=grepl]{grepl()}} with \code{ignore.case = TRUE}
 }
 \details{
-Note that while each of the filtering arguments \code{variable}, \code{units}, \code{timeunit}, \code{statistic}, and \code{datatype} can be vectors, they are not positionally matched. Each is just done as a simple OR, and so for example if you have \code{variable = 'discharge'}, \code{units = c('ML/d', 'cumecs')}, and \code{statistic = c('Mean', 'Min')}, you'll get the mean and min of \emph{both} ML/d and cumecs, not the mean of ML/d and min of cumecs. For more control, run this multiple times with the desired subsets.
-Further, the use of \code{\link[=grepl]{grepl()}} allows full regex parsing. For example, many gauges have daily values that split at 09:00 or at midnight. Using \code{datatype = 'QaQc.*09'} gets just the 09:00 versions.
+Note that while each of the filtering arguments \code{variable}, \code{units},
+\code{timeunit}, \code{statistic}, and \code{datatype} can be vectors, they are not
+positionally matched. Each is just done as a simple OR, and so for example if
+you have \code{variable = 'discharge'}, \code{units = c('ML/d', 'cumecs')}, and
+\code{statistic = c('Mean', 'Min')}, you'll get the mean and min of \emph{both} ML/d
+and cumecs, not the mean of ML/d and min of cumecs. For more control, run
+this multiple times with the desired subsets. Further, the use of \code{\link[=grepl]{grepl()}}
+allows full regex parsing. For example, many gauges have daily values that
+split at 09:00 or at midnight. Using \code{datatype = 'QaQc.*09'} gets just the
+09:00 versions.
 }

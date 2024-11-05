@@ -104,7 +104,6 @@ fetch_hydstra_timeseries <- function(portal,
   possibles <- possibles[!misstimes, ]
 
   # This should work to furrr::future_pmap or purrr::pmap, but isn't.
-  # WHY WAS THIS DOING ANYTHING- IT DOESN"T GO ANYWHERE?
   # # To make the arguments correct
   # p2 <- possibles |>
   #   dplyr::rename(var_list = varto,

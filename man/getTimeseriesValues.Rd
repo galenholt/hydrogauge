@@ -22,31 +22,62 @@ getTimeseriesValues(
 
 \item{ts_id}{timeseries id, typically found from \code{\link[=getTimeseriesList]{getTimeseriesList()}}}
 
-\item{ts_path}{timeseries path, which can be constructed, including wildcards, e.g. \code{ts_path = '*/A4260505/Water*/*DailyMean'} Gets the daily means for all 'Water' variables at gauge A4260505, which might include Level, Discharge, Temperature, etc..}
+\item{ts_path}{timeseries path, which can be constructed, including
+wildcards, e.g. \code{ts_path = '*/A4260505/Water*/*DailyMean'} Gets the daily
+means for all 'Water' variables at gauge A4260505, which might include
+Level, Discharge, Temperature, etc..}
 
-\item{start_time}{character or date or date time for the start \emph{in database default timezone}. Default NULL.}
+\item{start_time}{character or date or date time for the start \emph{in database
+default timezone}. Default NULL.}
 
-\item{end_time}{character or date or date time for the end \emph{in database default timezone}. Default NULL.}
+\item{end_time}{character or date or date time for the end \emph{in database
+default timezone}. Default NULL.}
 
-\item{period}{character, default NULL. The special case 'complete' returns the full set of data. Otherwise, beginning with 'P', followed by numbers and characers indicating timespan, e.g. 'P2W'. See \href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}.}
+\item{period}{character, default NULL. The special case 'complete' returns
+the full set of data. Otherwise, beginning with 'P', followed by numbers
+and characers indicating timespan, e.g. 'P2W'. See
+\href{https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/}{documentation}.}
 
-\item{returnfields}{return fields for the data itself. Default is \code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
+\item{returnfields}{return fields for the data itself. Default is
+\code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \link{Kisters}(from
+\href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
-\item{meta_returnfields}{return fields about the variable and site. seems to be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its \code{returnfields}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
+\item{meta_returnfields}{return fields about the variable and site. seems to
+be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its
+\code{returnfields}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
-\item{extra_list}{a named list, see \code{\link[=getSectionList]{getSectionList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
+\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
 \item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 }
 \value{
-a tibble of the timeseries values. Times are POSIXct in UTC by default.
+a tibble of the timeseries values. Times are POSIXct in UTC by
+default.
 }
 \description{
-This expects a \code{ts_id} or \code{ts_path} (but not both) to identify the timeseries (>= 1) to pull. \code{ts_path} can be generated on the fly with wildcards, but isn't straightforward to parse- see the output of \code{\link[=getTimeseriesList]{getTimeseriesList()}}. Though \code{ts_id} would need to be extracted from \code{\link[=getTimeseriesList]{getTimeseriesList()}}, and so may not be any easier to get programatically.
-The equivalent state (Hydstra) function is \code{\link[=get_ts_traces]{get_ts_traces()}} (to a close approximation).
-If \code{period} is used, only one (or none) of \code{start_time} and \code{end_time} can be used. If neither is used, it gets the most recent period.
+This expects a \code{ts_id} or \code{ts_path} (but not both) to identify the timeseries
+(>= 1) to pull. \code{ts_path} can be generated on the fly with wildcards, but
+isn't straightforward to parse- see the output of \code{\link[=getTimeseriesList]{getTimeseriesList()}}.
+Though \code{ts_id} would need to be extracted from \code{\link[=getTimeseriesList]{getTimeseriesList()}}, and so
+may not be any easier to get programatically. The equivalent state (Hydstra)
+function is \code{\link[=get_ts_traces]{get_ts_traces()}} (to a close approximation). If \code{period} is
+used, only one (or none) of \code{start_time} and \code{end_time} can be used. If
+neither is used, it gets the most recent period.
 }
 \details{
-Timezone note: BOM documentation says data is returned in local time. This is true on the web interface, but not the API. The API defaults to +10, but we can choose, so here we default to \code{return_timezone = 'UTC'} for consistency.
-Further, \code{start_time} and \code{end_time} \emph{must} be in database-local time; setting a different return time, either here or directly to the API with a \code{timezone} argument in \code{extra_list}, does not affect the interpretation of these times. \code{\link[=getTimeseriesList]{getTimeseriesList()}} returns the \code{database_timezone} to make this easier. \code{\link[=fetch_kiwiws_timeseries]{fetch_kiwiws_timeseries()}} handles some of this work automatically.
+Timezone note: BOM documentation says data is returned in local time. This is
+true on the web interface, but not the API. The API defaults to +10, but we
+can choose, so here we default to \code{return_timezone = 'UTC'} for consistency.
+Further, \code{start_time} and \code{end_time} \emph{must} be in database-local time;
+setting a different return time, either here or directly to the API with a
+\code{timezone} argument in \code{extra_list}, does not affect the interpretation of
+these times. \code{\link[=getTimeseriesList]{getTimeseriesList()}} returns the \code{database_timezone} to make
+this easier. \code{\link[=fetch_kiwiws_timeseries]{fetch_kiwiws_timeseries()}} handles some of this work
+automatically.
+
+Data size note: If you request too much data, this will throw a 500 error.
+"Maximum number of timeseries values surpassed. Please narrow your request.
+Limit is: 250000" Try to reduce the amount of data being requested in a
+single call. The limit in reality seems much lower; I frequently encounter it
+when asking for abou 120,000 records
 }
