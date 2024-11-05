@@ -1,32 +1,59 @@
 #' Gets timeseries for sites and variables
 #'
-#' Takes a list of sites and variables and fetches the timeseries. Variables may include
-#' derived and base. This is very similar to the underlying API call, and does
-#' not do very much automation of finding variables, checking times, etc. If
-#' variables are not available for a site or for given times it just silently
-#' does not return them. For a more automated (but currently slower) approach,
-#' see [fetch_hydstra_timeseries()], which also allows a `.errorhandling` argument.
+#' Takes a list of sites and variables and fetches the timeseries. Variables may
+#' include derived and base. This is very similar to the underlying API call,
+#' and does not do very much automation of finding variables, checking times,
+#' etc. If variables are not available for a site or for given times it just
+#' silently does not return them. For a more automated (but currently slower)
+#' approach, see [fetch_hydstra_timeseries()], which also allows a
+#' `.errorhandling` argument.
 #'
-#' Timezone note: Data is returned from the API in local time, but the default here is to output UTC for consistency. Note, however that the `start_time` and `end_time` *must* be in database-local time. Thus, when using programatically, it can be easiest to use `'raw'` or `'db_default'`.
-#' Further, the API returns 0 for data outside the range if a request spans across the boundary. Check your data with [get_timeseries_list()] or use [fetch_hydllp_timeseries()], which does the check automatically.
+#' Timezone note: Data is returned from the API in local time, but the default
+#' here is to output UTC for consistency. Note, however that the `start_time`
+#' and `end_time` *must* be in database-local time. Thus, when using
+#' programatically, it can be easiest to use `'raw'` or `'db_default'`. Further,
+#' the API returns 0 for data outside the range if a request spans across the
+#' boundary. Check your data with [get_variable_list()] or use
+#' [fetch_hydstra_timeseries()], which does the check automatically.
 #'
 #'
-#' @param portal character for the data portal (case insensitive). Default 'victoria'
-#' @param site_list character site code, either a single site code `"sitenumber"`, comma-separated codes in a single string `"sitenumber1, sitenumber2`, or a vector of site codes `c("sitenumber1", "sitenumber2")`
-#' @param datasource character for datasource code. To my knowledge, options are `"A"`, `"TELEM"`, `"TELEMCOPY"`. Passing multiple not currently supported.
-#' @param var_list character vector of variable codes. Needs to be either single code or vector (`c("code1", "code2")`), *not* a comma-separated string
-#' @param start_time character, numeric, or date giving the start time. API expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. `20200101` would be padded to give midnight on 1 Jan 2020.
-#' @param end_time character, numeric, or date giving the end time. API expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. `20200101` would be padded to give midnight on 1 Jan 2020.
+#' @param portal character for the data portal (case insensitive). Default
+#'   'victoria'
+#' @param site_list character site code, either a single site code
+#'   `"sitenumber"`, comma-separated codes in a single string `"sitenumber1,
+#'   sitenumber2`, or a vector of site codes `c("sitenumber1", "sitenumber2")`
+#' @param datasource character for datasource code. To my knowledge, options are
+#'   `"A"`, `"TELEM"`, `"TELEMCOPY"`. Passing multiple not currently supported.
+#' @param var_list character vector of variable codes. Needs to be either single
+#'   code or vector (`c("code1", "code2")`), *not* a comma-separated string
+#' @param start_time character, numeric, or date giving the start time. API
+#'   expects a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric
+#'   or dates into that, and pad zeros if given less than 14 digits, e.g.
+#'   `20200101` would be padded to give midnight on 1 Jan 2020.
+#' @param end_time character, numeric, or date giving the end time. API expects
+#'   a 14-digit character `"YYYYMMDDHHIIEE"`, but this will turn numeric or
+#'   dates into that, and pad zeros if given less than 14 digits, e.g.
+#'   `20200101` would be padded to give midnight on 1 Jan 2020.
 #' @param interval character, period to report.
 #'  * Options: `"year"`, `"month"`, `"day"`, `"hour"`, `"minute"`, `"second"`. I don't think capitalisation matters.
-#' @param data_type character, the statistic to apply. *Warning:* only takes one value, which is applied to all variables. This may not be appropriate. If variables should have different statistics, run `get_ts_traces` multiple times.
+#' @param data_type character, the statistic to apply. *Warning:* only takes one
+#'   value, which is applied to all variables. This may not be appropriate. If
+#'   variables should have different statistics, run `get_ts_traces` multiple
+#'   times.
 #'  * Options: `"mean"`, `"max"`, `"min"`, `"start"`, `"end"`, `"first"`, `"last"`, `"tot"`, `"maxmin"`, `"point"`, `"cum"`. Not all are currently tested.
-#' @param multiplier character, interval multiplier. I *think* this allows intervals like 5 days, by passing `interval = 'day'` and `multiplier = 5`. Not tested other than 1 at present.
+#' @param multiplier character, interval multiplier. I *think* this allows
+#'   intervals like 5 days, by passing `interval = 'day'` and `multiplier = 5`.
+#'   Not tested other than 1 at present.
 #' @param returnformat character, one of
 #'  * `"df"` returns a tibble
 #'  * `"varlist"` returns a list with an separate tibble for each variable (may have multiple sites per tibble)
 #'  * `"sitelist"` returns a list with an separate tibble for each site (may have multiple variables per tibble)
-#' @param return_timezone character in [OlsonNames()] or one of three special cases: `'db_default'`, `'char'` or `'raw'`. Default 'UTC'. If 'db_default', uses the API default. If `'char'`, returns a string in the format `'YYYY-MM-DDTHH:MM:SS+TZ'`, having all needed info (and matching Kiwis returns). If `'raw'`, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+#' @param return_timezone character in [OlsonNames()] or one of three special
+#'   cases: `'db_default'`, `'char'` or `'raw'`. Default 'UTC'. If 'db_default',
+#'   uses the API default. If `'char'`, returns a string in the format
+#'   `'YYYY-MM-DDTHH:MM:SS+TZ'`, having all needed info (and matching Kiwis
+#'   returns). If `'raw'`, returns the time column as-is from the API (a
+#'   14-digit string of numbers 'YYYMMDDHHMMSS')
 #'  * `"sxvlist"` returns a list with an separate tibble for each site x variable combination
 #' @param .errorhandling as in [foreach::foreach()] (but handled in
 #'   [api_error_catch()]) Default 'stop'. Made available here primarily to use

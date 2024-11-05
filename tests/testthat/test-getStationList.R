@@ -1,9 +1,22 @@
+# Everything
+return_all <- c('station_no', 'station_id', 'station_uuid', 'station_name', 'catchment_no', 'catchment_id', 'catchment_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'site_no', 'site_id', 'site_uuid', 'site_name', 'parametertype_id', 'parametertype_name', 'parametertype_shortname', 'stationparameter_name', 'stationparameter_no', 'stationparameter_id', 'parametertype_longname', 'object_type', 'object_type_shortname', 'station_georefsystem', 'station_longname', 'station_area_wkt', 'station_area_wkt_org', 'river_id', 'river_name', 'area_id', 'area_name', 'TimeZone', 'ShortName_CodeSpace', 'LongName_CodeSpace', 'StationName_CodeSpace', 'WDTF_regulation_shortname_combination', 'station_diary', 'WDTF_REGULATION_WCD', 'DATA_OWNER', 'WDTF_REGULATION_WCL', 'station_diary_status', 'ngr_letter', 'admin_level', 'WDTF_REGULATION', 'region_district', 'WDTF_REGULATIONS', 'admin_name', 'REGULATION_NAME', 'DATA_OWNER_NAME')
+# default
+returnfields <- c('station_no', 'station_id', 'station_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'site_no', 'site_id', 'site_name', 'parametertype_id', 'parametertype_name', 'parametertype_shortname', 'stationparameter_name', 'stationparameter_no', 'stationparameter_id', 'parametertype_longname', 'object_type', 'object_type_shortname', 'station_georefsystem', 'station_longname')
+
 test_that("simple works", {
   bomout <- getStationList(portal = 'bom',
                            station_no = c('410730', 'A4260505'))
+  expect_equal(names(bomout), returnfields)
+  expect_equal(nrow(bomout), 204)
+})
 
-  namevec <- c('station_id', 'station_no', 'station_name', 'site_id', 'site_no', 'site_name', 'catchment_id', 'catchment_no', 'catchment_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'object_type', 'object_type_shortname', 'station_georefsystem', 'river_id', 'river_name', 'area_id', 'area_name', 'station_longname', 'station_area_wkt', 'station_area_wkt_org', 'station_uuid', 'site_uuid')
-  expect_equal(names(bomout), namevec)
+test_that("all returns", {
+  bomout <- getStationList(portal = 'bom',
+                           returnfields = 'all',
+                           station_no = c('410730', 'A4260505'))
+
+  # From the code, but the ca_* expand at the end
+  expect_equal(names(bomout), return_all)
   expect_equal(nrow(bomout), 204)
 })
 
@@ -11,17 +24,15 @@ test_that("extra_list", {
   bomout <- getStationList(portal = 'bom',
                            extra_list = list(station_name = 'River Murray*'))
 
-  namevec <- c('station_id', 'station_no', 'station_name', 'site_id', 'site_no', 'site_name', 'catchment_id', 'catchment_no', 'catchment_name', 'station_latitude', 'station_longitude', 'station_carteasting', 'station_cartnorthing', 'station_local_x', 'station_local_y', 'object_type', 'object_type_shortname', 'station_georefsystem', 'river_id', 'river_name', 'area_id', 'area_name', 'station_longname', 'station_area_wkt', 'station_area_wkt_org', 'station_uuid', 'site_uuid')
-  expect_equal(names(bomout), namevec)
+  expect_equal(names(bomout), returnfields)
   expect_equal(nrow(bomout), 2797)
 })
 
 test_that("groups in extra_list", {
   bomout <- getStationList(portal = 'bom',
                            extra_list = list(stationgroup_id = '20017550'))
-
-  expect_snapshot_value(names(bomout), style = 'deparse')
-  expect_equal(nrow(bomout), 207)
+  expect_equal(names(bomout), returnfields)
+  expect_equal(nrow(bomout), 12182)
 })
 
 test_that("returnfields and all data", {
@@ -44,8 +55,7 @@ test_that("all returnfields", {
                            station_no = c('410730', 'A4260505'),
                            returnfields = sub_return)
 
-  namevec <- c('station_id', 'station_no', 'station_name', 'site_id', 'station_latitude', 'station_longitude')
-  expect_equal(names(bomout), namevec)
+  expect_equal(names(bomout), return_all)
   expect_equal(nrow(bomout), 204)
 
   # get the data owner- useful for later
@@ -55,5 +65,6 @@ test_that("all returnfields", {
                                extra_list = list(station_name = 'River Murray*'),
                            returnfields = ownerreturn)
 
-  expect_equal(names(bomout), namevec)
+  # expands the ca_
+  expect_equal(names(bomout), return_all)
 })

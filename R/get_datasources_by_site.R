@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' checkdata <- get_datasources_by_site(site_list = "233217, 405328, 405331, 405837")
+#' checkdata <- get_datasources_by_site(portal = 'vic', site_list = c("233217, 405328, 405331, 405837"))
 get_datasources_by_site <- function(portal,
                                     site_list) {
 

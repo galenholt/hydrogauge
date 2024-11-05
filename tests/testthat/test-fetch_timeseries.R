@@ -9,20 +9,22 @@ test_that("simple check", {
                                    start_time = '2020-01-01 01:30:30',
                                    end_time = '20200105')
 
+  # use datatype for datasource
   vicout <- fetch_timeseries(portal = 'vic',
                                           gauge = "233217",
-                                          datasource = 'A',
-                                          var_list = c('100', '141'),
+                                          variable = 'discharge',
+                             datatype = 'A',
+                             units = 'ML/d',
                                           start_time = '20200101',
                                           end_time = '20200105',
-                                          timeunit = 'day',
+                                          timeunit = 'Daily',
                                           statistic = 'mean')
 
   # will want to test various combos of gauge, portal, and gauge_portal.
   # ideally, can just feed a list of gauges and it'll go get them. but it does need to know the portals. Start with manual specicfication adn then figure out the auto-finding (with specific reference ot australia and not )
   # should also have a collapse for speed vs split for safety option.
   multiout <- fetch_timeseries(portal = c('vic', 'bom', 'nsw'),
-                               gauge_portal = list(vic = c("233217", "405328", "405331"),
+                               gauge_portal = list(vic = c("233217", "405328"),
                                             bom = c('410730', 'A4260505', '615026'),
                                             nsw = '412078'),
                                start_time = '20200101',

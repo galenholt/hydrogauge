@@ -41,13 +41,10 @@
 #'   and characers indicating timespan, e.g. 'P2W'. See
 #'   [documentation](https://timeseriesdoc.sepa.org.uk/api-documentation/api-function-reference/specifying-date-and-time/).
 #' @param returnfields return fields for the data itself. Default is
-#'   `c('Timestamp', 'Value', 'Quality Code')`. Full list from [Kisters](from
-#'   [Kisters
-#'   docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
+#'   `c('Timestamp', 'Value', 'Quality Code')`. Full list from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
 #' @param meta_returnfields return fields about the variable and site. seems to
 #'   be able to access most of what [getTimeseriesList()] has in its
-#'   `returnfields`. Full list from [Kisters](from [Kisters
-#'   docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
+#'   `returnfields`. Full list from [Kisters docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo))
 #'
 #' @return a tibble of the timeseries values. Times are POSIXct in UTC by
 #'   default.

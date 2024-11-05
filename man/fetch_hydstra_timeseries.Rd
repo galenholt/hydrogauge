@@ -23,11 +23,13 @@ fetch_hydstra_timeseries(
 )
 }
 \arguments{
-\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
+\item{portal}{character for the data portal (case insensitive). Default
+'victoria'}
 
 \item{gauge}{character vector of gauge numbers, as \code{site_list} for Hydstra functions (\code{station_no} for Kiwis functions)}
 
-\item{datasource}{character for datasource code. To my knowledge, options are \code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
+\item{datasource}{character for datasource code. To my knowledge, options are
+\code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
 
 \item{var_list}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to get all
 available variables at each site in \code{site_list}. If 'all', overrides \code{variable} and \code{units}, though using \code{var_list} with those is always dangerous.}
@@ -53,7 +55,9 @@ at the first timepoint for each variable in \code{var_list} at each site in
 the last timepoint for each variable in \code{var_list} at each site in
 \code{site_list}}
 
-\item{multiplier}{character, interval multiplier. I \emph{think} this allows intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}. Not tested other than 1 at present.}
+\item{multiplier}{character, interval multiplier. I \emph{think} this allows
+intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}.
+Not tested other than 1 at present.}
 
 \item{returnformat}{character, one of
 \itemize{
@@ -64,7 +68,12 @@ the last timepoint for each variable in \code{var_list} at each site in
 
 \item{request_timezone}{ignored if start_time and end_time are time objects, otherwise a timezone from \code{\link[=OlsonNames]{OlsonNames()}} or 'db_default'}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. If \code{'char'}, returns a string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis returns). If \code{'raw'}, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
+cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
+uses the API default. If \code{'char'}, returns a string in the format
+\code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis
+returns). If \code{'raw'}, returns the time column as-is from the API (a
+14-digit string of numbers 'YYYMMDDHHMMSS')
 \itemize{
 \item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
 }}

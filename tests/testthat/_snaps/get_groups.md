@@ -3,7 +3,7 @@
     Code
       vds
     Output
-      # A tibble: 22 x 5
+      # A tibble: 26 x 5
          group_decode                 group value   value_decode              stations
          <chr>                        <chr> <chr>   <chr>                     <chr>   
        1 to be at the top of the list AB    FLOOD   All VIR Sites for Flood ~ 233217  
@@ -13,10 +13,10 @@
        5 All sites in archive         ALLA  FLOWA   All sites with flow (Vir~ 233217  
        6 All sites in archive         ALLA  LEVEL   All sites with level (10~ 233217  
        7 All sites in archive         ALLA  VFLOW   Virtual sites with flow   233217  
-       8 Goups for the CMA areas      CMA   CCMA    <NA>                      233217  
+       8 Groups for the CMA areas     CMA   CCMA    <NA>                      233217  
        9 Proposed WMIS 2 Groups by me PROP  SW      <NA>                      233217  
       10 Proposed WMIS 2 Groups by me PROP  WQ      <NA>                      233217  
-      # i 12 more rows
+      # i 16 more rows
 
 ---
 
@@ -63,4 +63,64 @@
        9 site lists for automated client jobs CLIENT_JOBS  L_DA~ 422004   Sites With ~
       10 Valley groups for IPART Management   CLIENT_VALL~ 422_~ 422004   422 - CULGOA
       # i 45 more rows
+
+# groups
+
+    Code
+      vdsg
+    Output
+      # A tibble: 15,344 x 5
+         group_decode                 group value value_decode                stations
+         <chr>                        <chr> <chr> <chr>                       <chr>   
+       1 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221202  
+       2 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221207  
+       3 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221208  
+       4 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221209  
+       5 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221210  
+       6 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221212  
+       7 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221218  
+       8 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221224  
+       9 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 221225  
+      10 to be at the top of the list AB    CTABS Any sites that GAUGINGS re~ 227245  
+      # i 15,334 more rows
+
+---
+
+    Code
+      qdsg
+    Output
+      # A tibble: 5,806 x 5
+         group_decode                  group        value      stations value_decode  
+         <chr>                         <chr>        <chr>      <chr>    <chr>         
+       1 Catchments for use in HYCATCH CATCH        GORR       111005A  <NA>          
+       2 Catchments for use in HYCATCH CATCH        GORR       111007A  <NA>          
+       3 Catchments for use in HYCATCH CATCH        GORR       112002A  <NA>          
+       4 Catchments for use in HYCATCH CATCH        GORR       112003A  <NA>          
+       5 Catchments for use in HYCATCH CATCH        GORR       112004A  <NA>          
+       6 Catchments for use in HYCATCH CATCH        GORR       112101B  <NA>          
+       7 Catchments for use in HYCATCH CATCH        GORR       112102A  <NA>          
+       8 Reports for ministers office  DDGREPORTING STATEDAILY 001202A  State Daily R~
+       9 Reports for ministers office  DDGREPORTING STATEDAILY 001203A  State Daily R~
+      10 Reports for ministers office  DDGREPORTING STATEDAILY 002104A  State Daily R~
+      # i 5,796 more rows
+
+---
+
+    Code
+      ndsg
+    Output
+      # A tibble: 44,419 x 5
+         group_decode                   group       value       stations value_decode
+         <chr>                          <chr>       <chr>       <chr>    <chr>       
+       1 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 201001   <NA>        
+       2 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 201005   <NA>        
+       3 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 201012   <NA>        
+       4 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 201015   <NA>        
+       5 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 201900   <NA>        
+       6 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 202001   <NA>        
+       7 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 202002   <NA>        
+       8 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 203002   <NA>        
+       9 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 203004   <NA>        
+      10 KeyGroups used to build others AA_KEYGROUP ACTIVESITES 203005   <NA>        
+      # i 44,409 more rows
 

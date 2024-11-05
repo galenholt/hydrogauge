@@ -7,9 +7,11 @@
 get_datasources_by_site(portal, site_list)
 }
 \arguments{
-\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
+\item{portal}{character for the data portal (case insensitive). Default
+'victoria'}
 
-\item{site_list}{character site code, either a single site code \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
+\item{site_list}{character site code, either a single site code
+\code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
 }
 \value{
 a tibble of the sites and datasources present
@@ -19,5 +21,5 @@ As far as I can tell, these will be "A", "TELEM", or "TELEMCOPY", but haven't
 checked all sites
 }
 \examples{
-checkdata <- get_datasources_by_site(site_list = "233217, 405328, 405331, 405837")
+checkdata <- get_datasources_by_site(portal = 'vic', site_list = c("233217, 405328, 405331, 405837"))
 }

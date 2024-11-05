@@ -7,7 +7,8 @@
 get_sites_by_datasource(portal, datasources)
 }
 \arguments{
-\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
+\item{portal}{character for the data portal (case insensitive). Default
+'victoria'}
 
 \item{datasources}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
 }

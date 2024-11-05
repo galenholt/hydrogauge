@@ -72,12 +72,11 @@ regex, e.g.  \code{datatype = 'QaQc.*09'}}
 \item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
 \item{returnfields}{return fields for the data itself. Default is
-\code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \link{Kisters}(from
-\href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
+\code{c('Timestamp', 'Value', 'Quality Code')}. Full list from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
 \item{meta_returnfields}{return fields about the variable and site. seems to
 be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its
-\code{returnfields}. Full list from \link{Kisters}(from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
+\code{returnfields}. Full list from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
 \item{request_timezone}{ignored if start_time and end_time are time objects,
 otherwise a timezone from \code{\link[=OlsonNames]{OlsonNames()}} or 'db_default'}

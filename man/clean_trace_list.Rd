@@ -20,7 +20,12 @@ clean_trace_list(
 
 \item{gauge}{character gauge name- allows building an informative error-handled output}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. If \code{'char'}, returns a string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis returns). If \code{'raw'}, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
+cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
+uses the API default. If \code{'char'}, returns a string in the format
+\code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis
+returns). If \code{'raw'}, returns the time column as-is from the API (a
+14-digit string of numbers 'YYYMMDDHHMMSS')
 \itemize{
 \item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
 }}

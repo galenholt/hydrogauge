@@ -19,11 +19,13 @@ find_hydstra_request(
 )
 }
 \arguments{
-\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
+\item{portal}{character for the data portal (case insensitive). Default
+'victoria'}
 
 \item{gauge}{character vector of gauge numbers, as \code{site_list} for Hydstra functions (\code{station_no} for Kiwis functions)}
 
-\item{datasource}{character for datasource code. To my knowledge, options are \code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
+\item{datasource}{character for datasource code. To my knowledge, options are
+\code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
 
 \item{var_list}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to get all
 available variables at each site in \code{site_list}. If 'all', overrides \code{variable} and \code{units}, though using \code{var_list} with those is always dangerous.}
@@ -41,7 +43,9 @@ change between sits, and so \code{statistic} should be a single function.}
 
 \item{timeunit}{same as \code{interval} in \code{\link[=get_ts_traces]{get_ts_traces()}}. Name changed for consistency and interpretation.}
 
-\item{multiplier}{character, interval multiplier. I \emph{think} this allows intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}. Not tested other than 1 at present.}
+\item{multiplier}{character, interval multiplier. I \emph{think} this allows
+intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}.
+Not tested other than 1 at present.}
 
 \item{warnmissing}{warns if a gauge is missing. TRUE by default, but able to be silenced for programmatic use.}
 

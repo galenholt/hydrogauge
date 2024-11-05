@@ -1,3 +1,13 @@
+#' Access to the get_db_info API call.
+#'
+#' In development, do not use.
+#'
+#' @param portal url as elsewhere
+#' @param table_name which table
+#' @param station_filter a query somehow
+#' @param return_type format of return?
+#'
+#' @return a dataframe
 get_db_info <- function(portal,
                         table_name = "site",
                         station_filter,

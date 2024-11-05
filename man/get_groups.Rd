@@ -7,9 +7,11 @@
 get_groups(portal, site_list)
 }
 \arguments{
-\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
+\item{portal}{character for the data portal (case insensitive). Default
+'victoria'}
 
-\item{site_list}{character site code, either a single site code \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
+\item{site_list}{character site code, either a single site code
+\code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
 }
 \value{
 a tibble of the sites and datasources present

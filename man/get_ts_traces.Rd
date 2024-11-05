@@ -20,31 +20,51 @@ get_ts_traces(
 )
 }
 \arguments{
-\item{portal}{character for the data portal (case insensitive). Default 'victoria'}
+\item{portal}{character for the data portal (case insensitive). Default
+'victoria'}
 
-\item{site_list}{character site code, either a single site code \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
+\item{site_list}{character site code, either a single site code
+\code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
 
-\item{datasource}{character for datasource code. To my knowledge, options are \code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
+\item{datasource}{character for datasource code. To my knowledge, options are
+\code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
 
-\item{var_list}{character vector of variable codes. Needs to be either single code or vector (\code{c("code1", "code2")}), \emph{not} a comma-separated string}
+\item{var_list}{character vector of variable codes. Needs to be either single
+code or vector (\code{c("code1", "code2")}), \emph{not} a comma-separated string}
 
-\item{start_time}{character, numeric, or date giving the start time. API expects a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. \code{20200101} would be padded to give midnight on 1 Jan 2020.}
+\item{start_time}{character, numeric, or date giving the start time. API
+expects a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric
+or dates into that, and pad zeros if given less than 14 digits, e.g.
+\code{20200101} would be padded to give midnight on 1 Jan 2020.}
 
-\item{end_time}{character, numeric, or date giving the end time. API expects a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric or dates into that, and pad zeros if given less than 14 digits, e.g. \code{20200101} would be padded to give midnight on 1 Jan 2020.}
+\item{end_time}{character, numeric, or date giving the end time. API expects
+a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric or
+dates into that, and pad zeros if given less than 14 digits, e.g.
+\code{20200101} would be padded to give midnight on 1 Jan 2020.}
 
 \item{interval}{character, period to report.
 \itemize{
 \item Options: \code{"year"}, \code{"month"}, \code{"day"}, \code{"hour"}, \code{"minute"}, \code{"second"}. I don't think capitalisation matters.
 }}
 
-\item{data_type}{character, the statistic to apply. \emph{Warning:} only takes one value, which is applied to all variables. This may not be appropriate. If variables should have different statistics, run \code{get_ts_traces} multiple times.
+\item{data_type}{character, the statistic to apply. \emph{Warning:} only takes one
+value, which is applied to all variables. This may not be appropriate. If
+variables should have different statistics, run \code{get_ts_traces} multiple
+times.
 \itemize{
 \item Options: \code{"mean"}, \code{"max"}, \code{"min"}, \code{"start"}, \code{"end"}, \code{"first"}, \code{"last"}, \code{"tot"}, \code{"maxmin"}, \code{"point"}, \code{"cum"}. Not all are currently tested.
 }}
 
-\item{multiplier}{character, interval multiplier. I \emph{think} this allows intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}. Not tested other than 1 at present.}
+\item{multiplier}{character, interval multiplier. I \emph{think} this allows
+intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}.
+Not tested other than 1 at present.}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. If \code{'char'}, returns a string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis returns). If \code{'raw'}, returns the time column as-is from the API (a 14-digit string of numbers 'YYYMMDDHHMMSS')
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
+cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
+uses the API default. If \code{'char'}, returns a string in the format
+\code{'YYYY-MM-DDTHH:MM:SS+TZ'}, having all needed info (and matching Kiwis
+returns). If \code{'raw'}, returns the time column as-is from the API (a
+14-digit string of numbers 'YYYMMDDHHMMSS')
 \itemize{
 \item \code{"sxvlist"} returns a list with an separate tibble for each site x variable combination
 }}
@@ -65,16 +85,22 @@ errors then just get passed and so the data will be missing.}
 tibble(s) with requested variables at requested sites (where they exist). See \code{returnformat}, either a tibble or list of tibbles
 }
 \description{
-Takes a list of sites and variables and fetches the timeseries. Variables may include
-derived and base. This is very similar to the underlying API call, and does
-not do very much automation of finding variables, checking times, etc. If
-variables are not available for a site or for given times it just silently
-does not return them. For a more automated (but currently slower) approach,
-see \code{\link[=fetch_hydstra_timeseries]{fetch_hydstra_timeseries()}}, which also allows a \code{.errorhandling} argument.
+Takes a list of sites and variables and fetches the timeseries. Variables may
+include derived and base. This is very similar to the underlying API call,
+and does not do very much automation of finding variables, checking times,
+etc. If variables are not available for a site or for given times it just
+silently does not return them. For a more automated (but currently slower)
+approach, see \code{\link[=fetch_hydstra_timeseries]{fetch_hydstra_timeseries()}}, which also allows a
+\code{.errorhandling} argument.
 }
 \details{
-Timezone note: Data is returned from the API in local time, but the default here is to output UTC for consistency. Note, however that the \code{start_time} and \code{end_time} \emph{must} be in database-local time. Thus, when using programatically, it can be easiest to use \code{'raw'} or \code{'db_default'}.
-Further, the API returns 0 for data outside the range if a request spans across the boundary. Check your data with \code{\link[=get_timeseries_list]{get_timeseries_list()}} or use \code{\link[=fetch_hydllp_timeseries]{fetch_hydllp_timeseries()}}, which does the check automatically.
+Timezone note: Data is returned from the API in local time, but the default
+here is to output UTC for consistency. Note, however that the \code{start_time}
+and \code{end_time} \emph{must} be in database-local time. Thus, when using
+programatically, it can be easiest to use \code{'raw'} or \code{'db_default'}. Further,
+the API returns 0 for data outside the range if a request spans across the
+boundary. Check your data with \code{\link[=get_variable_list]{get_variable_list()}} or use
+\code{\link[=fetch_hydstra_timeseries]{fetch_hydstra_timeseries()}}, which does the check automatically.
 }
 \examples{
 simpletrace <- get_ts_traces(site_list = "233217",

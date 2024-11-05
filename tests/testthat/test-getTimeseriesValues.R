@@ -116,7 +116,7 @@ test_that("time testing for the period", {
   tsrmold <- tsrm |> dplyr::filter(to < lubridate::ymd('20231230'))
 
   twoid <- tsrmold |>
-    dplyr::filter(grepl('208797010', ts_id)) |>
+    dplyr::slice(1) |>
     dplyr::select(ts_id, ts_name, from, to)
 
   # Why is there data???
@@ -135,7 +135,7 @@ test_that("time testing for the period", {
 
   expect_equal(twoid$to, max(compout$time))
   expect_equal(twoid$from, min(compout$time))
-  expect_equal(nrow(compout), 7941)
+  expect_equal(nrow(compout), 2393)
 
 
 
