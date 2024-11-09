@@ -9,12 +9,14 @@ clean_bom_timeseries(x, return_timezone = "UTC")
 \arguments{
 \item{x}{the response list}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}}. Default 'UTC'. If
+'db_default', uses the API default. BOM defaults to +10}
 }
 \value{
 a tibble
 }
 \description{
-This takes a single list, and so if multiple ts_ids have been extracted, should be looped over, e.g. with \code{\link[purrr:map]{purrr::map()}}.
+This takes a single list, and so if multiple ts_ids have been extracted,
+should be looped over, e.g. with \code{\link[purrr:map]{purrr::map()}}.
 }
 \keyword{internal}

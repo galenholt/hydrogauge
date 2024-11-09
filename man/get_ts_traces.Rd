@@ -42,9 +42,10 @@ a 14-digit character \code{"YYYYMMDDHHIIEE"}, but this will turn numeric or
 dates into that, and pad zeros if given less than 14 digits, e.g.
 \code{20200101} would be padded to give midnight on 1 Jan 2020.}
 
-\item{interval}{character, period to report.
+\item{interval}{character, period to report. I don't think capitalisation
+matters.
 \itemize{
-\item Options: \code{"year"}, \code{"month"}, \code{"day"}, \code{"hour"}, \code{"minute"}, \code{"second"}. I don't think capitalisation matters.
+\item Options: \code{"year"}, \code{"month"}, \code{"day"}, \code{"hour"}, \code{"minute"}, \code{"second"}.
 }}
 
 \item{data_type}{character, the statistic to apply. \emph{Warning:} only takes one
@@ -82,7 +83,8 @@ returns). If \code{'raw'}, returns the time column as-is from the API (a
 errors then just get passed and so the data will be missing.}
 }
 \value{
-tibble(s) with requested variables at requested sites (where they exist). See \code{returnformat}, either a tibble or list of tibbles
+tibble(s) with requested variables at requested sites (where they
+exist). See \code{returnformat}, either a tibble or list of tibbles
 }
 \description{
 Takes a list of sites and variables and fetches the timeseries. Variables may
@@ -103,10 +105,12 @@ boundary. Check your data with \code{\link[=get_variable_list]{get_variable_list
 \code{\link[=fetch_hydstra_timeseries]{fetch_hydstra_timeseries()}}, which does the check automatically.
 }
 \examples{
-simpletrace <- get_ts_traces(site_list = "233217",
-datasource = 'A',
-var_list = c('100', '141'),
-start_time = '20200101', end_time = '20200105',
-interval = 'day', data_type = 'mean',
-multiplier = 1, returnformat = 'df')
+simpletrace <- get_ts_traces(
+  site_list = "233217",
+  datasource = "A",
+  var_list = c("100", "141"),
+  start_time = "20200101", end_time = "20200105",
+  interval = "day", data_type = "mean",
+  multiplier = 1, returnformat = "df"
+)
 }

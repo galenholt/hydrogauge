@@ -22,26 +22,35 @@ find_hydstra_request(
 \item{portal}{character for the data portal (case insensitive). Default
 'victoria'}
 
-\item{gauge}{character vector of gauge numbers, as \code{site_list} for Hydstra functions (\code{station_no} for Kiwis functions)}
+\item{gauge}{character vector of gauge numbers, as \code{site_list} for Hydstra
+functions (\code{station_no} for Kiwis functions)}
 
 \item{datasource}{character for datasource code. To my knowledge, options are
 \code{"A"}, \code{"TELEM"}, \code{"TELEMCOPY"}. Passing multiple not currently supported.}
 
 \item{var_list}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can also take \code{"all"} to get all
-available variables at each site in \code{site_list}. If 'all', overrides \code{variable} and \code{units}, though using \code{var_list} with those is always dangerous.}
+available variables at each site in \code{site_list}. If 'all', overrides
+\code{variable} and \code{units}, though using \code{var_list} with those is always
+dangerous.}
 
-\item{variable}{allows searching by variable name, e.g. 'discharge' with grepl as in \code{\link[=fetch_kiwis_timeseries]{fetch_kiwis_timeseries()}}}
+\item{variable}{allows searching by variable name, e.g. 'discharge' with
+grepl as in \code{\link[=fetch_kiwis_timeseries]{fetch_kiwis_timeseries()}}}
 
-\item{units}{allows searching by the units of the variable, e.g. 'ML/d' with grepl as in \code{\link[=fetch_kiwis_timeseries]{fetch_kiwis_timeseries()}}}
+\item{units}{allows searching by the units of the variable, e.g. 'ML/d' with
+grepl as in \code{\link[=fetch_kiwis_timeseries]{fetch_kiwis_timeseries()}}}
 
-\item{statistic}{same as \code{data_type} in \code{\link[=get_ts_traces]{get_ts_traces()}}. Name changed for consistency and interpretation. Can be a single character or a vector the same length as \code{var_list}.
-If single value, behaves as in \code{\link[=get_ts_traces]{get_ts_traces()}}, applying that function to
-all variables. If a vector, it applies the given function to the variable
-in the matching position of \code{var_list}. This allows us to ask for
-many variables that might need different statistics. \emph{Note}- if \code{var_list = "all"}, there is no way to match since the variables are unknown and may
-change between sits, and so \code{statistic} should be a single function.}
+\item{statistic}{same as \code{data_type} in \code{\link[=get_ts_traces]{get_ts_traces()}}. Name changed for
+consistency and interpretation. Can be a single character or a vector the
+same length as \code{var_list}. If single value, behaves as in
+\code{\link[=get_ts_traces]{get_ts_traces()}}, applying that function to all variables. If a vector, it
+applies the given function to the variable in the matching position of
+\code{var_list}. This allows us to ask for many variables that might need
+different statistics. \emph{Note}- if \code{var_list = "all"}, there is no way to
+match since the variables are unknown and may change between sits, and so
+\code{statistic} should be a single function.}
 
-\item{timeunit}{same as \code{interval} in \code{\link[=get_ts_traces]{get_ts_traces()}}. Name changed for consistency and interpretation.}
+\item{timeunit}{same as \code{interval} in \code{\link[=get_ts_traces]{get_ts_traces()}}. Name changed for
+consistency and interpretation.}
 
 \item{multiplier}{character, interval multiplier. I \emph{think} this allows
 intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}.

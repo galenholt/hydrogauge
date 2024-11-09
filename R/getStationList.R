@@ -65,7 +65,7 @@ getStationList <- function(portal,
   # writing this myself, so maybe I should do better?
   api_query_list$station_no <- station_no
 
-  api_query_list <- modifyList(api_query_list, extra_list)
+  api_query_list <- utils::modifyList(api_query_list, extra_list)
 
 
   # hit the api
@@ -77,7 +77,7 @@ getStationList <- function(portal,
   bodytib <- response_body[-1] |>
     tibble::tibble() |>
     tidyr::unnest_wider(col = 1, names_sep = '_') |>
-    setNames(tibnames)
+    stats::setNames(tibnames)
 
   return(bodytib)
 

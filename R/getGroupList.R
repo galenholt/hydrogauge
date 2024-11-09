@@ -28,7 +28,7 @@ getGroupList <- function(portal) {
   bodytib <- response_body[-1] |>
     tibble::tibble() |>
     tidyr::unnest_wider(col = 1, names_sep = '_') |>
-    setNames(tibnames)
+    stats::setNames(tibnames)
 
   return(bodytib)
 }

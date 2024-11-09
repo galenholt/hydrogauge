@@ -1,6 +1,6 @@
 Package: hydrogauge
 Title: Pulls information from the Kisters Kiwis and Hydstra APIs
-Version: 0.1.0.9007
+Version: 0.1.0.9008
 Authors@R: 
     person("Galen", "Holt", , "g.holt@deakin.edu.au", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7455-9275"))
@@ -14,6 +14,7 @@ Imports:
     dplyr,
     foreach,
     ggplot2,
+    glue,
     httr2,
     lubridate,
     purrr,
@@ -28,7 +29,6 @@ Suggests:
     quarto,
     rmarkdown,
     testthat (>= 3.0.0)
-VignetteBuilder: 
-    quarto
+VignetteBuilder: knitr
 Config/testthat/edition: 3
 URL: https://galenholt.github.io/hydrogauge/

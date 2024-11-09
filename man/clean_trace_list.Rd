@@ -18,7 +18,8 @@ clean_trace_list(
 \item{data_type}{the data_type used to calculate the statistic over the
 \code{interval}, glued on for record}
 
-\item{gauge}{character gauge name- allows building an informative error-handled output}
+\item{gauge}{character gauge name- allows building an informative
+error-handled output}
 
 \item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
 cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',

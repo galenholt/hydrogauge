@@ -56,13 +56,13 @@ getTimeseriesValues <- function(portal,
                                 start_time = NULL,
                                 end_time = NULL,
                                 period = NULL,
-                                returnfields = 'default',
-                                meta_returnfields = 'default',
+                                returnfields = "default",
+                                meta_returnfields = "default",
                                 extra_list = list(NULL),
-                                return_timezone = 'UTC') {
-
-  # See scottish help- it looks like the ts_path can be constructed in-situ rather than needing to get ts_id from getTimeseriesList
-  # though does it matter?
+                                return_timezone = "UTC") {
+  # See scottish help- it looks like the ts_path can be constructed in-situ
+  # rather than needing to get ts_id from getTimeseriesList though does it
+  # matter?
 
   # check multiple specifications
   # times
@@ -78,20 +78,21 @@ getTimeseriesValues <- function(portal,
 
   baseURL <- parse_url(portal)
 
-  # Set defaults. For some reason getting the API default differs between returnfields and meta_returnfields
-  if (length(returnfields) == 1 && returnfields == 'default') {
-    returnfields <- c('Timestamp', 'Value', 'Quality Code')
+  # Set defaults. For some reason getting the API default differs between
+  # returnfields and meta_returnfields
+  if (length(returnfields) == 1 && returnfields == "default") {
+    returnfields <- c("Timestamp", "Value", "Quality Code")
   }
 
-  if (length(meta_returnfields) == 1 && meta_returnfields == 'default') {
-    meta_returnfields <- ''
+  if (length(meta_returnfields) == 1 && meta_returnfields == "default") {
+    meta_returnfields <- ""
   }
 
   # ts_id and returnfields need to be a comma separated length-1 vector. Ensure
-  ts_id <- paste(ts_id, sep = ', ', collapse = ', ')
+  ts_id <- paste(ts_id, sep = ", ", collapse = ", ")
 
-  returnfields <- paste(returnfields, sep = ',', collapse = ',')
-  meta_returnfields <- paste(meta_returnfields, sep = ',', collapse = ',')
+  returnfields <- paste(returnfields, sep = ",", collapse = ",")
+  meta_returnfields <- paste(meta_returnfields, sep = ",", collapse = ",")
 
 
   # These times should be character vectors in LOCAL time. Hydstra needs a 14
@@ -99,57 +100,63 @@ getTimeseriesValues <- function(portal,
   # will take date objects. The problem is those date objects end up in UTC. So
   # instead, parse the 14 digits into the kiwis format
   if (!is.null(start_time)) {
-    start_time <- fix_times(start_time, type = 'kiwis')
+    start_time <- fix_times(start_time, type = "kiwis")
   }
   if (!is.null(end_time)) {
-    end_time <- fix_times(end_time, type = 'kiwis')
+    end_time <- fix_times(end_time, type = "kiwis")
   }
 
   # bom has different requirements, and they go into the `query`, not the `body`
-  api_query_list <- list(service = "kisters",
-                         datasource = 0, # presumably there are others, but this is in all the documentation.
-                         type = "queryServices",
-                         request = "getTimeseriesValues",
-                         kvp = 'true',
-                         format = "json",
-                         ts_id = ts_id,
-                         ts_path = ts_path,
-                         from = start_time,
-                         to = end_time,
-                         period = period,
-                         metadata = 'true',
-                         md_returnfields = meta_returnfields,
-                         returnfields = returnfields)
+  api_query_list <- list(
+    service = "kisters",
+    # presumably there are others, but this is in all the documentation.
+    datasource = 0,
+    type = "queryServices",
+    request = "getTimeseriesValues",
+    kvp = "true",
+    format = "json",
+    ts_id = ts_id,
+    ts_path = ts_path,
+    from = start_time,
+    to = end_time,
+    period = period,
+    metadata = "true",
+    md_returnfields = meta_returnfields,
+    returnfields = returnfields
+  )
 
-  api_query_list <- modifyList(api_query_list, extra_list)
+  api_query_list <- utils::modifyList(api_query_list, extra_list)
 
   # hit the api
   response_body <- get_response(baseURL, api_query_list = api_query_list)
 
   # This has a different structure than the other responses
-  # There is one list-item per ts_id. Within that, the metadata each gets one entry, and then the data is inside $data
+  # There is one list-item per ts_id. Within that, the metadata each gets one
+  # entry, and then the data is inside $data
 
   # extract the data
   # For a single ts_id, then purrr
-  bodytib <- purrr::map(response_body, \(x) clean_bom_timeseries(x, return_timezone)) |>
+  bodytib <- purrr::map(response_body,
+                        \(x) clean_bom_timeseries(x, return_timezone)) |>
     purrr::list_rbind()
 
   bodytib
 
   return(bodytib)
-
 }
 
 #' Clean the raw output from the BOM getTimeseriesValue call
 #'
-#' This takes a single list, and so if multiple ts_ids have been extracted, should be looped over, e.g. with [purrr::map()].
+#' This takes a single list, and so if multiple ts_ids have been extracted,
+#' should be looped over, e.g. with [purrr::map()].
 #'
 #' @param x the response list
-#' @param return_timezone character in [OlsonNames()]. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10
+#' @param return_timezone character in [OlsonNames()]. Default 'UTC'. If
+#'   'db_default', uses the API default. BOM defaults to +10
 #'
 #' @return a tibble
 #' @keywords internal
-clean_bom_timeseries <- function(x, return_timezone = 'UTC') {
+clean_bom_timeseries <- function(x, return_timezone = "UTC") {
   response_names <- names(x)
 
   data_names <- x$columns |>
@@ -157,22 +164,22 @@ clean_bom_timeseries <- function(x, return_timezone = 'UTC') {
 
   # handle the situation of no data
   if (length(x$data) == 0) {
-    numcols <- stringr::str_split(x$columns, ',', simplify = TRUE) |>
+    numcols <- stringr::str_split(x$columns, ",", simplify = TRUE) |>
       length()
 
-    x$data <- list(as.vector(rep(NA, numcols), mode = 'list'))
+    x$data <- list(as.vector(rep(NA, numcols), mode = "list"))
   }
 
   # Getting the col names is annoying
   data_df <- tibble::tibble(variable = response_names, value = x) |>
-    tidyr::pivot_wider(names_from = variable, values_from = value) |>
+    tidyr::pivot_wider(names_from = "variable", values_from = "value") |>
     tidyr::unnest(cols = tidyselect::everything()) |>
-    tidyr::unnest_wider(col = data, names_sep = '.')
+    tidyr::unnest_wider(col = "data", names_sep = ".")
 
-    names(data_df)[grepl('data.', names(data_df))] <- data_names
+  names(data_df)[grepl("data.", names(data_df))] <- data_names
 
   data_df <- data_df |>
-    dplyr::select(-rows, -columns)
+    dplyr::select(-"rows", -"columns")
 
   # Return the desired times
 
@@ -180,21 +187,24 @@ clean_bom_timeseries <- function(x, return_timezone = 'UTC') {
   tz <- extract_timezone(data_df$Timestamp)
 
   # if the tz aren't all the same, going to need to bail out
-  if (return_timezone == 'db_default') {
+  if (return_timezone == "db_default") {
     # This gives either the database timezone tz or UTC if there are multiple
     return_timezone <- multi_tz_check(tz)
   }
 
   # do the time parse
   data_df <- data_df |>
-    dplyr::mutate(time = parse_bom_times(Timestamp, return_timezone),
-                  database_timezone = tz) |>
-    dplyr::select(-Timestamp)
+    dplyr::mutate(
+      time = parse_bom_times(.data$Timestamp, return_timezone),
+      database_timezone = tz
+    ) |>
+    dplyr::select(-"Timestamp")
 
-  # I'm trying to be as consistent as possible with the underlying API, but some of the column names are causing issues
+  # I'm trying to be as consistent as possible with the underlying API, but some
+  # of the column names are causing issues
   names(data_df) <- names(data_df) |>
     stringr::str_to_lower() |>
-    stringr::str_replace_all(' ', '_')
+    stringr::str_replace_all(" ", "_")
 
   # get_ts_traces() keeps these long, so will do the same here.
   # do I want these to be long (as they come in) or

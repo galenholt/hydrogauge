@@ -89,8 +89,8 @@ a tibble of the requested timeseries
 \description{
 Wraps \code{\link[=getTimeseriesList]{getTimeseriesList()}} (via \code{\link[=find_ts_id]{find_ts_id()}}) and \code{\link[=getTimeseriesValues]{getTimeseriesValues()}}
 to find the \code{ts_id} that matches the sort of timeseries we want and go get it
-(them) For help with the arguments, run \code{ts_list <- getTimeseriesList(portal = portal, station_no = gauge)} to see the \code{\link[=getTimeseriesList]{getTimeseriesList()}} output that is
-parsed to give the \code{ts_id}. This can be very helpful if you're getting
+(them) For help with the arguments, run \code{ts_list <- getTimeseriesList(portal = portal, station_no = gauge)} to see the \code{\link[=getTimeseriesList]{getTimeseriesList()}} output that
+is parsed to give the \code{ts_id}. This can be very helpful if you're getting
 incorrect records or too many or not enough. Each argument below says which
 column it filters on, using \code{\link[=grepl]{grepl()}} with \code{ignore.case = TRUE}
 }
