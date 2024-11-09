@@ -36,7 +36,8 @@ test_that("groups", {
   qdsg <- get_groups(portal = 'qld', site_list = "GROUP(OPEN_STATIONS)")
   ndsg <- get_groups(portal = 'nsw', site_list = "GROUP(WATER_QUALITY)")
 
-  expect_snapshot(vdsg)
-  expect_snapshot(qdsg)
-  expect_snapshot(ndsg)
+  # These change a lot, so snapshots aren't working
+  expect_gt(nrow(vdsg), 15000)
+  expect_gt(nrow(qdsg), 5000)
+  expect_gt(nrow(ndsg), 40000)
 })

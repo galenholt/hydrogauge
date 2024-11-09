@@ -16,6 +16,9 @@
 #'   do our best at auto-detecting.
 #' @param check_output logical, default TRUE- inform if there are duplicated
 #'   gauges across portals or missing gauges
+#' @param robustness  experimental, always set to 'robust'. Intention to have
+#'   another option to reduce API calls with more opportunity for error
+#'
 #' @return timeseries dataframe
 #' @export
 #'

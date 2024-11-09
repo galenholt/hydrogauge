@@ -6,6 +6,11 @@
 #' @param portal character, URL or name of data portal for some Australian
 #'   portals. Currently accepts names for 'vic', 'nsw', 'qld', and 'bom' (case
 #'   insensitive).
+#' @param test logical, default `TRUE`- don't just return the URL, ping it to
+#'   test it works and return any errors
+#' @param type logical, `FALSE` - try to infer whether kiwis or hydstra
+#' @param .errorhandling intended to allow passing or removing errors. Currently
+#'   only implemented in some places.
 #'
 #' @return character URL for the API request
 #' @export

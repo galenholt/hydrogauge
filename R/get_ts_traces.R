@@ -68,6 +68,7 @@
 #'
 #' @examples
 #' simpletrace <- get_ts_traces(
+#'   portal = 'vic',
 #'   site_list = "233217",
 #'   datasource = "A",
 #'   var_list = c("100", "141"),

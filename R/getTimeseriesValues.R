@@ -16,7 +16,7 @@
 #' setting a different return time, either here or directly to the API with a
 #' `timezone` argument in `extra_list`, does not affect the interpretation of
 #' these times. [getTimeseriesList()] returns the `database_timezone` to make
-#' this easier. [fetch_kiwiws_timeseries()] handles some of this work
+#' this easier. [fetch_kiwis_timeseries()] handles some of this work
 #' automatically.
 #'
 #' Data size note: If you request too much data, this will throw a 500 error.
