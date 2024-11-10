@@ -45,9 +45,21 @@ and characers indicating timespan, e.g. 'P2W'. See
 be able to access most of what \code{\link[=getTimeseriesList]{getTimeseriesList()}} has in its
 \code{returnfields}. Full list from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs})}
 
-\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
+\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note
+that here we can include a 'timezone' argument that determines the timezone
+the API returns in. This is dangerous, since the API ingests dates in its
+own default timezone and that is inferred from the return in the absence of
+the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may
+yield unexpected outcomes when requesting dates. A better option is to use
+\code{return_timezone} to adjust the return values. That said, it may be that
+some databases return gauge-local tzs, which won't be allowed to be
+concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
+cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
+uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns
+the time column as-is from the API (A string in the format
+\code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 }
 \value{
 a tibble of the timeseries values. Times are POSIXct in UTC by
@@ -71,7 +83,7 @@ Further, \code{start_time} and \code{end_time} \emph{must} be in database-local 
 setting a different return time, either here or directly to the API with a
 \code{timezone} argument in \code{extra_list}, does not affect the interpretation of
 these times. \code{\link[=getTimeseriesList]{getTimeseriesList()}} returns the \code{database_timezone} to make
-this easier. \code{\link[=fetch_kiwiws_timeseries]{fetch_kiwiws_timeseries()}} handles some of this work
+this easier. \code{\link[=fetch_kiwis_timeseries]{fetch_kiwis_timeseries()}} handles some of this work
 automatically.
 
 Data size note: If you request too much data, this will throw a 500 error.

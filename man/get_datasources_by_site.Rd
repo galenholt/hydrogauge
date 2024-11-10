@@ -21,5 +21,6 @@ As far as I can tell, these will be "A", "TELEM", or "TELEMCOPY", but haven't
 checked all sites
 }
 \examples{
-checkdata <- get_datasources_by_site(portal = 'vic', site_list = c("233217, 405328, 405331, 405837"))
+checkdata <- get_datasources_by_site(portal = "vic",
+  site_list = c("233217, 405328, 405331, 405837"))
 }

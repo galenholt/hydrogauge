@@ -90,7 +90,7 @@ send_to_type <- function(request_table,
         ) |>
         dplyr::mutate(source = portal) |>
         dplyr::select("gauge", "name", "variable_name", "units", "value",
-                      "quality_code, time", "database_timezone", "source")
+                      "quality_code", "time", "database_timezone", "source")
     }
   }
 
@@ -139,8 +139,8 @@ send_to_type <- function(request_table,
           source = portal
         ) |>
         dplyr::select(-"variable_short_name") |>
-        dplyr::select("gauge", "name", "variable_name", "units", "value", "quality_code,
-                      time", "database_timezone", "source")
+        dplyr::select("gauge", "name", "variable_name", "units", "value", "quality_code",
+                      "time", "database_timezone", "source")
     }
   }
 

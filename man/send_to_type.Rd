@@ -7,9 +7,12 @@
 send_to_type(request_table, clean = TRUE)
 }
 \arguments{
-\item{request_table}{data.frame with columns c('portal', 'gauge', 'start_time', 'end_time', 'variable', 'units', 'timeunit', 'statistic', 'datatype')}
+\item{request_table}{data.frame with columns c('portal', 'gauge',
+'start_time', 'end_time', 'variable', 'units', 'timeunit', 'statistic',
+'datatype')}
 
-\item{clean}{whether to clean the output to a standard set of columns, or leave as-returned}
+\item{clean}{whether to clean the output to a standard set of columns, or
+leave as-returned}
 }
 \value{
 dataframe of timeseries

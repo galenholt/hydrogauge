@@ -52,9 +52,21 @@ or midnight, in which case you should use either \verb{namefilters = '09HR} or
 \verb{namefilters = '24HR}. In some situations, this can be easier than using
 regex, e.g.  \code{datatype = 'QaQc.*09'}}
 
-\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
+\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note
+that here we can include a 'timezone' argument that determines the timezone
+the API returns in. This is dangerous, since the API ingests dates in its
+own default timezone and that is inferred from the return in the absence of
+the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may
+yield unexpected outcomes when requesting dates. A better option is to use
+\code{return_timezone} to adjust the return values. That said, it may be that
+some databases return gauge-local tzs, which won't be allowed to be
+concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
+cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
+uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns
+the time column as-is from the API (A string in the format
+\code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 }
 \value{
 a tibble of the matching ts_ids, along with other columns

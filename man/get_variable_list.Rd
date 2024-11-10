@@ -13,7 +13,8 @@ get_variable_list(portal, site_list, datasource, return_timezone = "UTC")
 \item{site_list}{character site code, either a single site code
 \code{"sitenumber"}, comma-separated codes in a single string \verb{"sitenumber1, sitenumber2}, or a vector of site codes \code{c("sitenumber1", "sitenumber2")}}
 
-\item{datasource}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
+\item{datasource}{as in \code{\link[=get_ts_traces]{get_ts_traces()}}, but can be a vector. As far as I
+can tell, options are \code{'A'}, \code{'TELEM'}, \code{'TELEMCOPY'}. If multiple, \code{c('A', 'TELEM')}}
 
 \item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
 cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
@@ -32,6 +33,8 @@ a tibble of the variables for each site and datasource.
 Gets the variables available for sites and datasources
 }
 \examples{
-v2 <- get_variable_list(site_list = "233217, 405328, 405331, 405837",
- datasource = c('A', 'TELEM'))
+v2 <- get_variable_list(
+  site_list = "233217, 405328, 405331, 405837",
+  datasource = c("A", "TELEM")
+)
 }

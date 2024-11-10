@@ -16,7 +16,8 @@ messages}
 simply \code{abort}ing vs doing something with the error and continuing}
 }
 \value{
-typically \code{bodytib}, unless there are errors, then determined by \code{.errorhandling}
+typically \code{bodytib}, unless there are errors, then determined by
+\code{.errorhandling}
 }
 \description{
 Catch API errors that don't appear until the list is unpacked

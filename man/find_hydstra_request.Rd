@@ -56,12 +56,19 @@ consistency and interpretation.}
 intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}.
 Not tested other than 1 at present.}
 
-\item{warnmissing}{warns if a gauge is missing. TRUE by default, but able to be silenced for programmatic use.}
+\item{warnmissing}{warns if a gauge is missing. TRUE by default, but able to
+be silenced for programmatic use.}
 
-\item{ignore_fromderived}{logical, default TRUE. Sometimes a derived variable (140, 141) is \emph{also} available as a var_from, seemingly usually with a longer historical record. TRUE (the default) ignores that, and uses just the e.g. var_from = 100, var_to = 140. FALSE returns both sets, e.g. all records with the derived variable as var_to. If FALSE, \emph{look at the output carefully, it's often very strange}}
+\item{ignore_fromderived}{logical, default TRUE. Sometimes a derived variable
+(140, 141) is \emph{also} available as a var_from, seemingly usually with a
+longer historical record. TRUE (the default) ignores that, and uses just
+the e.g. var_from = 100, var_to = 140. FALSE returns both sets, e.g. all
+records with the derived variable as var_to. If FALSE, \emph{look at the output
+carefully, it's often very strange}}
 }
 \value{
-a tibble, each row of which has the information needed for a Hydstra request
+a tibble, each row of which has the information needed for a Hydstra
+request
 }
 \description{
 Similar to \code{\link[=find_ts_id]{find_ts_id()}} for Kiwis in spirit

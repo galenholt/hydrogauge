@@ -106,6 +106,7 @@ boundary. Check your data with \code{\link[=get_variable_list]{get_variable_list
 }
 \examples{
 simpletrace <- get_ts_traces(
+  portal = 'vic',
   site_list = "233217",
   datasource = "A",
   var_list = c("100", "141"),

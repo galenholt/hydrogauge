@@ -62,7 +62,14 @@ do our best at auto-detecting.}
 \item{request_timezone}{ignored if start_time and end_time are time objects,
 otherwise a timezone from \code{\link[=OlsonNames]{OlsonNames()}} or 'db_default'}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
+cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
+uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns
+the time column as-is from the API (A string in the format
+\code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
+
+\item{robustness}{experimental, always set to 'robust'. Intention to have
+another option to reduce API calls with more opportunity for error}
 
 \item{check_output}{logical, default TRUE- inform if there are duplicated
 gauges across portals or missing gauges}

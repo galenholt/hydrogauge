@@ -10,6 +10,14 @@ parse_url(portal, test = TRUE, type = FALSE, .errorhandling = "stop")
 \item{portal}{character, URL or name of data portal for some Australian
 portals. Currently accepts names for 'vic', 'nsw', 'qld', and 'bom' (case
 insensitive).}
+
+\item{test}{logical, default \code{TRUE}- don't just return the URL, ping it to
+test it works and return any errors}
+
+\item{type}{logical, \code{FALSE} - try to infer whether kiwis or hydstra}
+
+\item{.errorhandling}{intended to allow passing or removing errors. Currently
+only implemented in some places.}
 }
 \value{
 character URL for the API request

@@ -9,7 +9,8 @@ plot_datasources_by_site(ds_by_site, returntype = "plot")
 \arguments{
 \item{ds_by_site}{tibble with \code{site} and \code{datasource} columns}
 
-\item{returntype}{\code{'plot'} or \code{'table'} Plot much more useful- not sure why the user wouldn't just make a table.}
+\item{returntype}{\code{'plot'} or \code{'table'} Plot much more useful- not sure why
+the user wouldn't just make a table.}
 }
 \value{
 a ggplot, typically

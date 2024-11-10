@@ -25,21 +25,36 @@ available, or comma-separated string of fields to return. \emph{Important}-
 'coverage' is required to return start and end dates. It is included by
 default. Full list for each function available from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}}
 
-\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note that here we can include a 'timezone' argument that determines the timezone the API returns in. This is dangerous, since the API ingests dates in its own default timezone and that is inferred from the return in the absence of the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may yield unexpected outcomes when requesting dates. A better option is to use \code{return_timezone} to adjust the return values. That said, it may be that some databases return gauge-local tzs, which won't be allowed to be concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
+\item{extra_list}{a named list, see \code{\link[=getStationList]{getStationList()}}, with a special note
+that here we can include a 'timezone' argument that determines the timezone
+the API returns in. This is dangerous, since the API ingests dates in its
+own default timezone and that is inferred from the return in the absence of
+the ability to extract it. Thus, including a \code{timezone} in \code{extra_list} may
+yield unexpected outcomes when requesting dates. A better option is to use
+\code{return_timezone} to adjust the return values. That said, it may be that
+some databases return gauge-local tzs, which won't be allowed to be
+concatenated. A solution would be to just work in UTC with \code{timezone = 'UTC'} in extralist to make all outputs on the same tz.}
 
-\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default', uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns the time column as-is from the API (A string in the format \code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
+\item{return_timezone}{character in \code{\link[=OlsonNames]{OlsonNames()}} or one of three special
+cases: \code{'db_default'}, \code{'char'} or \code{'raw'}. Default 'UTC'. If 'db_default',
+uses the API default. BOM defaults to +10. If \code{'char'} or \code{'raw'}, returns
+the time column as-is from the API (A string in the format
+\code{'YYYY-MM-DDTHH:MM:SS+TZ'})}
 }
 \value{
-A tibble of information about available timeseries.Times are POSIXct in UTC by default.
+A tibble of information about available timeseries.Times are POSIXct
+in UTC by default.
 }
 \description{
 This is the API used by Australian Bureau of Meteorology and many others. For
 consistency with similar state functions using Kisters Hydstra, I have kept
 the station_no argument with the same name. Any of the return fields can be
 searched though, using extra_list. The equivalent state (Hydstra) function is
-\code{\link[=get_variable_list]{get_variable_list()}} (to a close approximation).
-The available return fields (and thus factors that can be filtered) are
-\verb{'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name'}, where the \code{station_no} argument matches \code{station_no} for consistency across state functions.
+\code{\link[=get_variable_list]{get_variable_list()}} (to a close approximation). The available return fields
+(and thus factors that can be filtered) are \verb{'station_name', 'station_no', 'station_id', 'ts_id', 'ts_name', 'ts_path', 'parametertype_id', 'parametertype_name'}, where the \code{station_no} argument matches \code{station_no}
+for consistency across state functions.
 \emph{Important}- There is an additional \code{returnfield} option, \code{coverage}, which returns the period of record. It is included by default, but if you limit \code{returnfields}, you must include it to get the time period.
-There may be additional undocumented returnfield options; it appears that most of what is returned by \code{getStationList} is available, e.g. 'station_latitude'
+There may be additional undocumented returnfield options; it appears that
+most of what is returned by \code{getStationList} is available, e.g.
+'station_latitude'
 }
