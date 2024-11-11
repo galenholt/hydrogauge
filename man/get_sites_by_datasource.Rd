@@ -19,5 +19,5 @@ a tibble with sites and datasources
 Useful for getting lists of most sites
 }
 \examples{
-sxd <- get_sites_by_datasource('vic', datasources = c('A', 'TELEM'))
+sxd <- get_sites_by_datasource(portal = 'vic', datasources = c('A', 'TELEM'))
 }

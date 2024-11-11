@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' sxd <- get_sites_by_datasource('vic', datasources = c('A', 'TELEM'))
+#' sxd <- get_sites_by_datasource(portal = 'vic', datasources = c('A', 'TELEM'))
 get_sites_by_datasource <- function(portal,
                                     datasources) {
 

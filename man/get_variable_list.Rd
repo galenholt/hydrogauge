@@ -33,7 +33,7 @@ a tibble of the variables for each site and datasource.
 Gets the variables available for sites and datasources
 }
 \examples{
-v2 <- get_variable_list(
+v2 <- get_variable_list(portal = 'vic',
   site_list = "233217, 405328, 405331, 405837",
   datasource = c("A", "TELEM")
 )
