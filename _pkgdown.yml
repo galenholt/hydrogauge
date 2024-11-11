@@ -14,6 +14,7 @@ reference:
   contents:
   - getGroupList
   - getStationList
+  - getParameterList
 
 - title: "Query data available at a gauge"
   desc: "Functions for querying variables and times available at gauges"

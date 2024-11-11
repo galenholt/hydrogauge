@@ -1,6 +1,6 @@
 #' Access to the get_db_info API call.
 #'
-#' In development, do not use.
+#' In development, do not use. turn off the internal keyword once it works.
 #'
 #' @param portal url as elsewhere
 #' @param table_name which table
@@ -8,6 +8,7 @@
 #' @param return_type format of return?
 #'
 #' @return a dataframe
+#' @keywords internal
 get_db_info <- function(portal,
                         table_name = "site",
                         station_filter,

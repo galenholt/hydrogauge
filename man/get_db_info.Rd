@@ -19,5 +19,6 @@ get_db_info(portal, table_name = "site", station_filter, return_type = "hash")
 a dataframe
 }
 \description{
-In development, do not use.
+In development, do not use. turn off the internal keyword once it works.
 }
+\keyword{internal}
