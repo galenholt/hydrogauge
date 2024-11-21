@@ -1,23 +1,15 @@
 ---
 title: "Data portals"
-format: 
-  html:
-    toc: true
-vignette: >
-  %\VignetteIndexEntry{Data-portals}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 ---
 
-```{r}
-#| include: false
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
 
-```{r}
+```{r setup}
 library(hydrogauge)
 library(ggplot2)
 ```
@@ -42,7 +34,7 @@ In theory, we should be able to call the hydstra functions at any Hydstra source
 
 ### Australian states
 
-In addition to Victoria, New South Wales and Queensland have public portals and are available by name as `portal` arguments. To demonstrate, we can use `get_datasources_by_site` to see what datasources are available (note the major differences between the states):
+In addition to Victoria, New South Wales and Queensland have public portals and are available by name as `portal` arguments. To demonstrate, we can use `get_datasources_by_site()` to see what datasources are available (note the major differences between the states):
 
 ```{r}
 nsw_ds <- get_datasources_by_site(portal = 'NSW', 
@@ -64,7 +56,7 @@ qld_ds
 
 #### Traces and plots
 
-Now we can `get_ts_traces` for `A`, just to keep things consistent for NSW:
+Now we can `get_ts_traces()` for `A`, just to keep things consistent for NSW:
 
 ```{r}
 nsw_ts_days <- get_ts_traces(portal = 'NSW', 

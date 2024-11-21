@@ -1,16 +1,8 @@
 ---
 title: "KiWIS workflow"
-format: 
-  html:
-    toc: true
-vignette: >
-  %\VignetteIndexEntry{Base-hydstra-workflow}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 ---
 
-```{r}
-#| include: false
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -22,13 +14,13 @@ library(hydrogauge)
 library(ggplot2)
 ```
 
-At present, we largely assume the user will have a list of gauges they want. The KiWIS interface does provide some opportunity to programatically find gauge numbers according to criteria, using [getParameterList()], [getGroupList()], and [getStationList()] (most useful). This vignette, however, assumes we have selected a set of gauges and want to identify variables and pull their timeseries. For experimental wrappers that abstract some of this, see [their vignette](kiwis-wrapper.qmd).
+At present, we largely assume the user will have a list of gauges they want. The KiWIS interface does provide some opportunity to programatically find gauge numbers according to criteria, using `getParameterList()`, `getGroupList()`, and `getStationList()` (most useful). This vignette, however, assumes we have selected a set of gauges and want to identify variables and pull their timeseries. For experimental wrappers that abstract some of this, see [their vignette](kiwis-wrapper.Rmd).
 
 Unlike Hydstra, which provides tailored arguments for different sorts of API control, KiWIS primarily uses text search within columns. This can be more flexible, but means we need to know column names and pay close attention to the regex used to filter those columns to avoid contaminating outputs. This generality means that no column is favoured over others in filtering, and hydrogauge provides access to the full search capability with the `extra_list` argument. However, we also make a concession for consistency by making `station_no` its own argument, corresponding to the `site_list` argument in Hydstra.  
 
 # Querying available data
 
-To get timeseries, the user needs to ask for specific variables and timespans. Sometimes these are known *a priori*, e.g. if a gauge was chosen because it is known to have flow for a desired period. However, finding available variables and their periods of record can also be done through the functions here, primarily [getTimeseriesList()]. This is one of the main purposes of this package; we want to be able to query available data.
+To get timeseries, the user needs to ask for specific variables and timespans. Sometimes these are known *a priori*, e.g. if a gauge was chosen because it is known to have flow for a desired period. However, finding available variables and their periods of record can also be done through the functions here, primarily `getTimeseriesList()`. This is one of the main purposes of this package; we want to be able to query available data.
 
 ## Finding available variables and timespans
 
@@ -69,9 +61,9 @@ RM_ts <- getTimeseriesList(portal = 'bom',
 RM_ts
 ```
 
-We can visualise the availability of each variable at each gauge (@fig-vars-duration).
+We can visualise the availability of each variable at each gauge (\@ref(fig:vars-duration)).
 
-```{r}
+```{r vars-duration, fig.cap = "Availability of each variable at each gauge, with color indicating the duration of record in days."}
 #| label: fig-vars-duration
 #| fig-cap: Availability of each variable at each gauge, with color indicating the duration of record in days.
 RM_ts |> 
@@ -107,17 +99,17 @@ To pull timeseries, we need to know either the `ts_id` or `ts_path` arguments th
 
 :::{.callout-tip}
 
-The [find_ts_id()] function helps us find desired `ts_id` values. It is a wrapper over [getTimeseriesList()] with regex to select what we want. As such, it's not in the raw API workflow, but is very handy. See [the wrapper vignette](kiwis-wrapper.qmd)
+The find_ts_id() function helps us find desired `ts_id` values. It is a wrapper over `getTimeseriesList()` with regex to select what we want. As such, it's not in the raw API workflow, but is very handy. See [the wrapper vignette](kiwis-wrapper.Rmd)
 
 :::
 
 :::{.callout-note}
 
-In choosing these `ts_ids`, we're making many of the same decisions we would make when asking the hydstra function [get_ts_traces()] for `site_list`, `datasource`, `var_list`, `interval`, `data_type`, and `multiplier`. This has pluses and minuses. It's much harder here to ask for what we want (but see [find_ts_ids()]), but because each aggregation is pre-supplied and indexed uniquely it's much easier to get different aggregations from different variables in one call.
+In choosing these `ts_ids`, we're making many of the same decisions we would make when asking the hydstra function `get_ts_traces()` for `site_list`, `datasource`, `var_list`, `interval`, `data_type`, and `multiplier`. This has pluses and minuses. It's much harder here to ask for what we want (but see `find_ts_ids()`), but because each aggregation is pre-supplied and indexed uniquely it's much easier to get different aggregations from different variables in one call.
 
 :::
 
-Let's demonstrate with some ts_id values from `station_tslist` to pull daily mean QaQc'ed values for level, discharge, and water temp. Note that we have to ask for discharge and level with separate ts_ids for each gauge. This is another argument for using [find_ts_id()].
+Let's demonstrate with some ts_id values from `station_tslist` to pull daily mean QaQc'ed values for level, discharge, and water temp. Note that we have to ask for discharge and level with separate ts_ids for each gauge. This is another argument for using `find_ts_id()`.
 
 ```{r}
 ts_example <- c(
@@ -178,4 +170,4 @@ ts_all |>
 
 
 
-An automated approach that can simplify some common workflows (especially pulling period of record for many gauges and programatically selecting variables across gauges) is available in [fetch_kiwis_timeseries()]. See [the article](kiwis-wrapper.Rmd). 
+An automated approach that can simplify some common workflows (especially pulling period of record for many gauges and programatically selecting variables across gauges) is available in `fetch_kiwis_timeseries()`. See [the article](kiwis-wrapper.Rmd). 

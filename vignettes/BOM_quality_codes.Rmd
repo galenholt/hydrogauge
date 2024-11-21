@@ -1,15 +1,8 @@
 ---
-format: 
-  html:
-    toc: true
-vignette: >
-  %\VignetteIndexEntry{BOM_quality_codes}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
+title: "BOM quality codes"
 ---
 
-```{r}
-#| include: false
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"

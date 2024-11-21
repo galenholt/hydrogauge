@@ -1,15 +1,8 @@
 ---
-format: 
-  html:
-    toc: true
-vignette: >
-  %\VignetteIndexEntry{hydrogauge}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
+title: "hydrogauge"
 ---
 
-```{r}
-#| include: false
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -24,11 +17,11 @@ A typical workflow for hydrogauge involves querying the database to find gauges,
 
 In general, the function names that hit the API directly are named as in the relevant API calls, with hydstra names looking like `get_hydstra_function()`, and KiWIS looking like `getKiwisFunction()`. 
 
-For an example of this common workflow, see the respective [hydstra](hydstra_traces_workflow.qmd) and [KiWIS](kiwis_workflow.qmd) articles.
+For an example of this common workflow, see the respective [hydstra](hydstra_traces_workflow.Rmd) and [KiWIS](kiwis_workflow.Rmd) articles.
 
 ## Which API?
 
-How do you know which API style you have? It's best to find documentation. hydrogauge does try to infer, though there are no guarantees it always will guess right. To find this inference, run [parse_url()] with `test = TRUE, type = TRUE`:  
+How do you know which API style you have? It's best to find documentation. hydrogauge does try to infer, though there are no guarantees it always will guess right. To find this inference, run `parse_url()` with `test = TRUE, type = TRUE`:  
 
 BOM (KiWIS)
 ```{r}
@@ -55,7 +48,7 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
 -   `site_list` is the gauge number as a character (and the functions here accept a vector of these gauge numbers). Can be any gauge number in the database. Obtaining them programatically is limited currently, except in `get_sites_by_datasource`.
 
--   `datasource` The type of data. Victoria returns `"A"`, `"TELEM"`, and `"TELEMCOPY"` from [get_datasources_by_site()], but there may be others and sites I have not examined. `A` is 'archive', `TELEM` is 'telemetry', and I'm not sure why there's a copy. `"CP"` seems to work in NSW, Victoria, and QLD, but isn't documented anywhere I can find.
+-   `datasource` The type of data. Victoria returns `"A"`, `"TELEM"`, and `"TELEMCOPY"` from get_datasources_by_site(), but there may be others and sites I have not examined. `A` is 'archive', `TELEM` is 'telemetry', and I'm not sure why there's a copy. `"CP"` seems to work in NSW, Victoria, and QLD, but isn't documented anywhere I can find.
 
     -   Some quick testing with `get_sites_by_datasource` shows that there are many more sites with `A` than `TELEM`, but that `TELEM` is not a subset- there are sites with `TELEM` and not `A`. Initial testing of `get_db_info` also finds sites that do not appear with any of these, and seem to have no data.
 
@@ -85,4 +78,4 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
 
     -   *Warning:* any given API call can only takes one value, which is applied to all variables. *This is unlikely to be appropriate if asking for many variables.*
 
-    -   run `get_ts_traces` multiple times, with different subsets of `var_type`, each with an appropriate `data_types`
+    -   run `get_ts_traces()` multiple times, with different subsets of `var_type`, each with an appropriate `data_types`

@@ -1,16 +1,8 @@
 ---
 title: "hydstra workflow"
-format: 
-  html:
-    toc: true
-vignette: >
-  %\VignetteIndexEntry{Base-hydstra-workflow}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 ---
 
-```{r}
-#| include: false
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -22,7 +14,7 @@ library(hydrogauge)
 library(ggplot2)
 ```
 
-At present, we largely assume the user will have a list of gauges they want, as the current ability to programatically obtain gauge numbers according to criteria is limited (but see [get_sites_by_datasource()], which allows asking for all sites that have a given datasource). This vignette walks through the process with the core functions, for experimental wrappers that abstract some of this, see [their vignette](Hydstra-wrapper.qmd).
+At present, we largely assume the user will have a list of gauges they want, as the current ability to programatically obtain gauge numbers according to criteria is limited (but see `get_sites_by_datasource()`, which allows asking for all sites that have a given datasource). This vignette walks through the process with the core functions, for experimental wrappers that abstract some of this, see [their vignette](Hydstra-wrapper.Rmd).
 
 To get timeseries, the user needs to ask for specific variables and timespans. Sometimes these are known *a priori*, e.g. if a gauge was chosen because it is known to have flow for a desired period. However, finding available variables and their periods of record can also be done through the functions here. This is one of the main purposes of this package; we want to be able to query available data.
 
@@ -51,7 +43,7 @@ Before asking for timeseries data, we want to ask what data is available. we use
 
 ## Finding datasources
 
-To see what datasources are available for a site, use [get_datasources_by_site()]. I typically use "A", but it's worth looking to see what datasources are available for a target site(s), and then doing the next step (finding variables) for each, to see whether the available variables (or timeperiods) differ. *Note- there are often other datasources that work but are not returned here.*
+To see what datasources are available for a site, use `get_datasources_by_site()`. I typically use "A", but it's worth looking to see what datasources are available for a target site(s), and then doing the next step (finding variables) for each, to see whether the available variables (or timeperiods) differ. *Note- there are often other datasources that work but are not returned here.*
 
 ```{r}
 ds <- get_datasources_by_site(portal = 'Vic', 
@@ -63,16 +55,17 @@ ds <- get_datasources_by_site(portal = 'Vic',
 ds
 ```
 
-Plot that to see data availability (@fig-datasource).
+Plot that to see data availability (\@ref(fig:datasource)).
 
-```{r}
+```{r datasource, fig.cap = "Datasources available for each gauge. These are what are returned by the API, but may not be complete. Specifying other datasources on a pull may work."}
 #| label: fig-datasource
 #| fig-cap: Datasources available for each gauge. These are what are returned by the API, but may not be complete. Specifying other datasources on a pull may work.
 plot_datasources_by_site(ds)
 ```
+
 ## Finding available variables and timespans
 
-We then need to know what variables are available to extract timeseries of. We use [get_variable_list()] to get this information, including both their names and numbers, as well as other details such as the time period of record and units.
+We then need to know what variables are available to extract timeseries of. We use `get_variable_list()` to get this information, including both their names and numbers, as well as other details such as the time period of record and units.
 
 ```{r}
 var_info <- get_variable_list(portal = 'Vic', 
@@ -92,9 +85,9 @@ That returns a tibble with information about each gauge and variable (@tbl-vars)
 var_info
 ```
 
-Depending on the goals, it can be helpful to visualise this as the availability of each variable (@fig-vars-duration) or the period of record of each variable (@fig-vars-period).
+Depending on the goals, it can be helpful to visualise this as the availability of each variable (\@ref(fig:vars-duration)) or the period of record of each variable (\@ref(fig:vars-period)).
 
-```{r}
+```{r vars-duration, fig.cap = "Availability of each variable at each gauge, with color indicating the duration of record in days."}
 #| label: fig-vars-duration
 #| fig-cap: Availability of each variable at each gauge, with color indicating the duration of record in days.
 var_info |> 
@@ -104,7 +97,8 @@ ggplot(aes(x = var_name, y = site, fill = duration)) +
   scale_fill_viridis_c(option = 'plasma') +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
-```{r}
+
+```{r vars-period, fig.cap = "Availability of each variable at each gauge, with the period of record indicated by lines."}
 #| label: fig-vars-period
 #| fig-cap: Availability of each variable at each gauge, with the period of record indicated by lines.
 var_info |> 
@@ -116,11 +110,11 @@ ggplot(aes(y = date, x = site, color = var_name)) +
 
 # Obtaining timeseries
 
-This is typically the main goal, with the other steps getting us to the point of knowing what to ask for. Specifically, [get_variable_list()] gives us a reference to know what the variables are to ask for and the relevant timeperiods.
+This is typically the main goal, with the other steps getting us to the point of knowing what to ask for. Specifically, `get_variable_list()` gives us a reference to know what the variables are to ask for and the relevant timeperiods.
 
 ## Basic operation
 
-In general, we use [get_ts_traces()] for a set of sites, variables, timeperiods, and statistics. The experimental wrapper functions [fetch_hydstra_timeseries()] and [fetch_timeseries()] call [get_ts_traces()] internally. In any case, there are some pitfalls to avoid.
+In general, we use `get_ts_traces()` for a set of sites, variables, timeperiods, and statistics. The experimental wrapper functions `fetch_hydstra_timeseries()` and `fetch_timeseries()` call `get_ts_traces()` internally. In any case, there are some pitfalls to avoid.
 
 If we just want a set of variables that all need the same statistic applied (e.g. daily mean flows), we can pass that in as a vector. For example, to get daily mean stage height (100), discharge (here in ML/day, 141), and temperature (450), we can do that in one call, even for multiple gauges. Asking here for one year to keep the call quick.
 
@@ -137,7 +131,7 @@ ts_days <- get_ts_traces(portal = 'Vic',
                          returnformat = 'df')
 ```
 
-That returns a tall dataframe with both the requested values and some site metadata including the site name, location, etc (@tbl-ts), which the user can then split up or plot how they want (e.g. @fig-ts). There are other options that return lists of dataframes if the user does not want all sites and variables combined-
+That returns a tall dataframe with both the requested values and some site metadata including the site name, location, etc (@tbl-ts), which the user can then split up or plot how they want (e.g. \@ref(fig:ts)). There are other options that return lists of dataframes if the user does not want all sites and variables combined-
 
 -   `returnformat = "varlist"` a list with one tibble per variable
 
@@ -145,14 +139,14 @@ That returns a tall dataframe with both the requested values and some site metad
 
 -   `returnformat = "sxvlist"` a list with one tibble per site x variable combo (including empty lists for missing combos)
 
-```{r}
+```{r tstab, tab.cap = "Head of returned timeseries"}
 #| label: tbl-ts
 #| tbl-cap: Head of returned timeseries
 # rows.print doesn't really work with devtools::build_readme(), so use head
 head(ts_days, 30)
 ```
 
-```{r}
+```{r ts, fig.cap = "Timeseries of requested data, where available."}
 #| label: fig-ts
 #| fig-cap: Timeseries of requested data, where available.
 ts_days |> 
@@ -166,9 +160,9 @@ Note that if a variable isn't available for a gauge it just isn't returned, and 
 
 ## Multiple variables, multiple statistics
 
-Now, if we want another set of variables that should have a different statistic (e.g. rainfall makes sense as the daily sum, not the mean), we need a separate call to [get_ts_traces()] with a different `data_type` argument.
+Now, if we want another set of variables that should have a different statistic (e.g. rainfall makes sense as the daily sum, not the mean), we need a separate call to get_ts_traces() with a different `data_type` argument.
 
-Note that again this will ignore gauges without the info (@tbl-ts-rain, @fig-ts-rain).
+Note that again this will ignore gauges without the info (\@ref(tab:ts-rain-tab), \@ref(fig:ts-rain-fig)).
 
 ```{r}
 ts_rain <- get_ts_traces(portal = 'Vic', 
@@ -183,13 +177,13 @@ ts_rain <- get_ts_traces(portal = 'Vic',
                          returnformat = 'df')
 ```
 
-```{r}
+```{r ts-rain-tab, tab.cap="Head of returned rainfall timeseries"}
 #| label: tbl-ts-rain
 #| tbl-cap: Head of returned rainfall timeseries
 head(ts_rain, 30)
 ```
 
-```{r}
+```{r ts-rain-fig, fig.cap = "Timeseries of rainfall data, where available."}
 #| label: fig-ts-rain
 #| fig-cap: Timeseries of rainfall data, where available.
 ts_rain |> 
@@ -198,9 +192,9 @@ ts_rain |>
   facet_grid(variable_short_name ~ site_short_name, scales = 'free')
 ```
 
-If the user wants to combine across different statistics, use [dplyr::bind_rows()] to combine post-hoc.
+If the user wants to combine across different statistics, use `dplyr::bind_rows()` to combine post-hoc.
 
-An automated approach that can simplify some common workflows (especially pulling period of record for many gauges) is available in [fetch_hydstra_timeseries()], but care must be taken to avoid inappropriate statistics. See [the article](Hydstra-wrapper.Rmd).  
+An automated approach that can simplify some common workflows (especially pulling period of record for many gauges) is available in `fetch_hydstra_timeseries()`, but care must be taken to avoid inappropriate statistics. See [the article](Hydstra-wrapper.Rmd).  
 
 
 

@@ -1,16 +1,8 @@
 ---
 title: "KiWIS wrapper"
-format: 
-  html:
-    toc: true
-vignette: >
-  %\VignetteIndexEntry{kiwis-wrapper}
-  %\VignetteEngine{quarto::html}
-  %\VignetteEncoding{UTF-8}
 ---
 
-```{r}
-#| include: false
+```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
@@ -22,15 +14,15 @@ library(hydrogauge)
 library(ggplot2)
 ```
 
-The [fetch_kiwis_timeseries()] function wraps [find_ts_id()] (which itself wraps [getTimeseriesList()]) and [getTimeseriesValues()], which allows some extra functionality and smoother workflows but also introduces some danger. Unlike [fetch_hydstra_timeseries()], though, [fetch_kiwis_timeseries()] tends to increase efficiency of the API requests. Some argument names have been changed compared to [getTimeseriesValues()] (which gives the user full access to KiWIS names) for more clarity and to move towards a unified interface across both API styles.
+The `fetch_kiwis_timeseries()` function wraps `find_ts_id()` (which itself wraps `getTimeseriesList()`) and `getTimeseriesValues()`, which allows some extra functionality and smoother workflows but also introduces some danger. Unlike `fetch_hydstra_timeseries()`, though, `fetch_kiwis_timeseries()` tends to increase efficiency of the API requests. Some argument names have been changed compared to `getTimeseriesValues()` (which gives the user full access to KiWIS names) for more clarity and to move towards a unified interface across both API styles.
 
 ## Period of record
 
-This function is most useful when we want to pull the period of record of the same variable for a set of gauges, especially if we want to choose that variable by name and not `ts_id` code. For example, we might want to pull discharge for the period of record. We would define the period of record by passing `'all'` to `start_time` and `end_time`, or `period = 'complete'`. We can choose daily mean discharge in ML/d with `variable = 'discharge'`, `units = 'ML/d'`, and `statistic = 'mean'`, yielding @fig-discharge-period.
+This function is most useful when we want to pull the period of record of the same variable for a set of gauges, especially if we want to choose that variable by name and not `ts_id` code. For example, we might want to pull discharge for the period of record. We would define the period of record by passing `'all'` to `start_time` and `end_time`, or `period = 'complete'`. We can choose daily mean discharge in ML/d with `variable = 'discharge'`, `units = 'ML/d'`, and `statistic = 'mean'`, yielding \@ref(fig:discharge-period).
 
 :::{.callout-caution}
 
-Choosing the ts_id codes from `variable`, `units`, `statistic` and `datatype` uses regex in [find_ts_id()], and is not guaranteed to yield one and only one result. This can be handy, in that we can use wildcards, but also can lead to extra data sneaking in (e.g. 9am and midnight daily start times). Check your data carefully for extra variables or duplication. For large calls, it is a good idea to run [find_ts_id()] manually and check the output has no surprises before pulling the timeseries.
+Choosing the ts_id codes from `variable`, `units`, `statistic` and `datatype` uses regex in `find_ts_id()`, and is not guaranteed to yield one and only one result. This can be handy, in that we can use wildcards, but also can lead to extra data sneaking in (e.g. 9am and midnight daily start times). Check your data carefully for extra variables or duplication. For large calls, it is a good idea to run `find_ts_id()` manually and check the output has no surprises before pulling the timeseries.
 
 :::
 
@@ -45,7 +37,7 @@ discharge_record <- fetch_kiwis_timeseries(portal = 'bom',
                                            datatype = 'QaQc')
 ```
 
-```{r}
+```{r discharge-period, fig.cap = "Discharge for the period of record for three gauges."}
 #| label: fig-discharge-period
 #| fig-cap: Discharge for the period of record for three gauges.
 discharge_record |> 
@@ -55,7 +47,7 @@ discharge_record |>
   theme(legend.position = 'none')
 ```
 
-The use of `extra_list` lets us use regex to select gauges, as well as pre-select some of the desired data by limiting what gets returned by [find_ts_id()] (the '*24HR' limits which daily start we use). Many of these only report cumecs, not ML/d.
+The use of `extra_list` lets us use regex to select gauges, as well as pre-select some of the desired data by limiting what gets returned by find_ts_id() (the '*24HR' limits which daily start we use). Many of these only report cumecs, not ML/d.
 
 ```{r}
 
@@ -84,7 +76,7 @@ murray_discharge |>
 
 ## Multiple variables
 
-Unlike [fetch_hydstra_timeseries()], we don't need to worry about misaggregating different variables here, because each aggregation has its own `ts_id`. On the other hand, because the selection of ts_ids uses regex OR, we can't use matched vectors here to get different aggregations for different variables (though that may happen if an aggregation isn't available for some variables, e.g. daily mean rainfall).
+Unlike `fetch_hydstra_timeseries()`, we don't need to worry about misaggregating different variables here, because each aggregation has its own `ts_id`. On the other hand, because the selection of ts_ids uses regex OR, we can't use matched vectors here to get different aggregations for different variables (though that may happen if an aggregation isn't available for some variables, e.g. daily mean rainfall).
 
 Instead, we pass in the regex, let it choose with OR, and check the output very carefully, potentially deleting unwanted data. Or make separate calls, which will tend to be safer. This OR pattern can be useful for more than variables as well, allowing us to choose multiple time periods or
 
@@ -101,9 +93,9 @@ multi_ts <- fetch_kiwis_timeseries(portal = 'bom',
                                    end_time = '20201231')
 ```
 
-The results here (@fig-multi-var) exemplify some of the benefits and pitfalls. We get two Daily Mean and Daily Total results that are shifted, one at 9am and the other midnight. We do though get Daily and Monthly aggregations for both discharge and rainfall with one call. We could clean up the 9/midnight duplication by using `datatype = c('QaQc.*09', 'QaQc.*Month')`, but an illustration was warranted. 
+The results here (\@ref(fig:multi-var)) exemplify some of the benefits and pitfalls. We get two Daily Mean and Daily Total results that are shifted, one at 9am and the other midnight. We do though get Daily and Monthly aggregations for both discharge and rainfall with one call. We could clean up the 9/midnight duplication by using `datatype = c('QaQc.*09', 'QaQc.*Month')`, but an illustration was warranted. 
 
-```{r}
+```{r multi-var, fig.cap = "Multiple variables, time periods, and aggregations."}
 #| label: fig-multi-var
 #| fig-cap: Multiple variables, time periods, and aggregations.
 multi_ts |> 
@@ -117,11 +109,11 @@ multi_ts |>
 
 ## Obtaining ts_ids
 
-The key to pulling KiWIS records is to use either `ts_id` or `ts_path`. The `ts_path` can theoretically be constructed on the fly, but it is tricky to generalise and get right. Instead, we tend to use the `ts_id`, finding it by regex with other columns. This is the key to culling the full set of potential timeseries returned by [getTimeseriesList()] to a desired set to pull.
+The key to pulling KiWIS records is to use either `ts_id` or `ts_path`. The `ts_path` can theoretically be constructed on the fly, but it is tricky to generalise and get right. Instead, we tend to use the `ts_id`, finding it by regex with other columns. This is the key to culling the full set of potential timeseries returned by `getTimeseriesList()` to a desired set to pull.
 
-Even if using the base API, looking through the ts_ids for each gauge, variable, aggregation, etc can be slow and error-prone. Instead, [find_ts_id()] gives an interface to search this dataframe, filtering it according to a set of desired timeseries. This is done internally to [fetch_kiwis_timeseries()], but can also be very useful for manually searching for available and desired timeseries to pull.
+Even if using the base API, looking through the ts_ids for each gauge, variable, aggregation, etc can be slow and error-prone. Instead, `find_ts_id()` gives an interface to search this dataframe, filtering it according to a set of desired timeseries. This is done internally to fetch_kiwis_timeseries(), but can also be very useful for manually searching for available and desired timeseries to pull.
 
-For example, with a pre-check with [find_ts_id()], we would have found the duplication above:
+For example, with a pre-check with `find_ts_id()`, we would have found the duplication above:
 
 ```{r}
 
@@ -156,4 +148,4 @@ ts_check_clean |>
 
 ## Large requests
 
-*Note: with big pulls, it can be useful to use [find_ts_id()] and [getTimeseriesValues()] approach, or at least a manual check of [find_ts_id()] prior to using [fetch_kiwis_timeseries()].* In my experience, there are often errors with some gauges or other issues that mean clean pulls need some troubleshooting of the variable availability etc. It is often easiest to find and solve problems if you check what you're actually trying to pull.
+*Note: with big pulls, it can be useful to use `find_ts_id()` and `getTimeseriesValues()` approach, or at least a manual check of `find_ts_id()` prior to using `fetch_kiwis_timeseries()`.* In my experience, there are often errors with some gauges or other issues that mean clean pulls need some troubleshooting of the variable availability etc. It is often easiest to find and solve problems if you check what you're actually trying to pull.

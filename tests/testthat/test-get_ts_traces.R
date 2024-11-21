@@ -398,6 +398,8 @@ test_that("ts timezone checks", {
     fix_times()
 
   # get times as char, so there's no internal time zone manipulation
+  # This is specifically looking at times in london that haven't happened yet but have happened in Australia. It's super unstable then dependent on reporting rates, so generally skip it
+  skip("Skipping a fragile timezone test")
   nowtrace <- get_ts_traces(portal = 'vic',
                             site_list = "233217",
                             datasource = 'TELEM',

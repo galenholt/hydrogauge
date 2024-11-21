@@ -1,4 +1,4 @@
-# hydrogauge (development version)
+# hydrogauge 0.1.1
 
 ## Updates
 

@@ -48,3 +48,15 @@ reference:
   - parse_url
   - plot_datasources_by_site
   - send_to_type
+
+articles:
+- title: Getting started
+  navbar: ~
+  contents:
+  - "articles/hydrogauge"
+  - "articles/hydstra-traces-workflow"
+  - "articles/kiwis-workflow"
+  - "articles/hydstra-wrapper"
+  - "articles/kiwis-wrapper"
+  - "articles/data-portals"
+  - "BOM_quality_codes"
