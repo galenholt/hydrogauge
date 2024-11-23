@@ -44,6 +44,12 @@
 #' @param end_time as in [get_ts_traces()], but can also take `"all"` to end at
 #'   the last timepoint for each variable in `var_list` at each site in
 #'   `site_list`
+#' @param ignore_fromderived logical, default TRUE. Sometimes a derived variable
+#'   (140, 141) is *also* available as a var_from, seemingly usually with a
+#'   longer historical record. TRUE (the default) ignores that, and uses just
+#'   the e.g. var_from = 100, var_to = 140. FALSE returns both sets, e.g. all
+#'   records with the derived variable as var_to. If FALSE, *look at the output
+#'   carefully, it's often very strange*
 #' @param request_timezone ignored if start_time and end_time are time objects,
 #'   otherwise a timezone from [OlsonNames()] or 'db_default'
 #'
@@ -61,6 +67,7 @@ fetch_hydstra_timeseries <- function(portal,
                                      start_time,
                                      end_time,
                                      multiplier = 1,
+                                     ignore_fromderived = TRUE,
                                      returnformat = "df",
                                      request_timezone = "db_default",
                                      return_timezone = "UTC",
@@ -77,7 +84,8 @@ fetch_hydstra_timeseries <- function(portal,
     units = units,
     statistic = statistic,
     timeunit = timeunit,
-    multiplier = multiplier
+    multiplier = multiplier,
+    ignore_fromderived = ignore_fromderived
   )
 
   # bubble the null up

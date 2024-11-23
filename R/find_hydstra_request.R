@@ -5,12 +5,6 @@
 #' @inheritParams fetch_hydstra_timeseries
 #' @param warnmissing warns if a gauge is missing. TRUE by default, but able to
 #'   be silenced for programmatic use.
-#' @param ignore_fromderived logical, default TRUE. Sometimes a derived variable
-#'   (140, 141) is *also* available as a var_from, seemingly usually with a
-#'   longer historical record. TRUE (the default) ignores that, and uses just
-#'   the e.g. var_from = 100, var_to = 140. FALSE returns both sets, e.g. all
-#'   records with the derived variable as var_to. If FALSE, *look at the output
-#'   carefully, it's often very strange*
 #' @return a tibble, each row of which has the information needed for a Hydstra
 #'   request
 #' @export
