@@ -91,6 +91,40 @@ test_that("timezones behave", {
   # now, if we call that with variable and unit we should get the same thing.
 })
 
+test_that("'all' works for times", {
+  simpletrace_VIC_UTC <- fetch_hydstra_timeseries(portal = 'vic',
+                                              gauge = "233217",
+                                              datasource = 'A',
+                                              var_list = c('141'),
+                                              start_time = 'all',
+                                              end_time = 'all',
+                                              timeunit = 'day',
+                                              statistic = 'mean',
+                                              multiplier = 1,
+                                              returnformat = 'df',
+                                              request_timezone = 'db_default',
+                                              return_timezone = 'UTC')
+
+  simpletrace_NSW_UTC <- fetch_hydstra_timeseries(portal = 'nsw',
+                                              gauge = "416050",
+                                              datasource = 'A',
+                                              var_list = c('141'),
+                                              start_time = 'all',
+                                              end_time = 'all',
+                                              timeunit = 'day',
+                                              statistic = 'mean',
+                                              multiplier = 1,
+                                              returnformat = 'df',
+                                              request_timezone = 'db_default',
+                                              return_timezone = 'UTC')
+  expect_s3_class(simpletrace_VIC_UTC, 'tbl_df')
+  expect_snapshot(simpletrace_VIC_UTC)
+  expect_s3_class(simpletrace_NSW_UTC, 'tbl_df')
+  expect_snapshot(simpletrace_NSW_UTC)
+
+  # now, if we call that with variable and unit we should get the same thing.
+})
+
 test_that("variable and unit work", {
   # This should just get 141
   simpletrace_vt <- fetch_hydstra_timeseries(portal = 'vic',

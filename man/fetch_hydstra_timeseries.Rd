@@ -16,6 +16,7 @@ fetch_hydstra_timeseries(
   start_time,
   end_time,
   multiplier = 1,
+  ignore_fromderived = TRUE,
   returnformat = "df",
   request_timezone = "db_default",
   return_timezone = "UTC",
@@ -67,6 +68,13 @@ the last timepoint for each variable in \code{var_list} at each site in
 \item{multiplier}{character, interval multiplier. I \emph{think} this allows
 intervals like 5 days, by passing \code{interval = 'day'} and \code{multiplier = 5}.
 Not tested other than 1 at present.}
+
+\item{ignore_fromderived}{logical, default TRUE. Sometimes a derived variable
+(140, 141) is \emph{also} available as a var_from, seemingly usually with a
+longer historical record. TRUE (the default) ignores that, and uses just
+the e.g. var_from = 100, var_to = 140. FALSE returns both sets, e.g. all
+records with the derived variable as var_to. If FALSE, \emph{look at the output
+carefully, it's often very strange}}
 
 \item{returnformat}{character, one of
 \itemize{
