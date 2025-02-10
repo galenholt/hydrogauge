@@ -7,6 +7,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+library(httptest2)
+start_vignette('kiwis_workflow')
 ```
 
 ```{r}
@@ -168,6 +171,9 @@ ts_all |>
 ```
 
 
-
-
 An automated approach that can simplify some common workflows (especially pulling period of record for many gauges and programatically selecting variables across gauges) is available in `fetch_kiwis_timeseries()`. See [the article](kiwis-wrapper.Rmd). 
+
+```{r, include=FALSE}
+# For httptest2 mocking
+end_vignette()
+```

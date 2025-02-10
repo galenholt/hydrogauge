@@ -1,0 +1,37 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site": "233217",
+                "datasources": [
+                    "A",
+                    "TELEM",
+                    "TELEMCOPY"
+                ]
+            },
+            {
+                "site": "405328",
+                "datasources": [
+                    "A",
+                    "TELEM",
+                    "TELEMCOPY"
+                ]
+            },
+            {
+                "site": "405331",
+                "datasources": [
+                    "A"
+                ]
+            },
+            {
+                "site": "405837",
+                "datasources": [
+                    "A",
+                    "TELEM",
+                    "TELEMCOPY"
+                ]
+            }
+        ]
+    }
+}

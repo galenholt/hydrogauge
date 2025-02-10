@@ -1,0 +1,83 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ GEELONG",
+                    "name": "BARWON RIVER @ GEELONG"
+                },
+                "variables": [
+                    {
+                        "period_end": "20250106073000",
+                        "period_start": "19610306171500",
+                        "subdesc": "Available for release",
+                        "variable": "100.00",
+                        "units": "metres",
+                        "name": "Stream Water Level (m)"
+                    },
+                    {
+                        "period_end": "20250106073000",
+                        "period_start": "20100706123100",
+                        "subdesc": "Available for release",
+                        "variable": "210.00",
+                        "units": "pH",
+                        "name": "Acidity/Alkalinity (pH)"
+                    },
+                    {
+                        "period_end": "20250106073000",
+                        "period_start": "20100706123100",
+                        "subdesc": "Available for release",
+                        "variable": "215.00",
+                        "units": "ppm",
+                        "name": "Dissolved Oxygen (ppm)"
+                    },
+                    {
+                        "period_end": "20250106073000",
+                        "period_start": "20100706123100",
+                        "subdesc": "Available for release",
+                        "variable": "450.00",
+                        "units": "Degrees celsius",
+                        "name": "Water Temperature (°C)"
+                    },
+                    {
+                        "period_end": "20250106073000",
+                        "period_start": "20100706123100",
+                        "subdesc": "Available for release",
+                        "variable": "810.00",
+                        "units": "NTU",
+                        "name": "Turbidity (NTU)"
+                    },
+                    {
+                        "period_end": "20250106073000",
+                        "period_start": "20100706123100",
+                        "subdesc": "Available for release",
+                        "variable": "820.00",
+                        "units": "µS/cm@25°C",
+                        "name": "Conductivity (µS/cm)"
+                    }
+                ],
+                "site": "233217"
+            },
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "R.G. MARYSVILLE",
+                    "name": "RAINGAUGE @ MARYSVILLE GOLF CLUB"
+                },
+                "variables": [
+                    {
+                        "period_end": "20250121123400",
+                        "period_start": "20010621142700",
+                        "subdesc": "Available for release",
+                        "variable": "10.00",
+                        "units": "mm",
+                        "name": "Rainfall (mm)"
+                    }
+                ],
+                "site": "405837"
+            }
+        ]
+    }
+}

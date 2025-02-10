@@ -7,6 +7,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+library(httptest2)
+start_vignette('kiwis_wrapper')
 ```
 
 ```{r}
@@ -149,3 +152,8 @@ ts_check_clean |>
 ## Large requests
 
 *Note: with big pulls, it can be useful to use `find_ts_id()` and `getTimeseriesValues()` approach, or at least a manual check of `find_ts_id()` prior to using `fetch_kiwis_timeseries()`.* In my experience, there are often errors with some gauges or other issues that mean clean pulls need some troubleshooting of the variable availability etc. It is often easiest to find and solve problems if you check what you're actually trying to pull.
+
+```{r, include=FALSE}
+# For httptest2 mocking
+end_vignette()
+```

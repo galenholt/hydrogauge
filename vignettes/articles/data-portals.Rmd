@@ -7,6 +7,9 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+library(httptest2)
+start_vignette('data_portals')
 ```
 
 ```{r setup}
@@ -98,4 +101,9 @@ qld_ts_days <- get_ts_traces(portal = 'QLD',
 ggplot(qld_ts_days, aes(x = time, y = value, color = site_short_name)) + 
   facet_wrap(~variable_short_name, scales = 'free') + 
   geom_line()
+```
+
+```{r, include=FALSE}
+# For httptest2 mocking
+end_vignette()
 ```

@@ -7,6 +7,10 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+
+library(httptest2)
+start_vignette('hydrogauge')
 ```
 
 ```{r}
@@ -79,3 +83,8 @@ After quite a lot of digging and testing, an incomplete set of definitions of co
     -   *Warning:* any given API call can only takes one value, which is applied to all variables. *This is unlikely to be appropriate if asking for many variables.*
 
     -   run `get_ts_traces()` multiple times, with different subsets of `var_type`, each with an appropriate `data_types`
+
+```{r, include=FALSE}
+# For httptest2 mocking
+end_vignette()
+```

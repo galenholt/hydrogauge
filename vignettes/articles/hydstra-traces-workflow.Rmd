@@ -7,6 +7,10 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+
+
+library(httptest2)
+start_vignette('hydstra_workflow')
 ```
 
 ```{r}
@@ -197,4 +201,7 @@ If the user wants to combine across different statistics, use `dplyr::bind_rows(
 An automated approach that can simplify some common workflows (especially pulling period of record for many gauges) is available in `fetch_hydstra_timeseries()`, but care must be taken to avoid inappropriate statistics. See [the article](Hydstra-wrapper.Rmd).  
 
 
-
+```{r, include=FALSE}
+# For httptest2 mocking
+end_vignette()
+```
