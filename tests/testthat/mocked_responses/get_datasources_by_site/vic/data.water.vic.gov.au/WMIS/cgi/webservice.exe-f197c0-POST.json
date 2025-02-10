@@ -1,0 +1,15 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site": "233217",
+                "datasources": [
+                    "A",
+                    "TELEM",
+                    "TELEMCOPY"
+                ]
+            }
+        ]
+    }
+}

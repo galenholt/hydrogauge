@@ -1,0 +1,100 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "MURRAYR U/S EUSTON W",
+                    "name": "MURRAY R UPSTREAM EUSTON WEIR"
+                },
+                "variables": [
+
+                ],
+                "site": "414209"
+            },
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ BEEMERY",
+                    "name": "BARWON RIVER AT BEEMERY (U/S CULGOA JUNCTION)"
+                },
+                "variables": [
+                    {
+                        "period_end": "20241118163000",
+                        "period_start": "19990626163800",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20010302000100",
+                        "period_start": "19991209060000",
+                        "subdesc": "Externally supplied peak",
+                        "variable": "100.09",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20230101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20161231000000",
+                        "period_start": "20140101000000",
+                        "subdesc": "",
+                        "variable": "154.00",
+                        "units": "Megalitres",
+                        "name": "WSP Discharge Volume from Previous day"
+                    },
+                    {
+                        "period_end": "20240103071500",
+                        "period_start": "20171017001500",
+                        "subdesc": "",
+                        "variable": "300.00",
+                        "units": "Volts",
+                        "name": "Logger Battery Voltage"
+                    }
+                ],
+                "site": "422028"
+            }
+        ]
+    }
+}

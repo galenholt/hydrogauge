@@ -1,0 +1,34 @@
+[
+    {
+        "station_no": "410730",
+        "station_name": "Cotter R. at Gingera",
+        "ts_id": "1555010",
+        "ts_name": "DMQaQc.Merged.DailyTotal.09HR",
+        "parametertype_name": "Rainfall",
+        "ts_unitsymbol": "mm",
+        "rows": "4",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+            [
+                "2020-01-01T09:00:00.000+10:00",
+                0.0,
+                10
+            ],
+            [
+                "2020-01-02T09:00:00.000+10:00",
+                0.0,
+                10
+            ],
+            [
+                "2020-01-03T09:00:00.000+10:00",
+                0.0,
+                10
+            ],
+            [
+                "2020-01-04T09:00:00.000+10:00",
+                0.0,
+                10
+            ]
+        ]
+    }
+]

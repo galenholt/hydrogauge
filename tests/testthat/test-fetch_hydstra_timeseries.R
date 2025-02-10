@@ -2,6 +2,7 @@ future::plan('sequential')
 
 test_that("ts simple", {
   # same as the main get_ts_traces test
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/ts_simple',
   simpletrace <- fetch_hydstra_timeseries(portal = 'vic',
                                          gauge = "233217",
                                datasource = 'A',
@@ -14,6 +15,7 @@ test_that("ts simple", {
                                returnformat = 'df',
                                request_timezone = 'db_default',
                                return_timezone = 'raw')
+  )
   expect_s3_class(simpletrace, 'tbl_df')
   expect_snapshot(simpletrace)
 
@@ -21,6 +23,7 @@ test_that("ts simple", {
 
 test_that("statistic vectors", {
   # same as the main get_ts_traces test
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/statistic_vectors',
   simpletrace_stats <- fetch_hydstra_timeseries(portal = 'vic',
                                           gauge = c("233217", '405837'),
                                           datasource = 'A',
@@ -33,6 +36,7 @@ test_that("statistic vectors", {
                                           returnformat = 'df',
                                           request_timezone = 'db_default',
                                           return_timezone = 'raw')
+  )
   expect_s3_class(simpletrace_stats, 'tbl_df')
   expect_snapshot(table(simpletrace_stats$variable, simpletrace_stats$statistic))
 
@@ -40,6 +44,7 @@ test_that("statistic vectors", {
 
 test_that("date formats", {
   # same as the main get_ts_traces test
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/dates_numbers',
   simpletrace_num <- fetch_hydstra_timeseries(portal = 'vic',
                                           gauge = "233217",
                                           datasource = 'A',
@@ -52,9 +57,11 @@ test_that("date formats", {
                                           returnformat = 'df',
                                           request_timezone = 'db_default',
                                           return_timezone = 'raw')
+  )
   expect_s3_class(simpletrace_num, 'tbl_df')
   expect_snapshot(simpletrace_num)
 
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/dates_dates',
   simpletrace_date <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -67,12 +74,14 @@ test_that("date formats", {
                                               returnformat = 'df',
                                               request_timezone = 'db_default',
                                               return_timezone = 'raw')
+  )
   expect_s3_class(simpletrace_date, 'tbl_df')
   expect_snapshot(simpletrace_date)
 
 })
 
 test_that("timezones behave", {
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/timezones_behave',
   simpletrace_UTC <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -85,6 +94,7 @@ test_that("timezones behave", {
                                               returnformat = 'df',
                                               request_timezone = 'db_default',
                                               return_timezone = 'UTC')
+  )
   expect_s3_class(simpletrace_UTC, 'tbl_df')
   expect_snapshot(simpletrace_UTC)
 
@@ -92,6 +102,7 @@ test_that("timezones behave", {
 })
 
 test_that("'all' works for times", {
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/alltimes_vic_utc',
   simpletrace_VIC_UTC <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -104,7 +115,9 @@ test_that("'all' works for times", {
                                               returnformat = 'df',
                                               request_timezone = 'db_default',
                                               return_timezone = 'UTC')
+  )
 
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/alltimes_nsw_utc',
   simpletrace_NSW_UTC <- fetch_hydstra_timeseries(portal = 'nsw',
                                               gauge = "416050",
                                               datasource = 'A',
@@ -117,6 +130,7 @@ test_that("'all' works for times", {
                                               returnformat = 'df',
                                               request_timezone = 'db_default',
                                               return_timezone = 'UTC')
+  )
   expect_s3_class(simpletrace_VIC_UTC, 'tbl_df')
   expect_snapshot(simpletrace_VIC_UTC)
   expect_s3_class(simpletrace_NSW_UTC, 'tbl_df')
@@ -127,6 +141,7 @@ test_that("'all' works for times", {
 
 test_that("variable and unit work", {
   # This should just get 141
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/var_unit_vt',
   simpletrace_vt <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -139,8 +154,10 @@ test_that("variable and unit work", {
                                               returnformat = 'df',
                                               request_timezone = 'db_default',
                                               return_timezone = 'UTC')
+  )
 
   # as should this
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/var_unit_vu',
   simpletrace_vu <- fetch_hydstra_timeseries(portal = 'vic',
                                              gauge = "233217",
                                              datasource = 'A',
@@ -154,6 +171,7 @@ test_that("variable and unit work", {
                                              returnformat = 'df',
                                              request_timezone = 'db_default',
                                              return_timezone = 'UTC')
+  )
 
   # Those two should match
   expect_equal(simpletrace_vu, simpletrace_vt)
@@ -162,6 +180,7 @@ test_that("variable and unit work", {
 
 test_that("ignore unavailable gauges", {
   # '615026' is in WA
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/ignore_unavailable',
   expect_warning(simpletrace_vt_WA <- fetch_hydstra_timeseries(portal = 'vic',
                                              gauge = c("233217", '615026'),
                                              datasource = 'A',
@@ -174,10 +193,12 @@ test_that("ignore unavailable gauges", {
                                              returnformat = 'df',
                                              request_timezone = 'db_default',
                                              return_timezone = 'UTC'))
+  )
 })
 
 test_that("lake level", {
   # This should just get 141
+  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/lake_level',
   simpletrace_lakes <- fetch_hydstra_timeseries(portal = 'nsw',
                                              gauge = c("412107", "425020", "425022", "425023"),
                                              datasource = 'A',
@@ -190,6 +211,7 @@ test_that("lake level", {
                                              returnformat = 'df',
                                              request_timezone = 'db_default',
                                              return_timezone = 'UTC')
+  )
 
   # Those two should match
   expect_snapshot(simpletrace_lakes)

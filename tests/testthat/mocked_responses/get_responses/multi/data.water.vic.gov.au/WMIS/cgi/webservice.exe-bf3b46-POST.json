@@ -1,0 +1,125 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ GEELONG",
+                    "longitude": "144.346892200",
+                    "name": "BARWON RIVER @ GEELONG",
+                    "latitude": "-38.163605590",
+                    "org_name": "Dept. Sustainability and Environment"
+                },
+                "quality_codes": {
+                    "15": "Minor editing. +/- 11mm-20mm drift correction"
+                },
+                "trace": [
+                    {
+                        "v": "0.838",
+                        "t": 20200101000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.834",
+                        "t": 20200102000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.827",
+                        "t": 20200103000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.821",
+                        "t": 20200104000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.816",
+                        "t": 20200105000000,
+                        "q": 15
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Water Level (m)",
+                    "precision": "0.001000",
+                    "subdesc": "Available for release",
+                    "variable": "100.00",
+                    "units": "metres",
+                    "name": "Stream Water Level (m)"
+                },
+                "site": "233217",
+                "varto_details": {
+                    "short_name": "Water Level (m)",
+                    "precision": "0.001000",
+                    "subdesc": "Available for release",
+                    "variable": "100.00",
+                    "units": "metres",
+                    "name": "Stream Water Level (m)"
+                }
+            },
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ GEELONG",
+                    "longitude": "144.346892200",
+                    "name": "BARWON RIVER @ GEELONG",
+                    "latitude": "-38.163605590",
+                    "org_name": "Dept. Sustainability and Environment"
+                },
+                "quality_codes": {
+                    "2": "Good quality data - minimal editing required. +/- 0mm-10mm Drift correction"
+                },
+                "trace": [
+                    {
+                        "v": "24.8",
+                        "t": 20200101000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "24.8",
+                        "t": 20200102000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "24.9",
+                        "t": 20200103000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "24.7",
+                        "t": 20200104000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "23.3",
+                        "t": 20200105000000,
+                        "q": 2
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Temp (°C)",
+                    "precision": "0.100000",
+                    "subdesc": "Available for release",
+                    "variable": "450.00",
+                    "units": "Degrees celsius",
+                    "name": "Water Temperature (°C)"
+                },
+                "site": "233217",
+                "varto_details": {
+                    "short_name": "Temp (°C)",
+                    "precision": "0.100000",
+                    "subdesc": "Available for release",
+                    "variable": "450.00",
+                    "units": "Degrees celsius",
+                    "name": "Water Temperature (°C)"
+                }
+            }
+        ]
+    }
+}

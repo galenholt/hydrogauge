@@ -1,0 +1,66 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ MOGIL MOGIL",
+                    "longitude": "148.688500000",
+                    "name": "BARWON RIVER AT MOGIL MOGIL",
+                    "latitude": "-29.353000000",
+                    "org_name": "WaterNSW"
+                },
+                "quality_codes": {
+                    "11": "TS-Synthetic or Artificial Data. Data which does not relate directly to the measured variable but for which a valid code is required"
+                },
+                "trace": [
+                    {
+                        "v": "1.216",
+                        "t": 20200101000000,
+                        "q": 11
+                    },
+                    {
+                        "v": "1.216",
+                        "t": 20200102000000,
+                        "q": 11
+                    },
+                    {
+                        "v": "1.216",
+                        "t": 20200103000000,
+                        "q": 11
+                    },
+                    {
+                        "v": "1.216",
+                        "t": 20200104000000,
+                        "q": 11
+                    },
+                    {
+                        "v": "1.216",
+                        "t": 20200105000000,
+                        "q": 11
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Level     (Metres)",
+                    "precision": "0.001000",
+                    "subdesc": "",
+                    "variable": "100.00",
+                    "units": "Metres",
+                    "name": "Stream Water Level"
+                },
+                "site": "422004",
+                "varto_details": {
+                    "short_name": "Level     (Metres)",
+                    "precision": "0.001000",
+                    "subdesc": "",
+                    "variable": "100.00",
+                    "units": "Metres",
+                    "name": "Stream Water Level"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,151 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "CARGELLIGO STORAGE",
+                    "name": "LAKE CARGELLIGO AT STORAGE GAUGE"
+                },
+                "variables": [
+                    {
+                        "period_end": "19820531090000",
+                        "period_start": "19750601090000",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20250116071501",
+                        "period_start": "19750601090000",
+                        "subdesc": "",
+                        "variable": "130.00",
+                        "units": "Metres",
+                        "name": "Reservoir Water Level AHD"
+                    },
+                    {
+                        "period_end": "20041203090000",
+                        "period_start": "19900101090000",
+                        "subdesc": "",
+                        "variable": "136.00",
+                        "units": "Megalitres",
+                        "name": "Reservoir Volume in Storage"
+                    },
+                    {
+                        "period_end": "20041203090000",
+                        "period_start": "20000316090000",
+                        "subdesc": "",
+                        "variable": "137.00",
+                        "units": "Hectares",
+                        "name": "Reservoir Surface (Water) Area"
+                    },
+                    {
+                        "period_end": "19810101000000",
+                        "period_start": "19750101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "19810101000000",
+                        "period_start": "19750101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "19800701000000",
+                        "period_start": "19750601000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "19810101000000",
+                        "period_start": "19750101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "19820101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20070330090000",
+                        "period_start": "19900101090000",
+                        "subdesc": "",
+                        "variable": "448.00",
+                        "units": "%",
+                        "name": "% Effective Full Storage Volume"
+                    }
+                ],
+                "site": "412107"
+            },
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "L WETHERELL+TANDURE",
+                    "name": "DARLING RIVER AT LAKES WETHERELL+ TANDURE TOTAL STORAGE"
+                },
+                "variables": [
+                    {
+                        "period_end": "20240813153001",
+                        "period_start": "19790501090000",
+                        "subdesc": "",
+                        "variable": "130.00",
+                        "units": "Metres",
+                        "name": "Reservoir Water Level AHD"
+                    }
+                ],
+                "site": "425020"
+            },
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "LAKE MENINDEE",
+                    "name": "DARLING RIVER AT LAKE MENINDEE - STORAGE GAUGE"
+                },
+                "variables": [
+                    {
+                        "period_end": "20240814101501",
+                        "period_start": "19680701090000",
+                        "subdesc": "",
+                        "variable": "130.00",
+                        "units": "Metres",
+                        "name": "Reservoir Water Level AHD"
+                    }
+                ],
+                "site": "425022"
+            },
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "LAKE CAWNDILLA",
+                    "name": "LAKE CAWNDILLA - STORAGE GAUGE"
+                },
+                "variables": [
+                    {
+                        "period_end": "20241230131444",
+                        "period_start": "19790501090000",
+                        "subdesc": "",
+                        "variable": "130.00",
+                        "units": "Metres",
+                        "name": "Reservoir Water Level AHD"
+                    }
+                ],
+                "site": "425023"
+            }
+        ]
+    }
+}

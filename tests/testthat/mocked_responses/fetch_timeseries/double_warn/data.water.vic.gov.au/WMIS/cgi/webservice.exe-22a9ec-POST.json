@@ -1,0 +1,49 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "TAGGERTY R LADY TALT",
+                    "name": "TAGGERTY RV @ LADY TALBOT DRIVE NEAR MARYSVILLE"
+                },
+                "variables": [
+                    {
+                        "period_end": "20130211110700",
+                        "period_start": "20100729122000",
+                        "subdesc": "Available for release",
+                        "variable": "100.00",
+                        "units": "metres",
+                        "name": "Stream Water Level (m)"
+                    },
+                    {
+                        "period_end": "20130211110700",
+                        "period_start": "20100729122000",
+                        "subdesc": "Available for release",
+                        "variable": "450.00",
+                        "units": "Degrees celsius",
+                        "name": "Water Temperature (°C)"
+                    },
+                    {
+                        "period_end": "20130211110700",
+                        "period_start": "20100729122000",
+                        "subdesc": "Available for release",
+                        "variable": "810.00",
+                        "units": "NTU",
+                        "name": "Turbidity (NTU)"
+                    },
+                    {
+                        "period_end": "20130211110700",
+                        "period_start": "20100729122000",
+                        "subdesc": "Available for release",
+                        "variable": "820.00",
+                        "units": "µS/cm@25°C",
+                        "name": "Conductivity (µS/cm)"
+                    }
+                ],
+                "site": "405331"
+            }
+        ]
+    }
+}

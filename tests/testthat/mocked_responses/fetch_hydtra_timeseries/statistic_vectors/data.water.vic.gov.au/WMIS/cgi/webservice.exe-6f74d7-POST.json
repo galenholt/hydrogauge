@@ -1,0 +1,66 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "R.G. MARYSVILLE",
+                    "longitude": "145.747845500",
+                    "name": "RAINGAUGE @ MARYSVILLE GOLF CLUB",
+                    "latitude": "-37.495754120",
+                    "org_name": "Dept. Sustainability and Environment"
+                },
+                "quality_codes": {
+                    "2": "Good quality data - minimal editing required. +/- 0mm-10mm Drift correction"
+                },
+                "trace": [
+                    {
+                        "v": "0.0",
+                        "t": 20200101000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "0.0",
+                        "t": 20200102000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "0.0",
+                        "t": 20200103000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "0.0",
+                        "t": 20200104000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "5.8",
+                        "t": 20200105000000,
+                        "q": 2
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Rainfall (mm)",
+                    "precision": "0.100000",
+                    "subdesc": "Available for release",
+                    "variable": "10.00",
+                    "units": "mm",
+                    "name": "Rainfall (mm)"
+                },
+                "site": "405837",
+                "varto_details": {
+                    "short_name": "Rainfall (mm)",
+                    "precision": "0.100000",
+                    "subdesc": "Available for release",
+                    "variable": "10.00",
+                    "units": "mm",
+                    "name": "Rainfall (mm)"
+                }
+            }
+        ]
+    }
+}

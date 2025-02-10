@@ -1,0 +1,81 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON U/S PRESBURY",
+                    "name": "BARWON RIVER U/S PRESBURY WEIR"
+                },
+                "variables": [
+                    {
+                        "period_end": "20241211104500",
+                        "period_start": "19871008080000",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20041215170000",
+                        "period_start": "19890418090000",
+                        "subdesc": "Externally supplied peak",
+                        "variable": "100.09",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19870101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19870101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19870101000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19870101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20230101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20100625105900",
+                        "period_start": "20100519090000",
+                        "subdesc": "",
+                        "variable": "300.00",
+                        "units": "Volts",
+                        "name": "Logger Battery Voltage"
+                    }
+                ],
+                "site": "416050"
+            }
+        ]
+    }
+}

@@ -14,7 +14,7 @@
 #' @param returnfields default 'default', otherwise 'all' to get everything
 #'   available, or comma-separated string of fields to return. *Important*-
 #'   'coverage' is required to return start and end dates. It is included by
-#'   default. Full list for each function available from [Kisters
+#'   default. Including 'ca_sta' will give the DATA_OWNER_NAME, which is often useful. Full list for each function available from [Kisters
 #'   docs](https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo)
 #' @param extra_list a named list of other fields to select on. Names (usually)
 #'   should be in `returnfields` (or returned when `returnfields = 'all'`),

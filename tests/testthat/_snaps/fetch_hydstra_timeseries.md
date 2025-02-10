@@ -101,6 +101,54 @@
       #   variable <chr>, units <chr>, variable_name <chr>, database_timezone <chr>,
       #   quality_codes <chr>, statistic <chr>
 
+# 'all' works for times
+
+    Code
+      simpletrace_VIC_UTC
+    Output
+      # A tibble: 23,317 x 20
+         error_num compressed site_short_name  longitude site_name   latitude org_name
+             <int> <chr>      <chr>                <dbl> <chr>          <dbl> <chr>   
+       1         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       2         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       3         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       4         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       5         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       6         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       7         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       8         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+       9         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+      10         0 0          BARWON @ GEELONG      144. BARWON RIV~    -38.2 Dept. S~
+      # i 23,307 more rows
+      # i 13 more variables: value <dbl>, time <dttm>, quality_codes_id <int>,
+      #   site <chr>, variable_short_name <chr>, precision <chr>, subdesc <chr>,
+      #   variable <chr>, units <chr>, variable_name <chr>, database_timezone <chr>,
+      #   quality_codes <chr>, statistic <chr>
+
+---
+
+    Code
+      simpletrace_NSW_UTC
+    Output
+      # A tibble: 13,580 x 20
+         error_num compressed site_short_name    longitude site_name latitude org_name
+             <int> <chr>      <chr>                  <dbl> <chr>        <dbl> <chr>   
+       1         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       2         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       3         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       4         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       5         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       6         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       7         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       8         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+       9         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+      10         0 0          BARWON U/S PRESBU~      149. BARWON R~    -29.1 WaterNSW
+      # i 13,570 more rows
+      # i 13 more variables: value <dbl>, time <dttm>, quality_codes_id <int>,
+      #   site <chr>, variable_short_name <chr>, precision <chr>, subdesc <chr>,
+      #   variable <chr>, units <chr>, variable_name <chr>, database_timezone <chr>,
+      #   quality_codes <chr>, statistic <chr>
+
 # lake level
 
     Code

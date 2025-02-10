@@ -1,0 +1,34 @@
+[
+    {
+        "station_no": "615026",
+        "station_name": "Stirling Tce Toodyay",
+        "ts_id": "328124010",
+        "ts_name": "PR01QaQc.Merged.DailyMean.09HR",
+        "parametertype_name": "Water Course Discharge",
+        "ts_unitsymbol": "Ml/d",
+        "rows": "4",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+            [
+                "2020-01-01T11:00:00.000+10:00",
+                0.000,
+                110
+            ],
+            [
+                "2020-01-02T11:00:00.000+10:00",
+                0.000,
+                110
+            ],
+            [
+                "2020-01-03T11:00:00.000+10:00",
+                0.000,
+                110
+            ],
+            [
+                "2020-01-04T11:00:00.000+10:00",
+                0.000,
+                110
+            ]
+        ]
+    }
+]

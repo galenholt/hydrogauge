@@ -1,0 +1,58 @@
+[
+    {
+        "ts_id": "211871010",
+        "station_name": "River Murray at Loveday Pump Station (AMTD 446.9 K",
+        "station_latitude": "",
+        "station_longitude": "",
+        "parametertype_name": "Water Course Level",
+        "ts_name": "DMQaQc.Merged.DailyMean.24HR",
+        "ts_unitname": "meter",
+        "ts_unitsymbol": "m",
+        "station_no": "A4260624",
+        "station_id": "1617589",
+        "rows": "8",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+            [
+                "2017-09-11T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2017-09-12T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2017-09-13T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2017-09-14T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2017-09-15T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2017-09-16T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2017-09-17T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2017-09-18T00:30:00.000+10:00",
+                null,
+                -1
+            ]
+        ]
+    }
+]

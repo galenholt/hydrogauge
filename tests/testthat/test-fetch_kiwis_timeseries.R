@@ -1,8 +1,10 @@
 test_that("simple works, with time test", {
+  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/simple_time',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505'),
                                 start_time = '2020-01-01 01:30:30',
                                 end_time = '20200105')
+  )
   expect_snapshot_value(names(bomout), style = 'deparse')
   expect_equal(nrow(bomout), 8)
   expect_equal(lubridate::tz(bomout$time[1]), 'UTC')
@@ -14,6 +16,7 @@ test_that("simple works, with time test", {
 })
 
 test_that("multiple of each filter arg", {
+  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/multiple_filter_args',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505'),
                                    variable = c('discharge', 'Rainfall'),
@@ -24,6 +27,7 @@ test_that("multiple of each filter arg", {
                                    # If I want monthly to return, need to cross a month boundary.
                                    start_time = '2019-12-01 01:30:30',
                                    end_time = '20200105')
+  )
 
   expect_snapshot_value(names(bomout), style = 'deparse')
   expect_equal(nrow(bomout), 212)
@@ -37,6 +41,7 @@ test_that("multiple of each filter arg", {
 
 
 test_that("I can separate the 09 vs 24 in the QaQc, and it doesn't fail when asking for things that aren't there", {
+  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/09_v_24',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = '410730',
                                    variable = 'Rainfall',
@@ -46,6 +51,7 @@ test_that("I can separate the 09 vs 24 in the QaQc, and it doesn't fail when ask
                                    datatype = 'QaQc.*09', # with just 'QaQc, both 09 and 24 are here.
                                    start_time = '2020-01-01 00:00:00',
                                    end_time = '20200105')
+  )
 
   expect_equal(nrow(bomout), 4)
 
@@ -57,10 +63,12 @@ test_that("I can separate the 09 vs 24 in the QaQc, and it doesn't fail when ask
 
 test_that("Unavailable gauges disappear", {
   # 'B18230938' is made up, this should be the same as the first test.
+  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/fake_gauge',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505', 'B18230938'),
                                    start_time = '2020-01-01 01:30:30',
                                    end_time = '20200105')
+  )
   expect_snapshot_value(names(bomout), style = 'deparse')
   expect_equal(nrow(bomout), 8)
   expect_equal(lubridate::tz(bomout$time[1]), 'UTC')

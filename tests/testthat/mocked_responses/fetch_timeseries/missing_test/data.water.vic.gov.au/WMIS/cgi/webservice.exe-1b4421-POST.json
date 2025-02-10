@@ -1,0 +1,18 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "",
+                    "name": ""
+                },
+                "variables": [
+
+                ],
+                "site": "40532"
+            }
+        ]
+    }
+}

@@ -1,0 +1,15 @@
+[
+    {
+        "station_no": "412078",
+        "station_name": "LACHLAN @ WHEALBAH",
+        "ts_id": "347584010",
+        "ts_name": "PR01QaQc.Merged.DailyMean.09HR",
+        "parametertype_name": "Water Course Discharge",
+        "ts_unitsymbol": "Ml/d",
+        "rows": "0",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+
+        ]
+    }
+]

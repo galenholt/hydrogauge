@@ -1,0 +1,25 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "STEAVENSON R @ FALLS",
+                    "name": "STEAVENSON RIVER @ FALLS ROAD MARYSVILLE"
+                },
+                "variables": [
+                    {
+                        "period_end": "20250121105400",
+                        "period_start": "20091119170800",
+                        "subdesc": "Available for release",
+                        "variable": "100.00",
+                        "units": "metres",
+                        "name": "Stream Water Level (m)"
+                    }
+                ],
+                "site": "405328"
+            }
+        ]
+    }
+}

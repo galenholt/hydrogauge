@@ -1,0 +1,29 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "MURRAYR U/S EUSTON W",
+                    "name": "MURRAY R UPSTREAM EUSTON WEIR"
+                },
+                "variables": [
+
+                ],
+                "site": "414209"
+            },
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ BEEMERY",
+                    "name": "BARWON RIVER AT BEEMERY (U/S CULGOA JUNCTION)"
+                },
+                "variables": [
+
+                ],
+                "site": "422028"
+            }
+        ]
+    }
+}

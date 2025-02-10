@@ -1,0 +1,82 @@
+[
+    [
+        "station_name",
+        "station_no",
+        "station_id",
+        "parametertype_id",
+        "parametertype_name",
+        "stationparameter_name"
+    ],
+    [
+        "Cotter R. at Gingera",
+        "410730",
+        "13360",
+        "11731",
+        "Rainfall",
+        "Rainfall"
+    ],
+    [
+        "Cotter R. at Gingera",
+        "410730",
+        "13360",
+        "11762",
+        "Water Course Discharge",
+        "WaterCourseDischarge"
+    ],
+    [
+        "Cotter R. at Gingera",
+        "410730",
+        "13360",
+        "11763",
+        "Water Course Level",
+        "WaterCourseLevel"
+    ],
+    [
+        "Cotter R. at Gingera",
+        "410730",
+        "13360",
+        "11707",
+        "Electrical Conductivity @ 25C",
+        "ElectricalConductivityAt25C"
+    ],
+    [
+        "Cotter R. at Gingera",
+        "410730",
+        "13360",
+        "11748",
+        "Turbidity",
+        "Turbidity"
+    ],
+    [
+        "Cotter R. at Gingera",
+        "410730",
+        "13360",
+        "11765",
+        "Water Temperature",
+        "WaterTemperature"
+    ],
+    [
+        "Cotter R. at Gingera",
+        "410730",
+        "13360",
+        "11764",
+        "pH",
+        "WaterpH"
+    ],
+    [
+        "River Murray at Lock 9 Downstream (AMTD 764.8km)",
+        "A4260505",
+        "1617110",
+        "11762",
+        "Water Course Discharge",
+        "WaterCourseDischarge"
+    ],
+    [
+        "River Murray at Lock 9 Downstream (AMTD 764.8km)",
+        "A4260505",
+        "1617110",
+        "11763",
+        "Water Course Level",
+        "WaterCourseLevel"
+    ]
+]

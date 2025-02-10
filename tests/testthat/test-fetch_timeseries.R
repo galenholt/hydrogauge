@@ -1,4 +1,5 @@
 test_that("simple check", {
+  with_mock_dir('mocked_responses/fetch_timeseries/simple_bom',
   bomout <- fetch_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505'),
                              variable = 'discharge',
@@ -8,8 +9,10 @@ test_that("simple check", {
                              statistic = 'Mean',
                                    start_time = '2020-01-01 01:30:30',
                                    end_time = '20200105')
+  )
 
   # use datatype for datasource
+  with_mock_dir('mocked_responses/fetch_timeseries/simple_vic',
   vicout <- fetch_timeseries(portal = 'vic',
                                           gauge = "233217",
                                           variable = 'discharge',
@@ -19,10 +22,12 @@ test_that("simple check", {
                                           end_time = '20200105',
                                           timeunit = 'Daily',
                                           statistic = 'mean')
+  )
 
   # will want to test various combos of gauge, portal, and gauge_portal.
   # ideally, can just feed a list of gauges and it'll go get them. but it does need to know the portals. Start with manual specicfication adn then figure out the auto-finding (with specific reference ot australia and not )
   # should also have a collapse for speed vs split for safety option.
+  with_mock_dir('mocked_responses/fetch_timeseries/simple_multi',
   multiout <- fetch_timeseries(portal = c('vic', 'bom', 'nsw'),
                                gauge_portal = list(vic = c("233217", "405328"),
                                             bom = c('410730', 'A4260505', '615026'),
@@ -35,6 +40,7 @@ test_that("simple check", {
                                timeunit = 'day',
                                statistic = 'mean',
                                robustness = 'speed')
+  )
 
 
 })
@@ -42,6 +48,7 @@ test_that("simple check", {
 
 test_that("doubled gauges warn", {
   # Should be two warnings here.
+  with_mock_dir('mocked_responses/fetch_timeseries/double_warn',
   expect_snapshot(multiout <- fetch_timeseries(portal = c('vic', 'bom', 'nsw'),
                              gauge_portal = list(vic = c("404224", "405328", "405331"),
                                                  bom = c('410730', 'A4260505', '404224', '412078'),
@@ -55,12 +62,14 @@ test_that("doubled gauges warn", {
                              statistic = 'mean',
                              robustness = 'speed',
                              check_output = TRUE))
+  )
 
 
 })
 
 test_that("missings don't mess things up", {
   # stuff up gauge names, with one good
+  with_mock_dir('mocked_responses/fetch_timeseries/missing_test',
   expect_snapshot(missout1 <- fetch_timeseries(portal = c('vic', 'bom'),
                                gauge_portal = list(vic = c("233217", "40532"),
                                                    bom = c('410730', '40532')),
@@ -73,8 +82,10 @@ test_that("missings don't mess things up", {
                                statistic = 'mean',
                                robustness = 'speed',
                                check_output = TRUE))
+  )
 
   # none good
+  with_mock_dir('mocked_responses/fetch_timeseries/all_missing',
   expect_snapshot(missout2 <- fetch_timeseries(portal = c('vic', 'bom'),
                                gauge_portal = list(vic = c("23317", "40532"),
                                                    bom = c('41030', '40532')),
@@ -87,6 +98,7 @@ test_that("missings don't mess things up", {
                                statistic = 'mean',
                                robustness = 'speed',
                                check_output = TRUE))
+  )
 
 
 })

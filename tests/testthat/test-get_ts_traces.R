@@ -3,6 +3,7 @@
 future::plan('sequential')
 
 test_that("ts example all states", {
+  with_mock_dir('mocked_responses/get_ts_traces/vic',
   simpletracev <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = c('100', '141'),
@@ -13,9 +14,11 @@ test_that("ts example all states", {
                                multiplier = 1,
                                returnformat = 'df',
                                return_timezone = 'raw')
+  )
   expect_s3_class(simpletracev, 'tbl_df')
   expect_snapshot(simpletracev)
 
+  with_mock_dir('mocked_responses/get_ts_traces/qld',
   simpletraceq <- get_ts_traces(portal = 'qld', site_list = "422211A",
                                datasource = 'A',
                                var_list = c('100', '141'),
@@ -26,9 +29,11 @@ test_that("ts example all states", {
                                multiplier = 1,
                                returnformat = 'df',
                                return_timezone = 'raw')
+  )
   expect_s3_class(simpletraceq, 'tbl_df')
   expect_snapshot(simpletraceq)
 
+  with_mock_dir('mocked_responses/get_ts_traces/nsw',
   simpletracen <- get_ts_traces(portal = 'nsw', site_list = "422004",
                                datasource = 'A',
                                var_list = c('100', '141'),
@@ -39,11 +44,13 @@ test_that("ts example all states", {
                                multiplier = 1,
                                returnformat = 'df',
                                return_timezone = 'raw')
+  )
   expect_s3_class(simpletracen, 'tbl_df')
   expect_snapshot(simpletracen)
 })
 
 test_that("ts example, just 140", {
+  with_mock_dir('mocked_responses/get_ts_traces/vic_140',
   simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = '140',
@@ -54,11 +61,13 @@ test_that("ts example, just 140", {
                                multiplier = 1,
                                returnformat = 'df',
                                return_timezone = 'raw')
+  )
   expect_s3_class(simpletrace, 'tbl_df')
   expect_snapshot(simpletrace)
 })
 
 test_that("ts example, just 100 (so, no derived)", {
+  with_mock_dir('mocked_responses/get_ts_traces/no_derived',
   simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = '100',
@@ -69,6 +78,7 @@ test_that("ts example, just 100 (so, no derived)", {
                                multiplier = 1,
                                returnformat = 'df',
                                return_timezone = 'raw')
+  )
   expect_s3_class(simpletrace, 'tbl_df')
   expect_snapshot(simpletrace)
 })
@@ -192,6 +202,7 @@ test_that("ts either errors or works", {
   # I haven't implemented .errorhandling here.
 
   # gauge 412107 throws an error for this var_list
+  with_mock_dir('mocked_responses/get_ts_traces/errors',
   expect_error(pass412107 <- get_ts_traces(portal = 'NSW',
                                            site_list = '412107',
                                            var_list = "141",
@@ -200,7 +211,9 @@ test_that("ts either errors or works", {
                                            interval = 'day',
                                            data_type = 'mean',
                                            returnformat = 'sitelist'))
+  )
 
+  with_mock_dir('mocked_responses/get_ts_traces/no_errors',
   working_ts <- get_ts_traces(portal = 'NSW',
                               site_list = c('422028', '410007'),
                               var_list = "141",
@@ -209,6 +222,7 @@ test_that("ts either errors or works", {
                               interval = 'day',
                               data_type = 'mean',
                               returnformat = 'sitelist')
+  )
 
   expect_equal(length(working_ts), 2)
   expect_s3_class(working_ts[[1]], 'tbl_df')
@@ -343,6 +357,7 @@ test_that("ts either errors or works", {
 # })
 
 test_that("ts timezone checks", {
+  with_mock_dir('mocked_responses/get_ts_traces/ts_char',
   simpletrace <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = c('100', '141'),
@@ -353,8 +368,10 @@ test_that("ts timezone checks", {
                                multiplier = 1,
                                returnformat = 'df',
                                return_timezone = 'char')
+  )
   expect_equal(simpletrace$time[1], "2020-01-01T00:00:00+10")
 
+  with_mock_dir('mocked_responses/get_ts_traces/ts_utc',
   simpletrace_utc <- get_ts_traces(portal = 'vic', site_list = "233217",
                                datasource = 'A',
                                var_list = c('100', '141'),
@@ -363,9 +380,11 @@ test_that("ts timezone checks", {
                                multiplier = 1,
                                return_timezone = 'UTC',
                                returnformat = 'df')
+  )
 
   expect_equal(simpletrace_utc$time[1], lubridate::ymd_hms('2019-12-31 14:00:00', tz = "UTC"))
 
+  with_mock_dir('mocked_responses/get_ts_traces/ts_default',
   simpletrace_local <- get_ts_traces(portal = 'vic', site_list = "233217",
                                    datasource = 'A',
                                    var_list = c('100', '141'),
@@ -374,6 +393,7 @@ test_that("ts timezone checks", {
                                    multiplier = 1,
                                    return_timezone = 'db_default',
                                    returnformat = 'df')
+  )
 
   expect_equal(simpletrace_local$time[1], lubridate::ymd_hms('2020-01-01 00:00:00', tz = "Etc/GMT-10"))
 
@@ -400,6 +420,7 @@ test_that("ts timezone checks", {
   # get times as char, so there's no internal time zone manipulation
   # This is specifically looking at times in london that haven't happened yet but have happened in Australia. It's super unstable then dependent on reporting rates, so generally skip it
   skip("Skipping a fragile timezone test")
+  with_mock_dir('mocked_responses/get_ts_traces/times_havent_happened',
   nowtrace <- get_ts_traces(portal = 'vic',
                             site_list = "233217",
                             datasource = 'TELEM',
@@ -410,6 +431,7 @@ test_that("ts timezone checks", {
                             multiplier = 1,
                             return_timezone = 'char',
                             returnformat = 'df')
+  )
 
   # all of them should be after current UTC time if we ignore the tz appended on them and treat as UTC, and so they must be local
   notz <- nowtrace$time |>

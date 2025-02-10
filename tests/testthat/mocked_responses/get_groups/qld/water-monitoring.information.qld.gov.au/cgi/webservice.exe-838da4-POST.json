@@ -1,0 +1,154 @@
+{
+    "error_num": 0,
+    "disclaimer": "https://www.qld.gov.au/legal/disclaimer",
+    "return": [
+        {
+            "group_decode": "DERM Managed GSes",
+            "group": "DERM_SITES",
+            "value": "TOOWOOMBA",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Sites in Hydstra receiving IP DATA",
+            "group": "IP_DATA",
+            "value": "STATEWIDE_IP",
+            "value_decode": "Statewide IP (SW and GW)",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Hydrographic office managers",
+            "group": "MGR_OFFICE",
+            "value": "TOOWOOMBA",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Hydrographic office managers",
+            "group": "MGR_OFFICE_ALL",
+            "value": "TOOWOOMBA",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Hydrographic office managers (No client)",
+            "group": "MGR_OFFICE_RPT",
+            "value": "TOOWOOMBA",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Regional Managers",
+            "group": "MGR_REGIONAL",
+            "value": "SOUTH_WEST",
+            "value_decode": "South west region",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Regional Managers",
+            "group": "MGR_REGION_ALL",
+            "value": "SOUTH_WEST",
+            "value_decode": "South west region",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "IP Data by Office",
+            "group": "OFFICE_IP",
+            "value": "TOOWOOMBA",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Open stations",
+            "group": "OPEN_STATIONS",
+            "value": "BALONNE_COND",
+            "value_decode": "Balonne-Condamine Basin",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Murray Darling Basin",
+            "group": "QMDBOPENSTNS",
+            "value": "MDB",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Site groups across entire state",
+            "group": "STATEWIDE",
+            "value": "ACTIVE_SW",
+            "value_decode": "Open sites, STNTYPE contains G",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Site groups across entire state",
+            "group": "STATEWIDE",
+            "value": "TEL_DATA_EXISTS",
+            "value_decode": "All sites with T files",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Site groups across entire state",
+            "group": "STATEWIDE",
+            "value": "WEBPUBLISH",
+            "value_decode": "Site table WEB PUBLISH field = YES",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "SWAN Network 30052017",
+            "group": "SWAN_NETWORK",
+            "value": "TOOWOOMBA",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Water Monitoring Network",
+            "group": "WMNETWORK",
+            "value": "SURFACEWATER",
+            "value_decode": "Surface Water Stations",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Water Monitoring Network",
+            "group": "WMNETWORK",
+            "value": "SURFWATERAMBWQ",
+            "value_decode": "Surface Water Ambient WQ Stations",
+            "stations": [
+                "422211A"
+            ]
+        },
+        {
+            "group_decode": "Water Monitoring Network",
+            "group": "WMNETWORK",
+            "value": "SWTIER1",
+            "value_decode": "Surface Water Tier 1 sites",
+            "stations": [
+                "422211A"
+            ]
+        }
+    ],
+    "licence": "CC_40_BY",
+    "Glossary": "https://water-monitoring.information.qld.gov.au/wini/documents/webglossary.pdf"
+}

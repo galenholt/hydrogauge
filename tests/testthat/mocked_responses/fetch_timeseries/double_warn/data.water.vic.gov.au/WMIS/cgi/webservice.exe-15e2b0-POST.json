@@ -1,0 +1,66 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "STEAVENSON R @ FALLS",
+                    "longitude": "145.773503100",
+                    "name": "STEAVENSON RIVER @ FALLS ROAD MARYSVILLE",
+                    "latitude": "-37.525797590",
+                    "org_name": "Victorian Rural Water Corporation"
+                },
+                "quality_codes": {
+                    "2": "Good quality data - minimal editing required. +/- 0mm-10mm Drift correction"
+                },
+                "trace": [
+                    {
+                        "v": "11.31",
+                        "t": 20200101000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "10.67",
+                        "t": 20200102000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "10.24",
+                        "t": 20200103000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "9.77",
+                        "t": 20200104000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "11.37",
+                        "t": 20200105000000,
+                        "q": 2
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Water Level (m)",
+                    "precision": "0.001000",
+                    "subdesc": "Available for release",
+                    "variable": "100.00",
+                    "units": "metres",
+                    "name": "Stream Water Level (m)"
+                },
+                "site": "405328",
+                "varto_details": {
+                    "short_name": "Discharge (ML/d)",
+                    "precision": "0.010000",
+                    "subdesc": "Available for release",
+                    "variable": "141.00",
+                    "units": "megalitres/day",
+                    "name": "Stream Discharge (ML/d)"
+                }
+            }
+        ]
+    }
+}

@@ -1,0 +1,25 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BIRCH @ NEWLYN",
+                    "name": "BIRCH CREEK @ NEWLYN RESERVOIR (TAIL GAUGE)"
+                },
+                "variables": [
+                    {
+                        "period_end": "20250107103000",
+                        "period_start": "20060623111500",
+                        "subdesc": "Available for release",
+                        "variable": "100.00",
+                        "units": "metres",
+                        "name": "Stream Water Level (m)"
+                    }
+                ],
+                "site": "407249"
+            }
+        ]
+    }
+}

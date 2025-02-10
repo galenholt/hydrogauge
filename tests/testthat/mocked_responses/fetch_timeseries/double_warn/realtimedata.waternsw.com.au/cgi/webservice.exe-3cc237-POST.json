@@ -1,0 +1,105 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "LACHLAN @ WHEALBAH",
+                    "name": "LACHLAN RIVER AT WHEALBAH"
+                },
+                "variables": [
+                    {
+                        "period_end": "20241211110000",
+                        "period_start": "19681101000000",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "19981203090000",
+                        "period_start": "19731204090000",
+                        "subdesc": "Externally supplied peak",
+                        "variable": "100.09",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19680101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19680101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19680101000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19680101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20230101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20100518162430",
+                        "period_start": "20000726105230",
+                        "subdesc": "",
+                        "variable": "220.00",
+                        "units": "Metres",
+                        "name": "Gauged Stage"
+                    },
+                    {
+                        "period_end": "20100518162430",
+                        "period_start": "20000726105230",
+                        "subdesc": "",
+                        "variable": "221.00",
+                        "units": "Megalitres/day",
+                        "name": "Gauged Discharge"
+                    },
+                    {
+                        "period_end": "20100518162430",
+                        "period_start": "20000726105230",
+                        "subdesc": "",
+                        "variable": "222.00",
+                        "units": "",
+                        "name": "% Deviation from Rating Table"
+                    },
+                    {
+                        "period_end": "20200101000000",
+                        "period_start": "19681101000000",
+                        "subdesc": "",
+                        "variable": "223.00",
+                        "units": "",
+                        "name": "Rating Table Number"
+                    }
+                ],
+                "site": "412078"
+            }
+        ]
+    }
+}

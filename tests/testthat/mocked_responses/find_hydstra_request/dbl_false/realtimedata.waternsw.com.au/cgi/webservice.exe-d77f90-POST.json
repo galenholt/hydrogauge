@@ -1,0 +1,113 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "MACQUARIE @ DUBBO",
+                    "name": "MACQUARIE RIVER AT DUBBO"
+                },
+                "variables": [
+                    {
+                        "period_end": "20241127083000",
+                        "period_start": "19660527160000",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20051109210000",
+                        "period_start": "18860823080000",
+                        "subdesc": "Externally supplied peak",
+                        "variable": "100.09",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20100929150000",
+                        "period_start": "18861201090000",
+                        "subdesc": "",
+                        "variable": "141.00",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "18850101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "18850101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "18850601000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "18850101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20230101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20230818110000",
+                        "period_start": "20061024141500",
+                        "subdesc": "",
+                        "variable": "300.00",
+                        "units": "Volts",
+                        "name": "Logger Battery Voltage"
+                    },
+                    {
+                        "period_end": "20120926111500",
+                        "period_start": "19981127113000",
+                        "subdesc": "",
+                        "variable": "2010.00",
+                        "units": "microsiemens/cm",
+                        "name": "Electrical Conductivity @ 25deg. C"
+                    },
+                    {
+                        "period_end": "20120926111500",
+                        "period_start": "20060810161700",
+                        "subdesc": "",
+                        "variable": "2012.00",
+                        "units": "microsiemens/cm",
+                        "name": "Electrical Conductivity (uncorrected)"
+                    },
+                    {
+                        "period_end": "20120926111500",
+                        "period_start": "19981127113000",
+                        "subdesc": "",
+                        "variable": "2080.00",
+                        "units": "Degrees Celsius",
+                        "name": "Water Temperature"
+                    }
+                ],
+                "site": "421001"
+            }
+        ]
+    }
+}

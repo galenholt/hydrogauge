@@ -1,0 +1,18 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site": "422004",
+                "datasources": [
+                    "AUTOQCNOWTELEM",
+                    "A",
+                    "PROV",
+                    "QA",
+                    "MIR_DRR_PROV",
+                    "WEBPROV"
+                ]
+            }
+        ]
+    }
+}

@@ -1,0 +1,66 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BROKEN @ GOWANGARDIE",
+                    "longitude": "145.669181500",
+                    "name": "BROKEN RIVER @ GOWANGARDIE",
+                    "latitude": "-36.433666590",
+                    "org_name": "Dept. Sustainability and Environment"
+                },
+                "quality_codes": {
+                    "2": "Good quality data - minimal editing required. +/- 0mm-10mm Drift correction"
+                },
+                "trace": [
+                    {
+                        "v": "19.85",
+                        "t": 20200101000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "23.42",
+                        "t": 20200102000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "13.46",
+                        "t": 20200103000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "26.85",
+                        "t": 20200104000000,
+                        "q": 2
+                    },
+                    {
+                        "v": "27.81",
+                        "t": 20200105000000,
+                        "q": 2
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Water Level (m)",
+                    "precision": "0.001000",
+                    "subdesc": "Available for release",
+                    "variable": "100.00",
+                    "units": "metres",
+                    "name": "Stream Water Level (m)"
+                },
+                "site": "404224",
+                "varto_details": {
+                    "short_name": "Discharge (ML/d)",
+                    "precision": "0.010000",
+                    "subdesc": "Available for release",
+                    "variable": "141.00",
+                    "units": "megalitres/day",
+                    "name": "Stream Discharge (ML/d)"
+                }
+            }
+        ]
+    }
+}

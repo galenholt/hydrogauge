@@ -1,0 +1,69 @@
+{
+    "error_num": 0,
+    "disclaimer": "https://www.qld.gov.au/legal/disclaimer",
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "Briarie_Ck Wooler01a",
+                    "longitude": "147.688866670",
+                    "name": "Briarie Creek at Woolerbilla-Hebel Road",
+                    "latitude": "-28.908116670",
+                    "org_name": "DNR - Hydrographic"
+                },
+                "quality_codes": {
+                    "15": "Water level below threshold (no flow)"
+                },
+                "trace": [
+                    {
+                        "v": "0.220",
+                        "t": 20200101000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.220",
+                        "t": 20200102000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.220",
+                        "t": 20200103000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.220",
+                        "t": 20200104000000,
+                        "q": 15
+                    },
+                    {
+                        "v": "0.220",
+                        "t": 20200105000000,
+                        "q": 15
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Level (Metres)",
+                    "precision": "0.001000",
+                    "subdesc": "",
+                    "variable": "100.00",
+                    "units": "Metres",
+                    "name": "Stream Water Level"
+                },
+                "site": "422211A",
+                "varto_details": {
+                    "short_name": "Level (Metres)",
+                    "precision": "0.001000",
+                    "subdesc": "",
+                    "variable": "100.00",
+                    "units": "Metres",
+                    "name": "Stream Water Level"
+                }
+            }
+        ]
+    },
+    "licence": "CC_40_BY",
+    "Glossary": "https://water-monitoring.information.qld.gov.au/wini/documents/webglossary.pdf"
+}

@@ -1,0 +1,17 @@
+[
+    [
+        "station_name",
+        "station_no",
+        "station_id",
+        "ts_id",
+        "ts_name",
+        "ts_unitname",
+        "ts_unitsymbol",
+        "ts_path",
+        "parametertype_id",
+        "parametertype_name",
+        "stationparameter_name",
+        "from",
+        "to"
+    ]
+]

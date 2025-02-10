@@ -1,0 +1,47 @@
+[
+    [
+        "group_id",
+        "group_name",
+        "group_type"
+    ],
+    [
+        "20017539",
+        "MDB_WIP_Storages",
+        "station"
+    ],
+    [
+        "20017550",
+        "MDB_WIP_Watercourse",
+        "station"
+    ],
+    [
+        "19792386",
+        "Rainfall daily 24",
+        "timeseries"
+    ],
+    [
+        "19792387",
+        "Rainfall monthly",
+        "timeseries"
+    ],
+    [
+        "19792388",
+        "Rainfall yearly",
+        "timeseries"
+    ],
+    [
+        "19792389",
+        "Rainfall daily 9",
+        "timeseries"
+    ],
+    [
+        "20017540",
+        "TS_MDB_WIP_Storages",
+        "timeseries"
+    ],
+    [
+        "20017541",
+        "TS_MDB_WIP_Watercourse",
+        "timeseries"
+    ]
+]

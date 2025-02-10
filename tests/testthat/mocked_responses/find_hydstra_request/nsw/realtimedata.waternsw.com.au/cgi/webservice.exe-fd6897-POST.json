@@ -1,0 +1,81 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ MOGIL MOGIL",
+                    "name": "BARWON RIVER AT MOGIL MOGIL"
+                },
+                "variables": [
+                    {
+                        "period_end": "20250108093000",
+                        "period_start": "19800610140000",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20041218000000",
+                        "period_start": "18910124000000",
+                        "subdesc": "Externally supplied peak",
+                        "variable": "100.09",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19440101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19440101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19440201000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19440101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20230101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20161231000000",
+                        "period_start": "20140101000000",
+                        "subdesc": "",
+                        "variable": "154.00",
+                        "units": "Megalitres",
+                        "name": "WSP Discharge Volume from Previous day"
+                    }
+                ],
+                "site": "422004"
+            }
+        ]
+    }
+}

@@ -1,0 +1,506 @@
+{
+    "error_num": 0,
+    "return": [
+        {
+            "group_decode": "KeyGroups used to build others",
+            "group": "AA_KEYGROUP",
+            "value": "ACTIVESITES",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "KeyGroups used to build others",
+            "group": "AA_KEYGROUP",
+            "value": "CATEGORY9",
+            "value_decode": "DNR telemetry if CATEGORY9 not blank",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "KeyGroups used to build others",
+            "group": "AA_KEYGROUP",
+            "value": "M_CAT9CAT10",
+            "value_decode": "merge of CAT09 and CAT10",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "KeyGroups used to build others",
+            "group": "AA_KEYGROUP",
+            "value": "M_SPARE1",
+            "value_decode": "current data SPARE1 not blank",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "KeyGroups used to build others",
+            "group": "AA_KEYGROUP",
+            "value": "SITE_C_FLOW",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Station Lists - South East Area",
+            "group": "AREA_SOUTHEAST",
+            "value": "CURRENTSE",
+            "value_decode": "Current Stations + Bores + Weather",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "NETWORK CLASSIFICATION SITES",
+            "group": "CLASS_AC",
+            "value": "SFP",
+            "value_decode": "NETWORK CLASSIFICATION SITES SFP",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "PRIMARY CLIENT SITES",
+            "group": "CLIENT1_AC",
+            "value": "IPART",
+            "value_decode": "PRIMARY CLIENT SITES IPART",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "site lists for automated client jobs",
+            "group": "CLIENT_JOBS",
+            "value": "L_DATA",
+            "value_decode": "Sites With Level Data in Current Params",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for IPART Management",
+            "group": "CLIENT_VALLEY",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for IPART Management",
+            "group": "CLIENT_VALLEY",
+            "value": "SW_BARWON_DARL",
+            "value_decode": "SW - Barwon Darling Rivers",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for IPART Management",
+            "group": "CLIENT_VALLEY",
+            "value": "SW_GWYDIR",
+            "value_decode": "SW - Gwydir Valley",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for IPART Management",
+            "group": "CLIENT_VALLEY",
+            "value": "SW_NWFF",
+            "value_decode": "SW - North West Flow",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Groups used by systems for Data mgt",
+            "group": "DATA_MGT",
+            "value": "CTF_AUDIT",
+            "value_decode": "Group lists for Auditing CTF in rating and STATION",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Groups used by systems for Data mgt",
+            "group": "DATA_MGT",
+            "value": "HYDROTELSITE",
+            "value_decode": "hydrotel sites which sent data to datalake via eventhub",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Barwon Darling DRR",
+            "group": "DRR_BARWON_DARL",
+            "value": "LV",
+            "value_decode": "Latest Values Sites",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Barwon Darling DRR",
+            "group": "DRR_BARWON_DARL",
+            "value": "RR",
+            "value_decode": "River Report Sites",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "CLIENT Exports - BOM WDTF - MDBA HYIMPEP",
+            "group": "EXPORTS",
+            "value": "AZURE_SW",
+            "value_decode": "Site list export SW information from Hydstra to Azure",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "CLIENT Exports - BOM WDTF - MDBA HYIMPEP",
+            "group": "EXPORTS",
+            "value": "AZURE_SW_A",
+            "value_decode": "Site list export SW archive from Hydstra to Azure",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "CLIENT Exports - BOM WDTF - MDBA HYIMPEP",
+            "group": "EXPORTS",
+            "value": "MDBA_1",
+            "value_decode": "used for HyImpExp",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "CLIENT Exports - BOM WDTF - MDBA HYIMPEP",
+            "group": "EXPORTS",
+            "value": "MDBA_PLUS",
+            "value_decode": "additional sites for Data Export Mar2017",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "CLIENT Exports - BOM WDTF - MDBA HYIMPEP",
+            "group": "EXPORTS",
+            "value": "PINNEENA_SW",
+            "value_decode": "Active Surface Water sites for Pinneena",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "CLIENT Exports - BOM WDTF - MDBA HYIMPEP",
+            "group": "EXPORTS",
+            "value": "WDTF_OUT_SURFAC",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "HYDROGRAPHER SITES ACTIVE",
+            "group": "HYDROGRAPHER_AC",
+            "value": "MOREE",
+            "value_decode": "HYDROGRAPHER SITES ACTIVE MOREE",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "OFFICE LOCATION SITES",
+            "group": "OFFICE_AC",
+            "value": "MOR",
+            "value_decode": "OFFICE LOCATION SITES MOR",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "ORGANISATION SITES",
+            "group": "ORGCODE_AC",
+            "value": "DWR",
+            "value_decode": "ORGANISATION SITES DWR",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "PARAMETERS COLLECTED",
+            "group": "PARAMETERS",
+            "value": "LF",
+            "value_decode": "PARAMETERS COLLECTED LF",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Site Lists for Planner Reporting",
+            "group": "PLANNER_REPORT",
+            "value": "WAMC_SW",
+            "value_decode": "WAMC Determination Surfacewater Sites",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Real Time Data - Water Quality",
+            "group": "QUALITY_SITES",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Real Time Data - Non Bureau Rainfall",
+            "group": "RAINFALL_SITES",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "REGION SITES",
+            "group": "REGION_AC",
+            "value": "WMUN",
+            "value_decode": "REGION SITES WMUN",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "For generating report",
+            "group": "REPORT",
+            "value": "BARWONDARLING",
+            "value_decode": "Barwon Darling for TF",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "For generating Prepared Output on RTD",
+            "group": "RTD_REPORTS",
+            "value": "RTD_ALL",
+            "value_decode": "Amalgamated list of all RTD lits - for generating reprts",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "For generating Prepared Output on RTD",
+            "group": "RTD_REPORTS",
+            "value": "RTD_SW",
+            "value_decode": "Amalgamated list of all surface water sites on RTD - for generating reports",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "CURRENT",
+            "value_decode": "Current Data Collected - Sites Table",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "DOI_SCHED5",
+            "value_decode": "Site List from Schedule 5",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "FLOW",
+            "value_decode": "Flow Sites - F or Q Current Data",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "RECURENT_STREAM",
+            "value_decode": "Recurrently Funded Stream Sites",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "RECURRENT",
+            "value_decode": "Recurrently Funded Sites- Primary Client",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "REG",
+            "value_decode": "Regulated Sites - From Station Table Act",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "REG_STREAM",
+            "value_decode": "Regulated Stream Sites",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Lists for State Management and Overview",
+            "group": "STATE_MGT",
+            "value": "STREAM",
+            "value_decode": "Surfacewater Stream Sites - Current",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "STATION TYPE SITES",
+            "group": "STNTYPE_AC",
+            "value": "STR",
+            "value_decode": "STATION TYPE SITES STR",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Major Storages in a Basin",
+            "group": "STORAGE_GROUP",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Real Time Data - Rivers and Streams",
+            "group": "SURFACE_WATER",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "PRIMARY TELEMETRY TYPE SITES",
+            "group": "TELEMETRY",
+            "value": "NXP",
+            "value_decode": "PRIMARY TELEMETRY TYPE SITES NXP",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for HYOPSWB",
+            "group": "VALLEY",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for HYOPSWB",
+            "group": "VALLEY",
+            "value": "ALL_PROV_2_4",
+            "value_decode": "Prov data for basins 2* and 4*",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for HYOPSWB",
+            "group": "VALLEY",
+            "value": "OFFICE_MOR",
+            "value_decode": "Office_MOR",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for HYOPSWB",
+            "group": "VALLEY",
+            "value": "SW_BARWON_DARL",
+            "value_decode": "SW - Barwon Darling Rivers",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for HYOPSWB",
+            "group": "VALLEY",
+            "value": "SW_BORDER",
+            "value_decode": "SW_Border Rivers",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for HYOPSWB",
+            "group": "VALLEY",
+            "value": "SW_GWYDIR",
+            "value_decode": "SW - Gwydir Valley",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Valley groups for HYOPSWB",
+            "group": "VALLEY",
+            "value": "SW_NWFF",
+            "value_decode": "SW - North West Flow",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Continuous WQ Monitoring Sites",
+            "group": "WATER_QUALITY",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Barwon-Darling UnReg & Alluv WSP",
+            "group": "WSPBARWONDARL",
+            "value": "WSBARWONDARLR",
+            "value_decode": "Barwon-Darling UnReg River WS",
+            "stations": [
+                "422004"
+            ]
+        },
+        {
+            "group_decode": "Major Trib Sites in a Basin",
+            "group": "W_TRIB_GROUP",
+            "value": "422_CULGOA",
+            "value_decode": "422 - CULGOA",
+            "stations": [
+                "422004"
+            ]
+        }
+    ]
+}

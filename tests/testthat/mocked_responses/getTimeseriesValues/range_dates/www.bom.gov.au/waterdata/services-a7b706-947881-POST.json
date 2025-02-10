@@ -1,0 +1,53 @@
+[
+    {
+        "ts_id": "208669010",
+        "station_name": "River Murray at Lock 9 Downstream (AMTD 764.8km)",
+        "station_latitude": "",
+        "station_longitude": "",
+        "parametertype_name": "Water Course Level",
+        "ts_name": "DMQaQc.Merged.DailyMean.24HR",
+        "ts_unitname": "meter",
+        "ts_unitsymbol": "m",
+        "station_no": "A4260505",
+        "station_id": "1617110",
+        "rows": "7",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+            [
+                "2008-11-26T00:30:00.000+10:00",
+                null,
+                -1
+            ],
+            [
+                "2008-11-27T00:30:00.000+10:00",
+                24.607,
+                10
+            ],
+            [
+                "2008-11-28T00:30:00.000+10:00",
+                24.605,
+                10
+            ],
+            [
+                "2008-11-29T00:30:00.000+10:00",
+                24.607,
+                10
+            ],
+            [
+                "2008-11-30T00:30:00.000+10:00",
+                24.605,
+                10
+            ],
+            [
+                "2008-12-01T00:30:00.000+10:00",
+                24.607,
+                10
+            ],
+            [
+                "2008-12-02T00:30:00.000+10:00",
+                24.611,
+                10
+            ]
+        ]
+    }
+]

@@ -1,0 +1,179 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ BEEMERY",
+                    "name": "BARWON RIVER AT BEEMERY (U/S CULGOA JUNCTION)"
+                },
+                "variables": [
+                    {
+                        "period_end": "20241118163000",
+                        "period_start": "19990626163800",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20010302000100",
+                        "period_start": "19991209060000",
+                        "subdesc": "Externally supplied peak",
+                        "variable": "100.09",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20240101000000",
+                        "period_start": "19990101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20230101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20161231000000",
+                        "period_start": "20140101000000",
+                        "subdesc": "",
+                        "variable": "154.00",
+                        "units": "Megalitres",
+                        "name": "WSP Discharge Volume from Previous day"
+                    },
+                    {
+                        "period_end": "20240103071500",
+                        "period_start": "20171017001500",
+                        "subdesc": "",
+                        "variable": "300.00",
+                        "units": "Volts",
+                        "name": "Logger Battery Voltage"
+                    }
+                ],
+                "site": "422028"
+            },
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "CARGELLIGO STORAGE",
+                    "name": "LAKE CARGELLIGO AT STORAGE GAUGE"
+                },
+                "variables": [
+                    {
+                        "period_end": "19820531090000",
+                        "period_start": "19750601090000",
+                        "subdesc": "",
+                        "variable": "100.00",
+                        "units": "Metres",
+                        "name": "Stream Water Level"
+                    },
+                    {
+                        "period_end": "20250116071501",
+                        "period_start": "19750601090000",
+                        "subdesc": "",
+                        "variable": "130.00",
+                        "units": "Metres",
+                        "name": "Reservoir Water Level AHD"
+                    },
+                    {
+                        "period_end": "20041203090000",
+                        "period_start": "19900101090000",
+                        "subdesc": "",
+                        "variable": "136.00",
+                        "units": "Megalitres",
+                        "name": "Reservoir Volume in Storage"
+                    },
+                    {
+                        "period_end": "20041203090000",
+                        "period_start": "20000316090000",
+                        "subdesc": "",
+                        "variable": "137.00",
+                        "units": "Hectares",
+                        "name": "Reservoir Surface (Water) Area"
+                    },
+                    {
+                        "period_end": "19810101000000",
+                        "period_start": "19750101000000",
+                        "subdesc": "monthly max",
+                        "variable": "141.01",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "19810101000000",
+                        "period_start": "19750101000000",
+                        "subdesc": "Monthly Min",
+                        "variable": "141.02",
+                        "units": "Megalitres/Day",
+                        "name": "Discharge Rate"
+                    },
+                    {
+                        "period_end": "19800701000000",
+                        "period_start": "19750601000000",
+                        "subdesc": "",
+                        "variable": "151.00",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "19810101000000",
+                        "period_start": "19750101000000",
+                        "subdesc": "Monthly Tot",
+                        "variable": "151.01",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "19820101000000",
+                        "period_start": "18010101000000",
+                        "subdesc": "Yearly Total",
+                        "variable": "151.02",
+                        "units": "Megalitres",
+                        "name": "Discharge Volume"
+                    },
+                    {
+                        "period_end": "20070330090000",
+                        "period_start": "19900101090000",
+                        "subdesc": "",
+                        "variable": "448.00",
+                        "units": "%",
+                        "name": "% Effective Full Storage Volume"
+                    }
+                ],
+                "site": "412107"
+            }
+        ]
+    }
+}

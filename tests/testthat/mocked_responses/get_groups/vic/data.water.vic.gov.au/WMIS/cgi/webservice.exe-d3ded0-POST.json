@@ -1,0 +1,227 @@
+{
+    "error_num": 0,
+    "return": [
+        {
+            "group_decode": "to be at the top of the list",
+            "group": "AB",
+            "value": "FLOOD",
+            "value_decode": "All VIR Sites for Flood Zoom",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "All sites in archive",
+            "group": "ALLA",
+            "value": "10PLUS",
+            "value_decode": "sites with records longer than 10 years",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "All sites in archive",
+            "group": "ALLA",
+            "value": "30PLUS",
+            "value_decode": "sites with records longer than 30 years",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "All sites in archive",
+            "group": "ALLA",
+            "value": "ARCHIVE",
+            "value_decode": "Archive files",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "All sites in archive",
+            "group": "ALLA",
+            "value": "FLOWA",
+            "value_decode": "All sites with flow (Vir and Hyd)",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "All sites in archive",
+            "group": "ALLA",
+            "value": "LEVEL",
+            "value_decode": "All sites with level (100.00 and 130)",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "All sites in archive",
+            "group": "ALLA",
+            "value": "VFLOW",
+            "value_decode": "Virtual sites with flow",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Groups for the CMA areas",
+            "group": "CMA",
+            "value": "CCMA",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Proposed WMIS 2 Groups by me",
+            "group": "PROP",
+            "value": "SW",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Proposed WMIS 2 Groups by me",
+            "group": "PROP",
+            "value": "WQ",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Telemetry Sites",
+            "group": "TELEMETRY",
+            "value": "RAWDATA",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Yukkie",
+            "group": "WDTF",
+            "value": "LEVEL",
+            "value_decode": "All sites with level (100.00 and 130)",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Yukkie",
+            "group": "WDTF",
+            "value": "WQSITES",
+            "value_decode": "all sites that have WQ in sample table",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "CMA",
+            "group": "WEB_GW_CMA",
+            "value": "CMA01",
+            "value_decode": "Corangamite CMA",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Registered Aboriginal Party site lists",
+            "group": "WEB_RAP",
+            "value": "WTOAC",
+            "value_decode": "Wadawurrung Traditional Owners Aboriginal Corporation",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Surface Water Sites",
+            "group": "WEB_SW",
+            "value": "B_233_BARWON",
+            "value_decode": "233-Barwon Basin",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "Surface Water Sites - active telem only",
+            "group": "WEB_SW_TELEM",
+            "value": "B_233_BARWON",
+            "value_decode": "233-Barwon Basin",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS2 Sites",
+            "group": "WMIS2",
+            "value": "SW",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS2 Sites",
+            "group": "WMIS2",
+            "value": "WQ",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS2 Topics sites",
+            "group": "WMIS2TOPICS",
+            "value": "SW",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS2 Topics sites",
+            "group": "WMIS2TOPICS",
+            "value": "WQ",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS2 Topics Sites - old",
+            "group": "WMIS2TOPICS_OLD",
+            "value": "SW",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS2 Topics Sites - old",
+            "group": "WMIS2TOPICS_OLD",
+            "value": "WQ",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS2 CMAs",
+            "group": "WMIS2_CMA",
+            "value": "CMA01",
+            "value_decode": "Corangamite CMA",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS SW Sites",
+            "group": "WMISSITES_SW",
+            "value": "SW",
+            "stations": [
+                "233217"
+            ]
+        },
+        {
+            "group_decode": "WMIS SW Sites",
+            "group": "WMISSITES_SW",
+            "value": "WQ",
+            "stations": [
+                "233217"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "LAKE MENINDEE",
+                    "name": "DARLING RIVER AT LAKE MENINDEE - STORAGE GAUGE"
+                },
+                "variables": [
+                    {
+                        "period_end": "20240814101501",
+                        "period_start": "19680701090000",
+                        "subdesc": "",
+                        "variable": "130.00",
+                        "units": "Metres",
+                        "name": "Reservoir Water Level AHD"
+                    }
+                ],
+                "site": "425022"
+            }
+        ]
+    }
+}

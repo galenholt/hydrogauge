@@ -1,0 +1,66 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ GEELONG",
+                    "longitude": "144.346892200",
+                    "name": "BARWON RIVER @ GEELONG",
+                    "latitude": "-38.163605590",
+                    "org_name": "Dept. Sustainability and Environment"
+                },
+                "quality_codes": {
+                    "2": "Good quality data - minimal editing required. +/- 0mm-10mm Drift correction"
+                },
+                "trace": [
+                    {
+                        "v": "25.8",
+                        "t": 20200101164500,
+                        "q": 2
+                    },
+                    {
+                        "v": "25.8",
+                        "t": 20200102150000,
+                        "q": 2
+                    },
+                    {
+                        "v": "25.9",
+                        "t": 20200103164500,
+                        "q": 2
+                    },
+                    {
+                        "v": "25.4",
+                        "t": 20200104164500,
+                        "q": 2
+                    },
+                    {
+                        "v": "24.0",
+                        "t": 20200105000000,
+                        "q": 2
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Temp (°C)",
+                    "precision": "0.100000",
+                    "subdesc": "Available for release",
+                    "variable": "450.00",
+                    "units": "Degrees celsius",
+                    "name": "Water Temperature (°C)"
+                },
+                "site": "233217",
+                "varto_details": {
+                    "short_name": "Temp (°C)",
+                    "precision": "0.100000",
+                    "subdesc": "Available for release",
+                    "variable": "450.00",
+                    "units": "Degrees celsius",
+                    "name": "Water Temperature (°C)"
+                }
+            }
+        ]
+    }
+}

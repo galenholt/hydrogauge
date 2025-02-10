@@ -1,0 +1,57 @@
+{
+    "error_num": 0,
+    "return": {
+        "sites": [
+            {
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BROKEN @ GOWANGARDIE",
+                    "name": "BROKEN RIVER @ GOWANGARDIE"
+                },
+                "variables": [
+                    {
+                        "period_end": "20250117112730",
+                        "period_start": "19921013123000",
+                        "subdesc": "Available for release",
+                        "variable": "10.00",
+                        "units": "mm",
+                        "name": "Rainfall (mm)"
+                    },
+                    {
+                        "period_end": "20250117112400",
+                        "period_start": "19780120112500",
+                        "subdesc": "Available for release",
+                        "variable": "100.00",
+                        "units": "metres",
+                        "name": "Stream Water Level (m)"
+                    },
+                    {
+                        "period_end": "20250117112400",
+                        "period_start": "20190516144900",
+                        "subdesc": "Available for release",
+                        "variable": "215.00",
+                        "units": "ppm",
+                        "name": "Dissolved Oxygen (ppm)"
+                    },
+                    {
+                        "period_end": "20250117112400",
+                        "period_start": "19970704143000",
+                        "subdesc": "Available for release",
+                        "variable": "450.00",
+                        "units": "Degrees celsius",
+                        "name": "Water Temperature (°C)"
+                    },
+                    {
+                        "period_end": "20250117112400",
+                        "period_start": "19921013123000",
+                        "subdesc": "Available for release",
+                        "variable": "820.00",
+                        "units": "µS/cm@25°C",
+                        "name": "Conductivity (µS/cm)"
+                    }
+                ],
+                "site": "404224"
+            }
+        ]
+    }
+}

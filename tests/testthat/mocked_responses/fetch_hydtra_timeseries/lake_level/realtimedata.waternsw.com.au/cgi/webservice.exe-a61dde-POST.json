@@ -1,0 +1,66 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "CARGELLIGO STORAGE",
+                    "longitude": "146.379186110",
+                    "name": "LAKE CARGELLIGO AT STORAGE GAUGE",
+                    "latitude": "-33.300769440",
+                    "org_name": "WaterNSW"
+                },
+                "quality_codes": {
+                    "100": "Quality unknown"
+                },
+                "trace": [
+                    {
+                        "v": "155.958",
+                        "t": 20200101000000,
+                        "q": 100
+                    },
+                    {
+                        "v": "155.951",
+                        "t": 20200102000000,
+                        "q": 100
+                    },
+                    {
+                        "v": "155.948",
+                        "t": 20200103000000,
+                        "q": 100
+                    },
+                    {
+                        "v": "155.941",
+                        "t": 20200104000000,
+                        "q": 100
+                    },
+                    {
+                        "v": "155.938",
+                        "t": 20200105000000,
+                        "q": 100
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Res. Level AHD",
+                    "precision": "0.001000",
+                    "subdesc": "",
+                    "variable": "130.00",
+                    "units": "Metres",
+                    "name": "Reservoir Water Level AHD"
+                },
+                "site": "412107",
+                "varto_details": {
+                    "short_name": "Res. Level AHD",
+                    "precision": "0.001000",
+                    "subdesc": "",
+                    "variable": "130.00",
+                    "units": "Metres",
+                    "name": "Reservoir Water Level AHD"
+                }
+            }
+        ]
+    }
+}

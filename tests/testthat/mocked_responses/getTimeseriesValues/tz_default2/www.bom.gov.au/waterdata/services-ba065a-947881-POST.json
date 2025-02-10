@@ -1,0 +1,22 @@
+[
+    [
+        "station_no",
+        "station_name",
+        "ts_name",
+        "ts_id",
+        "ts_path",
+        "station_latitude",
+        "from",
+        "to"
+    ],
+    [
+        "412078",
+        "LACHLAN @ WHEALBAH",
+        "DMQaQc.Merged.AsStored.1",
+        "156072010",
+        "w00077-412078/412078/WaterCourseLevel/Pat3_C_B_1",
+        "-33.6544",
+        "1968-11-01T00:00:00.000+10:00",
+        "2025-02-08T19:45:02.000+10:00"
+    ]
+]

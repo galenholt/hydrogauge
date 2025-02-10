@@ -1,0 +1,66 @@
+{
+    "error_num": 0,
+    "return": {
+        "traces": [
+            {
+                "error_num": 0,
+                "compressed": "0",
+                "site_details": {
+                    "timezone": "10.0",
+                    "short_name": "BARWON @ GEELONG",
+                    "longitude": "144.346892200",
+                    "name": "BARWON RIVER @ GEELONG",
+                    "latitude": "-38.163605590",
+                    "org_name": "Dept. Sustainability and Environment"
+                },
+                "quality_codes": {
+                    "150": "Rating extrapolated above 1.5x maximum flow gauged."
+                },
+                "trace": [
+                    {
+                        "v": "15.93",
+                        "t": 20200101000000,
+                        "q": 150
+                    },
+                    {
+                        "v": "14.11",
+                        "t": 20200102000000,
+                        "q": 150
+                    },
+                    {
+                        "v": "11.23",
+                        "t": 20200103000000,
+                        "q": 150
+                    },
+                    {
+                        "v": "8.81",
+                        "t": 20200104000000,
+                        "q": 150
+                    },
+                    {
+                        "v": "7.52",
+                        "t": 20200105000000,
+                        "q": 150
+                    }
+                ],
+                "varfrom_details": {
+                    "short_name": "Water Level (m)",
+                    "precision": "0.001000",
+                    "subdesc": "Available for release",
+                    "variable": "100.00",
+                    "units": "metres",
+                    "name": "Stream Water Level (m)"
+                },
+                "site": "233217",
+                "varto_details": {
+                    "short_name": "Discharge (ML/d)",
+                    "precision": "0.010000",
+                    "subdesc": "Available for release",
+                    "variable": "141.00",
+                    "units": "megalitres/day",
+                    "name": "Stream Discharge (ML/d)"
+                }
+            }
+        ]
+    }
+}
