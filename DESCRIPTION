@@ -1,6 +1,6 @@
 Package: hydrogauge
 Title: Pulls information from the Kisters Kiwis and Hydstra APIs
-Version: 0.1.1.9006
+Version: 0.1.1.9007
 Authors@R: 
     person("Galen", "Holt", , "g.holt@deakin.edu.au", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-7455-9275"))
