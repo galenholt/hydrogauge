@@ -2,7 +2,7 @@ future::plan('sequential')
 
 test_that("ts simple", {
   # same as the main get_ts_traces test
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/ts_simple',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/ts_simple',
   simpletrace <- fetch_hydstra_timeseries(portal = 'vic',
                                          gauge = "233217",
                                datasource = 'A',
@@ -23,7 +23,7 @@ test_that("ts simple", {
 
 test_that("statistic vectors", {
   # same as the main get_ts_traces test
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/statistic_vectors',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/statistic_vectors',
   simpletrace_stats <- fetch_hydstra_timeseries(portal = 'vic',
                                           gauge = c("233217", '405837'),
                                           datasource = 'A',
@@ -44,7 +44,7 @@ test_that("statistic vectors", {
 
 test_that("date formats", {
   # same as the main get_ts_traces test
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/dates_numbers',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/dates_numbers',
   simpletrace_num <- fetch_hydstra_timeseries(portal = 'vic',
                                           gauge = "233217",
                                           datasource = 'A',
@@ -61,7 +61,7 @@ test_that("date formats", {
   expect_s3_class(simpletrace_num, 'tbl_df')
   expect_snapshot(simpletrace_num)
 
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/dates_dates',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/dates_dates',
   simpletrace_date <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -81,7 +81,7 @@ test_that("date formats", {
 })
 
 test_that("timezones behave", {
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/timezones_behave',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/timezones_behave',
   simpletrace_UTC <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -102,7 +102,7 @@ test_that("timezones behave", {
 })
 
 test_that("'all' works for times", {
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/alltimes_vic_utc',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/alltimes_vic_utc',
   simpletrace_VIC_UTC <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -117,7 +117,7 @@ test_that("'all' works for times", {
                                               return_timezone = 'UTC')
   )
 
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/alltimes_nsw_utc',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/alltimes_nsw_utc',
   simpletrace_NSW_UTC <- fetch_hydstra_timeseries(portal = 'nsw',
                                               gauge = "416050",
                                               datasource = 'A',
@@ -141,7 +141,7 @@ test_that("'all' works for times", {
 
 test_that("variable and unit work", {
   # This should just get 141
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/var_unit_vt',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/var_unit_vt',
   simpletrace_vt <- fetch_hydstra_timeseries(portal = 'vic',
                                               gauge = "233217",
                                               datasource = 'A',
@@ -157,7 +157,7 @@ test_that("variable and unit work", {
   )
 
   # as should this
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/var_unit_vu',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/var_unit_vu',
   simpletrace_vu <- fetch_hydstra_timeseries(portal = 'vic',
                                              gauge = "233217",
                                              datasource = 'A',
@@ -180,7 +180,7 @@ test_that("variable and unit work", {
 
 test_that("ignore unavailable gauges", {
   # '615026' is in WA
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/ignore_unavailable',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/ignore_unavailable',
   expect_warning(simpletrace_vt_WA <- fetch_hydstra_timeseries(portal = 'vic',
                                              gauge = c("233217", '615026'),
                                              datasource = 'A',
@@ -198,7 +198,7 @@ test_that("ignore unavailable gauges", {
 
 test_that("lake level", {
   # This should just get 141
-  with_mock_dir('mocked_responses/fetch_hydtra_timeseries/lake_level',
+  with_mock_dir('mocks/fetch_hydstra_timeseries/lake_level',
   simpletrace_lakes <- fetch_hydstra_timeseries(portal = 'nsw',
                                              gauge = c("412107", "425020", "425022", "425023"),
                                              datasource = 'A',

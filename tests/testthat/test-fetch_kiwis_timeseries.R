@@ -1,5 +1,5 @@
 test_that("simple works, with time test", {
-  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/simple_time',
+  with_mock_dir('mocks/fetch_kiwis_timeseries/simple_time',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505'),
                                 start_time = '2020-01-01 01:30:30',
@@ -16,7 +16,7 @@ test_that("simple works, with time test", {
 })
 
 test_that("multiple of each filter arg", {
-  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/multiple_filter_args',
+  with_mock_dir('mocks/fetch_kiwis_timeseries/multiple_filter_args',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505'),
                                    variable = c('discharge', 'Rainfall'),
@@ -41,7 +41,7 @@ test_that("multiple of each filter arg", {
 
 
 test_that("I can separate the 09 vs 24 in the QaQc, and it doesn't fail when asking for things that aren't there", {
-  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/09_v_24',
+  with_mock_dir('mocks/fetch_kiwis_timeseries/09_v_24',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = '410730',
                                    variable = 'Rainfall',
@@ -63,7 +63,7 @@ test_that("I can separate the 09 vs 24 in the QaQc, and it doesn't fail when ask
 
 test_that("Unavailable gauges disappear", {
   # 'B18230938' is made up, this should be the same as the first test.
-  with_mock_dir('mocked_responses/fetch_kiwis_timeseries/fake_gauge',
+  with_mock_dir('mocks/fetch_kiwis_timeseries/fake_gauge',
   bomout <- fetch_kiwis_timeseries(portal = 'bom',
                                    gauge = c('410730', 'A4260505', 'B18230938'),
                                    start_time = '2020-01-01 01:30:30',

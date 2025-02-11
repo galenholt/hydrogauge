@@ -1,5 +1,5 @@
 test_that("get_groups returns a tibble with the right names", {
-  with_mock_dir('mocked_responses/get_groups/simple',
+  with_mock_dir('mocks/get_groups/simple',
   grps <- get_groups(portal = 'vic', site_list = "233217")
   )
 
@@ -9,7 +9,7 @@ test_that("get_groups returns a tibble with the right names", {
 
 
 test_that("get_groups works with multiple groups comma sep", {
-  with_mock_dir('mocked_responses/get_groups/comma_sep',
+  with_mock_dir('mocks/get_groups/comma_sep',
   grps <- get_groups(portal = 'vic', site_list = "233217, 405328")
   )
 
@@ -18,7 +18,7 @@ test_that("get_groups works with multiple groups comma sep", {
 })
 
 test_that("get_groups works with multiple groups c() together", {
-  with_mock_dir('mocked_responses/get_groups/c_ed',
+  with_mock_dir('mocks/get_groups/c_ed',
   grps <- get_groups(portal = 'vic', site_list = c("233217", "405328"))
   )
 
@@ -27,11 +27,11 @@ test_that("get_groups works with multiple groups c() together", {
 })
 
 test_that("states", {
-  with_mock_dir('mocked_responses/get_groups/vic',
+  with_mock_dir('mocks/get_groups/vic',
   vds <- get_groups(portal = 'vic', site_list = "233217"))
-  with_mock_dir('mocked_responses/get_groups/qld',
+  with_mock_dir('mocks/get_groups/qld',
   qds <- get_groups(portal = 'qld', site_list = "422211A"))
-  with_mock_dir('mocked_responses/get_groups/nsw',
+  with_mock_dir('mocks/get_groups/nsw',
   nds <- get_groups(portal = 'nsw', site_list = "422004"))
 
   expect_snapshot(vds)
@@ -41,11 +41,11 @@ test_that("states", {
 
 test_that("groups", {
   # This works, but it's unclear what this means.
-  with_mock_dir('mocked_responses/get_groups/vicname',
+  with_mock_dir('mocks/get_groups/vicname',
   vdsg <- get_groups(portal = 'vic', site_list = "GROUP(WEB_SW_TELEM)"))
-  with_mock_dir('mocked_responses/get_groups/qldname',
+  with_mock_dir('mocks/get_groups/qldname',
   qdsg <- get_groups(portal = 'qld', site_list = "GROUP(OPEN_STATIONS)"))
-  with_mock_dir('mocked_responses/get_groups/nswname',
+  with_mock_dir('mocks/get_groups/nswname',
   ndsg <- get_groups(portal = 'nsw', site_list = "GROUP(WATER_QUALITY)"))
 
   # These change a lot, so snapshots aren't working

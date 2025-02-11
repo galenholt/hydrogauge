@@ -1,0 +1,105 @@
+[
+    {
+        "ts_id": "329344010",
+        "station_name": "River Murray at Lock 9 Downstream (AMTD 764.8km)",
+        "station_latitude": "",
+        "station_longitude": "",
+        "parametertype_name": "Water Course Discharge",
+        "ts_name": "PR01QaQc.Merged.DailyMean.09HR",
+        "ts_unitname": "megalitre per day",
+        "ts_unitsymbol": "Ml/d",
+        "station_no": "A4260505",
+        "station_id": "1617110",
+        "rows": "4",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+            [
+                "2020-01-01T09:30:00.000+10:00",
+                2025.475,
+                140
+            ],
+            [
+                "2020-01-02T09:30:00.000+10:00",
+                2148.984,
+                140
+            ],
+            [
+                "2020-01-03T09:30:00.000+10:00",
+                2347.013,
+                140
+            ],
+            [
+                "2020-01-04T09:30:00.000+10:00",
+                2365.027,
+                140
+            ]
+        ]
+    },
+    {
+        "ts_id": "208669010",
+        "station_name": "River Murray at Lock 9 Downstream (AMTD 764.8km)",
+        "station_latitude": "",
+        "station_longitude": "",
+        "parametertype_name": "Water Course Level",
+        "ts_name": "DMQaQc.Merged.DailyMean.24HR",
+        "ts_unitname": "meter",
+        "ts_unitsymbol": "m",
+        "station_no": "A4260505",
+        "station_id": "1617110",
+        "rows": "3",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+            [
+                "2020-01-02T00:30:00.000+10:00",
+                23.633,
+                90
+            ],
+            [
+                "2020-01-03T00:30:00.000+10:00",
+                23.649,
+                90
+            ],
+            [
+                "2020-01-04T00:30:00.000+10:00",
+                23.643,
+                90
+            ]
+        ]
+    },
+    {
+        "ts_id": "380185010",
+        "station_name": "Cotter R. at Gingera",
+        "station_latitude": "",
+        "station_longitude": "",
+        "parametertype_name": "pH",
+        "ts_name": "DMQaQc.Merged.DailyMean.24HR",
+        "ts_unitname": "scalar",
+        "ts_unitsymbol": "---",
+        "station_no": "410730",
+        "station_id": "13360",
+        "rows": "4",
+        "columns": "Timestamp,Value,Quality Code",
+        "data": [
+            [
+                "2020-01-02T00:00:00.000+10:00",
+                7.25,
+                140
+            ],
+            [
+                "2020-01-03T00:00:00.000+10:00",
+                7.25,
+                140
+            ],
+            [
+                "2020-01-04T00:00:00.000+10:00",
+                7.25,
+                140
+            ],
+            [
+                "2020-01-05T00:00:00.000+10:00",
+                7.25,
+                140
+            ]
+        ]
+    }
+]

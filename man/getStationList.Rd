@@ -22,7 +22,7 @@ others, use see \code{extra_list}}
 \item{returnfields}{default 'default', otherwise 'all' to get everything
 available, or comma-separated string of fields to return. \emph{Important}-
 'coverage' is required to return start and end dates. It is included by
-default. Full list for each function available from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}}
+default. Including 'ca_sta' will give the DATA_OWNER_NAME, which is often useful. Full list for each function available from \href{https://timeseries.sepa.org.uk/KiWIS/KiWIS?datasource=0&service=kisters&type=queryServices&request=getrequestinfo}{Kisters docs}}
 
 \item{extra_list}{a named list of other fields to select on. Names (usually)
 should be in \code{returnfields} (or returned when \code{returnfields = 'all'}),

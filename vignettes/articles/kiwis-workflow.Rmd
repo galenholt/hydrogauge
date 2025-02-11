@@ -1,5 +1,10 @@
 ---
 title: "KiWIS workflow"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{kiwis_workflow}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
 ```{r, include = FALSE}

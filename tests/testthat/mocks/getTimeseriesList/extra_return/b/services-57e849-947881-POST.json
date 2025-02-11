@@ -1,0 +1,2002 @@
+[
+    [
+        "station_no",
+        "station_name",
+        "ts_name",
+        "ts_id",
+        "ts_path",
+        "station_latitude",
+        "from",
+        "to"
+    ],
+    [
+        "A4260573",
+        "River Murray at Woolpunda Pump Station (AMTD 411.5",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210797010",
+        "w00078-A4260573/A4260573/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.174481",
+        "1991-05-15T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260624",
+        "River Murray at Loveday Pump Station (AMTD 446.9 K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211871010",
+        "w00078-A4260624/A4260624/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.2626",
+        "1986-12-01T00:30:00.000+10:00",
+        "2017-09-18T00:30:00.000+10:00"
+    ],
+    [
+        "A4260632",
+        "River Murray at Templeton (AMTD 602.9 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212144010",
+        "w00078-A4260632/A4260632/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.053476",
+        "2000-09-21T00:30:00.000+10:00",
+        "2001-01-31T00:30:00.000+10:00"
+    ],
+    [
+        "A4260643",
+        "River Murray at Habel Landing (AMTD 485.6km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212482010",
+        "w00078-A4260643/A4260643/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.455114",
+        "1991-05-09T00:30:00.000+10:00",
+        "2008-08-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260507",
+        "River Murray at Lock 8 Downstream (AMTD 725.7km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208713010",
+        "w00078-A4260507/A4260507/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.128678",
+        "2009-02-24T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260509",
+        "River Murray at Lock 7 Downstream (AMTD 702km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208730010",
+        "w00078-A4260509/A4260509/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.067185",
+        "1974-01-02T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260521",
+        "River Murray at Mannum No.1 Pump Station (AMTD 149",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209184010",
+        "w00078-A4260521/A4260521/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.9203",
+        "2003-05-21T00:30:00.000+10:00",
+        "2009-09-09T00:30:00.000+10:00"
+    ],
+    [
+        "A4260522",
+        "River Murray at Murray Bridge No.1 PS (AMTD 115.3k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209253010",
+        "w00078-A4260522/A4260522/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-35.1002",
+        "1986-05-01T00:30:00.000+10:00",
+        "2009-01-06T00:30:00.000+10:00"
+    ],
+    [
+        "A4260522",
+        "River Murray at Murray Bridge No.1 PS (AMTD 115.3k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209279010",
+        "w00078-A4260522/A4260522/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-35.1002",
+        "2008-04-30T00:30:00.000+10:00",
+        "2008-09-05T00:30:00.000+10:00"
+    ],
+    [
+        "A4260532",
+        "River Murray at Wellington Irrigation PS (AMTD 80.",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209725010",
+        "w00078-A4260532/A4260532/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-35.2984",
+        "2002-12-18T00:30:00.000+10:00",
+        "2006-10-17T00:30:00.000+10:00"
+    ],
+    [
+        "A4260550",
+        "River Murray at Loxton Irrigation PS (AMTD 493.9 K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210283010",
+        "w00078-A4260550/A4260550/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.417354",
+        "1974-01-02T00:30:00.000+10:00",
+        "2018-08-24T00:30:00.000+10:00"
+    ],
+    [
+        "A4260628",
+        "River Murray at Renmark Domestic PS (AMTD 567.9km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211940010",
+        "w00078-A4260628/A4260628/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.1666",
+        "1979-12-10T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260632",
+        "River Murray at Templeton (AMTD 602.9 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212118010",
+        "w00078-A4260632/A4260632/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.053476",
+        "1973-09-21T00:30:00.000+10:00",
+        "2003-01-08T00:30:00.000+10:00"
+    ],
+    [
+        "A4260653",
+        "River Murray at Moorna Station (AMTD 778.2 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212777010",
+        "w00078-A4260653/A4260653/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.144138",
+        "1992-08-21T00:30:00.000+10:00",
+        "1993-11-03T00:30:00.000+10:00"
+    ],
+    [
+        "A4261003",
+        "River Murray at Murray Bridge No.1 Pump Station Da",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214069010",
+        "w00078-A4261003/A4261003/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-35.098745",
+        "1934-09-17T00:30:00.000+10:00",
+        "2013-05-02T00:30:00.000+10:00"
+    ],
+    [
+        "A4261003",
+        "River Murray at Murray Bridge No.1 Pump Station Da",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214095010",
+        "w00078-A4261003/A4261003/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-35.098745",
+        "1986-12-01T00:30:00.000+10:00",
+        "2013-05-02T00:30:00.000+10:00"
+    ],
+    [
+        "A4260642",
+        "River Murray upstream Rilli Island (AMTD 500.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212465010",
+        "w00078-A4260642/A4260642/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.389",
+        "1991-05-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260702",
+        "River Murray downstream Hogwash Bend (AMTD 347.5km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213813010",
+        "w00078-A4260702/A4260702/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.062186",
+        "1997-10-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260200",
+        "River Murray downstream Rufus River (AMTD 696km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208409010",
+        "w00078-A4260200/A4260200/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.063367",
+        "1986-12-01T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260509",
+        "River Murray at Lock 7 Downstream (AMTD 702km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208781010",
+        "w00078-A4260509/A4260509/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.067185",
+        "1981-03-01T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260515",
+        "River Murray at Lock 4 Downstream (AMTD 516.2km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208921010",
+        "w00078-A4260515/A4260515/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.343186",
+        "1994-12-05T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260521",
+        "River Murray at Mannum No.1 Pump Station (AMTD 149",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209228010",
+        "w00078-A4260521/A4260521/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.9203",
+        "2003-05-21T00:30:00.000+10:00",
+        "2009-09-09T00:30:00.000+10:00"
+    ],
+    [
+        "A4260537",
+        "River Murray at Berri Irrigation PS (AMTD 525.7 Km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209991010",
+        "w00078-A4260537/A4260537/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.288424",
+        "2001-03-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260539",
+        "River Murray at Waikerie Irrigation PS (AMTD 383.0",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210035010",
+        "w00078-A4260539/A4260539/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.17667",
+        "1917-08-14T00:30:00.000+10:00",
+        "2025-02-05T00:30:00.000+10:00"
+    ],
+    [
+        "A4260624",
+        "River Murray at Loveday Pump Station (AMTD 446.9 K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211845010",
+        "w00078-A4260624/A4260624/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.2626",
+        "1974-01-02T00:30:00.000+10:00",
+        "2016-01-02T00:30:00.000+10:00"
+    ],
+    [
+        "A4260652",
+        "River Murray upstream Overland Corner (AMTD 426.5k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212741010",
+        "w00078-A4260652/A4260652/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.164663",
+        "1992-04-14T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260903",
+        "River Murray at Lock 1 Downstream (AMTD 274.3km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213983010",
+        "w00078-A4260903/A4260903/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.35095",
+        "1949-07-02T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4261023",
+        "River Murray upstream Pike River Outlet (AMTD 547K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214429010",
+        "w00078-A4261023/A4261023/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.2524",
+        "2002-08-21T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260200",
+        "River Murray downstream Rufus River (AMTD 696km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208388010",
+        "w00078-A4260200/A4260200/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.063367",
+        "1968-04-05T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260513",
+        "River Murray at Lock 5 Downstream (AMTD 562.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208874010",
+        "w00078-A4260513/A4260513/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.188906",
+        "1981-11-23T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260513",
+        "River Murray at Lock 5 Downstream (AMTD 562.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208909010",
+        "w00078-A4260513/A4260513/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.188906",
+        "2008-07-23T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260515",
+        "River Murray at Lock 4 Downstream (AMTD 516.2km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208944010",
+        "w00078-A4260515/A4260515/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.343186",
+        "2008-08-28T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260537",
+        "River Murray at Berri Irrigation PS (AMTD 525.7 Km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209929010",
+        "w00078-A4260537/A4260537/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.288424",
+        "2001-03-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260550",
+        "River Murray at Loxton Irrigation PS (AMTD 493.9 K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210329010",
+        "w00078-A4260550/A4260550/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.417354",
+        "1998-06-11T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260628",
+        "River Murray at Renmark Domestic PS (AMTD 567.9km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211962010",
+        "w00078-A4260628/A4260628/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.1666",
+        "1974-06-22T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4261023",
+        "River Murray upstream Pike River Outlet (AMTD 547K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214410010",
+        "w00078-A4261023/A4261023/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.2524",
+        "2002-08-21T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260573",
+        "River Murray at Woolpunda Pump Station (AMTD 411.5",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210754010",
+        "w00078-A4260573/A4260573/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.174481",
+        "1986-10-21T00:30:00.000+10:00",
+        "1993-09-06T00:30:00.000+10:00"
+    ],
+    [
+        "A4260642",
+        "River Murray upstream Rilli Island (AMTD 500.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212446010",
+        "w00078-A4260642/A4260642/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.389",
+        "1991-05-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260643",
+        "River Murray at Habel Landing (AMTD 485.6km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212501010",
+        "w00078-A4260643/A4260643/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.455114",
+        "1991-05-09T00:30:00.000+10:00",
+        "2008-08-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260652",
+        "River Murray upstream Overland Corner (AMTD 426.5k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212722010",
+        "w00078-A4260652/A4260652/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.164663",
+        "1992-04-14T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260702",
+        "River Murray downstream Hogwash Bend (AMTD 347.5km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213794010",
+        "w00078-A4260702/A4260702/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.062186",
+        "1997-10-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260704",
+        "River Murray downstream Chowilla Creek (AMTD 609.0",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213869010",
+        "w00078-A4260704/A4260704/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.023928",
+        "2001-02-15T00:30:00.000+10:00",
+        "2015-11-05T00:30:00.000+10:00"
+    ],
+    [
+        "A4260704",
+        "River Murray downstream Chowilla Creek (AMTD 609.0",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213885010",
+        "w00078-A4260704/A4260704/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.023928",
+        "2001-02-15T00:30:00.000+10:00",
+        "2015-11-05T00:30:00.000+10:00"
+    ],
+    [
+        "A4261110",
+        "River Murray downstream Morgan (AMTD 316.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217257010",
+        "w00078-A4261110/A4261110/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.055059",
+        "2010-12-16T00:30:00.000+10:00",
+        "2015-07-21T00:30:00.000+10:00"
+    ],
+    [
+        "A4261159",
+        "River Murray 2km downstream Wellington Ferry",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218323010",
+        "w00078-A4261159/A4261159/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-35.347868",
+        "2009-02-17T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261159",
+        "River Murray 2km downstream Wellington Ferry",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218385010",
+        "w00078-A4261159/A4261159/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-35.347868",
+        "2009-02-17T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261159",
+        "River Murray 2km downstream Wellington Ferry",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218434010",
+        "w00078-A4261159/A4261159/WindSpeed/Pat1_C_B_1_DailyMean",
+        "-35.347868",
+        "2009-02-17T00:30:00.000+10:00",
+        "2015-01-20T00:30:00.000+10:00"
+    ],
+    [
+        "A4261163",
+        "River Murray at Walker Flat (AMTD 207 km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218707010",
+        "w00078-A4261163/A4261163/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.753705",
+        "2009-07-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261164",
+        "River Murray 3km downstream Swan Reach Ferry ( AMT",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218812010",
+        "w00078-A4261164/A4261164/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.589955",
+        "2009-03-10T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261110",
+        "River Murray downstream Morgan (AMTD 316.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217351010",
+        "w00078-A4261110/A4261110/WindSpeed/Pat1_C_B_1_DailyMean",
+        "-34.055059",
+        "2009-05-08T00:30:00.000+10:00",
+        "2015-10-12T00:30:00.000+10:00"
+    ],
+    [
+        "A4261125",
+        "River Murray at Wellington Pontoon (AMTD 77.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217707010",
+        "w00078-A4261125/A4261125/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-35.3128",
+        "2008-07-09T00:30:00.000+10:00",
+        "2009-02-11T00:30:00.000+10:00"
+    ],
+    [
+        "A4261110",
+        "River Murray downstream Morgan (AMTD 316.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217277010",
+        "w00078-A4261110/A4261110/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.055059",
+        "2009-07-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261110",
+        "River Murray downstream Morgan (AMTD 316.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217320010",
+        "w00078-A4261110/A4261110/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.055059",
+        "2010-12-16T00:30:00.000+10:00",
+        "2022-04-20T00:30:00.000+10:00"
+    ],
+    [
+        "A4261125",
+        "River Murray at Wellington Pontoon (AMTD 77.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217722010",
+        "w00078-A4261125/A4261125/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-35.3128",
+        "2007-05-22T00:30:00.000+10:00",
+        "2009-02-11T00:30:00.000+10:00"
+    ],
+    [
+        "A4261125",
+        "River Murray at Wellington Pontoon (AMTD 77.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217740010",
+        "w00078-A4261125/A4261125/WaterpH/Pat1_C_B_1_DailyMean",
+        "-35.3128",
+        "2008-05-05T00:30:00.000+10:00",
+        "2009-02-11T00:30:00.000+10:00"
+    ],
+    [
+        "A4261163",
+        "River Murray at Walker Flat (AMTD 207 km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218752010",
+        "w00078-A4261163/A4261163/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.753705",
+        "2009-07-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261164",
+        "River Murray 3km downstream Swan Reach Ferry ( AMT",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218830010",
+        "w00078-A4261164/A4261164/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.589955",
+        "2009-01-08T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261105",
+        "River Murray at Toolunka Inlet/Outlet",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217220010",
+        "w00078-A4261105/A4261105/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.115533",
+        "2008-09-03T00:30:00.000+10:00",
+        "2008-12-01T00:30:00.000+10:00"
+    ],
+    [
+        "A4261159",
+        "River Murray 2km downstream Wellington Ferry",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218404010",
+        "w00078-A4261159/A4261159/WaterpH/Pat1_C_B_1_DailyMean",
+        "-35.347868",
+        "2009-02-17T00:30:00.000+10:00",
+        "2015-01-20T00:30:00.000+10:00"
+    ],
+    [
+        "A4261110",
+        "River Murray downstream Morgan (AMTD 316.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217302010",
+        "w00078-A4261110/A4261110/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.055059",
+        "2009-07-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261126",
+        "River Murray at Wood Point Pontoon (AMTD 96km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217788010",
+        "w00078-A4261126/A4261126/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-35.2137",
+        "2007-05-23T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261159",
+        "River Murray 2km downstream Wellington Ferry",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218342010",
+        "w00078-A4261159/A4261159/Turbidity/Pat1_C_B_1_DailyMean",
+        "-35.347868",
+        "2009-02-17T00:30:00.000+10:00",
+        "2015-01-20T00:30:00.000+10:00"
+    ],
+    [
+        "A4261159",
+        "River Murray 2km downstream Wellington Ferry",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218367010",
+        "w00078-A4261159/A4261159/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-35.347868",
+        "2009-02-17T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261164",
+        "River Murray 3km downstream Swan Reach Ferry ( AMT",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218787010",
+        "w00078-A4261164/A4261164/Turbidity/Pat1_C_B_1_DailyMean",
+        "-34.589955",
+        "2009-02-23T00:30:00.000+10:00",
+        "2014-09-23T00:30:00.000+10:00"
+    ],
+    [
+        "A4261164",
+        "River Murray 3km downstream Swan Reach Ferry ( AMT",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218879010",
+        "w00078-A4261164/A4261164/WindSpeed/Pat1_C_B_1_DailyMean",
+        "-34.589955",
+        "2009-01-08T00:30:00.000+10:00",
+        "2015-07-23T00:30:00.000+10:00"
+    ],
+    [
+        "A4261125",
+        "River Murray at Wellington Pontoon (AMTD 77.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217660010",
+        "w00078-A4261125/A4261125/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-35.3128",
+        "2007-05-22T00:30:00.000+10:00",
+        "2009-02-11T00:30:00.000+10:00"
+    ],
+    [
+        "A4261125",
+        "River Murray at Wellington Pontoon (AMTD 77.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217679010",
+        "w00078-A4261125/A4261125/Turbidity/Pat1_C_B_1_DailyMean",
+        "-35.3128",
+        "2008-05-05T00:30:00.000+10:00",
+        "2009-02-11T00:30:00.000+10:00"
+    ],
+    [
+        "A4261164",
+        "River Murray 3km downstream Swan Reach Ferry ( AMT",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218848010",
+        "w00078-A4261164/A4261164/WaterpH/Pat1_C_B_1_DailyMean",
+        "-34.589955",
+        "2009-01-08T00:30:00.000+10:00",
+        "2014-09-23T00:30:00.000+10:00"
+    ],
+    [
+        "A4261105",
+        "River Murray at Toolunka Inlet/Outlet",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217239010",
+        "w00078-A4261105/A4261105/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.115533",
+        "2008-09-03T00:30:00.000+10:00",
+        "2008-12-01T00:30:00.000+10:00"
+    ],
+    [
+        "A4261125",
+        "River Murray at Wellington Pontoon (AMTD 77.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217771010",
+        "w00078-A4261125/A4261125/WindSpeed/Pat1_C_B_1_DailyMean",
+        "-35.3128",
+        "2008-05-05T00:30:00.000+10:00",
+        "2009-02-11T00:30:00.000+10:00"
+    ],
+    [
+        "A4261163",
+        "River Murray at Walker Flat (AMTD 207 km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218742010",
+        "w00078-A4261163/A4261163/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.753705",
+        "2009-07-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261164",
+        "River Murray 3km downstream Swan Reach Ferry ( AMT",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218768010",
+        "w00078-A4261164/A4261164/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.589955",
+        "2009-01-08T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261126",
+        "River Murray at Wood Point Pontoon (AMTD 96km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217807010",
+        "w00078-A4261126/A4261126/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-35.2137",
+        "2007-05-23T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261278",
+        "River Murray downstream Lyrup (AMTD 531km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "762627010",
+        "w00078-A4261278/A4261278/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.270968",
+        "2022-10-07T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261278",
+        "River Murray downstream Lyrup (AMTD 531km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "762646010",
+        "w00078-A4261278/A4261278/Turbidity/Pat1_C_B_1_DailyMean",
+        "-34.270968",
+        "2023-07-10T00:30:00.000+10:00",
+        "2024-04-04T00:30:00.000+10:00"
+    ],
+    [
+        "A4260510",
+        "River Murray at Lock 6 Upstream (AMTD 619.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496826010",
+        "w00209-A4260510/A4260510/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-33.996682",
+        "2008-05-30T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260512",
+        "River Murray at Lock 5 Upstream (AMTD 562.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "485204010",
+        "w00209-A4260512/A4260512/StorageVolume/Pat6_C_B_1_DailyMean",
+        "-34.188728",
+        "2008-07-23T00:00:00.000+10:00",
+        "2025-02-10T00:00:00.000+10:00"
+    ],
+    [
+        "A4260506",
+        "River Murray at Lock 8 Upstream (AMTD 725.7km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496790010",
+        "w00209-A4260506/A4260506/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.128136",
+        "1994-01-11T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260518",
+        "River Murray at Lock 2 Upstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496868010",
+        "w00209-A4260518/A4260518/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.077205",
+        "1994-01-11T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260902",
+        "River Murray at Lock 1 Upstream (AMTD 274.3km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496916010",
+        "w00209-A4260902/A4260902/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.349958",
+        "2008-03-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260508",
+        "River Murray at Lock 7 Upstream (AMTD 702 km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496808010",
+        "w00209-A4260508/A4260508/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.068189",
+        "2008-05-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260512",
+        "River Murray at Lock 5 Upstream (AMTD 562.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496844010",
+        "w00209-A4260512/A4260512/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.188728",
+        "2008-07-23T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261791",
+        "River Murray 8km downstream Lindsay Creek",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "743963010",
+        "w00078-A4261791/A4261791/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.029338",
+        "2022-05-17T00:30:00.000+10:00",
+        "2024-04-22T00:30:00.000+10:00"
+    ],
+    [
+        "A4261791",
+        "River Murray 8km downstream Lindsay Creek",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "765064010",
+        "w00078-A4261791/A4261791/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.029338",
+        "2022-08-17T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260517",
+        "River Murray at Lock 3 Downstream (AMTD 431.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209007010",
+        "w00078-A4260517/A4260517/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.187308",
+        "2008-08-27T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260517",
+        "River Murray at Lock 3 Downstream (AMTD 431.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209032010",
+        "w00078-A4260517/A4260517/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.187308",
+        "1991-03-01T00:30:00.000+10:00",
+        "1997-09-17T00:30:00.000+10:00"
+    ],
+    [
+        "A4260703",
+        "River Murray upstream Renmark (AMTD 570.6km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213830010",
+        "w00078-A4260703/A4260703/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.15414",
+        "2001-02-15T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260505",
+        "River Murray at Lock 9 Downstream (AMTD 764.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208669010",
+        "w00078-A4260505/A4260505/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.191506",
+        "2008-11-26T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260517",
+        "River Murray at Lock 3 Downstream (AMTD 431.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208982010",
+        "w00078-A4260517/A4260517/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.187308",
+        "1994-12-05T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260519",
+        "River Murray at Lock 2 Downstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209088010",
+        "w00078-A4260519/A4260519/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.07685",
+        "2008-04-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260703",
+        "River Murray upstream Renmark (AMTD 570.6km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213849010",
+        "w00078-A4260703/A4260703/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.15414",
+        "2001-03-08T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260511",
+        "River Murray at Lock 6 Downstream (AMTD 619.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208821010",
+        "w00078-A4260511/A4260511/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-33.995881",
+        "2008-05-30T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260519",
+        "River Murray at Lock 2 Downstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209106010",
+        "w00078-A4260519/A4260519/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.07685",
+        "1993-12-23T00:30:00.000+10:00",
+        "2009-03-12T00:30:00.000+10:00"
+    ],
+    [
+        "A4260548",
+        "River Murray at Walker Flat (AMTD 207.6 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210241010",
+        "w00078-A4260548/A4260548/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.7532",
+        "2002-12-18T00:30:00.000+10:00",
+        "2009-09-08T00:30:00.000+10:00"
+    ],
+    [
+        "A4260568",
+        "River Murray at Wood Point",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210641010",
+        "w00078-A4260568/A4260568/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-35.2149",
+        "1987-05-25T00:30:00.000+10:00",
+        "1988-04-25T00:30:00.000+10:00"
+    ],
+    [
+        "A4260663",
+        "River Murray at Lyrup Pumping Station (AMTD 537.7k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213048010",
+        "w00078-A4260663/A4260663/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.2525",
+        "2002-12-24T00:30:00.000+10:00",
+        "2024-11-03T00:30:00.000+10:00"
+    ],
+    [
+        "A4261001",
+        "River Murray at Calculated Flow To SA",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214052010",
+        "w00078-A4261001/A4261001/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-33.980496",
+        "1977-02-12T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260511",
+        "River Murray at Lock 6 Downstream (AMTD 619.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208797010",
+        "w00078-A4260511/A4260511/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-33.995881",
+        "1994-12-05T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260520",
+        "River Murray at Swan Reach (AMTD 246.0km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209168010",
+        "w00078-A4260520/A4260520/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.5651",
+        "2002-12-20T00:30:00.000+10:00",
+        "2009-09-08T00:30:00.000+10:00"
+    ],
+    [
+        "A4260593",
+        "River Murray at Holder (AMTD 392.0 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211468010",
+        "w00078-A4260593/A4260593/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.170877",
+        "1993-12-20T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260663",
+        "River Murray at Lyrup Pumping Station (AMTD 537.7k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212988010",
+        "w00078-A4260663/A4260663/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.2525",
+        "2002-12-24T00:30:00.000+10:00",
+        "2021-04-20T00:30:00.000+10:00"
+    ],
+    [
+        "A4260663",
+        "River Murray at Lyrup Pumping Station (AMTD 537.7k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213005010",
+        "w00078-A4260663/A4260663/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.2525",
+        "1993-11-11T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260519",
+        "River Murray at Lock 2 Downstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209045010",
+        "w00078-A4260519/A4260519/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.07685",
+        "1986-12-23T00:30:00.000+10:00",
+        "2009-03-12T00:30:00.000+10:00"
+    ],
+    [
+        "A4260556",
+        "River Murray at Cadell Irrigation PS (AMTD 332.8 K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210487010",
+        "w00078-A4260556/A4260556/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.034",
+        "1973-11-02T00:30:00.000+10:00",
+        "2009-05-01T00:30:00.000+10:00"
+    ],
+    [
+        "A4260594",
+        "River Murray upstream Sunlands PS (AMTD 373.6 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211511010",
+        "w00078-A4260594/A4260594/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.15",
+        "1998-10-14T00:30:00.000+10:00",
+        "1998-11-24T00:30:00.000+10:00"
+    ],
+    [
+        "A4260663",
+        "River Murray at Lyrup Pumping Station (AMTD 537.7k",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213030010",
+        "w00078-A4260663/A4260663/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.2525",
+        "1993-11-11T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261024",
+        "River Murray us Katarapko Ck Outlet (AMTD 482.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214452010",
+        "w00078-A4261024/A4261024/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.4505",
+        "2002-08-22T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261025",
+        "River Murray upstream Moorook (AMTD 455.6km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214501010",
+        "w00078-A4261025/A4261025/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.316508",
+        "2002-08-22T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260505",
+        "River Murray at Lock 9 Downstream (AMTD 764.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208648010",
+        "w00078-A4260505/A4260505/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.191506",
+        "1949-07-02T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260519",
+        "River Murray at Lock 2 Downstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209063010",
+        "w00078-A4260519/A4260519/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.07685",
+        "1994-12-05T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260554",
+        "River Murray at Morgan No1 Pump Station (AMTD 321.",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210426010",
+        "w00078-A4260554/A4260554/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.021444",
+        "1997-10-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260594",
+        "River Murray upstream Sunlands PS (AMTD 373.6 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211529010",
+        "w00078-A4260594/A4260594/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.15",
+        "1993-12-16T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261025",
+        "River Murray upstream Moorook (AMTD 455.6km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214482010",
+        "w00078-A4261025/A4261025/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.316508",
+        "2002-08-22T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260517",
+        "River Murray at Lock 3 Downstream (AMTD 431.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208961010",
+        "w00078-A4260517/A4260517/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.187308",
+        "1986-12-17T00:30:00.000+10:00",
+        "1997-09-17T00:30:00.000+10:00"
+    ],
+    [
+        "A4260520",
+        "River Murray at Swan Reach (AMTD 246.0km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209123010",
+        "w00078-A4260520/A4260520/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.5651",
+        "2002-12-20T00:30:00.000+10:00",
+        "2009-09-08T00:30:00.000+10:00"
+    ],
+    [
+        "A4260520",
+        "River Murray at Swan Reach (AMTD 246.0km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209158010",
+        "w00078-A4260520/A4260520/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.5651",
+        "2002-12-18T00:30:00.000+10:00",
+        "2009-09-08T00:30:00.000+10:00"
+    ],
+    [
+        "A4260554",
+        "River Murray at Morgan No1 Pump Station (AMTD 321.",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210452010",
+        "w00078-A4260554/A4260554/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.021444",
+        "1974-07-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260556",
+        "River Murray at Cadell Irrigation PS (AMTD 332.8 K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210513010",
+        "w00078-A4260556/A4260556/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.034",
+        "1921-01-14T00:30:00.000+10:00",
+        "2025-02-05T00:30:00.000+10:00"
+    ],
+    [
+        "A4260593",
+        "River Murray at Holder (AMTD 392.0 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211449010",
+        "w00078-A4260593/A4260593/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.170877",
+        "1988-09-14T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260594",
+        "River Murray upstream Sunlands PS (AMTD 373.6 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "211485010",
+        "w00078-A4260594/A4260594/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.15",
+        "1990-12-19T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261024",
+        "River Murray us Katarapko Ck Outlet (AMTD 482.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214467010",
+        "w00078-A4261024/A4261024/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.4505",
+        "2002-08-22T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260554",
+        "River Murray at Morgan No1 Pump Station (AMTD 321.",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210470010",
+        "w00078-A4260554/A4260554/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.021444",
+        "1997-10-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260568",
+        "River Murray at Wood Point",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210666010",
+        "w00078-A4260568/A4260568/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-35.2149",
+        "1987-05-25T00:30:00.000+10:00",
+        "1988-04-25T00:30:00.000+10:00"
+    ],
+    [
+        "A4261068",
+        "River Murray at Swan Reach Daily (AMTD 246.0km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "216286010",
+        "w00078-A4261068/A4261068/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.56509",
+        "1976-04-05T00:30:00.000+10:00",
+        "2013-05-02T00:30:00.000+10:00"
+    ],
+    [
+        "A4261127",
+        "River Murray at Pompoota Pontoon (AMTD 132km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217824010",
+        "w00078-A4261127/A4261127/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.9989",
+        "2007-05-24T00:30:00.000+10:00",
+        "2010-12-14T00:30:00.000+10:00"
+    ],
+    [
+        "A4261161",
+        "River Murray adjacent Mannum Town Wharf",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218451010",
+        "w00078-A4261161/A4261161/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.915822",
+        "2009-01-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261161",
+        "River Murray adjacent Mannum Town Wharf",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218562010",
+        "w00078-A4261161/A4261161/WindSpeed/Pat1_C_B_1_DailyMean",
+        "-34.915822",
+        "2009-01-09T00:30:00.000+10:00",
+        "2015-02-19T00:30:00.000+10:00"
+    ],
+    [
+        "A4261162",
+        "River Murray at Murray Bridge (Long Island)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218641010",
+        "w00078-A4261162/A4261162/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-35.123425",
+        "2009-01-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261201",
+        "River Murray EC Pontoon at Tailem Bend",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "219167010",
+        "w00078-A4261201/A4261201/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-35.281531",
+        "2009-07-08T00:30:00.000+10:00",
+        "2010-12-14T00:30:00.000+10:00"
+    ],
+    [
+        "A4261161",
+        "River Murray adjacent Mannum Town Wharf",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218515010",
+        "w00078-A4261161/A4261161/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.915822",
+        "2009-01-09T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261127",
+        "River Murray at Pompoota Pontoon (AMTD 132km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "217843010",
+        "w00078-A4261127/A4261127/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.9989",
+        "2007-05-24T00:30:00.000+10:00",
+        "2010-12-14T00:30:00.000+10:00"
+    ],
+    [
+        "A4261162",
+        "River Murray at Murray Bridge (Long Island)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218579010",
+        "w00078-A4261162/A4261162/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-35.123425",
+        "2009-01-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261168",
+        "River Murray DS Chow Woolshed Adj Chow HS (AMTD 60",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "219060010",
+        "w00078-A4261168/A4261168/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.026439",
+        "2014-09-25T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261200",
+        "River Murray EC Pontoon 2.5 kms ds Wellington Ferr",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "219131010",
+        "w00078-A4261200/A4261200/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-35.355216",
+        "2009-07-06T00:30:00.000+10:00",
+        "2010-12-14T00:30:00.000+10:00"
+    ],
+    [
+        "A4261067",
+        "River Murray at Mannum No.1 Daily (AMTD 149.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "216214010",
+        "w00078-A4261067/A4261067/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.920288",
+        "1986-12-01T00:30:00.000+10:00",
+        "2013-05-02T00:30:00.000+10:00"
+    ],
+    [
+        "A4261067",
+        "River Murray at Mannum No.1 Daily (AMTD 149.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "216240010",
+        "w00078-A4261067/A4261067/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.920288",
+        "1974-09-03T00:30:00.000+10:00",
+        "2013-05-02T00:30:00.000+10:00"
+    ],
+    [
+        "A4261162",
+        "River Murray at Murray Bridge (Long Island)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218627010",
+        "w00078-A4261162/A4261162/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-35.123425",
+        "2009-01-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261168",
+        "River Murray DS Chow Woolshed Adj Chow HS (AMTD 60",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "219041010",
+        "w00078-A4261168/A4261168/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.026439",
+        "2014-09-25T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261162",
+        "River Murray at Murray Bridge (Long Island)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218690010",
+        "w00078-A4261162/A4261162/WindSpeed/Pat1_C_B_1_DailyMean",
+        "-35.123425",
+        "2009-01-06T00:30:00.000+10:00",
+        "2013-10-24T00:30:00.000+10:00"
+    ],
+    [
+        "A4261065",
+        "River Murray at Solora Pumping Station (AMTD 504.5",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "216164010",
+        "w00078-A4261065/A4261065/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.363",
+        "2000-07-20T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261068",
+        "River Murray at Swan Reach Daily (AMTD 246.0km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "216257010",
+        "w00078-A4261068/A4261068/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.56509",
+        "1986-12-04T00:30:00.000+10:00",
+        "2013-05-02T00:30:00.000+10:00"
+    ],
+    [
+        "A4261161",
+        "River Murray adjacent Mannum Town Wharf",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218470010",
+        "w00078-A4261161/A4261161/Turbidity/Pat1_C_B_1_DailyMean",
+        "-34.915822",
+        "2009-01-26T00:30:00.000+10:00",
+        "2015-02-19T00:30:00.000+10:00"
+    ],
+    [
+        "A4261161",
+        "River Murray adjacent Mannum Town Wharf",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218531010",
+        "w00078-A4261161/A4261161/WaterpH/Pat1_C_B_1_DailyMean",
+        "-34.915822",
+        "2009-01-09T00:30:00.000+10:00",
+        "2015-02-19T00:30:00.000+10:00"
+    ],
+    [
+        "A4261162",
+        "River Murray at Murray Bridge (Long Island)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218659010",
+        "w00078-A4261162/A4261162/WaterpH/Pat1_C_B_1_DailyMean",
+        "-35.123425",
+        "2009-01-06T00:30:00.000+10:00",
+        "2013-10-24T00:30:00.000+10:00"
+    ],
+    [
+        "A4261200",
+        "River Murray EC Pontoon 2.5 kms ds Wellington Ferr",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "219150010",
+        "w00078-A4261200/A4261200/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-35.355216",
+        "2009-07-06T00:30:00.000+10:00",
+        "2010-12-14T00:30:00.000+10:00"
+    ],
+    [
+        "A4261161",
+        "River Murray adjacent Mannum Town Wharf",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218495010",
+        "w00078-A4261161/A4261161/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.915822",
+        "2009-03-02T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261162",
+        "River Murray at Murray Bridge (Long Island)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "218598010",
+        "w00078-A4261162/A4261162/Turbidity/Pat1_C_B_1_DailyMean",
+        "-35.123425",
+        "2009-01-26T00:30:00.000+10:00",
+        "2013-10-24T00:30:00.000+10:00"
+    ],
+    [
+        "A4261201",
+        "River Murray EC Pontoon at Tailem Bend",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "219186010",
+        "w00078-A4261201/A4261201/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-35.281531",
+        "2009-07-08T00:30:00.000+10:00",
+        "2010-12-14T00:30:00.000+10:00"
+    ],
+    [
+        "A4261789",
+        "River Murray at Cobdogla (AMTD 464.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "762387010",
+        "w00078-A4261789/A4261789/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.263575",
+        "2022-12-14T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261789",
+        "River Murray at Cobdogla (AMTD 464.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "762452010",
+        "w00078-A4261789/A4261789/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.263575",
+        "2022-08-24T00:30:00.000+10:00",
+        "2024-12-13T00:30:00.000+10:00"
+    ],
+    [
+        "A4250010",
+        "River Murray at Lock 10 (AMTD 825km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "743672010",
+        "w00078-A4250010/A4250010/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.11009",
+        "2023-02-06T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4250010",
+        "River Murray at Lock 10 (AMTD 825km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "743699010",
+        "w00078-A4250010/A4250010/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.11009",
+        "2021-02-07T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260200",
+        "River Murray downstream Rufus River (AMTD 696km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208361010",
+        "w00078-A4260200/A4260200/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.063367",
+        "1962-01-17T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260509",
+        "River Murray at Lock 7 Downstream (AMTD 702km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208751010",
+        "w00078-A4260509/A4260509/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.067185",
+        "1961-10-31T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260521",
+        "River Murray at Mannum No.1 Pump Station (AMTD 149",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209210010",
+        "w00078-A4260521/A4260521/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.9203",
+        "2002-12-18T00:30:00.000+10:00",
+        "2009-09-09T00:30:00.000+10:00"
+    ],
+    [
+        "A4260573",
+        "River Murray at Woolpunda Pump Station (AMTD 411.5",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210733010",
+        "w00078-A4260573/A4260573/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.174481",
+        "1986-12-01T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260573",
+        "River Murray at Woolpunda Pump Station (AMTD 411.5",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210779010",
+        "w00078-A4260573/A4260573/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.174481",
+        "1986-10-21T00:30:00.000+10:00",
+        "1993-09-06T00:30:00.000+10:00"
+    ],
+    [
+        "A4260653",
+        "River Murray at Moorna Station (AMTD 778.2 Km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "212758010",
+        "w00078-A4260653/A4260653/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.144138",
+        "1992-08-21T00:30:00.000+10:00",
+        "1993-11-03T00:30:00.000+10:00"
+    ],
+    [
+        "A4260537",
+        "River Murray at Berri Irrigation PS (AMTD 525.7 Km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209948010",
+        "w00078-A4260537/A4260537/Turbidity/Pat1_C_B_1_DailyMean",
+        "-34.288424",
+        "2001-03-29T00:30:00.000+10:00",
+        "2002-02-15T00:30:00.000+10:00"
+    ],
+    [
+        "A4260537",
+        "River Murray at Berri Irrigation PS (AMTD 525.7 Km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209973010",
+        "w00078-A4260537/A4260537/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.288424",
+        "2001-03-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260550",
+        "River Murray at Loxton Irrigation PS (AMTD 493.9 K",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210304010",
+        "w00078-A4260550/A4260550/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.417354",
+        "1998-06-11T00:30:00.000+10:00",
+        "2002-01-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260903",
+        "River Murray at Lock 1 Downstream (AMTD 274.3km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214004010",
+        "w00078-A4260903/A4260903/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.35095",
+        "2008-01-21T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260507",
+        "River Murray at Lock 8 Downstream (AMTD 725.7km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "208688010",
+        "w00078-A4260507/A4260507/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.128678",
+        "1994-12-23T00:30:00.000+10:00",
+        "2020-06-19T00:30:00.000+10:00"
+    ],
+    [
+        "A4260539",
+        "River Murray at Waikerie Irrigation PS (AMTD 383.0",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210008010",
+        "w00078-A4260539/A4260539/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.17667",
+        "1919-06-04T00:30:00.000+10:00",
+        "2017-10-06T00:30:00.000+10:00"
+    ],
+    [
+        "A4260547",
+        "River Murray at Pompoota Irrigation PS (AMTD 132.9",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "210216010",
+        "w00078-A4260547/A4260547/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.9919",
+        "2002-12-18T00:30:00.000+10:00",
+        "2008-05-27T00:30:00.000+10:00"
+    ],
+    [
+        "A4261263",
+        "River Murray 5km ds Katarapko Creek Outlet (AMTD 4",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "379661010",
+        "w00078-A4261263/A4261263/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.406627",
+        "2016-03-08T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261263",
+        "River Murray 5km ds Katarapko Creek Outlet (AMTD 4",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "375096010",
+        "w00078-A4261263/A4261263/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.406627",
+        "2016-03-08T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260512",
+        "River Murray at Lock 5 Upstream (AMTD 562.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316516010",
+        "w00209-A4260512/A4260512/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.188728",
+        "2008-07-23T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260902",
+        "River Murray at Lock 1 Upstream (AMTD 274.3km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "497129010",
+        "w00209-A4260902/A4260902/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.349958",
+        "2008-03-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260506",
+        "River Murray at Lock 8 Upstream (AMTD 725.7km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316385010",
+        "w00209-A4260506/A4260506/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.128136",
+        "2009-02-24T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260514",
+        "River Murray at Lock 4 Upstream (AMTD 516.2km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "363611010",
+        "w00209-A4260514/A4260514/StorageVolume/Pat6_C_B_1_DailyMean",
+        "-34.34218",
+        "2008-08-27T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260516",
+        "River Murray at Lock 3 Upstream (AMTD 431.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316608010",
+        "w00209-A4260516/A4260516/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.18797",
+        "2008-08-27T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260902",
+        "River Murray at Lock 1 Upstream (AMTD 274.3km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316780010",
+        "w00209-A4260902/A4260902/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.349958",
+        "2008-03-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260518",
+        "River Murray at Lock 2 Upstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "363728010",
+        "w00209-A4260518/A4260518/StorageVolume/Pat6_C_B_1_DailyMean",
+        "-34.077205",
+        "2008-04-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260902",
+        "River Murray at Lock 1 Upstream (AMTD 274.3km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "363747010",
+        "w00209-A4260902/A4260902/StorageVolume/Pat6_C_B_1_DailyMean",
+        "-34.349958",
+        "2008-03-06T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260516",
+        "River Murray at Lock 3 Upstream (AMTD 431.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "363630010",
+        "w00209-A4260516/A4260516/StorageVolume/Pat6_C_B_1_DailyMean",
+        "-34.18797",
+        "2008-08-27T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260512",
+        "River Murray at Lock 5 Upstream (AMTD 562.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "497056010",
+        "w00209-A4260512/A4260512/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.188728",
+        "2008-07-23T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260518",
+        "River Murray at Lock 2 Upstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "497074010",
+        "w00209-A4260518/A4260518/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.077205",
+        "2008-04-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260506",
+        "River Murray at Lock 8 Upstream (AMTD 725.7km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "497004010",
+        "w00209-A4260506/A4260506/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.128136",
+        "2009-02-24T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260508",
+        "River Murray at Lock 7 Upstream (AMTD 702 km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "497020010",
+        "w00209-A4260508/A4260508/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.068189",
+        "2008-05-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260514",
+        "River Murray at Lock 4 Upstream (AMTD 516.2km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316560010",
+        "w00209-A4260514/A4260514/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.34218",
+        "2008-08-28T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260508",
+        "River Murray at Lock 7 Upstream (AMTD 702 km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316428010",
+        "w00209-A4260508/A4260508/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.068189",
+        "2008-05-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260510",
+        "River Murray at Lock 6 Upstream (AMTD 619.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316472010",
+        "w00209-A4260510/A4260510/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-33.996682",
+        "2008-05-30T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260518",
+        "River Murray at Lock 2 Upstream (AMTD 362.1km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316648010",
+        "w00209-A4260518/A4260518/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.077205",
+        "2008-04-29T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260510",
+        "River Murray at Lock 6 Upstream (AMTD 619.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "497038010",
+        "w00209-A4260510/A4260510/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-33.996682",
+        "2008-05-30T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260516",
+        "River Murray at Lock 3 Upstream (AMTD 431.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "743753010",
+        "w00209-A4260516/A4260516/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.18797",
+        "1994-01-17T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260902",
+        "River Murray at Lock 1 Upstream (AMTD 274.3km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "724111010",
+        "w00209-A4260902/A4260902/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.349958",
+        "",
+        ""
+    ],
+    [
+        "A4260514",
+        "River Murray at Lock 4 Upstream (AMTD 516.2km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "743735010",
+        "w00209-A4260514/A4260514/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.34218",
+        "1994-01-14T00:30:00.000+10:00",
+        "2025-02-07T00:30:00.000+10:00"
+    ],
+    [
+        "A4260528",
+        "River Murray at Overland Corner (AMTD 417.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209543010",
+        "w00078-A4260528/A4260528/WaterCourseLevel/Pat3_C_B_1_DailyMean",
+        "-34.178713",
+        "1985-07-11T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260528",
+        "River Murray at Overland Corner (AMTD 417.5km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "209522010",
+        "w00078-A4260528/A4260528/WaterCourseDischarge/Pat4_C_B_1_DailyMean",
+        "-34.178713",
+        "1985-07-11T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260705",
+        "River Murray upstream Chowilla Creek (AMTD 613.3km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213902010",
+        "w00078-A4260705/A4260705/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.019639",
+        "2001-02-15T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260705",
+        "River Murray upstream Chowilla Creek (AMTD 613.3km",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "213921010",
+        "w00078-A4260705/A4260705/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.019639",
+        "2001-02-15T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261022",
+        "River Murray upstream Old Customs House (AMTD 637.",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214393010",
+        "w00078-A4261022/A4261022/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-33.9798",
+        "2002-08-08T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261022",
+        "River Murray upstream Old Customs House (AMTD 637.",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "214374010",
+        "w00078-A4261022/A4261022/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-33.9798",
+        "2002-08-08T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261066",
+        "River Murray at Clarke's Sandbar (AMTD 513.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "216197010",
+        "w00078-A4261066/A4261066/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.3446",
+        "2001-08-24T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4261066",
+        "River Murray at Clarke's Sandbar (AMTD 513.4km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "216178010",
+        "w00078-A4261066/A4261066/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.3446",
+        "2001-08-24T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260501",
+        "River Murray at Lock 9 upstream (AMTD 764.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "316340010",
+        "w00209-A4260501/A4260501/StorageLevel/Pat7_C_B_1_DailyMean",
+        "-34.191635",
+        "2008-11-26T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260501",
+        "River Murray at Lock 9 upstream (AMTD 764.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496772010",
+        "w00209-A4260501/A4260501/ElectricalConductivityAt25C/Pat1_C_B_1_DailyMean",
+        "-34.191635",
+        "1994-01-19T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ],
+    [
+        "A4260501",
+        "River Murray at Lock 9 upstream (AMTD 764.8km)",
+        "DMQaQc.Merged.DailyMean.24HR",
+        "496055010",
+        "w00209-A4260501/A4260501/WaterTemperature/Pat1_C_B_1_DailyMean",
+        "-34.191635",
+        "1994-01-19T00:30:00.000+10:00",
+        "2025-02-10T00:30:00.000+10:00"
+    ]
+]

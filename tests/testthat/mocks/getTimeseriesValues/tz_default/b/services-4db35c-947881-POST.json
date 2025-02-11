@@ -1,0 +1,22 @@
+[
+    [
+        "station_no",
+        "station_name",
+        "ts_name",
+        "ts_id",
+        "ts_path",
+        "station_latitude",
+        "from",
+        "to"
+    ],
+    [
+        "A4261162",
+        "River Murray at Murray Bridge (Long Island)",
+        "DMQaQc.Merged.AsStored.1",
+        "218625010",
+        "w00078-A4261162/A4261162/WaterCourseLevel/Pat3_C_B_1",
+        "-35.123425",
+        "2009-01-06T13:29:59.000+10:00",
+        "2025-02-10T08:15:01.000+10:00"
+    ]
+]

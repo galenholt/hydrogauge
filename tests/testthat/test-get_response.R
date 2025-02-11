@@ -1,5 +1,5 @@
 test_that("single variable ts works", {
-  with_mock_dir('mocked_responses/get_responses/single',
+  with_mock_dir('mocks/get_responses/single',
   s1 <- get_response("https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
                      api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
@@ -24,7 +24,7 @@ test_that("single variable ts works", {
 
 
 test_that("multiple variables work for ts", {
-  with_mock_dir('mocked_responses/get_responses/multi',
+  with_mock_dir('mocks/get_responses/multi',
   s2 <- get_response("https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
                      api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
@@ -43,7 +43,7 @@ test_that("multiple variables work for ts", {
 })
 
 test_that("derived variables work for ts", {
-  with_mock_dir('mocked_responses/get_responses/derived',
+  with_mock_dir('mocks/get_responses/derived',
   s3 <- get_response("https://data.water.vic.gov.au/WMIS/cgi/webservice.exe?",
                      api_body_list = list("function" = 'get_ts_traces',
                                       "version" = "2",
@@ -64,13 +64,13 @@ test_that("derived variables work for ts", {
 
 
 test_that("HTTP errors handled", {
-  with_mock_dir('mocked_responses/get_responses/errors',
+  with_mock_dir('mocks/get_responses/errors',
   expect_error(s_stop <- get_response("http://httpbin.org/404",
                      api_body_list = list(dummy = 'testlist'),
                      .errorhandling = 'stop'))
   )
 
-  with_mock_dir('mocked_responses/get_responses/pass_error',
+  with_mock_dir('mocks/get_responses/pass_error',
   s_pass <- get_response("http://httpbin.org/404",
                          api_body_list = list(dummy = 'testlist'),
                          .errorhandling = 'pass')
