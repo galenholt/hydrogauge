@@ -2,7 +2,7 @@
 title: "hydstra wrapper"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{hydstra_wrapper}
+  %\VignetteIndexEntry{hydstra wrapper}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

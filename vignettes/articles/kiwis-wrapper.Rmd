@@ -2,7 +2,7 @@
 title: "KiWIS wrapper"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{kiwis_wrapper}
+  %\VignetteIndexEntry{KiWIS wrapper}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

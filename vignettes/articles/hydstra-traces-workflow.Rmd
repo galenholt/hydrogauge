@@ -2,7 +2,7 @@
 title: "hydstra workflow"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{hydstra_workflow}
+  %\VignetteIndexEntry{hydstra workflow}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

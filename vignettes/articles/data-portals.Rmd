@@ -2,7 +2,7 @@
 title: "Data portals"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{data_portals}
+  %\VignetteIndexEntry{Data portals}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

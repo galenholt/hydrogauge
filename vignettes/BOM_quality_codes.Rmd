@@ -2,7 +2,7 @@
 title: "BOM quality codes"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{bom_quality_codes}
+  %\VignetteIndexEntry{BOM quality codes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

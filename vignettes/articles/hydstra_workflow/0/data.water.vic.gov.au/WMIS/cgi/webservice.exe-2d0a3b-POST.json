@@ -10,7 +10,7 @@
                 },
                 "variables": [
                     {
-                        "period_end": "20250106073000",
+                        "period_end": "20250203070000",
                         "period_start": "19610306171500",
                         "subdesc": "Available for release",
                         "variable": "100.00",
@@ -18,7 +18,7 @@
                         "name": "Stream Water Level (m)"
                     },
                     {
-                        "period_end": "20250106073000",
+                        "period_end": "20250203070000",
                         "period_start": "20100706123100",
                         "subdesc": "Available for release",
                         "variable": "210.00",
@@ -26,7 +26,7 @@
                         "name": "Acidity/Alkalinity (pH)"
                     },
                     {
-                        "period_end": "20250106073000",
+                        "period_end": "20250203070000",
                         "period_start": "20100706123100",
                         "subdesc": "Available for release",
                         "variable": "215.00",
@@ -34,7 +34,7 @@
                         "name": "Dissolved Oxygen (ppm)"
                     },
                     {
-                        "period_end": "20250106073000",
+                        "period_end": "20250203070000",
                         "period_start": "20100706123100",
                         "subdesc": "Available for release",
                         "variable": "450.00",
@@ -42,7 +42,7 @@
                         "name": "Water Temperature (°C)"
                     },
                     {
-                        "period_end": "20250106073000",
+                        "period_end": "20250203070000",
                         "period_start": "20100706123100",
                         "subdesc": "Available for release",
                         "variable": "810.00",
@@ -50,7 +50,7 @@
                         "name": "Turbidity (NTU)"
                     },
                     {
-                        "period_end": "20250106073000",
+                        "period_end": "20250203070000",
                         "period_start": "20100706123100",
                         "subdesc": "Available for release",
                         "variable": "820.00",
