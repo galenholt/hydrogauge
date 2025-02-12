@@ -1,0 +1,15 @@
+pandoc: '3.2'
+pkgdown: 2.1.0
+pkgdown_sha: ~
+articles:
+  BOM_quality_codes: BOM_quality_codes.html
+  articles/data-portals: data-portals.html
+  articles/hydrogauge: hydrogauge.html
+  articles/hydstra-traces-workflow: hydstra-traces-workflow.html
+  articles/hydstra-wrapper: hydstra-wrapper.html
+  articles/kiwis-workflow: kiwis-workflow.html
+  articles/kiwis-wrapper: kiwis-wrapper.html
+last_built: 2025-02-12T03:02Z
+urls:
+  reference: https://galenholt.github.io/hydrogauge/reference
+  article: https://galenholt.github.io/hydrogauge/articles
