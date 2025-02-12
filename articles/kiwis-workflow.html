@@ -82,7 +82,8 @@ programatically find gauge numbers according to criteria, using
 <code><a href="../reference/getStationList.html">getStationList()</a></code> (most useful). This vignette, however,
 assumes we have selected a set of gauges and want to identify variables
 and pull their timeseries. For experimental wrappers that abstract some
-of this, see <a href="kiwis-wrapper.Rmd">their vignette</a>.</p>
+of this, see <a href="https://galenholt.github.io/hydrogauge/articles/kiwis-wrapper.html">their
+vignette</a>.</p>
 <p>Unlike Hydstra, which provides tailored arguments for different sorts
 of API control, KiWIS primarily uses text search within columns. This
 can be more flexible, but means we need to know column names and pay
@@ -251,8 +252,8 @@ columns to ensure we get the timeseries we want. Note in both
 <p>The find_ts_id() function helps us find desired <code>ts_id</code>
 values. It is a wrapper over <code><a href="../reference/getTimeseriesList.html">getTimeseriesList()</a></code> with regex
 to select what we want. As such, it’s not in the raw API workflow, but
-is very handy. See <a href="kiwis-wrapper.Rmd">the wrapper
-vignette</a></p>
+is very handy. See <a href="https://galenholt.github.io/hydrogauge/articles/kiwis-wrapper.html">the
+wrapper vignette</a></p>
 </div>
 <div class="callout-note">
 <p>In choosing these <code>ts_ids</code>, we’re making many of the same
@@ -342,7 +343,8 @@ Timeseries of period of record for discharge.
 <p>An automated approach that can simplify some common workflows
 (especially pulling period of record for many gauges and programatically
 selecting variables across gauges) is available in
-<code><a href="../reference/fetch_kiwis_timeseries.html">fetch_kiwis_timeseries()</a></code>. See <a href="kiwis-wrapper.Rmd">the article</a>.</p>
+<code><a href="../reference/fetch_kiwis_timeseries.html">fetch_kiwis_timeseries()</a></code>. See <a href="https://galenholt.github.io/hydrogauge/articles/kiwis-wrapper.html">the
+article</a>.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
