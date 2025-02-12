@@ -29,7 +29,7 @@ hydrogauge is designed to query [Kisters](https://resources.kisters.com.au/publi
 
 ## Installation
 
-You can install the development version of hydrogauge from [GitHub](https://github.com/) with:
+You can install the development version of hydrogauge from [GitHub](https://github.com/galenholt/hydrogauge) with:
 
 ``` r
 # install.packages("devtools")
