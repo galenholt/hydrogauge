@@ -22,7 +22,7 @@ library(hydrogauge)
 library(ggplot2)
 ```
 
-At present, we largely assume the user will have a list of gauges they want. The KiWIS interface does provide some opportunity to programatically find gauge numbers according to criteria, using `getParameterList()`, `getGroupList()`, and `getStationList()` (most useful). This vignette, however, assumes we have selected a set of gauges and want to identify variables and pull their timeseries. For experimental wrappers that abstract some of this, see [their vignette](kiwis-wrapper.Rmd).
+At present, we largely assume the user will have a list of gauges they want. The KiWIS interface does provide some opportunity to programatically find gauge numbers according to criteria, using `getParameterList()`, `getGroupList()`, and `getStationList()` (most useful). This vignette, however, assumes we have selected a set of gauges and want to identify variables and pull their timeseries. For experimental wrappers that abstract some of this, see [their vignette](https://galenholt.github.io/hydrogauge/articles/kiwis-wrapper.html).
 
 Unlike Hydstra, which provides tailored arguments for different sorts of API control, KiWIS primarily uses text search within columns. This can be more flexible, but means we need to know column names and pay close attention to the regex used to filter those columns to avoid contaminating outputs. This generality means that no column is favoured over others in filtering, and hydrogauge provides access to the full search capability with the `extra_list` argument. However, we also make a concession for consistency by making `station_no` its own argument, corresponding to the `site_list` argument in Hydstra.  
 
@@ -107,7 +107,7 @@ To pull timeseries, we need to know either the `ts_id` or `ts_path` arguments th
 
 :::{.callout-tip}
 
-The find_ts_id() function helps us find desired `ts_id` values. It is a wrapper over `getTimeseriesList()` with regex to select what we want. As such, it's not in the raw API workflow, but is very handy. See [the wrapper vignette](kiwis-wrapper.Rmd)
+The find_ts_id() function helps us find desired `ts_id` values. It is a wrapper over `getTimeseriesList()` with regex to select what we want. As such, it's not in the raw API workflow, but is very handy. See [the wrapper vignette](https://galenholt.github.io/hydrogauge/articles/kiwis-wrapper.html)
 
 :::
 
@@ -176,7 +176,7 @@ ts_all |>
 ```
 
 
-An automated approach that can simplify some common workflows (especially pulling period of record for many gauges and programatically selecting variables across gauges) is available in `fetch_kiwis_timeseries()`. See [the article](kiwis-wrapper.Rmd). 
+An automated approach that can simplify some common workflows (especially pulling period of record for many gauges and programatically selecting variables across gauges) is available in `fetch_kiwis_timeseries()`. See [the article](https://galenholt.github.io/hydrogauge/articles/kiwis-wrapper.html). 
 
 ```{r, include=FALSE}
 # For httptest2 mocking

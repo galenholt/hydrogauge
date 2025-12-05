@@ -26,7 +26,7 @@ A typical workflow for hydrogauge involves querying the database to find gauges,
 
 In general, the function names that hit the API directly are named as in the relevant API calls, with hydstra names looking like `get_hydstra_function()`, and KiWIS looking like `getKiwisFunction()`. 
 
-For an example of this common workflow, see the respective [hydstra](hydstra_traces_workflow.Rmd) and [KiWIS](kiwis_workflow.Rmd) articles.
+For an example of this common workflow, see the respective [hydstra](https://galenholt.github.io/hydrogauge/articles/hydstra_traces_workflow.html) and [KiWIS](https://galenholt.github.io/hydrogauge/articles/kiwis_workflow.html) articles.
 
 ## Which API?
 

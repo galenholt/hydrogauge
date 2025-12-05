@@ -23,7 +23,7 @@ issues.
 ## Installation
 
 You can install the development version of hydrogauge from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/galenholt/hydrogauge) with:
 
 ``` r
 # install.packages("devtools")

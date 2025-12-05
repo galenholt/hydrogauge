@@ -30,7 +30,7 @@ This function is most useful when we want to pull the period of record of the sa
 
 ## Period of record
 
-I'll use the same set of sites as in the [core hydstra demonstration](hydstra_traces_workflow.Rmd), chosen to capture a range of periods of records and available variables.
+I'll use the same set of sites as in the [core hydstra demonstration](https://galenholt.github.io/hydrogauge/articles/hydstra_traces_workflow.html), chosen to capture a range of periods of records and available variables.
 
 -   The Upper Steavenson (405328) only has flow
 
