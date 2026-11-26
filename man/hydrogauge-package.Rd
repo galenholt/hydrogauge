@@ -11,12 +11,18 @@ This package provides R wrappers to (some) of the API calls possible to the Kist
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://github.com/galenholt/hydrogauge/}
   \item \url{https://galenholt.github.io/hydrogauge/}
 }
 
 }
 \author{
 \strong{Maintainer}: Galen Holt \email{g.holt@deakin.edu.au} (\href{https://orcid.org/0000-0002-7455-9275}{ORCID})
+
+Authors:
+\itemize{
+  \item Galen Holt \email{g.holt@deakin.edu.au} (\href{https://orcid.org/0000-0002-7455-9275}{ORCID})
+}
 
 }
 \keyword{internal}

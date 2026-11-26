@@ -6,9 +6,6 @@
 \usage{
 format_chartimes(t14)
 }
-\arguments{
-\item{t14}{}
-}
 \value{
 character in format 'YYYY-MM-DDTHH:MM:SS'
 }

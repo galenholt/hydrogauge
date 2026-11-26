@@ -6,9 +6,6 @@
 \usage{
 multi_tz_check(tzvec)
 }
-\arguments{
-\item{tzvec}{}
-}
 \value{
 character tz name
 }

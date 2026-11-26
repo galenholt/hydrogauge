@@ -442,3 +442,15 @@ test_that("ts timezone checks", {
 
 
 })
+
+test_that("rate limited", {
+  # In use, this gives "API error number 221. Message:  You have downloaded 0.116845 MBytes in the last  2.0 seconds, effective rate = 210.321 / hour, which is over your limit of 150.0"
+    steav_flow <- get_ts_traces(
+    'vic',
+    '405328',
+    var_list = c('100', '141'),
+    start_time = 20180101,
+    end_time = paste0(2026, '0630')
+  ) 
+  expect_s3_class(steav_flow, 'tbl_df')
+})
